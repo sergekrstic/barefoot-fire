@@ -1,0 +1,19 @@
+{
+	"name": "fire",
+	"version": "1.0.0",
+	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"keywords": [],
+	"author": "Serge Krstic",
+	"license": "MIT",
+	"scripts": {
+		"dev": "cd plugin/ && node esbuild.config.mjs",
+		"format": "pnpm run --recursive format",
+		"lint": "pnpm run --recursive lint",
+		"test": "pnpm run --recursive test",
+		"build": "pnpm run --recursive build",
+		"version": "pnpm run --recursive version"
+	},
+	"devDependencies": {
+		"prettier": "^3.3.3"
+	}
+}
