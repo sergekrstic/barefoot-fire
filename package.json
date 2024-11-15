@@ -1,7 +1,7 @@
 {
-	"name": "fire",
+	"name": "barefoot-fire",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "A financial dashboard using PocketSmith for Obsidian",
 	"keywords": [],
 	"author": "Serge Krstic",
 	"license": "MIT",
