@@ -14,6 +14,9 @@ export function ReactViewComponent(): JSX.Element {
 			<p>
 				Super: <b>$1000</b>
 			</p>
+			<p>
+				Deposit: <b>$100,000,000</b>
+			</p>
 		</>
 	);
 }
