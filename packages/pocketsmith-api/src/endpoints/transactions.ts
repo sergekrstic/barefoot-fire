@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -26,7 +26,7 @@ import {
  * @export
  */
 export const TransactionsApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -54,13 +54,13 @@ export const TransactionsApiAxiosParamCreator = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("accountsIdTransactionsGet", "id", id);
 			const localVarPath = `/accounts/{id}/transactions`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -81,7 +81,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (startDate !== undefined) {
@@ -155,13 +155,13 @@ export const TransactionsApiAxiosParamCreator = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("categoriesIdTransactionsGet", "id", id);
 			const localVarPath = `/categories/{id}/transactions`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -182,7 +182,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (startDate !== undefined) {
@@ -256,13 +256,13 @@ export const TransactionsApiAxiosParamCreator = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionAccountsIdTransactionsGet", "id", id);
 			const localVarPath = `/transaction_accounts/{id}/transactions`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -283,7 +283,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (startDate !== undefined) {
@@ -343,13 +343,13 @@ export const TransactionsApiAxiosParamCreator = function (
 		transactionAccountsIdTransactionsPost: async (
 			id: number,
 			transactionAccountsIdTransactionsGetRequest?: TransactionAccountsIdTransactionsGetRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionAccountsIdTransactionsPost", "id", id);
 			const localVarPath = `/transaction_accounts/{id}/transactions`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -370,7 +370,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -386,7 +386,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				transactionAccountsIdTransactionsGetRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -403,13 +403,13 @@ export const TransactionsApiAxiosParamCreator = function (
 		 */
 		transactionsIdDelete: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionsIdDelete", "id", id);
 			const localVarPath = `/transactions/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -430,7 +430,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -456,13 +456,13 @@ export const TransactionsApiAxiosParamCreator = function (
 		 */
 		transactionsIdGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionsIdGet", "id", id);
 			const localVarPath = `/transactions/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -483,7 +483,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -511,13 +511,13 @@ export const TransactionsApiAxiosParamCreator = function (
 		transactionsIdPut: async (
 			id: number,
 			transactionsIdDeleteRequest?: TransactionsIdDeleteRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionsIdPut", "id", id);
 			const localVarPath = `/transactions/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -538,7 +538,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -554,7 +554,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				transactionsIdDeleteRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -587,13 +587,13 @@ export const TransactionsApiAxiosParamCreator = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdTransactionsGet", "id", id);
 			const localVarPath = `/users/{id}/transactions`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -614,7 +614,7 @@ export const TransactionsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (startDate !== undefined) {
@@ -699,11 +699,11 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Transaction>>
 		> {
 			const localVarAxiosArgs =
@@ -717,13 +717,13 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -751,11 +751,11 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Transaction>>
 		> {
 			const localVarAxiosArgs =
@@ -769,13 +769,13 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -803,11 +803,11 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Transaction>>
 		> {
 			const localVarAxiosArgs =
@@ -821,13 +821,13 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -841,7 +841,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 		async transactionAccountsIdTransactionsPost(
 			id: number,
 			transactionAccountsIdTransactionsGetRequest?: TransactionAccountsIdTransactionsGetRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Transaction>
 		> {
@@ -849,13 +849,13 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.transactionAccountsIdTransactionsPost(
 					id,
 					transactionAccountsIdTransactionsGetRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -867,7 +867,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 		 */
 		async transactionsIdDelete(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
 		> {
@@ -877,7 +877,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -889,7 +889,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 		 */
 		async transactionsIdGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Transaction>
 		> {
@@ -899,7 +899,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -913,7 +913,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 		async transactionsIdPut(
 			id: number,
 			transactionsIdDeleteRequest?: TransactionsIdDeleteRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Transaction>
 		> {
@@ -921,13 +921,13 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.transactionsIdPut(
 					id,
 					transactionsIdDeleteRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -955,11 +955,11 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Transaction>>
 		> {
 			const localVarAxiosArgs =
@@ -973,13 +973,13 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -992,7 +992,7 @@ export const TransactionsApiFp = function (configuration?: Configuration) {
 export const TransactionsApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = TransactionsApiFp(configuration);
 	return {
@@ -1021,7 +1021,7 @@ export const TransactionsApiFactory = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Transaction>> {
 			return localVarFp
 				.accountsIdTransactionsGet(
@@ -1034,7 +1034,7 @@ export const TransactionsApiFactory = function (
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -1063,7 +1063,7 @@ export const TransactionsApiFactory = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Transaction>> {
 			return localVarFp
 				.categoriesIdTransactionsGet(
@@ -1076,7 +1076,7 @@ export const TransactionsApiFactory = function (
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -1105,7 +1105,7 @@ export const TransactionsApiFactory = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Transaction>> {
 			return localVarFp
 				.transactionAccountsIdTransactionsGet(
@@ -1118,7 +1118,7 @@ export const TransactionsApiFactory = function (
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -1133,13 +1133,13 @@ export const TransactionsApiFactory = function (
 		transactionAccountsIdTransactionsPost(
 			id: number,
 			transactionAccountsIdTransactionsGetRequest?: TransactionAccountsIdTransactionsGetRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Transaction> {
 			return localVarFp
 				.transactionAccountsIdTransactionsPost(
 					id,
 					transactionAccountsIdTransactionsGetRequest,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -1178,7 +1178,7 @@ export const TransactionsApiFactory = function (
 		transactionsIdPut(
 			id: number,
 			transactionsIdDeleteRequest?: TransactionsIdDeleteRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Transaction> {
 			return localVarFp
 				.transactionsIdPut(id, transactionsIdDeleteRequest, options)
@@ -1209,7 +1209,7 @@ export const TransactionsApiFactory = function (
 			needsReview?: number,
 			search?: string,
 			page?: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Transaction>> {
 			return localVarFp
 				.usersIdTransactionsGet(
@@ -1222,7 +1222,7 @@ export const TransactionsApiFactory = function (
 					needsReview,
 					search,
 					page,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -1262,7 +1262,7 @@ export class TransactionsApi extends BaseAPI {
 		needsReview?: number,
 		search?: string,
 		page?: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionsApiFp(this.configuration)
 			.accountsIdTransactionsGet(
@@ -1275,7 +1275,7 @@ export class TransactionsApi extends BaseAPI {
 				needsReview,
 				search,
 				page,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}
@@ -1306,7 +1306,7 @@ export class TransactionsApi extends BaseAPI {
 		needsReview?: number,
 		search?: string,
 		page?: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionsApiFp(this.configuration)
 			.categoriesIdTransactionsGet(
@@ -1319,7 +1319,7 @@ export class TransactionsApi extends BaseAPI {
 				needsReview,
 				search,
 				page,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}
@@ -1350,7 +1350,7 @@ export class TransactionsApi extends BaseAPI {
 		needsReview?: number,
 		search?: string,
 		page?: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionsApiFp(this.configuration)
 			.transactionAccountsIdTransactionsGet(
@@ -1363,7 +1363,7 @@ export class TransactionsApi extends BaseAPI {
 				needsReview,
 				search,
 				page,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}
@@ -1380,13 +1380,13 @@ export class TransactionsApi extends BaseAPI {
 	public transactionAccountsIdTransactionsPost(
 		id: number,
 		transactionAccountsIdTransactionsGetRequest?: TransactionAccountsIdTransactionsGetRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionsApiFp(this.configuration)
 			.transactionAccountsIdTransactionsPost(
 				id,
 				transactionAccountsIdTransactionsGetRequest,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}
@@ -1431,7 +1431,7 @@ export class TransactionsApi extends BaseAPI {
 	public transactionsIdPut(
 		id: number,
 		transactionsIdDeleteRequest?: TransactionsIdDeleteRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionsApiFp(this.configuration)
 			.transactionsIdPut(id, transactionsIdDeleteRequest, options)
@@ -1464,7 +1464,7 @@ export class TransactionsApi extends BaseAPI {
 		needsReview?: number,
 		search?: string,
 		page?: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionsApiFp(this.configuration)
 			.usersIdTransactionsGet(
@@ -1477,7 +1477,7 @@ export class TransactionsApi extends BaseAPI {
 				needsReview,
 				search,
 				page,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}

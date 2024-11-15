@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -25,7 +25,7 @@ import {
  * @export
  */
 export const EventsApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -39,7 +39,7 @@ export const EventsApiAxiosParamCreator = function (
 		eventsIdDelete: async (
 			id: string,
 			behaviour: "one" | "forward" | "all",
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("eventsIdDelete", "id", id);
@@ -47,7 +47,7 @@ export const EventsApiAxiosParamCreator = function (
 			assertParamExists("eventsIdDelete", "behaviour", behaviour);
 			const localVarPath = `/events/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -68,7 +68,7 @@ export const EventsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (behaviour !== undefined) {
@@ -98,13 +98,13 @@ export const EventsApiAxiosParamCreator = function (
 		 */
 		eventsIdGet: async (
 			id: string,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("eventsIdGet", "id", id);
 			const localVarPath = `/events/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -125,7 +125,7 @@ export const EventsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -153,13 +153,13 @@ export const EventsApiAxiosParamCreator = function (
 		eventsIdPut: async (
 			id: string,
 			eventsIdDeleteRequest?: EventsIdDeleteRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("eventsIdPut", "id", id);
 			const localVarPath = `/events/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -180,7 +180,7 @@ export const EventsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -196,7 +196,7 @@ export const EventsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				eventsIdDeleteRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -217,7 +217,7 @@ export const EventsApiAxiosParamCreator = function (
 			id: number,
 			startDate: string,
 			endDate: string,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("scenariosIdEventsGet", "id", id);
@@ -227,7 +227,7 @@ export const EventsApiAxiosParamCreator = function (
 			assertParamExists("scenariosIdEventsGet", "endDate", endDate);
 			const localVarPath = `/scenarios/{id}/events`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -248,7 +248,7 @@ export const EventsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (startDate !== undefined) {
@@ -284,13 +284,13 @@ export const EventsApiAxiosParamCreator = function (
 		scenariosIdEventsPost: async (
 			id: number,
 			scenariosIdEventsGetRequest?: ScenariosIdEventsGetRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("scenariosIdEventsPost", "id", id);
 			const localVarPath = `/scenarios/{id}/events`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -311,7 +311,7 @@ export const EventsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -327,7 +327,7 @@ export const EventsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				scenariosIdEventsGetRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -348,7 +348,7 @@ export const EventsApiAxiosParamCreator = function (
 			id: number,
 			startDate: string,
 			endDate: string,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdEventsGet", "id", id);
@@ -358,7 +358,7 @@ export const EventsApiAxiosParamCreator = function (
 			assertParamExists("usersIdEventsGet", "endDate", endDate);
 			const localVarPath = `/users/{id}/events`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -379,7 +379,7 @@ export const EventsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (startDate !== undefined) {
@@ -425,20 +425,20 @@ export const EventsApiFp = function (configuration?: Configuration) {
 		async eventsIdDelete(
 			id: string,
 			behaviour: "one" | "forward" | "all",
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.eventsIdDelete(
 				id,
 				behaviour,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -450,19 +450,19 @@ export const EventsApiFp = function (configuration?: Configuration) {
 		 */
 		async eventsIdGet(
 			id: string,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Event>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.eventsIdGet(
 				id,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -476,20 +476,20 @@ export const EventsApiFp = function (configuration?: Configuration) {
 		async eventsIdPut(
 			id: string,
 			eventsIdDeleteRequest?: EventsIdDeleteRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Event>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.eventsIdPut(
 				id,
 				eventsIdDeleteRequest,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -505,7 +505,7 @@ export const EventsApiFp = function (configuration?: Configuration) {
 			id: number,
 			startDate: string,
 			endDate: string,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Event>>
 		> {
@@ -514,13 +514,13 @@ export const EventsApiFp = function (configuration?: Configuration) {
 					id,
 					startDate,
 					endDate,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -534,7 +534,7 @@ export const EventsApiFp = function (configuration?: Configuration) {
 		async scenariosIdEventsPost(
 			id: number,
 			scenariosIdEventsGetRequest?: ScenariosIdEventsGetRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Event>
 		> {
@@ -542,13 +542,13 @@ export const EventsApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.scenariosIdEventsPost(
 					id,
 					scenariosIdEventsGetRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -564,7 +564,7 @@ export const EventsApiFp = function (configuration?: Configuration) {
 			id: number,
 			startDate: string,
 			endDate: string,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Event>>
 		> {
@@ -573,13 +573,13 @@ export const EventsApiFp = function (configuration?: Configuration) {
 					id,
 					startDate,
 					endDate,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -592,7 +592,7 @@ export const EventsApiFp = function (configuration?: Configuration) {
 export const EventsApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = EventsApiFp(configuration);
 	return {
@@ -607,7 +607,7 @@ export const EventsApiFactory = function (
 		eventsIdDelete(
 			id: string,
 			behaviour: "one" | "forward" | "all",
-			options?: any
+			options?: any,
 		): AxiosPromise<void> {
 			return localVarFp
 				.eventsIdDelete(id, behaviour, options)
@@ -636,7 +636,7 @@ export const EventsApiFactory = function (
 		eventsIdPut(
 			id: string,
 			eventsIdDeleteRequest?: EventsIdDeleteRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Event> {
 			return localVarFp
 				.eventsIdPut(id, eventsIdDeleteRequest, options)
@@ -655,7 +655,7 @@ export const EventsApiFactory = function (
 			id: number,
 			startDate: string,
 			endDate: string,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Event>> {
 			return localVarFp
 				.scenariosIdEventsGet(id, startDate, endDate, options)
@@ -672,7 +672,7 @@ export const EventsApiFactory = function (
 		scenariosIdEventsPost(
 			id: number,
 			scenariosIdEventsGetRequest?: ScenariosIdEventsGetRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Event> {
 			return localVarFp
 				.scenariosIdEventsPost(id, scenariosIdEventsGetRequest, options)
@@ -691,7 +691,7 @@ export const EventsApiFactory = function (
 			id: number,
 			startDate: string,
 			endDate: string,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Event>> {
 			return localVarFp
 				.usersIdEventsGet(id, startDate, endDate, options)
@@ -719,7 +719,7 @@ export class EventsApi extends BaseAPI {
 	public eventsIdDelete(
 		id: string,
 		behaviour: "one" | "forward" | "all",
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return EventsApiFp(this.configuration)
 			.eventsIdDelete(id, behaviour, options)
@@ -752,7 +752,7 @@ export class EventsApi extends BaseAPI {
 	public eventsIdPut(
 		id: string,
 		eventsIdDeleteRequest?: EventsIdDeleteRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return EventsApiFp(this.configuration)
 			.eventsIdPut(id, eventsIdDeleteRequest, options)
@@ -773,7 +773,7 @@ export class EventsApi extends BaseAPI {
 		id: number,
 		startDate: string,
 		endDate: string,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return EventsApiFp(this.configuration)
 			.scenariosIdEventsGet(id, startDate, endDate, options)
@@ -792,7 +792,7 @@ export class EventsApi extends BaseAPI {
 	public scenariosIdEventsPost(
 		id: number,
 		scenariosIdEventsGetRequest?: ScenariosIdEventsGetRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return EventsApiFp(this.configuration)
 			.scenariosIdEventsPost(id, scenariosIdEventsGetRequest, options)
@@ -813,7 +813,7 @@ export class EventsApi extends BaseAPI {
 		id: number,
 		startDate: string,
 		endDate: string,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return EventsApiFp(this.configuration)
 			.usersIdEventsGet(id, startDate, endDate, options)

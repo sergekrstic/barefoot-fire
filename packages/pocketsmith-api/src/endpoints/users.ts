@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -41,7 +41,7 @@ export function UsersApiAxiosParamCreator(configuration?: Configuration) {
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -60,13 +60,13 @@ export function UsersApiAxiosParamCreator(configuration?: Configuration) {
 		},
 		usersIdGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdGet", "id", id);
 			const localVarPath = `/users/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -87,7 +87,7 @@ export function UsersApiAxiosParamCreator(configuration?: Configuration) {
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -107,13 +107,13 @@ export function UsersApiAxiosParamCreator(configuration?: Configuration) {
 		usersIdPut: async (
 			id: number,
 			usersIdGetRequest?: UsersIdGetRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdPut", "id", id);
 			const localVarPath = `/users/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -134,7 +134,7 @@ export function UsersApiAxiosParamCreator(configuration?: Configuration) {
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -150,7 +150,7 @@ export function UsersApiAxiosParamCreator(configuration?: Configuration) {
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				usersIdGetRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -166,7 +166,7 @@ export function UsersApiFp(configuration?: Configuration) {
 	const localVarAxiosParamCreator = UsersApiAxiosParamCreator(configuration);
 	return {
 		async meGet(
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
 		> {
@@ -175,43 +175,43 @@ export function UsersApiFp(configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async usersIdGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.usersIdGet(
 				id,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async usersIdPut(
 			id: number,
 			usersIdGetRequest?: UsersIdGetRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.usersIdPut(
 				id,
 				usersIdGetRequest,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -221,7 +221,7 @@ export function UsersApiFp(configuration?: Configuration) {
 export function UsersApiFactory(
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = UsersApiFp(configuration);
 	return {
@@ -236,12 +236,12 @@ export function UsersApiFactory(
 		async usersIdPut(
 			id: number,
 			usersIdGetRequest?: UsersIdGetRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<User> {
 			const request = await localVarFp.usersIdPut(
 				id,
 				usersIdGetRequest,
-				options
+				options,
 			);
 			return await request(axios, basePath);
 		},
@@ -286,7 +286,7 @@ export class UsersApi extends BaseAPI {
 	public async usersIdPut(
 		id: number,
 		usersIdGetRequest?: UsersIdGetRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		const api = UsersApiFp(this.configuration);
 		const request = await api.usersIdPut(id, usersIdGetRequest, options);

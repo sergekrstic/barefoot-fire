@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -24,18 +24,18 @@ import {
 
 // AttachmentsApi - axios parameter creator
 export const AttachmentsApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		attachmentsIdDelete: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("attachmentsIdDelete", "id", id);
 			const localVarPath = `/attachments/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -56,7 +56,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -75,13 +75,13 @@ export const AttachmentsApiAxiosParamCreator = function (
 		},
 		attachmentsIdGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("attachmentsIdGet", "id", id);
 			const localVarPath = `/attachments/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -102,7 +102,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -122,13 +122,13 @@ export const AttachmentsApiAxiosParamCreator = function (
 		attachmentsIdPut: async (
 			id: number,
 			attachmentsIdDeleteRequest?: AttachmentsIdDeleteRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("attachmentsIdPut", "id", id);
 			const localVarPath = `/attachments/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -149,7 +149,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -165,7 +165,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				attachmentsIdDeleteRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -175,13 +175,13 @@ export const AttachmentsApiAxiosParamCreator = function (
 		},
 		transactionsIdAttachmentsGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionsIdAttachmentsGet", "id", id);
 			const localVarPath = `/transactions/{id}/attachments`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -202,7 +202,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -222,13 +222,13 @@ export const AttachmentsApiAxiosParamCreator = function (
 		transactionsIdAttachmentsPost: async (
 			id: number,
 			transactionsIdAttachmentsGetRequest?: TransactionsIdAttachmentsGetRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionsIdAttachmentsPost", "id", id);
 			const localVarPath = `/transactions/{id}/attachments`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -249,7 +249,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -265,7 +265,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				transactionsIdAttachmentsGetRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -276,29 +276,29 @@ export const AttachmentsApiAxiosParamCreator = function (
 		transactionsTransactionIdAttachmentsAttachmentIdDelete: async (
 			transactionId: number,
 			attachmentId: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'transactionId' is not null or undefined
 			assertParamExists(
 				"transactionsTransactionIdAttachmentsAttachmentIdDelete",
 				"transactionId",
-				transactionId
+				transactionId,
 			);
 			// verify required parameter 'attachmentId' is not null or undefined
 			assertParamExists(
 				"transactionsTransactionIdAttachmentsAttachmentIdDelete",
 				"attachmentId",
-				attachmentId
+				attachmentId,
 			);
 			const localVarPath =
 				`/transactions/{transaction_id}/attachments/{attachment_id}`
 					.replace(
 						`{${"transaction_id"}}`,
-						encodeURIComponent(String(transactionId))
+						encodeURIComponent(String(transactionId)),
 					)
 					.replace(
 						`{${"attachment_id"}}`,
-						encodeURIComponent(String(attachmentId))
+						encodeURIComponent(String(attachmentId)),
 					);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -319,7 +319,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -339,13 +339,13 @@ export const AttachmentsApiAxiosParamCreator = function (
 		usersIdAttachmentsGet: async (
 			id: number,
 			unassigned?: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdAttachmentsGet", "id", id);
 			const localVarPath = `/users/{id}/attachments`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -366,7 +366,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (unassigned !== undefined) {
@@ -390,13 +390,13 @@ export const AttachmentsApiAxiosParamCreator = function (
 		usersIdAttachmentsPost: async (
 			id: number,
 			usersIdAttachmentsGetRequest?: UsersIdAttachmentsGetRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdAttachmentsPost", "id", id);
 			const localVarPath = `/users/{id}/attachments`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -417,7 +417,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -433,7 +433,7 @@ export const AttachmentsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				usersIdAttachmentsGetRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -451,7 +451,7 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 	return {
 		async attachmentsIdDelete(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
 		> {
@@ -461,12 +461,12 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async attachmentsIdGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attachment>
 		> {
@@ -476,13 +476,13 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async attachmentsIdPut(
 			id: number,
 			attachmentsIdDeleteRequest?: AttachmentsIdDeleteRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attachment>
 		> {
@@ -490,40 +490,40 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.attachmentsIdPut(
 					id,
 					attachmentsIdDeleteRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async transactionsIdAttachmentsGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Attachment>>
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.transactionsIdAttachmentsGet(
 					id,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async transactionsIdAttachmentsPost(
 			id: number,
 			transactionsIdAttachmentsGetRequest?: TransactionsIdAttachmentsGetRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attachment>
 		> {
@@ -531,19 +531,19 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.transactionsIdAttachmentsPost(
 					id,
 					transactionsIdAttachmentsGetRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async transactionsTransactionIdAttachmentsAttachmentIdDelete(
 			transactionId: number,
 			attachmentId: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
 		> {
@@ -551,42 +551,42 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.transactionsTransactionIdAttachmentsAttachmentIdDelete(
 					transactionId,
 					attachmentId,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async usersIdAttachmentsGet(
 			id: number,
 			unassigned?: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Attachment>>
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.usersIdAttachmentsGet(
 					id,
 					unassigned,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		async usersIdAttachmentsPost(
 			id: number,
 			usersIdAttachmentsGetRequest?: UsersIdAttachmentsGetRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attachment>
 		> {
@@ -594,13 +594,13 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.usersIdAttachmentsPost(
 					id,
 					usersIdAttachmentsGetRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -610,7 +610,7 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
 export const AttachmentsApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = AttachmentsApiFp(configuration);
 	return {
@@ -627,7 +627,7 @@ export const AttachmentsApiFactory = function (
 		attachmentsIdPut(
 			id: number,
 			attachmentsIdDeleteRequest?: AttachmentsIdDeleteRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Attachment> {
 			return localVarFp
 				.attachmentsIdPut(id, attachmentsIdDeleteRequest, options)
@@ -635,7 +635,7 @@ export const AttachmentsApiFactory = function (
 		},
 		transactionsIdAttachmentsGet(
 			id: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Attachment>> {
 			return localVarFp
 				.transactionsIdAttachmentsGet(id, options)
@@ -644,33 +644,33 @@ export const AttachmentsApiFactory = function (
 		transactionsIdAttachmentsPost(
 			id: number,
 			transactionsIdAttachmentsGetRequest?: TransactionsIdAttachmentsGetRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Attachment> {
 			return localVarFp
 				.transactionsIdAttachmentsPost(
 					id,
 					transactionsIdAttachmentsGetRequest,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
 		transactionsTransactionIdAttachmentsAttachmentIdDelete(
 			transactionId: number,
 			attachmentId: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<void> {
 			return localVarFp
 				.transactionsTransactionIdAttachmentsAttachmentIdDelete(
 					transactionId,
 					attachmentId,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
 		usersIdAttachmentsGet(
 			id: number,
 			unassigned?: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Attachment>> {
 			return localVarFp
 				.usersIdAttachmentsGet(id, unassigned, options)
@@ -679,7 +679,7 @@ export const AttachmentsApiFactory = function (
 		usersIdAttachmentsPost(
 			id: number,
 			usersIdAttachmentsGetRequest?: UsersIdAttachmentsGetRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Attachment> {
 			return localVarFp
 				.usersIdAttachmentsPost(id, usersIdAttachmentsGetRequest, options)
@@ -730,7 +730,7 @@ export class AttachmentsApi extends BaseAPI {
 	public attachmentsIdPut(
 		id: number,
 		attachmentsIdDeleteRequest?: AttachmentsIdDeleteRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return AttachmentsApiFp(this.configuration)
 			.attachmentsIdPut(id, attachmentsIdDeleteRequest, options)
@@ -747,7 +747,7 @@ export class AttachmentsApi extends BaseAPI {
 	 */
 	public transactionsIdAttachmentsGet(
 		id: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return AttachmentsApiFp(this.configuration)
 			.transactionsIdAttachmentsGet(id, options)
@@ -766,13 +766,13 @@ export class AttachmentsApi extends BaseAPI {
 	public transactionsIdAttachmentsPost(
 		id: number,
 		transactionsIdAttachmentsGetRequest?: TransactionsIdAttachmentsGetRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return AttachmentsApiFp(this.configuration)
 			.transactionsIdAttachmentsPost(
 				id,
 				transactionsIdAttachmentsGetRequest,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}
@@ -789,13 +789,13 @@ export class AttachmentsApi extends BaseAPI {
 	public transactionsTransactionIdAttachmentsAttachmentIdDelete(
 		transactionId: number,
 		attachmentId: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return AttachmentsApiFp(this.configuration)
 			.transactionsTransactionIdAttachmentsAttachmentIdDelete(
 				transactionId,
 				attachmentId,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}
@@ -812,7 +812,7 @@ export class AttachmentsApi extends BaseAPI {
 	public usersIdAttachmentsGet(
 		id: number,
 		unassigned?: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return AttachmentsApiFp(this.configuration)
 			.usersIdAttachmentsGet(id, unassigned, options)
@@ -831,7 +831,7 @@ export class AttachmentsApi extends BaseAPI {
 	public usersIdAttachmentsPost(
 		id: number,
 		usersIdAttachmentsGetRequest?: UsersIdAttachmentsGetRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return AttachmentsApiFp(this.configuration)
 			.usersIdAttachmentsPost(id, usersIdAttachmentsGetRequest, options)

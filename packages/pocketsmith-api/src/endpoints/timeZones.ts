@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -22,7 +22,7 @@ import { TimeZone } from "../types/types";
  * @export
  */
 export const TimeZonesApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -32,7 +32,7 @@ export const TimeZonesApiAxiosParamCreator = function (
 		 * @throws {RequiredError}
 		 */
 		timeZonesGet: async (
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			const localVarPath = `/time_zones`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -54,7 +54,7 @@ export const TimeZonesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -89,21 +89,20 @@ export const TimeZonesApiFp = function (configuration?: Configuration) {
 		 * @throws {RequiredError}
 		 */
 		async timeZonesGet(
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<TimeZone>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.timeZonesGet(
-				options
-			);
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.timeZonesGet(options);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -116,7 +115,7 @@ export const TimeZonesApiFp = function (configuration?: Configuration) {
 export const TimeZonesApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = TimeZonesApiFp(configuration);
 	return {

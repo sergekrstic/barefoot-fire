@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -25,7 +25,7 @@ import {
  * @export
  */
 export const CategoryRulesApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -39,13 +39,13 @@ export const CategoryRulesApiAxiosParamCreator = function (
 		categoriesIdCategoryRulesPost: async (
 			id: number,
 			categoriesIdCategoryRulesPostRequest?: CategoriesIdCategoryRulesPostRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("categoriesIdCategoryRulesPost", "id", id);
 			const localVarPath = `/categories/{id}/category_rules`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -66,7 +66,7 @@ export const CategoryRulesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -82,7 +82,7 @@ export const CategoryRulesApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				categoriesIdCategoryRulesPostRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -99,13 +99,13 @@ export const CategoryRulesApiAxiosParamCreator = function (
 		 */
 		usersIdCategoryRulesGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdCategoryRulesGet", "id", id);
 			const localVarPath = `/users/{id}/category_rules`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -126,7 +126,7 @@ export const CategoryRulesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -165,7 +165,7 @@ export const CategoryRulesApiFp = function (configuration?: Configuration) {
 		async categoriesIdCategoryRulesPost(
 			id: number,
 			categoriesIdCategoryRulesPostRequest?: CategoriesIdCategoryRulesPostRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CategoryRule>
 		> {
@@ -173,13 +173,13 @@ export const CategoryRulesApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.categoriesIdCategoryRulesPost(
 					id,
 					categoriesIdCategoryRulesPostRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -191,11 +191,11 @@ export const CategoryRulesApiFp = function (configuration?: Configuration) {
 		 */
 		async usersIdCategoryRulesGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<CategoryRule>>
 		> {
 			const localVarAxiosArgs =
@@ -204,7 +204,7 @@ export const CategoryRulesApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -217,7 +217,7 @@ export const CategoryRulesApiFp = function (configuration?: Configuration) {
 export const CategoryRulesApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = CategoryRulesApiFp(configuration);
 	return {
@@ -232,13 +232,13 @@ export const CategoryRulesApiFactory = function (
 		categoriesIdCategoryRulesPost(
 			id: number,
 			categoriesIdCategoryRulesPostRequest?: CategoriesIdCategoryRulesPostRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<CategoryRule> {
 			return localVarFp
 				.categoriesIdCategoryRulesPost(
 					id,
 					categoriesIdCategoryRulesPostRequest,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -251,7 +251,7 @@ export const CategoryRulesApiFactory = function (
 		 */
 		usersIdCategoryRulesGet(
 			id: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<CategoryRule>> {
 			return localVarFp
 				.usersIdCategoryRulesGet(id, options)
@@ -279,13 +279,13 @@ export class CategoryRulesApi extends BaseAPI {
 	public categoriesIdCategoryRulesPost(
 		id: number,
 		categoriesIdCategoryRulesPostRequest?: CategoriesIdCategoryRulesPostRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return CategoryRulesApiFp(this.configuration)
 			.categoriesIdCategoryRulesPost(
 				id,
 				categoriesIdCategoryRulesPostRequest,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}

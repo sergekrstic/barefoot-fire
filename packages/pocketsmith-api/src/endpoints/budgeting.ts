@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -19,7 +19,7 @@ import { BudgetAnalysisPackage } from "../types/types";
 
 // BudgetingApi - axios parameter creator
 export const BudgetingApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -33,13 +33,13 @@ export const BudgetingApiAxiosParamCreator = function (
 		usersIdBudgetGet: async (
 			id: number,
 			rollUp?: boolean,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdBudgetGet", "id", id);
 			const localVarPath = `/users/{id}/budget`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -60,7 +60,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (rollUp !== undefined) {
@@ -98,7 +98,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			interval: number,
 			startDate: string,
 			endDate: string,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdBudgetSummaryGet", "id", id);
@@ -112,7 +112,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			assertParamExists("usersIdBudgetSummaryGet", "endDate", endDate);
 			const localVarPath = `/users/{id}/budget_summary`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -133,7 +133,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (period !== undefined) {
@@ -175,13 +175,13 @@ export const BudgetingApiAxiosParamCreator = function (
 		 */
 		usersIdForecastCacheDelete: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdForecastCacheDelete", "id", id);
 			const localVarPath = `/users/{id}/forecast_cache`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -202,7 +202,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -240,7 +240,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			endDate: string,
 			categories: string,
 			scenarios: string,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdTrendAnalysisGet", "id", id);
@@ -258,7 +258,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			assertParamExists("usersIdTrendAnalysisGet", "scenarios", scenarios);
 			const localVarPath = `/users/{id}/trend_analysis`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -279,7 +279,7 @@ export const BudgetingApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			if (period !== undefined) {
@@ -342,11 +342,11 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 		async usersIdBudgetGet(
 			id: number,
 			rollUp?: boolean,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<BudgetAnalysisPackage>>
 		> {
 			const localVarAxiosArgs =
@@ -355,7 +355,7 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -375,11 +375,11 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 			interval: number,
 			startDate: string,
 			endDate: string,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<BudgetAnalysisPackage>>
 		> {
 			const localVarAxiosArgs =
@@ -389,13 +389,13 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 					interval,
 					startDate,
 					endDate,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -407,7 +407,7 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 		 */
 		async usersIdForecastCacheDelete(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
 		> {
@@ -417,7 +417,7 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -441,11 +441,11 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 			endDate: string,
 			categories: string,
 			scenarios: string,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<BudgetAnalysisPackage>>
 		> {
 			const localVarAxiosArgs =
@@ -457,13 +457,13 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 					endDate,
 					categories,
 					scenarios,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -476,7 +476,7 @@ export const BudgetingApiFp = function (configuration?: Configuration) {
 export const BudgetingApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = BudgetingApiFp(configuration);
 	return {
@@ -491,7 +491,7 @@ export const BudgetingApiFactory = function (
 		usersIdBudgetGet(
 			id: number,
 			rollUp?: boolean,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<BudgetAnalysisPackage>> {
 			return localVarFp
 				.usersIdBudgetGet(id, rollUp, options)
@@ -514,7 +514,7 @@ export const BudgetingApiFactory = function (
 			interval: number,
 			startDate: string,
 			endDate: string,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<BudgetAnalysisPackage>> {
 			return localVarFp
 				.usersIdBudgetSummaryGet(
@@ -523,7 +523,7 @@ export const BudgetingApiFactory = function (
 					interval,
 					startDate,
 					endDate,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -560,7 +560,7 @@ export const BudgetingApiFactory = function (
 			endDate: string,
 			categories: string,
 			scenarios: string,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<BudgetAnalysisPackage>> {
 			return localVarFp
 				.usersIdTrendAnalysisGet(
@@ -571,7 +571,7 @@ export const BudgetingApiFactory = function (
 					endDate,
 					categories,
 					scenarios,
-					options
+					options,
 				)
 				.then((request) => request(axios, basePath));
 		},
@@ -597,7 +597,7 @@ export class BudgetingApi extends BaseAPI {
 	public usersIdBudgetGet(
 		id: number,
 		rollUp?: boolean,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return BudgetingApiFp(this.configuration)
 			.usersIdBudgetGet(id, rollUp, options)
@@ -622,7 +622,7 @@ export class BudgetingApi extends BaseAPI {
 		interval: number,
 		startDate: string,
 		endDate: string,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return BudgetingApiFp(this.configuration)
 			.usersIdBudgetSummaryGet(
@@ -631,7 +631,7 @@ export class BudgetingApi extends BaseAPI {
 				interval,
 				startDate,
 				endDate,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}
@@ -672,7 +672,7 @@ export class BudgetingApi extends BaseAPI {
 		endDate: string,
 		categories: string,
 		scenarios: string,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return BudgetingApiFp(this.configuration)
 			.usersIdTrendAnalysisGet(
@@ -683,7 +683,7 @@ export class BudgetingApi extends BaseAPI {
 				endDate,
 				categories,
 				scenarios,
-				options
+				options,
 			)
 			.then((request) => request(this.axios, this.basePath));
 	}

@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -22,7 +22,7 @@ import { SavedSearch } from "../types/types";
  * @export
  */
 export const SavedSearchesApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -34,13 +34,13 @@ export const SavedSearchesApiAxiosParamCreator = function (
 		 */
 		usersIdSavedSearchesGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdSavedSearchesGet", "id", id);
 			const localVarPath = `/users/{id}/saved_searches`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -61,7 +61,7 @@ export const SavedSearchesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -98,11 +98,11 @@ export const SavedSearchesApiFp = function (configuration?: Configuration) {
 		 */
 		async usersIdSavedSearchesGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<SavedSearch>>
 		> {
 			const localVarAxiosArgs =
@@ -111,7 +111,7 @@ export const SavedSearchesApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -124,7 +124,7 @@ export const SavedSearchesApiFp = function (configuration?: Configuration) {
 export const SavedSearchesApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = SavedSearchesApiFp(configuration);
 	return {
@@ -137,7 +137,7 @@ export const SavedSearchesApiFactory = function (
 		 */
 		usersIdSavedSearchesGet(
 			id: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<SavedSearch>> {
 			return localVarFp
 				.usersIdSavedSearchesGet(id, options)

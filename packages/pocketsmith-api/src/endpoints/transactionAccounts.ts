@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -25,7 +25,7 @@ import {
  * @export
  */
 export const TransactionAccountsApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -37,13 +37,13 @@ export const TransactionAccountsApiAxiosParamCreator = function (
 		 */
 		transactionAccountsIdGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionAccountsIdGet", "id", id);
 			const localVarPath = `/transaction_accounts/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -64,7 +64,7 @@ export const TransactionAccountsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -92,13 +92,13 @@ export const TransactionAccountsApiAxiosParamCreator = function (
 		transactionAccountsIdPut: async (
 			id: number,
 			transactionAccountsIdGetRequest?: TransactionAccountsIdGetRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("transactionAccountsIdPut", "id", id);
 			const localVarPath = `/transaction_accounts/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -119,7 +119,7 @@ export const TransactionAccountsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -135,7 +135,7 @@ export const TransactionAccountsApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				transactionAccountsIdGetRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -152,13 +152,13 @@ export const TransactionAccountsApiAxiosParamCreator = function (
 		 */
 		usersIdTransactionAccountsGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdTransactionAccountsGet", "id", id);
 			const localVarPath = `/users/{id}/transaction_accounts`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -179,7 +179,7 @@ export const TransactionAccountsApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -204,7 +204,7 @@ export const TransactionAccountsApiAxiosParamCreator = function (
  * @export
  */
 export const TransactionAccountsApiFp = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	const localVarAxiosParamCreator =
 		TransactionAccountsApiAxiosParamCreator(configuration);
@@ -218,11 +218,11 @@ export const TransactionAccountsApiFp = function (
 		 */
 		async transactionAccountsIdGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<TransactionAccount>
 		> {
 			const localVarAxiosArgs =
@@ -231,7 +231,7 @@ export const TransactionAccountsApiFp = function (
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -245,24 +245,24 @@ export const TransactionAccountsApiFp = function (
 		async transactionAccountsIdPut(
 			id: number,
 			transactionAccountsIdGetRequest?: TransactionAccountsIdGetRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<TransactionAccount>
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.transactionAccountsIdPut(
 					id,
 					transactionAccountsIdGetRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -274,23 +274,23 @@ export const TransactionAccountsApiFp = function (
 		 */
 		async usersIdTransactionAccountsGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<TransactionAccount>>
 		> {
 			const localVarAxiosArgs =
 				await localVarAxiosParamCreator.usersIdTransactionAccountsGet(
 					id,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -303,7 +303,7 @@ export const TransactionAccountsApiFp = function (
 export const TransactionAccountsApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = TransactionAccountsApiFp(configuration);
 	return {
@@ -316,7 +316,7 @@ export const TransactionAccountsApiFactory = function (
 		 */
 		transactionAccountsIdGet(
 			id: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<TransactionAccount> {
 			return localVarFp
 				.transactionAccountsIdGet(id, options)
@@ -333,7 +333,7 @@ export const TransactionAccountsApiFactory = function (
 		transactionAccountsIdPut(
 			id: number,
 			transactionAccountsIdGetRequest?: TransactionAccountsIdGetRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<TransactionAccount> {
 			return localVarFp
 				.transactionAccountsIdPut(id, transactionAccountsIdGetRequest, options)
@@ -348,7 +348,7 @@ export const TransactionAccountsApiFactory = function (
 		 */
 		usersIdTransactionAccountsGet(
 			id: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<TransactionAccount>> {
 			return localVarFp
 				.usersIdTransactionAccountsGet(id, options)
@@ -390,7 +390,7 @@ export class TransactionAccountsApi extends BaseAPI {
 	public transactionAccountsIdPut(
 		id: number,
 		transactionAccountsIdGetRequest?: TransactionAccountsIdGetRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionAccountsApiFp(this.configuration)
 			.transactionAccountsIdPut(id, transactionAccountsIdGetRequest, options)
@@ -407,7 +407,7 @@ export class TransactionAccountsApi extends BaseAPI {
 	 */
 	public usersIdTransactionAccountsGet(
 		id: number,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return TransactionAccountsApiFp(this.configuration)
 			.usersIdTransactionAccountsGet(id, options)

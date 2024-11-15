@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -26,7 +26,7 @@ import {
  * @export
  */
 export const CategoriesApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -38,13 +38,13 @@ export const CategoriesApiAxiosParamCreator = function (
 		 */
 		categoriesIdDelete: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("categoriesIdDelete", "id", id);
 			const localVarPath = `/categories/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -65,7 +65,7 @@ export const CategoriesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -91,13 +91,13 @@ export const CategoriesApiAxiosParamCreator = function (
 		 */
 		categoriesIdGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("categoriesIdGet", "id", id);
 			const localVarPath = `/categories/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -118,7 +118,7 @@ export const CategoriesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -146,13 +146,13 @@ export const CategoriesApiAxiosParamCreator = function (
 		categoriesIdPut: async (
 			id: number,
 			categoriesIdDeleteRequest?: CategoriesIdDeleteRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("categoriesIdPut", "id", id);
 			const localVarPath = `/categories/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -173,7 +173,7 @@ export const CategoriesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -189,7 +189,7 @@ export const CategoriesApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				categoriesIdDeleteRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -206,13 +206,13 @@ export const CategoriesApiAxiosParamCreator = function (
 		 */
 		usersIdCategoriesGet: async (
 			id: number,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdCategoriesGet", "id", id);
 			const localVarPath = `/users/{id}/categories`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -233,7 +233,7 @@ export const CategoriesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -261,13 +261,13 @@ export const CategoriesApiAxiosParamCreator = function (
 		usersIdCategoriesPost: async (
 			id: number,
 			usersIdCategoriesGetRequest?: UsersIdCategoriesGetRequest,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("usersIdCategoriesPost", "id", id);
 			const localVarPath = `/users/{id}/categories`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -288,7 +288,7 @@ export const CategoriesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			localVarHeaderParameter["Content-Type"] = "application/json";
@@ -304,7 +304,7 @@ export const CategoriesApiAxiosParamCreator = function (
 			localVarRequestOptions.data = serializeDataIfNeeded(
 				usersIdCategoriesGetRequest,
 				localVarRequestOptions,
-				configuration
+				configuration,
 			);
 
 			return {
@@ -332,7 +332,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		 */
 		async categoriesIdDelete(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>
 		> {
@@ -342,7 +342,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -354,19 +354,19 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		 */
 		async categoriesIdGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.categoriesIdGet(
 				id,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -380,20 +380,20 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		async categoriesIdPut(
 			id: number,
 			categoriesIdDeleteRequest?: CategoriesIdDeleteRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.categoriesIdPut(
 				id,
 				categoriesIdDeleteRequest,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -405,11 +405,11 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		 */
 		async usersIdCategoriesGet(
 			id: number,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Category>>
 		> {
 			const localVarAxiosArgs =
@@ -418,7 +418,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -432,7 +432,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 		async usersIdCategoriesPost(
 			id: number,
 			usersIdCategoriesGetRequest?: UsersIdCategoriesGetRequest,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Category>
 		> {
@@ -440,13 +440,13 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 				await localVarAxiosParamCreator.usersIdCategoriesPost(
 					id,
 					usersIdCategoriesGetRequest,
-					options
+					options,
 				);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -459,7 +459,7 @@ export const CategoriesApiFp = function (configuration?: Configuration) {
 export const CategoriesApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = CategoriesApiFp(configuration);
 	return {
@@ -498,7 +498,7 @@ export const CategoriesApiFactory = function (
 		categoriesIdPut(
 			id: number,
 			categoriesIdDeleteRequest?: CategoriesIdDeleteRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Category> {
 			return localVarFp
 				.categoriesIdPut(id, categoriesIdDeleteRequest, options)
@@ -513,7 +513,7 @@ export const CategoriesApiFactory = function (
 		 */
 		usersIdCategoriesGet(
 			id: number,
-			options?: any
+			options?: any,
 		): AxiosPromise<Array<Category>> {
 			return localVarFp
 				.usersIdCategoriesGet(id, options)
@@ -530,7 +530,7 @@ export const CategoriesApiFactory = function (
 		usersIdCategoriesPost(
 			id: number,
 			usersIdCategoriesGetRequest?: UsersIdCategoriesGetRequest,
-			options?: any
+			options?: any,
 		): AxiosPromise<Category> {
 			return localVarFp
 				.usersIdCategoriesPost(id, usersIdCategoriesGetRequest, options)
@@ -586,7 +586,7 @@ export class CategoriesApi extends BaseAPI {
 	public categoriesIdPut(
 		id: number,
 		categoriesIdDeleteRequest?: CategoriesIdDeleteRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return CategoriesApiFp(this.configuration)
 			.categoriesIdPut(id, categoriesIdDeleteRequest, options)
@@ -619,7 +619,7 @@ export class CategoriesApi extends BaseAPI {
 	public usersIdCategoriesPost(
 		id: number,
 		usersIdCategoriesGetRequest?: UsersIdCategoriesGetRequest,
-		options?: AxiosRequestConfig
+		options?: AxiosRequestConfig,
 	) {
 		return CategoriesApiFp(this.configuration)
 			.usersIdCategoriesPost(id, usersIdCategoriesGetRequest, options)

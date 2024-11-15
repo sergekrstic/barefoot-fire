@@ -4,7 +4,7 @@ import globalAxios, {
 	AxiosRequestConfig,
 } from "axios";
 
-import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../base";
+import { BASE_PATH, RequestArgs, BaseAPI, RequiredError } from "../shared/base";
 import {
 	DUMMY_BASE_URL,
 	assertParamExists,
@@ -22,7 +22,7 @@ import { Currency } from "../types/types";
  * @export
  */
 export const CurrenciesApiAxiosParamCreator = function (
-	configuration?: Configuration
+	configuration?: Configuration,
 ) {
 	return {
 		/**
@@ -32,7 +32,7 @@ export const CurrenciesApiAxiosParamCreator = function (
 		 * @throws {RequiredError}
 		 */
 		currenciesGet: async (
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			const localVarPath = `/currencies`;
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -54,7 +54,7 @@ export const CurrenciesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -80,13 +80,13 @@ export const CurrenciesApiAxiosParamCreator = function (
 		 */
 		currenciesIdGet: async (
 			id: string,
-			options: AxiosRequestConfig = {}
+			options: AxiosRequestConfig = {},
 		): Promise<RequestArgs> => {
 			// verify required parameter 'id' is not null or undefined
 			assertParamExists("currenciesIdGet", "id", id);
 			const localVarPath = `/currencies/{id}`.replace(
 				`{${"id"}}`,
-				encodeURIComponent(String(id))
+				encodeURIComponent(String(id)),
 			);
 			// use dummy base URL string because the URL constructor only accepts absolute URLs.
 			const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -107,7 +107,7 @@ export const CurrenciesApiAxiosParamCreator = function (
 			await setApiKeyToObject(
 				localVarHeaderParameter,
 				"X-Developer-Key",
-				configuration
+				configuration,
 			);
 
 			setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -142,21 +142,20 @@ export const CurrenciesApiFp = function (configuration?: Configuration) {
 		 * @throws {RequiredError}
 		 */
 		async currenciesGet(
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(
 				axios?: AxiosInstance,
-				basePath?: string
+				basePath?: string,
 			) => AxiosPromise<Array<Currency>>
 		> {
-			const localVarAxiosArgs = await localVarAxiosParamCreator.currenciesGet(
-				options
-			);
+			const localVarAxiosArgs =
+				await localVarAxiosParamCreator.currenciesGet(options);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 		/**
@@ -168,19 +167,19 @@ export const CurrenciesApiFp = function (configuration?: Configuration) {
 		 */
 		async currenciesIdGet(
 			id: string,
-			options?: AxiosRequestConfig
+			options?: AxiosRequestConfig,
 		): Promise<
 			(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Currency>
 		> {
 			const localVarAxiosArgs = await localVarAxiosParamCreator.currenciesIdGet(
 				id,
-				options
+				options,
 			);
 			return createRequestFunction(
 				localVarAxiosArgs,
 				globalAxios,
 				BASE_PATH,
-				configuration
+				configuration,
 			);
 		},
 	};
@@ -193,7 +192,7 @@ export const CurrenciesApiFp = function (configuration?: Configuration) {
 export const CurrenciesApiFactory = function (
 	configuration?: Configuration,
 	basePath?: string,
-	axios?: AxiosInstance
+	axios?: AxiosInstance,
 ) {
 	const localVarFp = CurrenciesApiFp(configuration);
 	return {
