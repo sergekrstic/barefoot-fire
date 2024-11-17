@@ -16,6 +16,9 @@ import {
 	UsersApi,
 } from "./endpoints";
 
+export * from "./shared/configuration";
+export * from "./types/api.types";
+
 export function createPocketSmithApi(pocketSmithApiKey: string) {
 	const configuration = new Configuration({ apiKey: pocketSmithApiKey });
 	return {
