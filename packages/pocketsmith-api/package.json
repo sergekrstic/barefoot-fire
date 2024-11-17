@@ -1,20 +1,20 @@
 {
 	"name": "@fire/pocketsmith-api",
 	"version": "1.0.0",
+	"author": "Serge Krstic",
 	"description": "A Typescript wrapper around PocketSmith's REST API.",
 	"main": "index.js",
 	"scripts": {
 		"dev": "tsx src/spikes/index",
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"generate:api": "rm -rf src/pocketsmith-api; openapi-generator generate -i ./pocketsmith-openapi.json -o src/pocketsmith-api -g typescript-axios --additional-properties=supportsES6=true,npmVersion=8.5.5,typescriptThreePlus=true"
+		"generate:api": "rm -rf src/generated-api; openapi-generator generate -i ./src/config/pocketsmith-openapi.json -o src/generated-api -g typescript-axios --additional-properties=supportsES6=true,npmVersion=8.5.5,typescriptThreePlus=true"
 	},
-	"author": "Serge Krstic",
-	"license": "ISC",
 	"dependencies": {
-		"api": "^5.0.8",
-		"axios": "^1.3.4",
+		"axios": "^1.7.7",
+		"dotenv": "^16.4.5",
 		"request": "^2.88.2",
-		"tsx": "^3.12.6",
-		"typescript": "^5.0.2"
+		"tsx": "^4.19.2",
+		"typescript": "^5.6.3",
+		"zod": "^3.23.8"
 	}
 }
