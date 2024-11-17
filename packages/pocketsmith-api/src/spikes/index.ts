@@ -25,12 +25,13 @@
 
 */
 
+import { appConfig } from "../config";
 import { createPocketSmithApi } from "../index";
-import { pocketSmithApiKey } from "../config/keys.config";
+
 import { runScript } from "./categories.spike";
 
 (async function () {
-	await runScript(pocketSmithApiKey);
+	await runScript(appConfig.pocketSmithApiKey);
 })()
 	.then(() => console.log("Completed successfully"))
 	.catch(() => console.error("An error occurred"));

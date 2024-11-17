@@ -18,7 +18,7 @@ import { Configuration } from "../shared/configuration";
 import {
 	TransactionAccount,
 	TransactionAccountsIdGetRequest,
-} from "../types/types";
+} from "../types/api.types";
 
 /**
  * TransactionAccountsApi - axios parameter creator

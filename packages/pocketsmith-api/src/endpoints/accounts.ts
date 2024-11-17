@@ -20,7 +20,7 @@ import {
 	AccountsIdDeleteRequest,
 	UsersIdAccountsGetRequest,
 	UsersIdAccountsGetRequest1,
-} from "../types/types";
+} from "../types/api.types";
 
 // AccountsApi - axios parameter creator
 export const AccountsApiAxiosParamCreator = function (

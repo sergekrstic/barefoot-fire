@@ -15,7 +15,7 @@ import {
 	createRequestFunction,
 } from "../shared/common";
 import { Configuration } from "../shared/configuration";
-import { TimeZone } from "../types/types";
+import { TimeZone } from "../types/api.types";
 
 /**
  * TimeZonesApi - axios parameter creator

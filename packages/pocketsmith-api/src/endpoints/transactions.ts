@@ -19,7 +19,7 @@ import {
 	Transaction,
 	TransactionAccountsIdTransactionsGetRequest,
 	TransactionsIdDeleteRequest,
-} from "../types/types";
+} from "../types/api.types";
 
 /**
  * TransactionsApi - axios parameter creator

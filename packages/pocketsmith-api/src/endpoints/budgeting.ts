@@ -15,7 +15,7 @@ import {
 	createRequestFunction,
 } from "../shared/common";
 import { Configuration } from "../shared/configuration";
-import { BudgetAnalysisPackage } from "../types/types";
+import { BudgetAnalysisPackage } from "../types/api.types";
 
 // BudgetingApi - axios parameter creator
 export const BudgetingApiAxiosParamCreator = function (

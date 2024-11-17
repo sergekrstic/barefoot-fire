@@ -18,7 +18,7 @@ import { Configuration } from "../shared/configuration";
 import {
 	EventsIdDeleteRequest,
 	ScenariosIdEventsGetRequest,
-} from "../types/types";
+} from "../types/api.types";
 
 /**
  * EventsApi - axios parameter creator

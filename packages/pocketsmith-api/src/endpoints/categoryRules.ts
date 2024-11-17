@@ -18,7 +18,7 @@ import { Configuration } from "../shared/configuration";
 import {
 	CategoriesIdCategoryRulesPostRequest,
 	CategoryRule,
-} from "../types/types";
+} from "../types/api.types";
 
 /**
  * CategoryRulesApi - axios parameter creator

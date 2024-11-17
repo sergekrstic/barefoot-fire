@@ -15,7 +15,7 @@ import {
 	createRequestFunction,
 } from "../shared/common";
 import { Configuration } from "../shared/configuration";
-import { User, UsersIdGetRequest } from "../types/types";
+import { User, UsersIdGetRequest } from "../types/api.types";
 
 // UsersApi - axios parameter creator
 export function UsersApiAxiosParamCreator(configuration?: Configuration) {

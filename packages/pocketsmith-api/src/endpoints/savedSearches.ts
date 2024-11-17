@@ -15,7 +15,7 @@ import {
 	createRequestFunction,
 } from "../shared/common";
 import { Configuration } from "../shared/configuration";
-import { SavedSearch } from "../types/types";
+import { SavedSearch } from "../types/api.types";
 
 /**
  * SavedSearchesApi - axios parameter creator

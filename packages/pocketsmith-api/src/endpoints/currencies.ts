@@ -15,7 +15,7 @@ import {
 	createRequestFunction,
 } from "../shared/common";
 import { Configuration } from "../shared/configuration";
-import { Currency } from "../types/types";
+import { Currency } from "../types/api.types";
 
 /**
  * CurrenciesApi - axios parameter creator

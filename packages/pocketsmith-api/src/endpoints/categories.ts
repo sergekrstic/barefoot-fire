@@ -19,7 +19,7 @@ import {
 	CategoriesIdDeleteRequest,
 	Category,
 	UsersIdCategoriesGetRequest,
-} from "../types/types";
+} from "../types/api.types";
 
 /**
  * CategoriesApi - axios parameter creator

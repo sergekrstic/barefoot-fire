@@ -19,7 +19,7 @@ import {
 	Institution,
 	InstitutionsIdDeleteRequest,
 	UsersIdInstitutionsGetRequest,
-} from "../types/types";
+} from "../types/api.types";
 
 /**
  * InstitutionsApi - axios parameter creator

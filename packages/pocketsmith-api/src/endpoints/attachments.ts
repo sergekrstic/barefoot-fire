@@ -20,7 +20,7 @@ import {
 	AttachmentsIdDeleteRequest,
 	TransactionsIdAttachmentsGetRequest,
 	UsersIdAttachmentsGetRequest,
-} from "../types/types";
+} from "../types/api.types";
 
 // AttachmentsApi - axios parameter creator
 export const AttachmentsApiAxiosParamCreator = function (
