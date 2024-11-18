@@ -35,18 +35,15 @@ importers:
 
   plugin:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
+      '@fire/pocketsmith-api':
+        specifier: workspace:^
+        version: link:../packages/pocketsmith-api
       react:
         specifier: ^18.3.1
         version: 18.3.1
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^16.11.6

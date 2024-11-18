@@ -1,4 +1,4 @@
-# Barefoot Dashboard
+# Barefoot F.I.R.E. Dashboard
 
 This is a personal financial dashboard that displays the key statistics and information.
 

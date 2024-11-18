@@ -1,6 +1,6 @@
 {
-	"id": "barefoot-dashboard",
-	"name": "Barefoot Dashboard",
+	"id": "barefoot-fire",
+	"name": "Barefoot F.I.R.E.",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "A financial dashboard using PocketSmith for Obsidian",

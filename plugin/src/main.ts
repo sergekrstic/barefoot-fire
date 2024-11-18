@@ -1,4 +1,3 @@
-// import { SimpleViewPlugin as Plugin } from "./simple-view";
-import { ReactViewPlugin as Plugin } from "./spikes/react-view";
+import { BarefootFirePlugin as Plugin } from "./BarefootFire.plugin";
 
 export default Plugin;
