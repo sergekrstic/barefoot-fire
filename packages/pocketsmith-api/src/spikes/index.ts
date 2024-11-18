@@ -25,9 +25,7 @@
 
 */
 
-import { appConfig } from '../generated-api-2-refactored/config'
-import { createPocketSmithApi } from '../generated-api-2-refactored/index'
-
+import { appConfig } from '../config'
 import { runScript } from './categories.spike'
 ;(async function () {
   await runScript(appConfig.pocketSmithApiKey)
