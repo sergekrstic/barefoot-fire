@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 // Todo: Figure out to import local pnpm package
-import { createPocketSmithApi } from '../../packages/pocketsmith-api/src/generated-api-2-refactored/index'
+import { createPocketSmithApi } from '../../packages/pocketsmith-api/src/index'
 // import { createPocketSmithApi } from "@fire/pocketsmith-api";
 //
 import { EyeIcon, EyeOffIcon } from 'assets'
@@ -19,7 +19,7 @@ export function BarefootFireComponent({ settings }: BarefootFireComponentProps):
     const fetchCategories = async (): Promise<void> => {
       const api = createPocketSmithApi(settings.pocketsmithApiKey)
       const userId = 85521
-      const response = await api.categories.usersIdCategoriesGet(userId)
+      const response = await api.categories.usersIdCategoriesGet({ id: userId })
       const categoryTitles = response.data.map((category) => category.title || '')
       setCategories(categoryTitles)
     }
