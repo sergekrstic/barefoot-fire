@@ -25,7 +25,7 @@
 
 */
 
-import { appConfig } from '../config'
+import { appConfig } from './config'
 import { runScript } from './categories.spike'
 ;(async function () {
   await runScript(appConfig.pocketSmithApiKey)

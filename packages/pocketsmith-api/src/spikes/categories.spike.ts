@@ -1,18 +1,14 @@
-import { createPocketSmithApi } from '../generated-api-2-refactored'
-import { Category } from '../generated-api-2-refactored/types/api.types'
+import { Category, createPocketSmithApi } from '../index'
 
 export async function runScript(pocketSmithApiKey: string): Promise<void> {
   try {
     const api = createPocketSmithApi(pocketSmithApiKey)
-    // const response = await pocketSmithApi.users.meGet();
-    // console.log(response);
     const userId = 85521
-    const response = await api.categories.usersIdCategoriesGet(userId)
+    const response = await api.categories.usersIdCategoriesGet({ id: userId })
 
     for (const category of response.data) {
       printCategoryTitle(category)
     }
-    // console.log(response.data);
   } catch (err) {
     console.error(err)
   }
