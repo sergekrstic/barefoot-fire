@@ -1,2 +1,2 @@
-export * from "./Eye.icon";
-export * from "./EyeOff.icon";
+export * from './Eye.icon'
+export * from './EyeOff.icon'

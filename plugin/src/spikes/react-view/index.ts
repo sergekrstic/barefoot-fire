@@ -1,1 +1,1 @@
-export * from "./ReactView.plugin";
+export * from './ReactView.plugin'

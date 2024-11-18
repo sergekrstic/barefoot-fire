@@ -1,3 +1,3 @@
 export interface BarefootFirePluginSettings {
-	pocketsmithApiKey: string;
+  pocketsmithApiKey: string
 }

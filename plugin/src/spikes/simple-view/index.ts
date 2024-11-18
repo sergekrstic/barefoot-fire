@@ -1,1 +1,1 @@
-export * from "./SimpleView.plugin";
+export * from './SimpleView.plugin'
