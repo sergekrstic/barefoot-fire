@@ -12,31 +12,28 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface AttachmentContentTypeMeta
  */
 export interface AttachmentContentTypeMeta {
-    /**
-     * The content type title of the attachment.
-     * @type {string}
-     * @memberof AttachmentContentTypeMeta
-     */
-    'title'?: string;
-    /**
-     * The content type description of the attachment.
-     * @type {string}
-     * @memberof AttachmentContentTypeMeta
-     */
-    'description'?: string;
-    /**
-     * The extension type of the attachment.
-     * @type {string}
-     * @memberof AttachmentContentTypeMeta
-     */
-    'extension'?: string;
+  /**
+   * The content type title of the attachment.
+   * @type {string}
+   * @memberof AttachmentContentTypeMeta
+   */
+  title?: string
+  /**
+   * The content type description of the attachment.
+   * @type {string}
+   * @memberof AttachmentContentTypeMeta
+   */
+  description?: string
+  /**
+   * The extension type of the attachment.
+   * @type {string}
+   * @memberof AttachmentContentTypeMeta
+   */
+  extension?: string
 }
-

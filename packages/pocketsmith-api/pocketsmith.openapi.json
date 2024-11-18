@@ -3556,15 +3556,7 @@
                   "repeat_type": {
                     "type": "string",
                     "description": "The repeat type of the event.",
-                    "enum": [
-                      "once",
-                      "daily",
-                      "weekly",
-                      "fortnightly",
-                      "monthly",
-                      "yearly",
-                      "each weekday"
-                    ],
+                    "enum": ["once", "daily", "weekly", "fortnightly", "monthly", "yearly", "each weekday"],
                     "example": "weekly"
                   },
                   "repeat_interval": {
@@ -3787,15 +3779,7 @@
                   "repeat_type": {
                     "type": "string",
                     "description": "The repeat type of the event.",
-                    "enum": [
-                      "once",
-                      "daily",
-                      "weekly",
-                      "fortnightly",
-                      "monthly",
-                      "yearly",
-                      "each weekday"
-                    ],
+                    "enum": ["once", "daily", "weekly", "fortnightly", "monthly", "yearly", "each weekday"],
                     "example": "weekly"
                   },
                   "repeat_interval": {

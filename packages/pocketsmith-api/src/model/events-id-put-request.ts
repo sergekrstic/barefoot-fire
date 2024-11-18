@@ -12,63 +12,59 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface EventsIdPutRequest
  */
 export interface EventsIdPutRequest {
-    /**
-     * Whether the update applies only to this event, to all events within the series from this event or to all events within the series.
-     * @type {string}
-     * @memberof EventsIdPutRequest
-     */
-    'behaviour': Behaviour;
-    /**
-     * The amount of the event. A positive amount is a credit, and a negative amount is a debit.
-     * @type {number}
-     * @memberof EventsIdPutRequest
-     */
-    'amount'?: number;
-    /**
-     * The repeat type of the event.
-     * @type {string}
-     * @memberof EventsIdPutRequest
-     */
-    'repeat_type'?: RepeatType;
-    /**
-     * The repeat interval of the event.
-     * @type {number}
-     * @memberof EventsIdPutRequest
-     */
-    'repeat_interval'?: number;
-    /**
-     * A note for the event.
-     * @type {string}
-     * @memberof EventsIdPutRequest
-     */
-    'note'?: string;
+  /**
+   * Whether the update applies only to this event, to all events within the series from this event or to all events within the series.
+   * @type {string}
+   * @memberof EventsIdPutRequest
+   */
+  behaviour: Behaviour
+  /**
+   * The amount of the event. A positive amount is a credit, and a negative amount is a debit.
+   * @type {number}
+   * @memberof EventsIdPutRequest
+   */
+  amount?: number
+  /**
+   * The repeat type of the event.
+   * @type {string}
+   * @memberof EventsIdPutRequest
+   */
+  repeat_type?: RepeatType
+  /**
+   * The repeat interval of the event.
+   * @type {number}
+   * @memberof EventsIdPutRequest
+   */
+  repeat_interval?: number
+  /**
+   * A note for the event.
+   * @type {string}
+   * @memberof EventsIdPutRequest
+   */
+  note?: string
 }
 
 export const Behaviour = {
-    One: 'one',
-    Forward: 'forward',
-    All: 'all'
-} as const;
+  One: 'one',
+  Forward: 'forward',
+  All: 'all',
+} as const
 
-export type Behaviour = typeof Behaviour[keyof typeof Behaviour];
+export type Behaviour = (typeof Behaviour)[keyof typeof Behaviour]
 export const RepeatType = {
-    Once: 'once',
-    Daily: 'daily',
-    Weekly: 'weekly',
-    Fortnightly: 'fortnightly',
-    Monthly: 'monthly',
-    Yearly: 'yearly',
-    EachWeekday: 'each weekday'
-} as const;
+  Once: 'once',
+  Daily: 'daily',
+  Weekly: 'weekly',
+  Fortnightly: 'fortnightly',
+  Monthly: 'monthly',
+  Yearly: 'yearly',
+  EachWeekday: 'each weekday',
+} as const
 
-export type RepeatType = typeof RepeatType[keyof typeof RepeatType];
-
-
+export type RepeatType = (typeof RepeatType)[keyof typeof RepeatType]

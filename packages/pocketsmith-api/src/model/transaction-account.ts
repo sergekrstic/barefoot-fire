@@ -12,129 +12,126 @@
  * Do not edit the class manually.
  */
 
-
 // May contain unused imports in some cases
 // @ts-ignore
-import type { Institution } from './institution';
+import type { Institution } from './institution'
 
 /**
- * 
+ *
  * @export
  * @interface TransactionAccount
  */
 export interface TransactionAccount {
-    /**
-     * 
-     * @type {number}
-     * @memberof TransactionAccount
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'number'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof TransactionAccount
-     */
-    'current_balance'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'current_balance_date'?: string;
-    /**
-     * The current balance of the transaction account in the user\'s base currency.
-     * @type {number}
-     * @memberof TransactionAccount
-     */
-    'current_balance_in_base_currency'?: number;
-    /**
-     * The exchange rate between the transaction account\'s currency and the user\'s base currency, when different. If the currencies are the same, null is returned.
-     * @type {number}
-     * @memberof TransactionAccount
-     */
-    'current_balance_exchange_rate'?: number;
-    /**
-     * The current safe balance, if safe balance is activated and available for the transaction account. If safe balance is not available, then null is returned.
-     * @type {number}
-     * @memberof TransactionAccount
-     */
-    'safe_balance'?: number;
-    /**
-     * The current safe balance in the user\'s base currency, if safe balance is activated and available for the transaction account. If safe balance is not available, then null is returned.
-     * @type {number}
-     * @memberof TransactionAccount
-     */
-    'safe_balance_in_base_currency'?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof TransactionAccount
-     */
-    'starting_balance'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'starting_balance_date'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'created_at'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'updated_at'?: string;
-    /**
-     * 
-     * @type {Institution}
-     * @memberof TransactionAccount
-     */
-    'institution'?: Institution;
-    /**
-     * The currency that the account is in. This is determined by the account that the transaction account belongs to.
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'currency_code'?: string;
-    /**
-     * The type of the transaction account.
-     * @type {string}
-     * @memberof TransactionAccount
-     */
-    'type'?: Type;
+  /**
+   *
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  id?: number
+  /**
+   *
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  name?: string
+  /**
+   *
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  number?: string
+  /**
+   *
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  current_balance?: number
+  /**
+   *
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  current_balance_date?: string
+  /**
+   * The current balance of the transaction account in the user\'s base currency.
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  current_balance_in_base_currency?: number
+  /**
+   * The exchange rate between the transaction account\'s currency and the user\'s base currency, when different. If the currencies are the same, null is returned.
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  current_balance_exchange_rate?: number
+  /**
+   * The current safe balance, if safe balance is activated and available for the transaction account. If safe balance is not available, then null is returned.
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  safe_balance?: number
+  /**
+   * The current safe balance in the user\'s base currency, if safe balance is activated and available for the transaction account. If safe balance is not available, then null is returned.
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  safe_balance_in_base_currency?: number
+  /**
+   *
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  starting_balance?: number
+  /**
+   *
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  starting_balance_date?: string
+  /**
+   *
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  created_at?: string
+  /**
+   *
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  updated_at?: string
+  /**
+   *
+   * @type {Institution}
+   * @memberof TransactionAccount
+   */
+  institution?: Institution
+  /**
+   * The currency that the account is in. This is determined by the account that the transaction account belongs to.
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  currency_code?: string
+  /**
+   * The type of the transaction account.
+   * @type {string}
+   * @memberof TransactionAccount
+   */
+  type?: Type
 }
 
 export const Type = {
-    Bank: 'bank',
-    Credits: 'credits',
-    Cash: 'cash',
-    Stocks: 'stocks',
-    Mortgage: 'mortgage',
-    Loans: 'loans',
-    Vehicle: 'vehicle',
-    Property: 'property',
-    Insurance: 'insurance',
-    OtherAsset: 'other_asset',
-    OtherLiability: 'other_liability'
-} as const;
+  Bank: 'bank',
+  Credits: 'credits',
+  Cash: 'cash',
+  Stocks: 'stocks',
+  Mortgage: 'mortgage',
+  Loans: 'loans',
+  Vehicle: 'vehicle',
+  Property: 'property',
+  Insurance: 'insurance',
+  OtherAsset: 'other_asset',
+  OtherLiability: 'other_liability',
+} as const
 
-export type Type = typeof Type[keyof typeof Type];
-
-
+export type Type = (typeof Type)[keyof typeof Type]

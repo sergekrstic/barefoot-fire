@@ -12,37 +12,34 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface SavedSearch
  */
 export interface SavedSearch {
-    /**
-     * The unique identifier of the saved search.
-     * @type {number}
-     * @memberof SavedSearch
-     */
-    'id'?: number;
-    /**
-     * The title of the saved search.
-     * @type {string}
-     * @memberof SavedSearch
-     */
-    'title'?: string;
-    /**
-     * When the saved search was created.
-     * @type {string}
-     * @memberof SavedSearch
-     */
-    'created_at'?: string;
-    /**
-     * When the saved search was last updated.
-     * @type {string}
-     * @memberof SavedSearch
-     */
-    'updated_at'?: string;
+  /**
+   * The unique identifier of the saved search.
+   * @type {number}
+   * @memberof SavedSearch
+   */
+  id?: number
+  /**
+   * The title of the saved search.
+   * @type {string}
+   * @memberof SavedSearch
+   */
+  title?: string
+  /**
+   * When the saved search was created.
+   * @type {string}
+   * @memberof SavedSearch
+   */
+  created_at?: string
+  /**
+   * When the saved search was last updated.
+   * @type {string}
+   * @memberof SavedSearch
+   */
+  updated_at?: string
 }
-

@@ -12,25 +12,22 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface AttachmentVariants
  */
 export interface AttachmentVariants {
-    /**
-     * The url of the large version of the attachment.
-     * @type {string}
-     * @memberof AttachmentVariants
-     */
-    'large_url'?: string;
-    /**
-     * The url of the thumb version of the attachment.
-     * @type {string}
-     * @memberof AttachmentVariants
-     */
-    'thumb_url'?: string;
+  /**
+   * The url of the large version of the attachment.
+   * @type {string}
+   * @memberof AttachmentVariants
+   */
+  large_url?: string
+  /**
+   * The url of the thumb version of the attachment.
+   * @type {string}
+   * @memberof AttachmentVariants
+   */
+  thumb_url?: string
 }
-

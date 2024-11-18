@@ -12,19 +12,16 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface TransactionsIdAttachmentsPostRequest
  */
 export interface TransactionsIdAttachmentsPostRequest {
-    /**
-     * The unique identifier of the attachment.
-     * @type {number}
-     * @memberof TransactionsIdAttachmentsPostRequest
-     */
-    'attachment_id'?: number;
+  /**
+   * The unique identifier of the attachment.
+   * @type {number}
+   * @memberof TransactionsIdAttachmentsPostRequest
+   */
+  attachment_id?: number
 }
-

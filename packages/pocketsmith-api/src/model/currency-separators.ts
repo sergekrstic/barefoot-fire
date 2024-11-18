@@ -12,25 +12,22 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface CurrencySeparators
  */
 export interface CurrencySeparators {
-    /**
-     * The separator used in the major unit.
-     * @type {string}
-     * @memberof CurrencySeparators
-     */
-    'major'?: string;
-    /**
-     * The seperator used for the minor unit.
-     * @type {string}
-     * @memberof CurrencySeparators
-     */
-    'minor'?: string;
+  /**
+   * The separator used in the major unit.
+   * @type {string}
+   * @memberof CurrencySeparators
+   */
+  major?: string
+  /**
+   * The seperator used for the minor unit.
+   * @type {string}
+   * @memberof CurrencySeparators
+   */
+  minor?: string
 }
-

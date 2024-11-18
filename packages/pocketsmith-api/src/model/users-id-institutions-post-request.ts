@@ -12,25 +12,22 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface UsersIdInstitutionsPostRequest
  */
 export interface UsersIdInstitutionsPostRequest {
-    /**
-     * A title for the institution.
-     * @type {string}
-     * @memberof UsersIdInstitutionsPostRequest
-     */
-    'title': string;
-    /**
-     * A currency code for the institution.
-     * @type {string}
-     * @memberof UsersIdInstitutionsPostRequest
-     */
-    'currency_code': string;
+  /**
+   * A title for the institution.
+   * @type {string}
+   * @memberof UsersIdInstitutionsPostRequest
+   */
+  title: string
+  /**
+   * A currency code for the institution.
+   * @type {string}
+   * @memberof UsersIdInstitutionsPostRequest
+   */
+  currency_code: string
 }
-

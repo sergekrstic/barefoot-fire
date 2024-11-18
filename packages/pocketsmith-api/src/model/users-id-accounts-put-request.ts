@@ -12,22 +12,20 @@
  * Do not edit the class manually.
  */
 
-
 // May contain unused imports in some cases
 // @ts-ignore
-import type { Account } from './account';
+import type { Account } from './account'
 
 /**
- * 
+ *
  * @export
  * @interface UsersIdAccountsPutRequest
  */
 export interface UsersIdAccountsPutRequest {
-    /**
-     * List the account objects in their new display order.
-     * @type {Array<Account>}
-     * @memberof UsersIdAccountsPutRequest
-     */
-    'accounts': Array<Account>;
+  /**
+   * List the account objects in their new display order.
+   * @type {Array<Account>}
+   * @memberof UsersIdAccountsPutRequest
+   */
+  accounts: Array<Account>
 }
-

@@ -12,25 +12,22 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface InstitutionsIdPutRequest
  */
 export interface InstitutionsIdPutRequest {
-    /**
-     * A new title for the institution.
-     * @type {string}
-     * @memberof InstitutionsIdPutRequest
-     */
-    'title'?: string;
-    /**
-     * A new currency code for the institution.
-     * @type {string}
-     * @memberof InstitutionsIdPutRequest
-     */
-    'currency_code'?: string;
+  /**
+   * A new title for the institution.
+   * @type {string}
+   * @memberof InstitutionsIdPutRequest
+   */
+  title?: string
+  /**
+   * A new currency code for the institution.
+   * @type {string}
+   * @memberof InstitutionsIdPutRequest
+   */
+  currency_code?: string
 }
-

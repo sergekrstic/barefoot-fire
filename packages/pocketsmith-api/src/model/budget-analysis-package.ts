@@ -12,43 +12,41 @@
  * Do not edit the class manually.
  */
 
-
 // May contain unused imports in some cases
 // @ts-ignore
-import type { BudgetAnalysis } from './budget-analysis';
+import type { BudgetAnalysis } from './budget-analysis'
 // May contain unused imports in some cases
 // @ts-ignore
-import type { Category } from './category';
+import type { Category } from './category'
 
 /**
- * 
+ *
  * @export
  * @interface BudgetAnalysisPackage
  */
 export interface BudgetAnalysisPackage {
-    /**
-     * 
-     * @type {Category}
-     * @memberof BudgetAnalysisPackage
-     */
-    'category'?: Category;
-    /**
-     * Whether the expense budget analysis looks like a transfer to the income budget analysis, based on a number of heuristics.
-     * @type {boolean}
-     * @memberof BudgetAnalysisPackage
-     */
-    'is_transfer'?: boolean;
-    /**
-     * 
-     * @type {BudgetAnalysis}
-     * @memberof BudgetAnalysisPackage
-     */
-    'expense'?: BudgetAnalysis;
-    /**
-     * 
-     * @type {BudgetAnalysis}
-     * @memberof BudgetAnalysisPackage
-     */
-    'income'?: BudgetAnalysis;
+  /**
+   *
+   * @type {Category}
+   * @memberof BudgetAnalysisPackage
+   */
+  category?: Category
+  /**
+   * Whether the expense budget analysis looks like a transfer to the income budget analysis, based on a number of heuristics.
+   * @type {boolean}
+   * @memberof BudgetAnalysisPackage
+   */
+  is_transfer?: boolean
+  /**
+   *
+   * @type {BudgetAnalysis}
+   * @memberof BudgetAnalysisPackage
+   */
+  expense?: BudgetAnalysis
+  /**
+   *
+   * @type {BudgetAnalysis}
+   * @memberof BudgetAnalysisPackage
+   */
+  income?: BudgetAnalysis
 }
-

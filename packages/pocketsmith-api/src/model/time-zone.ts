@@ -12,49 +12,46 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface TimeZone
  */
 export interface TimeZone {
-    /**
-     * The name of the time zone.
-     * @type {string}
-     * @memberof TimeZone
-     */
-    'name'?: string;
-    /**
-     * The time zone\'s UTC offset in seconds.
-     * @type {number}
-     * @memberof TimeZone
-     */
-    'utc_offset'?: number;
-    /**
-     * The formatted name of the time zone.
-     * @type {string}
-     * @memberof TimeZone
-     */
-    'formatted_name'?: string;
-    /**
-     * The formatted offset of the time zone.
-     * @type {string}
-     * @memberof TimeZone
-     */
-    'formatted_offset'?: string;
-    /**
-     * The abbreviation of the time zone.
-     * @type {string}
-     * @memberof TimeZone
-     */
-    'abbreviation'?: string;
-    /**
-     * The tz database name of the time zone.
-     * @type {string}
-     * @memberof TimeZone
-     */
-    'identifier'?: string;
+  /**
+   * The name of the time zone.
+   * @type {string}
+   * @memberof TimeZone
+   */
+  name?: string
+  /**
+   * The time zone\'s UTC offset in seconds.
+   * @type {number}
+   * @memberof TimeZone
+   */
+  utc_offset?: number
+  /**
+   * The formatted name of the time zone.
+   * @type {string}
+   * @memberof TimeZone
+   */
+  formatted_name?: string
+  /**
+   * The formatted offset of the time zone.
+   * @type {string}
+   * @memberof TimeZone
+   */
+  formatted_offset?: string
+  /**
+   * The abbreviation of the time zone.
+   * @type {string}
+   * @memberof TimeZone
+   */
+  abbreviation?: string
+  /**
+   * The tz database name of the time zone.
+   * @type {string}
+   * @memberof TimeZone
+   */
+  identifier?: string
 }
-

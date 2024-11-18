@@ -1,20 +1,20 @@
-import { config } from "dotenv";
-import { z } from "zod";
+import { config } from 'dotenv'
+import { z } from 'zod'
 
-const result = config();
+const result = config()
 
 if (result.error) {
-	throw result.error;
+  throw result.error
 }
 
-console.log(result.parsed);
+console.log(result.parsed)
 
 const envSchema = z.object({
-	POCKETSMITH_API_KEY: z.string(),
-});
+  POCKETSMITH_API_KEY: z.string(),
+})
 
-const env = envSchema.parse(process.env);
+const env = envSchema.parse(process.env)
 
 export const appConfig = {
-	pocketSmithApiKey: env.POCKETSMITH_API_KEY,
-};
+  pocketSmithApiKey: env.POCKETSMITH_API_KEY,
+}

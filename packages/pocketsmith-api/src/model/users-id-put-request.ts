@@ -12,55 +12,52 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface UsersIdPutRequest
  */
 export interface UsersIdPutRequest {
-    /**
-     * A new email address for the user.
-     * @type {string}
-     * @memberof UsersIdPutRequest
-     */
-    'email'?: string;
-    /**
-     * A new name for the user.
-     * @type {string}
-     * @memberof UsersIdPutRequest
-     */
-    'name'?: string;
-    /**
-     * A new time zone for the user.
-     * @type {string}
-     * @memberof UsersIdPutRequest
-     */
-    'time_zone'?: string;
-    /**
-     * The day of the week the user wishes their calendars to start on. A number between 0 and 6, where 0 is Sunday and 6 is Saturday.
-     * @type {number}
-     * @memberof UsersIdPutRequest
-     */
-    'week_start_day'?: number;
-    /**
-     * Whether the user is a beta user, and wishes to try out new features.
-     * @type {boolean}
-     * @memberof UsersIdPutRequest
-     */
-    'beta_user'?: boolean;
-    /**
-     * A new base currency code for the user.
-     * @type {string}
-     * @memberof UsersIdPutRequest
-     */
-    'base_currency_code'?: string;
-    /**
-     * Whether the user wishes to have all monetary values converted to their base currency.
-     * @type {boolean}
-     * @memberof UsersIdPutRequest
-     */
-    'always_show_base_currency'?: boolean;
+  /**
+   * A new email address for the user.
+   * @type {string}
+   * @memberof UsersIdPutRequest
+   */
+  email?: string
+  /**
+   * A new name for the user.
+   * @type {string}
+   * @memberof UsersIdPutRequest
+   */
+  name?: string
+  /**
+   * A new time zone for the user.
+   * @type {string}
+   * @memberof UsersIdPutRequest
+   */
+  time_zone?: string
+  /**
+   * The day of the week the user wishes their calendars to start on. A number between 0 and 6, where 0 is Sunday and 6 is Saturday.
+   * @type {number}
+   * @memberof UsersIdPutRequest
+   */
+  week_start_day?: number
+  /**
+   * Whether the user is a beta user, and wishes to try out new features.
+   * @type {boolean}
+   * @memberof UsersIdPutRequest
+   */
+  beta_user?: boolean
+  /**
+   * A new base currency code for the user.
+   * @type {string}
+   * @memberof UsersIdPutRequest
+   */
+  base_currency_code?: string
+  /**
+   * Whether the user wishes to have all monetary values converted to their base currency.
+   * @type {boolean}
+   * @memberof UsersIdPutRequest
+   */
+  always_show_base_currency?: boolean
 }
-

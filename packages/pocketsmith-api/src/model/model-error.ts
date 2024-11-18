@@ -12,19 +12,16 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface ModelError
  */
 export interface ModelError {
-    /**
-     * A message describing the error that occurred.
-     * @type {string}
-     * @memberof ModelError
-     */
-    'error'?: string;
+  /**
+   * A message describing the error that occurred.
+   * @type {string}
+   * @memberof ModelError
+   */
+  error?: string
 }
-

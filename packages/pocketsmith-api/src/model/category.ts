@@ -12,87 +12,83 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface Category
  */
 export interface Category {
-    /**
-     * The unique identifier of the category.
-     * @type {number}
-     * @memberof Category
-     */
-    'id'?: number;
-    /**
-     * The title of the category.
-     * @type {string}
-     * @memberof Category
-     */
-    'title'?: string;
-    /**
-     * The colour for the category.
-     * @type {string}
-     * @memberof Category
-     */
-    'colour'?: string;
-    /**
-     * The category\'s child categories.
-     * @type {Array<Category>}
-     * @memberof Category
-     */
-    'children'?: Array<Category>;
-    /**
-     * The unique identifier of the parent category of this category, or null if this category has no parent (i.e. is a top-level category)
-     * @type {number}
-     * @memberof Category
-     */
-    'parent_id'?: number;
-    /**
-     * Whether this category has been marked as a transfer category.
-     * @type {boolean}
-     * @memberof Category
-     */
-    'is_transfer'?: boolean;
-    /**
-     * Whether the category is a bill category. A bill category is when budgeted amounts are normally spent at once, instead of spread across a budgeting period. This category will be included in the bill reminder email when set to true.
-     * @type {boolean}
-     * @memberof Category
-     */
-    'is_bill'?: boolean;
-    /**
-     * Whether the category\'s budget is rolled up into its parent category, if a parent category is present.
-     * @type {boolean}
-     * @memberof Category
-     */
-    'roll_up'?: boolean;
-    /**
-     * How the category\'s refunds or deductions should be reported on.
-     * @type {string}
-     * @memberof Category
-     */
-    'refund_behaviour'?: RefundBehaviour | null;
-    /**
-     * When the category was created.
-     * @type {string}
-     * @memberof Category
-     */
-    'created_at'?: string;
-    /**
-     * When the category was last updated.
-     * @type {string}
-     * @memberof Category
-     */
-    'updated_at'?: string;
+  /**
+   * The unique identifier of the category.
+   * @type {number}
+   * @memberof Category
+   */
+  id?: number
+  /**
+   * The title of the category.
+   * @type {string}
+   * @memberof Category
+   */
+  title?: string
+  /**
+   * The colour for the category.
+   * @type {string}
+   * @memberof Category
+   */
+  colour?: string
+  /**
+   * The category\'s child categories.
+   * @type {Array<Category>}
+   * @memberof Category
+   */
+  children?: Array<Category>
+  /**
+   * The unique identifier of the parent category of this category, or null if this category has no parent (i.e. is a top-level category)
+   * @type {number}
+   * @memberof Category
+   */
+  parent_id?: number
+  /**
+   * Whether this category has been marked as a transfer category.
+   * @type {boolean}
+   * @memberof Category
+   */
+  is_transfer?: boolean
+  /**
+   * Whether the category is a bill category. A bill category is when budgeted amounts are normally spent at once, instead of spread across a budgeting period. This category will be included in the bill reminder email when set to true.
+   * @type {boolean}
+   * @memberof Category
+   */
+  is_bill?: boolean
+  /**
+   * Whether the category\'s budget is rolled up into its parent category, if a parent category is present.
+   * @type {boolean}
+   * @memberof Category
+   */
+  roll_up?: boolean
+  /**
+   * How the category\'s refunds or deductions should be reported on.
+   * @type {string}
+   * @memberof Category
+   */
+  refund_behaviour?: RefundBehaviour | null
+  /**
+   * When the category was created.
+   * @type {string}
+   * @memberof Category
+   */
+  created_at?: string
+  /**
+   * When the category was last updated.
+   * @type {string}
+   * @memberof Category
+   */
+  updated_at?: string
 }
 
 export const RefundBehaviour = {
-    DebitsAreDeductions: 'debits_are_deductions',
-    CreditsAreRefunds: 'credits_are_refunds'
-} as const;
+  DebitsAreDeductions: 'debits_are_deductions',
+  CreditsAreRefunds: 'credits_are_refunds',
+} as const
 
-export type RefundBehaviour = typeof RefundBehaviour[keyof typeof RefundBehaviour];
-
-
+export type RefundBehaviour = (typeof RefundBehaviour)[keyof typeof RefundBehaviour]

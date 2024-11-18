@@ -12,31 +12,28 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface CategoriesIdCategoryRulesPostRequest
  */
 export interface CategoriesIdCategoryRulesPostRequest {
-    /**
-     * The keyword/s to match the transaction payees.
-     * @type {string}
-     * @memberof CategoriesIdCategoryRulesPostRequest
-     */
-    'payee_matches': string;
-    /**
-     * Apply the created category rule to all uncategorised transactions.
-     * @type {boolean}
-     * @memberof CategoriesIdCategoryRulesPostRequest
-     */
-    'apply_to_uncategorised'?: boolean;
-    /**
-     * Apply the created category rule to all transactions.
-     * @type {boolean}
-     * @memberof CategoriesIdCategoryRulesPostRequest
-     */
-    'apply_to_all'?: boolean;
+  /**
+   * The keyword/s to match the transaction payees.
+   * @type {string}
+   * @memberof CategoriesIdCategoryRulesPostRequest
+   */
+  payee_matches: string
+  /**
+   * Apply the created category rule to all uncategorised transactions.
+   * @type {boolean}
+   * @memberof CategoriesIdCategoryRulesPostRequest
+   */
+  apply_to_uncategorised?: boolean
+  /**
+   * Apply the created category rule to all transactions.
+   * @type {boolean}
+   * @memberof CategoriesIdCategoryRulesPostRequest
+   */
+  apply_to_all?: boolean
 }
-

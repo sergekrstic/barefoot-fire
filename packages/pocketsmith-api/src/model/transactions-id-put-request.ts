@@ -12,73 +12,70 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface TransactionsIdPutRequest
  */
 export interface TransactionsIdPutRequest {
-    /**
-     * A new memo for the transaction.
-     * @type {string}
-     * @memberof TransactionsIdPutRequest
-     */
-    'memo'?: string;
-    /**
-     * A new cheque number for the transaction.
-     * @type {string}
-     * @memberof TransactionsIdPutRequest
-     */
-    'cheque_number'?: string;
-    /**
-     * A new payee for the transaction.
-     * @type {string}
-     * @memberof TransactionsIdPutRequest
-     */
-    'payee'?: string;
-    /**
-     * A new amount for the transaction.
-     * @type {number}
-     * @memberof TransactionsIdPutRequest
-     */
-    'amount'?: number;
-    /**
-     * A new date for the transaction.
-     * @type {string}
-     * @memberof TransactionsIdPutRequest
-     */
-    'date'?: string;
-    /**
-     * Whether the transaction is a transfer or not.
-     * @type {boolean}
-     * @memberof TransactionsIdPutRequest
-     */
-    'is_transfer'?: boolean;
-    /**
-     * The unique identifier of a new category for the transaction.
-     * @type {number}
-     * @memberof TransactionsIdPutRequest
-     */
-    'category_id'?: number;
-    /**
-     * A new note for the transaction.
-     * @type {string}
-     * @memberof TransactionsIdPutRequest
-     */
-    'note'?: string;
-    /**
-     * Whether the transaction needs to be reviewed or not.
-     * @type {boolean}
-     * @memberof TransactionsIdPutRequest
-     */
-    'needs_review'?: boolean;
-    /**
-     * A new comma-separated set of labels for the transaction.
-     * @type {string}
-     * @memberof TransactionsIdPutRequest
-     */
-    'labels'?: string;
+  /**
+   * A new memo for the transaction.
+   * @type {string}
+   * @memberof TransactionsIdPutRequest
+   */
+  memo?: string
+  /**
+   * A new cheque number for the transaction.
+   * @type {string}
+   * @memberof TransactionsIdPutRequest
+   */
+  cheque_number?: string
+  /**
+   * A new payee for the transaction.
+   * @type {string}
+   * @memberof TransactionsIdPutRequest
+   */
+  payee?: string
+  /**
+   * A new amount for the transaction.
+   * @type {number}
+   * @memberof TransactionsIdPutRequest
+   */
+  amount?: number
+  /**
+   * A new date for the transaction.
+   * @type {string}
+   * @memberof TransactionsIdPutRequest
+   */
+  date?: string
+  /**
+   * Whether the transaction is a transfer or not.
+   * @type {boolean}
+   * @memberof TransactionsIdPutRequest
+   */
+  is_transfer?: boolean
+  /**
+   * The unique identifier of a new category for the transaction.
+   * @type {number}
+   * @memberof TransactionsIdPutRequest
+   */
+  category_id?: number
+  /**
+   * A new note for the transaction.
+   * @type {string}
+   * @memberof TransactionsIdPutRequest
+   */
+  note?: string
+  /**
+   * Whether the transaction needs to be reviewed or not.
+   * @type {boolean}
+   * @memberof TransactionsIdPutRequest
+   */
+  needs_review?: boolean
+  /**
+   * A new comma-separated set of labels for the transaction.
+   * @type {string}
+   * @memberof TransactionsIdPutRequest
+   */
+  labels?: string
 }
-

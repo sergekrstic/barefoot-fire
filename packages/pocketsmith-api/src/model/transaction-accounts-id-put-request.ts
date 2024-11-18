@@ -12,31 +12,28 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface TransactionAccountsIdPutRequest
  */
 export interface TransactionAccountsIdPutRequest {
-    /**
-     * The unique identifier of a new institution for the transaction account.
-     * @type {number}
-     * @memberof TransactionAccountsIdPutRequest
-     */
-    'institution_id'?: number;
-    /**
-     * The starting balance amount of the transaction account.
-     * @type {number}
-     * @memberof TransactionAccountsIdPutRequest
-     */
-    'starting_balance'?: number;
-    /**
-     * The starting balance date of the transaction account.
-     * @type {string}
-     * @memberof TransactionAccountsIdPutRequest
-     */
-    'starting_balance_date'?: string;
+  /**
+   * The unique identifier of a new institution for the transaction account.
+   * @type {number}
+   * @memberof TransactionAccountsIdPutRequest
+   */
+  institution_id?: number
+  /**
+   * The starting balance amount of the transaction account.
+   * @type {number}
+   * @memberof TransactionAccountsIdPutRequest
+   */
+  starting_balance?: number
+  /**
+   * The starting balance date of the transaction account.
+   * @type {string}
+   * @memberof TransactionAccountsIdPutRequest
+   */
+  starting_balance_date?: string
 }
-

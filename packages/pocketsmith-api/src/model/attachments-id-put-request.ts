@@ -12,19 +12,16 @@
  * Do not edit the class manually.
  */
 
-
-
 /**
- * 
+ *
  * @export
  * @interface AttachmentsIdPutRequest
  */
 export interface AttachmentsIdPutRequest {
-    /**
-     * The new title of the attachment. If the title is blank or not provided, the server will derive a title from the file name.
-     * @type {string}
-     * @memberof AttachmentsIdPutRequest
-     */
-    'title'?: string;
+  /**
+   * The new title of the attachment. If the title is blank or not provided, the server will derive a title from the file name.
+   * @type {string}
+   * @memberof AttachmentsIdPutRequest
+   */
+  title?: string
 }
-
