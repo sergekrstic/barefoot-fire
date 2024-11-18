@@ -47,6 +47,6 @@ export class BarefootFirePlugin extends Plugin {
     }
 
     // "Reveal" the leaf in case it is in a collapsed sidebar
-    leaf && workspace.revealLeaf(leaf)
+    if (leaf) workspace.revealLeaf(leaf)
   }
 }
