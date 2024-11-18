@@ -48,7 +48,7 @@ export interface Account {
    * @type {string}
    * @memberof Account
    */
-  type?: Type
+  type?: AccountType
   /**
    * Whether the account is a net worth asset.
    * @type {boolean}
@@ -129,13 +129,13 @@ export interface Account {
   safe_balance_in_base_currency?: number
 }
 
-export const Type = {
+export const AccountType = {
   Bank: 'bank',
   Credits: 'credits',
   Cash: 'cash',
-  Stocks: 'stocks',
-  Mortgage: 'mortgage',
   Loans: 'loans',
+  Mortgage: 'mortgage',
+  Stocks: 'stocks',
   Vehicle: 'vehicle',
   Property: 'property',
   Insurance: 'insurance',
@@ -143,4 +143,4 @@ export const Type = {
   OtherLiability: 'other_liability',
 } as const
 
-export type Type = (typeof Type)[keyof typeof Type]
+export type AccountType = (typeof AccountType)[keyof typeof AccountType]

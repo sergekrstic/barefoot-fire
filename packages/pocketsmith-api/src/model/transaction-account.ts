@@ -14,6 +14,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { AccountType } from './account'
 import type { Institution } from './institution'
 
 /**
@@ -117,21 +118,5 @@ export interface TransactionAccount {
    * @type {string}
    * @memberof TransactionAccount
    */
-  type?: Type
+  type?: AccountType
 }
-
-export const Type = {
-  Bank: 'bank',
-  Credits: 'credits',
-  Cash: 'cash',
-  Stocks: 'stocks',
-  Mortgage: 'mortgage',
-  Loans: 'loans',
-  Vehicle: 'vehicle',
-  Property: 'property',
-  Insurance: 'insurance',
-  OtherAsset: 'other_asset',
-  OtherLiability: 'other_liability',
-} as const
-
-export type Type = (typeof Type)[keyof typeof Type]

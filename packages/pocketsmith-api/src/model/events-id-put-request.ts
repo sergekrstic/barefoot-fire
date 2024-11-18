@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { RepeatType } from './event'
+
 /**
  *
  * @export
@@ -57,14 +59,3 @@ export const Behaviour = {
 } as const
 
 export type Behaviour = (typeof Behaviour)[keyof typeof Behaviour]
-export const RepeatType = {
-  Once: 'once',
-  Daily: 'daily',
-  Weekly: 'weekly',
-  Fortnightly: 'fortnightly',
-  Monthly: 'monthly',
-  Yearly: 'yearly',
-  EachWeekday: 'each weekday',
-} as const
-
-export type RepeatType = (typeof RepeatType)[keyof typeof RepeatType]

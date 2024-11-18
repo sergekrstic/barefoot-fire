@@ -36,7 +36,7 @@ export interface Transaction {
    * @type {string}
    * @memberof Transaction
    */
-  type?: Type
+  type?: TransactionType
   /**
    *
    * @type {string}
@@ -147,12 +147,13 @@ export interface Transaction {
   updated_at?: string
 }
 
-export const Type = {
+export const TransactionType = {
   Debit: 'debit',
   Credit: 'credit',
 } as const
 
-export type Type = (typeof Type)[keyof typeof Type]
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
 export const Status = {
   Pending: 'pending',
   Posted: 'posted',

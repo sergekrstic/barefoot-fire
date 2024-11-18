@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { RefundBehaviour } from './category'
+
 /**
  *
  * @export
@@ -61,10 +63,3 @@ export interface CategoriesIdPutRequest {
    */
   refund_behaviour?: RefundBehaviour | null
 }
-
-export const RefundBehaviour = {
-  DebitsAreDeductions: 'debits_are_deductions',
-  CreditsAreRefunds: 'credits_are_refunds',
-} as const
-
-export type RefundBehaviour = (typeof RefundBehaviour)[keyof typeof RefundBehaviour]

@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { AccountType } from './account'
+
 /**
  *
  * @export
@@ -35,7 +37,7 @@ export interface AccountsIdPutRequest {
    * @type {string}
    * @memberof AccountsIdPutRequest
    */
-  type?: Type
+  type?: AccountType
   /**
    * Whether the account is a net worth account.
    * @type {boolean}
@@ -43,19 +45,3 @@ export interface AccountsIdPutRequest {
    */
   is_net_worth?: boolean
 }
-
-export const Type = {
-  Bank: 'bank',
-  Credits: 'credits',
-  Cash: 'cash',
-  Loans: 'loans',
-  Mortgage: 'mortgage',
-  Stocks: 'stocks',
-  Vehicle: 'vehicle',
-  Property: 'property',
-  Insurance: 'insurance',
-  OtherAsset: 'other_asset',
-  OtherLiability: 'other_liability',
-} as const
-
-export type Type = (typeof Type)[keyof typeof Type]

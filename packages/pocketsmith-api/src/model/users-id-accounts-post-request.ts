@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { AccountType } from './account'
+
 /**
  *
  * @export
@@ -41,21 +43,5 @@ export interface UsersIdAccountsPostRequest {
    * @type {string}
    * @memberof UsersIdAccountsPostRequest
    */
-  type: Type
+  type: AccountType
 }
-
-export const Type = {
-  Bank: 'bank',
-  Credits: 'credits',
-  Cash: 'cash',
-  Loans: 'loans',
-  Mortgage: 'mortgage',
-  Stocks: 'stocks',
-  Vehicle: 'vehicle',
-  Property: 'property',
-  Insurance: 'insurance',
-  OtherAsset: 'other_asset',
-  OtherLiability: 'other_liability',
-} as const
-
-export type Type = (typeof Type)[keyof typeof Type]
