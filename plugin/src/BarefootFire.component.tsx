@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 // Todo: Figure out to import local pnpm package
-import { createPocketSmithApi } from '../../packages/pocketsmith-api/src/index'
+import { createPocketSmithApi } from '../../packages/pocketsmith-api/src/generated-api-2-refactored/index'
 // import { createPocketSmithApi } from "@fire/pocketsmith-api";
 //
 import { EyeIcon, EyeOffIcon } from 'assets'
