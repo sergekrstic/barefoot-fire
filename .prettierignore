@@ -1,0 +1,7 @@
+dist
+node_modules
+
+# Ignore all plugin output files
+main.js
+data.json
+manifest.json
