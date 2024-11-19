@@ -11,8 +11,11 @@
     "generate:api": "rm -rf src/generated-api; openapi-generator generate -i ./src/config/pocketsmith.openapi.json -g typescript-axios -o src/generated-api --skip-validate-spec --additional-properties=useSingleRequestParameter=true,withoutPrefixEnums=true,enumNameSuffix=,withSeparateModelsAndApi=true,apiPackage=server,modelPackage=model --openapi-normalizer REFACTOR_ALLOF_WITH_PROPERTIES_ONLY=true"
   },
   "dependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
     "dotenv": "^16.4.5",
+    "tslib": "2.8.1",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "zod": "^3.23.8"
