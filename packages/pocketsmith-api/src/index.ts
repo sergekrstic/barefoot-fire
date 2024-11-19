@@ -34,7 +34,24 @@ import {
   UsersApi,
 } from './api'
 
-export function createPocketSmithApi(pocketSmithApiKey: string) {
+export interface PocketSmithApi {
+  users: UsersApi
+  institutions: InstitutionsApi
+  accounts: AccountsApi
+  transactionAccounts: TransactionAccountsApi
+  transactions: TransactionsApi
+  categories: CategoriesApi
+  categoryRules: CategoryRulesApi
+  budgeting: BudgetingApi
+  events: EventsApi
+  attachments: AttachmentsApi
+  labels: LabelsApi
+  savedSearches: SavedSearchesApi
+  currencies: CurrenciesApi
+  timeZones: TimeZonesApi
+}
+
+export function createPocketSmithApi(pocketSmithApiKey: string): PocketSmithApi {
   const configuration = new Configuration({ apiKey: pocketSmithApiKey })
   return {
     users: new UsersApi(configuration),
