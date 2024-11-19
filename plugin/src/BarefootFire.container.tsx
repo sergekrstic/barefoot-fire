@@ -1,10 +1,13 @@
 import { StrictMode } from 'react'
 import { Root, createRoot } from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ItemView, WorkspaceLeaf } from 'obsidian'
 
 import { BarefootFireComponent } from './BarefootFire.component'
 import { BAREFOOT_FIRE_VIEW_TYPE } from './BarefootFire.defaults'
 import { BarefootFirePluginSettings } from 'BarefootFire.types'
+
+const queryClient = new QueryClient()
 
 export class BarefootFireContainer extends ItemView {
   root: Root | null = null
@@ -27,7 +30,9 @@ export class BarefootFireContainer extends ItemView {
     this.root = createRoot(this.containerEl.children[1])
     this.root.render(
       <StrictMode>
-        <BarefootFireComponent settings={this.settings} />
+        <QueryClientProvider client={queryClient}>
+          <BarefootFireComponent settings={this.settings} />
+        </QueryClientProvider>
       </StrictMode>,
     )
   }

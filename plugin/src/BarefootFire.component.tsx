@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-// Todo: Figure out to import local pnpm package
-import { createPocketSmithApi } from '../../packages/pocketsmith-api/src/index'
-// import { createPocketSmithApi } from "@fire/pocketsmith-api";
-//
 import { EyeIcon, EyeOffIcon } from 'assets'
+import { useCategories, usePocketsmithApi } from 'hooks'
+
 import { BarefootFirePluginSettings } from './BarefootFire.types'
 
 export interface BarefootFireComponentProps {
@@ -13,19 +11,8 @@ export interface BarefootFireComponentProps {
 
 export function BarefootFireComponent({ settings }: BarefootFireComponentProps): JSX.Element {
   const [showContent, setShowContent] = useState(false)
-  const [categories, setCategories] = useState<string[]>([])
-
-  useEffect(() => {
-    const fetchCategories = async (): Promise<void> => {
-      const api = createPocketSmithApi(settings.pocketsmithApiKey)
-      const userId = 85521
-      const response = await api.categories.usersIdCategoriesGet({ id: userId })
-      const categoryTitles = response.data.map((category) => category.title || '')
-      setCategories(categoryTitles)
-    }
-
-    void fetchCategories()
-  }, [])
+  const pocketsmithApi = usePocketsmithApi(settings.pocketsmithApiKey)
+  const { data: categories } = useCategories(pocketsmithApi)
 
   return (
     <div className="fire-container">
@@ -35,7 +22,7 @@ export function BarefootFireComponent({ settings }: BarefootFireComponentProps):
           {showContent ? <EyeOffIcon /> : <EyeIcon />}
         </button>
       </div>
-      {showContent && (
+      {showContent && categories && (
         <div className="fire-content">
           <p>
             Income: <b>$1000</b>
@@ -57,7 +44,7 @@ export function BarefootFireComponent({ settings }: BarefootFireComponentProps):
               <h4>Categories</h4>
               <ul>
                 {categories.map((category) => (
-                  <li key={category}>{category}</li>
+                  <li key={category.id}>{category.title}</li>
                 ))}
               </ul>
             </>
