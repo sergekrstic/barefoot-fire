@@ -16,29 +16,23 @@ import type { Configuration } from '../configuration'
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
 import globalAxios from 'axios'
 // Some imports not used depending on template conditions
-// @ts-ignore
 import {
   DUMMY_BASE_URL,
   assertParamExists,
   setApiKeyToObject,
-  setBasicAuthToObject,
-  setBearerAuthToObject,
-  setOAuthToObject,
   setSearchParams,
   serializeDataIfNeeded,
   toPathString,
   createRequestFunction,
 } from '../common'
-// @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base'
-// @ts-ignore
-import type { Attachment } from '../../model'
-// @ts-ignore
-import type { AttachmentsIdPutRequest } from '../../model'
-// @ts-ignore
-import type { TransactionsIdAttachmentsPostRequest } from '../../model'
-// @ts-ignore
-import type { UsersIdAttachmentsPostRequest } from '../../model'
+import { BASE_PATH, type RequestArgs, BaseAPI, operationServerMap } from '../base'
+import type { Attachment } from '../model'
+import type {
+  AttachmentsIdPutRequest,
+  TransactionsIdAttachmentsPostRequest,
+  UsersIdAttachmentsPostRequest,
+} from '../model'
+
 /**
  * AttachmentsApi - axios parameter creator
  * @export
@@ -240,8 +234,8 @@ export const AttachmentsApiAxiosParamCreator = function (configuration?: Configu
       }
     },
     /**
-     * Unassigns a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
-     * @summary Unassigns attachment in transaction
+     *  a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
+     * @summary Unassign attachment in transaction
      * @param {number} transactionId The unique identifier of the transaction.
      * @param {number} attachmentId The unique identifier of the attachment.
      * @param {*} [options] Override http request option.
@@ -505,8 +499,8 @@ export const AttachmentsApiFp = function (configuration?: Configuration) {
         )(axios, localVarOperationServerBasePath || basePath)
     },
     /**
-     * Unassigns a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
-     * @summary Unassigns attachment in transaction
+     * Unassign a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
+     * @summary Unassign attachment in transaction
      * @param {number} transactionId The unique identifier of the transaction.
      * @param {number} attachmentId The unique identifier of the attachment.
      * @param {*} [options] Override http request option.
@@ -679,8 +673,8 @@ export const AttachmentsApiFactory = function (
         .then((request) => request(axios, basePath))
     },
     /**
-     * Unassigns a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
-     * @summary Unassigns attachment in transaction
+     * Unassign a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
+     * @summary Unassign attachment in transaction
      * @param {AttachmentsApiTransactionsTransactionIdAttachmentsAttachmentIdDeleteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -968,8 +962,8 @@ export class AttachmentsApi extends BaseAPI {
   }
 
   /**
-   * Unassigns a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
-   * @summary Unassigns attachment in transaction
+   * Unassign a particular attachment by its ID from the transaction ID. This does not delete the attachment, it only removes its association from the transaction.
+   * @summary Unassign attachment in transaction
    * @param {AttachmentsApiTransactionsTransactionIdAttachmentsAttachmentIdDeleteRequest} requestParameters Request parameters.
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}

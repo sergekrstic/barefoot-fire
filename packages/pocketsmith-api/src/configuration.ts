@@ -107,7 +107,7 @@ export class Configuration {
    *   application/json; charset=UTF8
    *   APPLICATION/JSON
    *   application/vnd.company+json
-   * @param mime - MIME (Multipurpose Internet Mail Extensions)
+   * @param mime - MIME (Multi-purpose Internet Mail Extensions)
    * @return True if the given MIME is JSON, false otherwise.
    */
   public isJsonMime(mime: string): boolean {

@@ -15,30 +15,18 @@
 import type { Configuration } from '../configuration'
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
 import globalAxios from 'axios'
-// Some imports not used depending on template conditions
-// @ts-ignore
 import {
   DUMMY_BASE_URL,
   assertParamExists,
   setApiKeyToObject,
-  setBasicAuthToObject,
-  setBearerAuthToObject,
-  setOAuthToObject,
   setSearchParams,
   serializeDataIfNeeded,
   toPathString,
   createRequestFunction,
 } from '../common'
-// @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base'
-// @ts-ignore
-import type { Account } from '../../model'
-// @ts-ignore
-import type { AccountsIdPutRequest } from '../../model'
-// @ts-ignore
-import type { UsersIdAccountsPostRequest } from '../../model'
-// @ts-ignore
-import type { UsersIdAccountsPutRequest } from '../../model'
+import { BASE_PATH, type RequestArgs, BaseAPI, operationServerMap } from '../base'
+import type { Account, AccountsIdPutRequest, UsersIdAccountsPostRequest, UsersIdAccountsPutRequest } from '../model'
+
 /**
  * AccountsApi - axios parameter creator
  * @export

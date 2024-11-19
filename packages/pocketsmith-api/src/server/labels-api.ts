@@ -15,22 +15,16 @@
 import type { Configuration } from '../configuration'
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
 import globalAxios from 'axios'
-// Some imports not used depending on template conditions
-// @ts-ignore
 import {
   DUMMY_BASE_URL,
   assertParamExists,
   setApiKeyToObject,
-  setBasicAuthToObject,
-  setBearerAuthToObject,
-  setOAuthToObject,
   setSearchParams,
-  serializeDataIfNeeded,
   toPathString,
   createRequestFunction,
 } from '../common'
-// @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, type RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base'
+import { BASE_PATH, type RequestArgs, BaseAPI, operationServerMap } from '../base'
+
 /**
  * LabelsApi - axios parameter creator
  * @export
