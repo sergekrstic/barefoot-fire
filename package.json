@@ -1,19 +1,19 @@
 {
-	"name": "barefoot-fire",
-	"version": "1.0.0",
-	"description": "A financial dashboard using PocketSmith for Obsidian",
-	"keywords": [],
-	"author": "Serge Krstic",
-	"license": "MIT",
-	"scripts": {
-		"dev": "cd plugin/ && node esbuild.config.mjs",
-		"format": "pnpm run --recursive format",
-		"lint": "pnpm run --recursive lint",
-		"test": "pnpm run --recursive test",
-		"build": "pnpm run --recursive build",
-		"version": "pnpm run --recursive version"
-	},
-	"devDependencies": {
-		"prettier": "^3.3.3"
-	}
+  "name": "barefoot-fire",
+  "version": "0.0.1",
+  "description": "A financial dashboard using PocketSmith for Obsidian",
+  "keywords": [],
+  "author": "Serge Krstic",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cd plugin/ && node esbuild.config.mjs",
+    "format": "pnpm run --recursive format",
+    "lint": "pnpm run --recursive lint",
+    "test": "pnpm run --recursive test",
+    "build": "pnpm run --recursive build",
+    "version": "node version-bump.mjs && git add manifest.json versions.json"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
 }
