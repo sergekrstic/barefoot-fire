@@ -5,7 +5,7 @@ import { ItemView, WorkspaceLeaf } from 'obsidian'
 
 import { BarefootFireComponent } from './BarefootFire.component'
 import { BAREFOOT_FIRE_VIEW_TYPE } from './BarefootFire.defaults'
-import { BarefootFirePluginSettings } from 'BarefootFire.types'
+import { BarefootFirePluginSettings } from './BarefootFire.types'
 
 const queryClient = new QueryClient()
 
