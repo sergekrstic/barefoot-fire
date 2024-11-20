@@ -5,6 +5,7 @@
   "keywords": [],
   "author": "Serge Krstic",
   "license": "MIT",
+  "main": "main.js",
   "scripts": {
     "dev": "cd plugin/ && node esbuild.config.mjs",
     "format": "pnpm run --recursive format",

@@ -1,11 +1,9 @@
 {
   "name": "barefoot-fire",
-  "version": "1.0.0",
   "description": "A financial dashboard using PocketSmith for Obsidian",
-  "main": "main.js",
-  "keywords": [],
   "author": "Serge Krstic",
   "license": "MIT",
+  "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "format": "prettier --write .",
@@ -14,7 +12,7 @@
   },
   "dependencies": {
     "@fire/pocketsmith-api": "workspace:^",
-    "@tanstack/react-query": "^5.60.5",
+    "@tanstack/react-query": "^5.60.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
