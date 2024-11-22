@@ -9,6 +9,9 @@
 # npm
 node_modules
 
+# Don't include personal json response files in the repo.
+packages/pocketsmith-api/responses/
+
 # Don't include the compiled main.js file in the repo.
 # They should be uploaded to GitHub releases instead.
 main.js
