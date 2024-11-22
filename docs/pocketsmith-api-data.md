@@ -1,0 +1,71 @@
+# Pocketsmith API and data
+
+- Users
+  - Get the authorised user
+  - Get the user
+  - Update the user
+- Institutions
+  - Get the institution
+  - Update the institution
+  - Delete the institution
+  - List institution in user
+  - Create institution in user
+- Accounts
+  - Get the account
+  - Update the account
+  - Delete the account
+  - List accounts in user
+  - Update the display order of accounts in user
+  - Create an account in user
+  - List accounts in institution
+- Transaction Accounts
+  - Get the transaction account
+  - Update transaction account
+  - List transaction accounts in user
+- Transactions
+  - Get a transaction
+  - Update a transaction
+  - Delete a transaction
+  - List transactions in user
+  - List transactions in account
+  - List transactions in categories
+  - List transactions in transaction account
+  - Create a transaction in transaction account
+- Categories
+  - Get a category
+  - Delete a category
+  - List categories in user
+  - Create category in user
+- Category Rules
+  - List category rules in user
+  - Create category rule in category
+- Budgeting
+  - List budget for user
+  - Get budget summary for user
+  - Get trend analysis for user
+  - Delete forecast cache for user
+- Events
+  - Get event
+  - Update event
+  - Delete event
+  - List events in user
+  - List events in scenario
+  - Create event in scenario
+- Attachments
+  - Get attachment
+  - Update attachment
+  - Delete attachment
+  - List attachment in user
+  - Create attachment in user
+  - List attachment in transaction
+  - Assign attachment in transaction
+  - Unassign attachment in transaction
+- Labels
+  - List labels in user
+- Saved Searches
+  - List saved searches in user
+- Currencies
+  - List currencies
+  - Get currency
+- Time Zones
+  - List time zones
