@@ -13,8 +13,10 @@
   "dependencies": {
     "@fire/pocketsmith-api": "workspace:^",
     "@tanstack/react-query": "^5.60.6",
+    "immer": "^10.1.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
