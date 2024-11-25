@@ -1,13 +1,11 @@
-import { config } from 'dotenv'
+import { config as dotenvConfig } from 'dotenv'
 import { z } from 'zod'
 
-const result = config()
+const result = dotenvConfig()
 
 if (result.error) {
   throw result.error
 }
-
-console.log(result.parsed)
 
 const envSchema = z.object({
   POCKETSMITH_API_KEY: z.string(),
@@ -15,6 +13,9 @@ const envSchema = z.object({
 
 const env = envSchema.parse(process.env)
 
-export const appConfig = {
+export const config = {
   pocketSmithApiKey: env.POCKETSMITH_API_KEY,
+  userId: 85521,
 }
+
+export type Config = typeof config

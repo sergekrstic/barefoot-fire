@@ -117,4 +117,10 @@ export interface TransactionAccount {
    * @memberof TransactionAccount
    */
   type?: AccountType
+  /**
+   *
+   * @type {number}
+   * @memberof TransactionAccount
+   */
+  latest_feed_name?: string
 }

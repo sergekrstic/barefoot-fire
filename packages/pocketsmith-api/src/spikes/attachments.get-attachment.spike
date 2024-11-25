@@ -1,0 +1,22 @@
+import { Config } from './config'
+import { createPocketSmithApi, Model } from '../index'
+
+export async function runScript(config: Config): Promise<void> {
+  try {
+    const api = createPocketSmithApi(config.pocketSmithApiKey)
+    const response = await api.models.method({ id: config.userId })
+
+    // console.log(response.data)
+    printData(response.data)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+function printData(models: Model[]): void {
+  console.log('value1, value2')
+
+  for (const model of models) {
+    console.log(`${model.value1}, ${model.value2}`)
+  }
+}

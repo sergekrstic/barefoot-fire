@@ -25,10 +25,42 @@
 
 */
 
-import { appConfig } from './config'
-import { runScript } from './categories.spike'
-;(async function () {
-  await runScript(appConfig.pocketSmithApiKey)
-})()
-  .then(() => console.log('Completed successfully'))
-  .catch(() => console.error('An error occurred'))
+import { config } from './config'
+
+// // import { runScript } from './accounts.get-the-account.spike.ts'
+// // import { runScript } from './accounts.list-accounts-in-institution.spike'
+// // import { runScript } from './accounts.list-accounts-in-user.spike'
+// import { runScript } from './attachments.get-attachment.spike'
+// import { runScript } from './attachments.list-attachment-in-transaction.spike'
+// import { runScript } from './attachments.list-attachment-in-user.spike'
+// import { runScript } from './budgeting.get-budget-summary-for-user.spike'
+// import { runScript } from './budgeting.get-trend-analysis-for-user.spike'
+import { runScript } from './budgeting.list-budget-for-user.spike'
+// // import { runScript } from './categories.get-a-category.spike.ts'
+// // import { runScript } from './categories.list-categories-in-user.spike'
+// // import { runScript } from './category-rules.list-category-rules-in-user.spike'
+// // import { runScript } from './currencies.get-currency.spike'
+// // import { runScript } from './currencies.list-currencies.spike'
+// import { runScript } from './events.get-event.spike'
+// import { runScript } from './events.list-events-in-scenario.spike'
+// import { runScript } from './events.list-events-in-user.spike'
+// // import { runScript } from './institutions.get-institution.spike'
+//// import { runScript } from './institutions.list-institution-in-user.spike.ts'
+// // import { runScript } from './labels.list-labels-in-user.spike'
+// // import { runScript } from './saved-searches.list-saved-searches-in-user.spike'
+// // import { runScript } from './time-zones.list-time-zones.spike'
+// // import { runScript } from './transaction-accounts.get-the-transaction-account.spike'
+// // import { runScript } from './transaction-accounts.list-transaction-accounts-in-user.spike.ts'
+// // import { runScript } from './transactions.get-a-transaction.spike'
+// // import { runScript } from './transactions.list-transactions-in-account.spike'
+// // import { runScript } from './transactions.list-transactions-in-categories.spike'
+// // import { runScript } from './transactions.list-transactions-in-transaction-account.spike.ts'
+// // import { runScript } from './transactions.list-transactions-in-user.spike.ts'
+// // import { runScript } from './users.get-authorised-user.spike'
+// // import { runScript } from './users.get-user.spike'
+
+try {
+  runScript(config)
+} catch (err) {
+  console.error(err)
+}
