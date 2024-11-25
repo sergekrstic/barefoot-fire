@@ -1,54 +1,36 @@
 import { useState } from 'react'
 
 import { EyeIcon, EyeOffIcon } from 'assets'
-import { useCategories, usePocketsmithApi } from 'hooks'
+import { AccountList } from 'components'
+// import { BucketListComponent } from 'components'
+// import { LabelList } from 'components'
+// import { CategoryList } from 'components'
+// import { CategoryRuleList } from 'components'
+import { ConfigureApiKey } from 'components'
+import { useSettingsStore } from 'stores'
 
-import { BarefootFirePluginSettings } from './BarefootFire.types'
+export function BarefootFireComponent(): JSX.Element {
+  const apiKey = useSettingsStore((state) => state.pocketsmithApiKey)
+  const [showContent, setShowContent] = useState(true)
 
-export interface BarefootFireComponentProps {
-  settings: BarefootFirePluginSettings
-}
-
-export function BarefootFireComponent({ settings }: BarefootFireComponentProps): JSX.Element {
-  const [showContent, setShowContent] = useState(false)
-  const pocketsmithApi = usePocketsmithApi(settings.pocketsmithApiKey)
-  const { data: categories } = useCategories(pocketsmithApi)
+  if (!apiKey) {
+    return <ConfigureApiKey />
+  }
 
   return (
     <div className="fire-container">
       <div className="fire-title">
         <h4>Barefoot FIRE</h4>
-        <button onMouseDown={(): void => setShowContent(true)} onMouseUp={(): void => setShowContent(false)}>
-          {showContent ? <EyeOffIcon /> : <EyeIcon />}
-        </button>
+        {/* <button onMouseDown={(): void => setShowContent(true)} onMouseUp={(): void => setShowContent(false)}> */}
+        <button onClick={(): void => setShowContent(!showContent)}>{showContent ? <EyeOffIcon /> : <EyeIcon />}</button>
       </div>
-      {showContent && categories && (
+      {showContent && (
         <div className="fire-content">
-          <p>
-            Income: <b>$1000</b>
-          </p>
-          <p>
-            Emergency fund: <b>$1000</b>
-          </p>
-          <p>
-            Expense: <b>$1000</b>
-          </p>
-          <p>
-            Super: <b>$1000</b>
-          </p>
-          <p>
-            Deposit: <b>$100,000,000</b>
-          </p>
-          {categories.length > 0 && (
-            <>
-              <h4>Categories</h4>
-              <ul>
-                {categories.map((category) => (
-                  <li key={category.id}>{category.title}</li>
-                ))}
-              </ul>
-            </>
-          )}
+          <AccountList />
+          {/* <BucketListComponent /> */}
+          {/* <CategoryList /> */}
+          {/* <CategoryRuleList /> */}
+          {/* <LabelList /> */}
         </div>
       )}
     </div>
