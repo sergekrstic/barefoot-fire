@@ -6,6 +6,7 @@ import { ItemView, WorkspaceLeaf } from 'obsidian'
 import { BarefootFireComponent } from './BarefootFire.component'
 import { BAREFOOT_FIRE_VIEW_TYPE } from './BarefootFire.defaults'
 import { BarefootFirePluginSettings } from './BarefootFire.types'
+import { useSettingsStore } from 'stores'
 
 const queryClient = new QueryClient()
 
@@ -16,6 +17,7 @@ export class BarefootFireContainer extends ItemView {
   constructor(leaf: WorkspaceLeaf, settings: BarefootFirePluginSettings) {
     super(leaf)
     this.settings = settings
+    useSettingsStore.setState({ ...settings })
   }
 
   getViewType(): string {
@@ -31,7 +33,7 @@ export class BarefootFireContainer extends ItemView {
     this.root.render(
       <StrictMode>
         <QueryClientProvider client={queryClient}>
-          <BarefootFireComponent settings={this.settings} />
+          <BarefootFireComponent />
         </QueryClientProvider>
       </StrictMode>,
     )
