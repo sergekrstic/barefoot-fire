@@ -1,19 +1,19 @@
 import { BarefootFirePluginSettings } from '../BarefootFire.types'
 import { createStore } from './createStore'
 
-type SettingsState = BarefootFirePluginSettings
+type PluginState = BarefootFirePluginSettings
 
-type SettingsActions = {
+type PluginActions = {
   setPocketsmithApiKey: (value: string) => void
 }
 
-export type SettingsStore = SettingsState & SettingsActions
+export type PluginStore = PluginState & PluginActions
 
-const initialState: SettingsState = {
+const initialState: PluginState = {
   pocketsmithApiKey: '',
 }
 
-export const useSettingsStore = createStore<SettingsStore>((setState: (newState: Partial<SettingsState>) => void) => ({
+export const usePluginStore = createStore<PluginStore>((setState: (newState: Partial<PluginState>) => void) => ({
   ...initialState,
   setPocketsmithApiKey: (value: string): void => setState({ pocketsmithApiKey: value }),
 }))

@@ -1,7 +1,8 @@
 import { App, PluginSettingTab, Setting } from 'obsidian'
+import { unstable_batchedUpdates } from 'react-dom'
 
 import { BarefootFirePlugin } from './BarefootFire.plugin'
-import { useSettingsStore } from 'stores'
+import { usePluginStore } from 'stores'
 
 export class BarefootFireSettingTab extends PluginSettingTab {
   plugin: BarefootFirePlugin
@@ -51,7 +52,10 @@ export class BarefootFireSettingTab extends PluginSettingTab {
           .setPlaceholder('Add your API key here')
           .setValue(this.plugin.settings.pocketsmithApiKey)
           .onChange(async (value) => {
-            useSettingsStore.setState({ pocketsmithApiKey: value })
+            // Avoid zombie state updates
+            unstable_batchedUpdates(() => {
+              usePluginStore.setState({ pocketsmithApiKey: value })
+            })
             this.plugin.settings.pocketsmithApiKey = value
             await this.plugin.saveSettings()
           }),

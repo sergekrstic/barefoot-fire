@@ -7,10 +7,10 @@ import { AccountList } from 'components'
 // import { CategoryList } from 'components'
 // import { CategoryRuleList } from 'components'
 import { ConfigureApiKey } from 'components'
-import { useSettingsStore } from 'stores'
+import { usePluginStore } from 'stores'
 
 export function BarefootFireComponent(): JSX.Element {
-  const apiKey = useSettingsStore((state) => state.pocketsmithApiKey)
+  const apiKey = usePluginStore((state) => state.pocketsmithApiKey)
   const [showContent, setShowContent] = useState(true)
 
   if (!apiKey) {
