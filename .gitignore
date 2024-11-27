@@ -16,6 +16,7 @@ packages/pocketsmith-api/responses/
 # They should be uploaded to GitHub releases instead.
 main.js
 data.json
+cache.json
 
 # Exclude sourcemaps
 *.map
