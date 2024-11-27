@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { create, StateCreator } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
-const isDevMode = true
+const isDevMode = false
 
 export function withMiddlewares<S>(f: StateCreator<S>) {
-  return devtools(immer(f as StateCreator<S, [['zustand/immer', never]]>), {
-    enabled: isDevMode,
-  })
+  const stateWithImmer = immer(f as StateCreator<S, [['zustand/immer', never]]>)
+  const stateWithPersist = persist(stateWithImmer, { name: 'pluginStore' })
+  const stateWithDevtools = devtools(stateWithPersist, { enabled: isDevMode })
+  return stateWithDevtools
 }
 
 export function createStore<S, P = unknown>(f: StateCreator<S & P>) {
