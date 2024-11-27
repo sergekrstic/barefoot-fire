@@ -6,10 +6,10 @@ import { immer } from 'zustand/middleware/immer'
 const isDevMode = false
 
 export function withMiddlewares<S>(f: StateCreator<S>) {
-  const stateWithImmer = immer(f as StateCreator<S, [['zustand/immer', never]]>)
-  const stateWithPersist = persist(stateWithImmer, { name: 'pluginStore' })
-  const stateWithDevtools = devtools(stateWithPersist, { enabled: isDevMode })
-  return stateWithDevtools
+  const stateWithImmerAdded = immer(f as StateCreator<S, [['zustand/immer', never]]>)
+  const stateWithPersistAdded = persist(stateWithImmerAdded, { name: 'pluginStore' })
+  const stateWithDevtoolsAdded = devtools(stateWithPersistAdded, { enabled: isDevMode })
+  return stateWithDevtoolsAdded
 }
 
 export function createStore<S, P = unknown>(f: StateCreator<S & P>) {
