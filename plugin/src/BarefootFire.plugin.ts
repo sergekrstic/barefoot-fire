@@ -2,15 +2,12 @@ import { normalizePath, Plugin, WorkspaceLeaf } from 'obsidian'
 
 import { BarefootFireContainer } from './BarefootFire.container'
 import { BarefootFireSettingTab } from './BarefootFire.settings'
-import { BarefootFirePluginSettings } from './BarefootFire.types'
-import { BAREFOOT_FIRE_VIEW_TYPE, DEFAULT_SETTINGS } from './BarefootFire.defaults'
-
-export type Cache = Record<string, unknown>
-export const DEFAULT_CACHE: Cache = {}
+import { BarefootFirePluginSettings, PluginCache } from './BarefootFire.types'
+import { BAREFOOT_FIRE_VIEW_TYPE, DEFAULT_SETTINGS, DEFAULT_CACHE } from './BarefootFire.defaults'
 
 export class BarefootFirePlugin extends Plugin {
   settings: BarefootFirePluginSettings
-  cache: Cache
+  cache: PluginCache
 
   async onload(): Promise<void> {
     await Promise.all([this.loadSettings(), this.loadCache()])
@@ -38,12 +35,12 @@ export class BarefootFirePlugin extends Plugin {
     this.cache = Object.assign({}, DEFAULT_CACHE, await this.loadCacheFromDisk())
   }
 
-  async loadCacheFromDisk(): Promise<Cache> {
+  async loadCacheFromDisk(): Promise<PluginCache> {
     const path = normalizePath(`${this.manifest.dir}/cache.json`)
     if (!(await this.app.vault.adapter.exists(path))) {
       await this.app.vault.adapter.write(path, '{}')
     }
-    return JSON.parse(await this.app.vault.adapter.read(path)) as Cache
+    return JSON.parse(await this.app.vault.adapter.read(path)) as PluginCache
   }
 
   async saveCache(): Promise<void> {

@@ -1,10 +1,12 @@
-import { BarefootFirePluginSettings } from 'BarefootFire.types'
+import { BarefootFirePluginSettings, PluginCache } from 'BarefootFire.types'
 
 export const BAREFOOT_FIRE_VIEW_TYPE = 'barefoot-fire'
 
 export const DEFAULT_SETTINGS: Partial<BarefootFirePluginSettings> = {
   pocketsmithApiKey: '',
 }
+
+export const DEFAULT_CACHE: PluginCache = {}
 
 export const USER_ID = 85521
 
