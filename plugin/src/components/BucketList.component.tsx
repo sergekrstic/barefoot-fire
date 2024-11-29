@@ -1,6 +1,8 @@
+import { CollapsibleSection } from 'components'
+
 export function BucketListComponent(): JSX.Element {
   return (
-    <>
+    <CollapsibleSection title="Buckets" as="h5">
       <p>
         Income: <b>$1000</b>
       </p>
@@ -16,6 +18,6 @@ export function BucketListComponent(): JSX.Element {
       <p>
         Deposit: <b>$100,000,000</b>
       </p>
-    </>
+    </CollapsibleSection>
   )
 }

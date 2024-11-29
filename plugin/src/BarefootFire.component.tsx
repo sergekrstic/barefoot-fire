@@ -1,15 +1,15 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import { EyeIcon, EyeOffIcon } from 'assets'
 import { AccountList } from 'components'
-// import { BucketListComponent } from 'components'
-// import { LabelList } from 'components'
-// import { CategoryList } from 'components'
-// import { CategoryRuleList } from 'components'
+import { BucketListComponent } from 'components'
+import { LabelList } from 'components'
+import { CategoryList } from 'components'
+import { CategoryRuleList } from 'components'
 import { ConfigureApiKey } from 'components'
 import { usePluginStore } from 'stores'
 
-export function BarefootFireComponent(): JSX.Element {
+export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.Element {
   const apiKey = usePluginStore((state) => state.pocketsmithApiKey)
   const [showContent, setShowContent] = useState(true)
 
@@ -27,12 +27,12 @@ export function BarefootFireComponent(): JSX.Element {
       {showContent && (
         <div className="fire-content">
           <AccountList />
-          {/* <BucketListComponent /> */}
-          {/* <CategoryList /> */}
-          {/* <CategoryRuleList /> */}
-          {/* <LabelList /> */}
+          <BucketListComponent />
+          <CategoryList />
+          <CategoryRuleList />
+          <LabelList />
         </div>
       )}
     </div>
   )
-}
+})

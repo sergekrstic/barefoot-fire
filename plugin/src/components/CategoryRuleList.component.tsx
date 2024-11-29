@@ -1,11 +1,11 @@
 import { useCategoryRules } from 'queries'
+import { CollapsibleSection } from 'components'
 
 export function CategoryRuleList(): JSX.Element {
   const { data: categoryRules, isLoading } = useCategoryRules()
 
   return (
-    <>
-      <h5>Category Rules</h5>
+    <CollapsibleSection title="Category Rules" as="h5">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -21,6 +21,6 @@ export function CategoryRuleList(): JSX.Element {
           )}
         </>
       )}
-    </>
+    </CollapsibleSection>
   )
 }

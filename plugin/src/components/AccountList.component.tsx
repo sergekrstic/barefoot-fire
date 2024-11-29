@@ -1,11 +1,13 @@
+import { TransactionAccount } from '@fire/pocketsmith-api'
+
+import { CollapsibleSection } from 'components'
 import { useAccounts } from 'queries'
 
 export function AccountList(): JSX.Element {
   const { data: accounts, isLoading } = useAccounts()
 
   return (
-    <>
-      <h5>Accounts</h5>
+    <CollapsibleSection title="Accounts" as="h5">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -13,7 +15,11 @@ export function AccountList(): JSX.Element {
           {accounts ? (
             <>
               {accounts.map((account) => (
-                <div key={account.id}>{account.title}</div>
+                <CollapsibleSection key={account.id} title={account.title} insight={account.current_balance} as="h6">
+                  {account.transaction_accounts?.map((transactionAccount) => (
+                    <TransactionAccountItem key={transactionAccount.id} transactionAccount={transactionAccount} />
+                  ))}
+                </CollapsibleSection>
               ))}
             </>
           ) : (
@@ -21,6 +27,19 @@ export function AccountList(): JSX.Element {
           )}
         </>
       )}
-    </>
+    </CollapsibleSection>
+  )
+}
+
+interface TransactionAccountItemProps {
+  transactionAccount: TransactionAccount
+}
+
+function TransactionAccountItem({ transactionAccount }: TransactionAccountItemProps): JSX.Element {
+  return (
+    <div className="fire-section-item">
+      <div>{transactionAccount.name}</div>
+      <div>{transactionAccount.current_balance}</div>
+    </div>
   )
 }

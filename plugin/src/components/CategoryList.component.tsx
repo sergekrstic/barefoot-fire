@@ -1,19 +1,19 @@
 import { Fragment, useState } from 'react'
 import { Category } from '@fire/pocketsmith-api'
+import { CollapsibleSection } from 'components'
 import { useCategories } from 'queries'
 
 export function CategoryList(): JSX.Element {
   const { data: categories, isLoading } = useCategories()
 
   return (
-    <>
-      <h5>Categories</h5>
+    <CollapsibleSection title="Categories" as="h5">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <>{categories ? <CategoryTree categories={categories} /> : <p>No categories found</p>}</>
       )}
-    </>
+    </CollapsibleSection>
   )
 }
 

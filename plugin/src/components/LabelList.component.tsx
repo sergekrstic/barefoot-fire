@@ -1,11 +1,14 @@
+import { memo } from 'react'
 import { useLabels } from 'queries'
+import { CollapsibleSection } from 'components'
 
-export function LabelList(): JSX.Element {
+export const LabelList = memo(function LabelList(): JSX.Element {
   const { data: labels, isLoading } = useLabels()
 
+  console.log('response =>', { isLoading, labels })
+
   return (
-    <>
-      <h5>Labels</h5>
+    <CollapsibleSection title="Labels" as="h5">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -21,6 +24,7 @@ export function LabelList(): JSX.Element {
           )}
         </>
       )}
-    </>
+    </CollapsibleSection>
   )
-}
+  //
+})
