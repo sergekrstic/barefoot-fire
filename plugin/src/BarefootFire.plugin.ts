@@ -18,6 +18,15 @@ export class BarefootFirePlugin extends Plugin {
       this.activateView()
     })
 
+    this.addCommand({
+      id: 'barefoot-fire-open-view',
+      name: 'Open Barefoot FIRE dashboard',
+      callback: async () => {
+        await this.activateView()
+      },
+      hotkeys: [{ modifiers: ['Mod', 'Shift'], key: 'b' }],
+    })
+
     this.addSettingTab(new BarefootFireSettingTab(this.app, this))
   }
 
@@ -57,8 +66,7 @@ export class BarefootFirePlugin extends Plugin {
       // A leaf with our view already exists, use that
       leaf = leaves[0]
     } else {
-      // Our view could not be found in the workspace, create a new leaf
-      // in the right sidebar for it
+      // Our view could not be found in the workspace, create a new leaf in the right sidebar
       leaf = workspace.getRightLeaf(false)
       await leaf?.setViewState({ type: BAREFOOT_FIRE_VIEW_TYPE, active: true })
     }
