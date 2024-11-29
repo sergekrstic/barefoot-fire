@@ -1,9 +1,9 @@
-import { Fragment, useState } from 'react'
+import { Fragment, memo, useState } from 'react'
 import { Category } from '@fire/pocketsmith-api'
 import { CollapsibleSection } from 'components'
 import { useCategories } from 'queries'
 
-export function CategoryList(): JSX.Element {
+export const CategoryList = memo(function CategoryList(): JSX.Element {
   const { data: categories, isLoading } = useCategories()
 
   return (
@@ -15,7 +15,7 @@ export function CategoryList(): JSX.Element {
       )}
     </CollapsibleSection>
   )
-}
+})
 
 interface CategoryTreeProps {
   categories: Category[]

@@ -1,9 +1,10 @@
+import { memo } from 'react'
 import { TransactionAccount } from '@fire/pocketsmith-api'
 
 import { CollapsibleSection } from 'components'
 import { useAccounts } from 'queries'
 
-export function AccountList(): JSX.Element {
+export const AccountList = memo(function AccountList(): JSX.Element {
   const { data: accounts, isLoading } = useAccounts()
 
   return (
@@ -29,7 +30,7 @@ export function AccountList(): JSX.Element {
       )}
     </CollapsibleSection>
   )
-}
+})
 
 interface TransactionAccountItemProps {
   transactionAccount: TransactionAccount

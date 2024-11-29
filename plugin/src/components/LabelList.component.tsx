@@ -5,8 +5,6 @@ import { CollapsibleSection } from 'components'
 export const LabelList = memo(function LabelList(): JSX.Element {
   const { data: labels, isLoading } = useLabels()
 
-  console.log('response =>', { isLoading, labels })
-
   return (
     <CollapsibleSection title="Labels" as="h5">
       {isLoading ? (
@@ -26,5 +24,4 @@ export const LabelList = memo(function LabelList(): JSX.Element {
       )}
     </CollapsibleSection>
   )
-  //
 })

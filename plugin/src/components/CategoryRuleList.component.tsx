@@ -1,7 +1,8 @@
+import { memo } from 'react'
 import { useCategoryRules } from 'queries'
 import { CollapsibleSection } from 'components'
 
-export function CategoryRuleList(): JSX.Element {
+export const CategoryRuleList = memo(function CategoryRuleList(): JSX.Element {
   const { data: categoryRules, isLoading } = useCategoryRules()
 
   return (
@@ -23,4 +24,4 @@ export function CategoryRuleList(): JSX.Element {
       )}
     </CollapsibleSection>
   )
-}
+})

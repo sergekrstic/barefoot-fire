@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { ChevronDownIcon, ChevronRightIcon } from 'assets'
 
 export interface CollapsibleSectionProps {
@@ -8,7 +8,12 @@ export interface CollapsibleSectionProps {
   children: React.ReactNode
 }
 
-export function CollapsibleSection({ as: Tag = 'h1', title, insight, children }: CollapsibleSectionProps): JSX.Element {
+export const CollapsibleSection = memo(function CollapsibleSection({
+  as: Tag = 'h1',
+  title,
+  insight,
+  children,
+}: CollapsibleSectionProps): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -30,4 +35,4 @@ export function CollapsibleSection({ as: Tag = 'h1', title, insight, children }:
       </div>
     </>
   )
-}
+})

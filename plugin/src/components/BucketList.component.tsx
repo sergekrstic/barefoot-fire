@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { CollapsibleSection } from 'components'
 
-export function BucketListComponent(): JSX.Element {
+export const BucketList = memo(function BucketList(): JSX.Element {
   return (
     <CollapsibleSection title="Buckets" as="h5">
       <p>
@@ -20,4 +21,4 @@ export function BucketListComponent(): JSX.Element {
       </p>
     </CollapsibleSection>
   )
-}
+})

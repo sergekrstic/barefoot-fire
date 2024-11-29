@@ -1,12 +1,7 @@
 import { memo, useState } from 'react'
 
 import { EyeIcon, EyeOffIcon } from 'assets'
-import { AccountList } from 'components'
-import { BucketListComponent } from 'components'
-import { LabelList } from 'components'
-import { CategoryList } from 'components'
-import { CategoryRuleList } from 'components'
-import { ConfigureApiKey } from 'components'
+import { AccountList, BucketList, CategoryList, CategoryRuleList, ConfigureApiKey, LabelList } from 'components'
 import { usePluginStore } from 'stores'
 
 export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.Element {
@@ -27,7 +22,7 @@ export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.
       {showContent && (
         <div className="fire-content">
           <AccountList />
-          <BucketListComponent />
+          <BucketList />
           <CategoryList />
           <CategoryRuleList />
           <LabelList />
