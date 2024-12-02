@@ -31,7 +31,8 @@ export const CollapsibleSection = memo(function CollapsibleSection({
         {isOpen ? <ChevronDownIcon size={16} /> : <ChevronRightIcon size={16} />}
       </div>
       <div className="fire-section-content" style={{ display: isOpen ? 'block' : 'none' }}>
-        {children}
+        {/* Only display the children when open to avoid unnecessary fetching */}
+        {isOpen ? children : null}
       </div>
     </>
   )

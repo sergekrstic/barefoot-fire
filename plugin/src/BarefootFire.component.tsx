@@ -1,7 +1,16 @@
 import { memo, useState } from 'react'
 
 import { EyeIcon, EyeOffIcon } from 'assets'
-import { AccountList, BucketList, CategoryList, CategoryRuleList, ConfigureApiKey, LabelList } from 'components'
+import {
+  AccountList,
+  BucketList,
+  CategoryList,
+  CategoryRuleList,
+  CollapsibleSection,
+  ConfigureApiKey,
+  GroupedLabels,
+  LabelList,
+} from 'components'
 import { usePluginStore } from 'stores'
 
 export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.Element {
@@ -21,11 +30,29 @@ export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.
       </div>
       {showContent && (
         <div className="fire-content">
-          <AccountList />
-          <BucketList />
-          <CategoryList />
-          <CategoryRuleList />
-          <LabelList />
+          <CollapsibleSection title="Accounts" as="h5">
+            {/* Accounts List */}
+            <AccountList />
+          </CollapsibleSection>
+          <CollapsibleSection title="Buckets" as="h5">
+            {/* Buckets List */}
+            <BucketList />
+          </CollapsibleSection>
+          <CollapsibleSection title="Categories" as="h5">
+            {/* Categories List */}
+            <CategoryList />
+          </CollapsibleSection>
+          <CollapsibleSection title="Category Rules" as="h5">
+            {/* Category Rules List */}
+            <CategoryRuleList />
+          </CollapsibleSection>
+          <CollapsibleSection title="Labels" as="h5">
+            {/* Labels List */}
+            <LabelList />
+          </CollapsibleSection>
+          <CollapsibleSection title="Grouped Labels" as="h5">
+            <GroupedLabels />
+          </CollapsibleSection>
         </div>
       )}
     </div>

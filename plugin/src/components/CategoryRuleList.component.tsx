@@ -1,27 +1,18 @@
 import { memo } from 'react'
 import { useCategoryRules } from 'queries'
-import { CollapsibleSection } from 'components'
 
 export const CategoryRuleList = memo(function CategoryRuleList(): JSX.Element {
   const { data: categoryRules, isLoading } = useCategoryRules()
 
+  if (isLoading) return <p>Loading...</p>
+
+  if (!categoryRules) return <p>No categories rules found</p>
+
   return (
-    <CollapsibleSection title="Category Rules" as="h5">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          {categoryRules ? (
-            <>
-              {categoryRules.map((categoryRule) => (
-                <div key={categoryRule.id}>{`${categoryRule.category?.title} - ${categoryRule.payee_matches}`}</div>
-              ))}
-            </>
-          ) : (
-            <p>No categories rules found</p>
-          )}
-        </>
-      )}
-    </CollapsibleSection>
+    <>
+      {categoryRules.map((categoryRule) => (
+        <div key={categoryRule.id}>{`${categoryRule.category?.title} - ${categoryRule.payee_matches}`}</div>
+      ))}
+    </>
   )
 })

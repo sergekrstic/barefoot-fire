@@ -7,28 +7,20 @@ import { useAccounts } from 'queries'
 export const AccountList = memo(function AccountList(): JSX.Element {
   const { data: accounts, isLoading } = useAccounts()
 
+  if (isLoading) return <p>Loading...</p>
+
+  if (!accounts) return <p>No accounts found</p>
+
   return (
-    <CollapsibleSection title="Accounts" as="h5">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          {accounts ? (
-            <>
-              {accounts.map((account) => (
-                <CollapsibleSection key={account.id} title={account.title} insight={account.current_balance} as="h6">
-                  {account.transaction_accounts?.map((transactionAccount) => (
-                    <TransactionAccountItem key={transactionAccount.id} transactionAccount={transactionAccount} />
-                  ))}
-                </CollapsibleSection>
-              ))}
-            </>
-          ) : (
-            <p>No accounts found</p>
-          )}
-        </>
-      )}
-    </CollapsibleSection>
+    <>
+      {accounts.map((account) => (
+        <CollapsibleSection key={account.id} title={account.title} insight={account.current_balance} as="h6">
+          {account.transaction_accounts?.map((transactionAccount) => (
+            <TransactionAccountItem key={transactionAccount.id} transactionAccount={transactionAccount} />
+          ))}
+        </CollapsibleSection>
+      ))}
+    </>
   )
 })
 

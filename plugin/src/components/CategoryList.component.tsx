@@ -1,20 +1,15 @@
 import { Fragment, memo, useState } from 'react'
 import { Category } from '@fire/pocketsmith-api'
-import { CollapsibleSection } from 'components'
 import { useCategories } from 'queries'
 
 export const CategoryList = memo(function CategoryList(): JSX.Element {
   const { data: categories, isLoading } = useCategories()
 
-  return (
-    <CollapsibleSection title="Categories" as="h5">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>{categories ? <CategoryTree categories={categories} /> : <p>No categories found</p>}</>
-      )}
-    </CollapsibleSection>
-  )
+  if (isLoading) return <p>Loading...</p>
+
+  if (!categories) return <p>No categories found</p>
+
+  return <CategoryTree categories={categories} />
 })
 
 interface CategoryTreeProps {
