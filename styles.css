@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding-bottom: 16px;
+}
+
+.fire-content {
+  padding-bottom: 32px;
 }
 
 .fire-title {

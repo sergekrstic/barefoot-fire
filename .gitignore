@@ -12,6 +12,10 @@ node_modules
 # Don't include personal json response files in the repo.
 packages/pocketsmith-api/responses/
 
+# Ignore sensitive data files
+GroupedLabels.data.ts
+obsidian-ex.d.ts
+
 # Don't include the compiled main.js file in the repo.
 # They should be uploaded to GitHub releases instead.
 main.js
