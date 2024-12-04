@@ -4,7 +4,9 @@ import { EyeIcon, EyeOffIcon } from 'assets'
 import {
   AccountList,
   BucketList,
-  BudgetsList,
+  BudgetList,
+  BudgetSummary,
+  BudgetTrendAnalysis,
   CategoryList,
   CategoryRuleList,
   CollapsibleSection,
@@ -41,7 +43,15 @@ export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.
           </CollapsibleSection>
           <CollapsibleSection title="Budgets" as="h5">
             {/* Budgets List */}
-            <BudgetsList />
+            <BudgetList />
+          </CollapsibleSection>
+          <CollapsibleSection title="Budget Summary" as="h5">
+            {/* Budget Summary */}
+            <BudgetSummary />
+          </CollapsibleSection>
+          <CollapsibleSection title="Budget Trend Analysis" as="h5">
+            {/* Budget Trend Analysis */}
+            <BudgetTrendAnalysis />
           </CollapsibleSection>
           <CollapsibleSection title="Categories" as="h5">
             {/* Categories List */}
