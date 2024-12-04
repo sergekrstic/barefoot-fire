@@ -4,9 +4,11 @@ import { BarefootFireContainer } from './BarefootFire.container'
 import { BarefootFireSettingTab } from './BarefootFire.settings'
 import { BarefootFirePluginSettings, PluginCache } from './BarefootFire.types'
 import { BAREFOOT_FIRE_VIEW_TYPE, DEFAULT_SETTINGS, DEFAULT_CACHE } from './BarefootFire.defaults'
+import { createBarefootFireStatusBar } from './BarefootFire.statusbar'
 
 export class BarefootFirePlugin extends Plugin {
   settings: BarefootFirePluginSettings
+  // statusbarItem: HTMLElement
   cache: PluginCache
 
   async onload(): Promise<void> {
@@ -26,6 +28,15 @@ export class BarefootFirePlugin extends Plugin {
       },
       hotkeys: [{ modifiers: ['Mod', 'Shift'], key: 'b' }],
     })
+
+    // const item = this.addStatusBarItem()
+    // item.createEl('span', { text: '🔥' })
+
+    // this.statusbarItem = this.addStatusBarItem()
+    // createBarefootFireStatusBar(this.statusbarItem)
+
+    const statusbarItem = this.addStatusBarItem()
+    createBarefootFireStatusBar(statusbarItem)
 
     this.addSettingTab(new BarefootFireSettingTab(this.app, this))
   }
