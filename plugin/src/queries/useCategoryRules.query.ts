@@ -1,8 +1,8 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { CategoryRule } from '@fire/pocketsmith-api'
 
+import { usePocketsmithApi } from '../hooks'
 import { USER_ID } from '../BarefootFire.defaults'
-import { usePocketsmithApi } from '../hooks/usePocketsmithApi.hook'
 
 export function useCategoryRules(): UseQueryResult<CategoryRule[], Error> {
   const api = usePocketsmithApi()

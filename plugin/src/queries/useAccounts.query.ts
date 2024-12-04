@@ -1,8 +1,8 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { Account } from '@fire/pocketsmith-api'
 
+import { usePocketsmithApi } from '../hooks'
 import { INSTITUTION_ID } from '../BarefootFire.defaults'
-import { usePocketsmithApi } from '../hooks/usePocketsmithApi.hook'
 
 export function useAccounts(): UseQueryResult<Account[], Error> {
   const api = usePocketsmithApi()
