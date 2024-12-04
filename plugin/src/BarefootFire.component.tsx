@@ -13,6 +13,7 @@ import {
   ConfigureApiKey,
   GroupedLabels,
   LabelList,
+  SavedSearchesList,
 } from 'components'
 import { usePluginStore } from 'stores'
 
@@ -68,6 +69,10 @@ export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.
           <CollapsibleSection title="Grouped Labels" as="h5">
             {/* Grouped Labels List */}
             <GroupedLabels />
+          </CollapsibleSection>
+          <CollapsibleSection title="Saved Searches" as="h5">
+            {/* Saved Searches List */}
+            <SavedSearchesList />
           </CollapsibleSection>
         </div>
       )}
