@@ -41,7 +41,7 @@ function LabelTree({ labelGroups, level }: LabelTreeProps): JSX.Element {
               </div>
             )}
             {/* Display the child */}
-            {!isParent && <div style={{ paddingLeft: `${(level + 1) * 16}px` }}>{title}</div>}
+            {!isParent && <div style={{ paddingLeft: `${(level + 1) * (16 + 4)}px` }}>{title}</div>}
           </div>
         )
       })}
