@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { BudgetAnalysisPackage, Category } from '@fire/pocketsmith-api'
 
-import { usePocketsmithApi } from '../hooks'
+import { usePocketsmithApi } from 'hooks'
 import { USER_ID } from '../BarefootFire.defaults'
 
 export type BudgetMap = Record<number, BudgetAnalysisPackage>

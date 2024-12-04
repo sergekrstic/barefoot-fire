@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
 // import { useUser } from './useUser.hook'
-import { usePocketsmithApi } from '../hooks'
+import { usePocketsmithApi } from 'hooks'
 import { USER_ID } from '../BarefootFire.defaults'
 
 export function useLabels(): UseQueryResult<string[], Error> {

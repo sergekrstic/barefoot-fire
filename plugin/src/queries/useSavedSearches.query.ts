@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { SavedSearch } from '@fire/pocketsmith-api'
 
-import { usePocketsmithApi } from '../hooks'
+import { usePocketsmithApi } from 'hooks'
 import { USER_ID } from '../BarefootFire.defaults'
 
 export function useSavedSearches(): UseQueryResult<SavedSearch[], Error> {
