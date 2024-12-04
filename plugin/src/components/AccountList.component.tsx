@@ -5,9 +5,9 @@ import { CollapsibleSection } from 'components'
 import { useAccounts } from 'queries'
 
 export const AccountList = memo(function AccountList(): JSX.Element {
-  const { data: accounts, isLoading } = useAccounts()
+  const { data: accounts, isPending } = useAccounts()
 
-  if (isLoading) return <p>Loading...</p>
+  if (isPending) return <p>Loading...</p>
 
   if (!accounts) return <p>No accounts found</p>
 

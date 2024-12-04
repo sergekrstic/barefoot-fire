@@ -5,9 +5,9 @@ import { CollapsibleTree } from 'components'
 import { useCategories } from 'queries'
 
 export const CategoryList = memo(function CategoryList(): JSX.Element {
-  const { data: categories, isLoading } = useCategories()
+  const { data: categories, isPending } = useCategories()
 
-  if (isLoading) return <p>Loading...</p>
+  if (isPending) return <p>Loading...</p>
 
   if (!categories) return <p>No categories found</p>
 

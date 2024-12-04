@@ -5,9 +5,9 @@ import { CollapsibleTree } from 'components'
 import { useBudgetList, BudgetMap } from 'queries'
 
 export const BudgetList = memo(function BudgetList(): JSX.Element {
-  const { data: budgets, isLoading } = useBudgetList()
+  const { data: budgets, isPending } = useBudgetList()
 
-  if (isLoading) return <p>Loading...</p>
+  if (isPending) return <p>Loading...</p>
 
   if (!budgets) return <p>No budgets found</p>
 
