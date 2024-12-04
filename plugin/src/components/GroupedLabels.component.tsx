@@ -1,6 +1,6 @@
 import { memo } from 'react'
+import { CollapsibleTree } from 'components'
 import { labelGroups, LabelGroup } from 'private'
-import { CollapsibleTree } from './CollapsibleTree.component'
 
 export const GroupedLabels = memo(function GroupedLabels(): JSX.Element {
   return (

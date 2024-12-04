@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import { Category } from '@fire/pocketsmith-api'
+
+import { CollapsibleTree } from 'components'
 import { useCategories } from 'queries'
-import { CollapsibleTree } from './CollapsibleTree.component'
 
 export const CategoryList = memo(function CategoryList(): JSX.Element {
   const { data: categories, isLoading } = useCategories()
