@@ -10,13 +10,15 @@ export interface TreeData {
 interface CollapsibleTreeProps {
   tree: TreeData[]
   level?: number
-  renderCollapsibleItemContent: (item: unknown) => JSX.Element
-  renderLeafItemContent: (item: unknown) => JSX.Element
+  context?: unknown
+  renderCollapsibleItemContent: (item: unknown, context?: unknown) => JSX.Element
+  renderLeafItemContent: (item: unknown, context?: unknown) => JSX.Element
 }
 
 export function CollapsibleTree({
   tree,
   level = 0,
+  context,
   renderCollapsibleItemContent,
   renderLeafItemContent,
 }: CollapsibleTreeProps): JSX.Element {
@@ -39,7 +41,7 @@ export function CollapsibleTree({
               <div style={{ display: 'flex', flexDirection: 'row' }} onClick={() => toggleNested(resolvedId)}>
                 <div style={{ paddingLeft: `${(level - 0) * 16}px` }} />
                 {showNested[resolvedId] ? <ChevronDownIcon size={16} /> : <ChevronRightIcon size={16} />}
-                <div style={{ paddingLeft: '4px' }}>{renderCollapsibleItemContent(item)}</div>
+                <div style={{ paddingLeft: '4px' }}>{renderCollapsibleItemContent(item, context)}</div>
               </div>
             )}
             {/* Display the children */}
@@ -47,8 +49,9 @@ export function CollapsibleTree({
               <div style={{ display: showNested[resolvedId] ? 'block' : 'none' }}>
                 {item.children && (
                   <CollapsibleTree
-                    tree={item.children}
                     level={level + 1}
+                    tree={item.children}
+                    context={context}
                     renderCollapsibleItemContent={renderCollapsibleItemContent}
                     renderLeafItemContent={renderLeafItemContent}
                   />
@@ -57,7 +60,7 @@ export function CollapsibleTree({
             )}
             {/* Display the child */}
             {!isParent && (
-              <div style={{ paddingLeft: `${(level + 1) * (16 + 4)}px` }}>{renderLeafItemContent(item)}</div>
+              <div style={{ paddingLeft: `${(level + 1) * (16 + 4)}px` }}>{renderLeafItemContent(item, context)}</div>
             )}
           </div>
         )
