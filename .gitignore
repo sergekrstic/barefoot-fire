@@ -9,11 +9,11 @@
 # npm
 node_modules
 
-# Don't include personal json response files in the repo.
+# Don't include personal data in the repo.
 packages/pocketsmith-api/responses/
+private/
 
 # Ignore sensitive data files
-GroupedLabels.data.ts
 obsidian-ex.d.ts
 
 # Don't include the compiled main.js file in the repo.
