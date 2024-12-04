@@ -1,5 +1,6 @@
 export * from './AccountList.component'
 export * from './BucketList.component'
+export * from './BudgetsList.component'
 export * from './CategoryList.component'
 export * from './CategoryRuleList.component'
 export * from './CollapsibleSection.component'
