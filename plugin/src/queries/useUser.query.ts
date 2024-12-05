@@ -1,5 +1,5 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import { User } from '@fire/pocketsmith-api'
+import { useMutation, UseMutationResult, useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query'
+import { User, UsersApiUsersIdGetRequest, UsersApiUsersIdPutRequest } from '@fire/pocketsmith-api'
 
 import { usePocketsmithApi } from '../hooks'
 
@@ -7,7 +7,7 @@ export function useAuthorisedUser(): UseQueryResult<User, Error> {
   const api = usePocketsmithApi()
 
   return useQuery({
-    queryKey: ['user'],
+    queryKey: ['authorised-user'],
     queryFn: async () => {
       if (!api) throw new Error('No API key provided')
       return (await api.users.meGet()).data
@@ -15,11 +15,8 @@ export function useAuthorisedUser(): UseQueryResult<User, Error> {
   })
 }
 
-export interface UserArgs {
-  id: number
-}
-
-export function useUser({ id }: UserArgs): UseQueryResult<User, Error> {
+// Todo: test this function
+export function useUser({ id }: UsersApiUsersIdGetRequest): UseQueryResult<User, Error> {
   const api = usePocketsmithApi()
 
   return useQuery({
@@ -27,6 +24,27 @@ export function useUser({ id }: UserArgs): UseQueryResult<User, Error> {
     queryFn: async () => {
       if (!api) throw new Error('No API key provided')
       return (await api.users.usersIdGet({ id })).data
+    },
+  })
+}
+
+// Todo: test this function
+export function useUpdateUser({
+  id,
+  usersIdPutRequest,
+}: UsersApiUsersIdPutRequest): UseMutationResult<User, Error, UsersApiUsersIdPutRequest, unknown> {
+  const api = usePocketsmithApi()
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (user) => {
+      if (!api) throw new Error('No API key provided')
+      return (await api.users.usersIdPut({ id, usersIdPutRequest })).data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['user', id],
+      })
     },
   })
 }
