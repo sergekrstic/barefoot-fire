@@ -1,5 +1,5 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import { BudgetAnalysisPackage, Category } from '@fire/pocketsmith-api'
+import { useMutation, UseMutationResult, useQuery, UseQueryResult } from '@tanstack/react-query'
+import { BudgetAnalysisPackage, BudgetingApiUsersIdForecastCacheDeleteRequest, Category } from '@fire/pocketsmith-api'
 
 import { usePocketsmithApi } from 'hooks'
 import { USER_ID } from '../BarefootFire.defaults'
@@ -12,7 +12,7 @@ export interface BudgetsData {
   budgetMap: BudgetMap
 }
 
-export function useBudgetList(): UseQueryResult<BudgetsData, Error> {
+export function useListBudgetsInUser(): UseQueryResult<BudgetsData, Error> {
   const api = usePocketsmithApi()
 
   return useQuery({
@@ -39,7 +39,27 @@ export function useBudgetList(): UseQueryResult<BudgetsData, Error> {
   })
 }
 
-export function useBudgetTrendAnalysis(): UseQueryResult<BudgetAnalysisPackage, Error> {
+export function useGetBudgetSummaryForUser(): UseQueryResult<BudgetAnalysisPackage, Error> {
+  const api = usePocketsmithApi()
+
+  return useQuery({
+    queryKey: ['budget-summary'],
+    queryFn: async () => {
+      if (!api) throw new Error('No API key provided')
+      return (
+        await api.budgeting.usersIdBudgetSummaryGet({
+          id: USER_ID,
+          period: 'months',
+          interval: 1,
+          startDate: '2024-01-01',
+          endDate: '2024-12-31',
+        })
+      ).data
+    },
+  })
+}
+
+export function useGetTrendAnalysisForUser(): UseQueryResult<BudgetAnalysisPackage, Error> {
   const api = usePocketsmithApi()
 
   return useQuery({
@@ -61,22 +81,22 @@ export function useBudgetTrendAnalysis(): UseQueryResult<BudgetAnalysisPackage, 
   })
 }
 
-export function useBudgetSummary(): UseQueryResult<BudgetAnalysisPackage, Error> {
+// Todo: test this function
+export function useDeleteForecastCacheForUser(
+  args: BudgetingApiUsersIdForecastCacheDeleteRequest,
+): UseMutationResult<void, Error, BudgetingApiUsersIdForecastCacheDeleteRequest, unknown> {
   const api = usePocketsmithApi()
+  // const queryClient = useQueryClient()
 
-  return useQuery({
-    queryKey: ['budget-summary'],
-    queryFn: async () => {
+  return useMutation({
+    mutationKey: ['create-event-in-scenario', args],
+    mutationFn: async () => {
       if (!api) throw new Error('No API key provided')
-      return (
-        await api.budgeting.usersIdBudgetSummaryGet({
-          id: USER_ID,
-          period: 'months',
-          interval: 1,
-          startDate: '2024-01-01',
-          endDate: '2024-12-31',
-        })
-      ).data
+      return (await api.budgeting.usersIdForecastCacheDelete(args)).data
+    },
+    onSuccess: () => {
+      // Todo: invalidate the query
+      // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
 }

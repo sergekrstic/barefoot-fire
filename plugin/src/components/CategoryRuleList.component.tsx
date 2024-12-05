@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import { useCategoryRules } from 'queries'
+import { useListCategoryRulesInUser } from 'queries'
 
 export const CategoryRuleList = memo(function CategoryRuleList(): JSX.Element {
-  const { data: categoryRules, isPending } = useCategoryRules()
+  const { data: categoryRules, isPending } = useListCategoryRulesInUser()
 
   if (isPending) return <p>Loading...</p>
 

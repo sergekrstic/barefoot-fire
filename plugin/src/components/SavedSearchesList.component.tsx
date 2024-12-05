@@ -1,8 +1,9 @@
 import { memo } from 'react'
-import { useSavedSearches } from 'queries'
+import { useListSavedSearchesInUser } from 'queries'
+import { USER_ID } from '../BarefootFire.defaults'
 
 export const SavedSearchesList = memo(function SavedSearchesList(): JSX.Element {
-  const { data: savedSearches, isPending } = useSavedSearches()
+  const { data: savedSearches, isPending } = useListSavedSearchesInUser({ id: USER_ID })
 
   if (isPending) return <p>Loading...</p>
 

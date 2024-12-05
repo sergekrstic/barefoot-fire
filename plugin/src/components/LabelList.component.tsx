@@ -1,8 +1,9 @@
 import { memo } from 'react'
-import { useLabels } from 'queries'
+import { useListLabelsInUser } from 'queries'
+import { USER_ID } from '../BarefootFire.defaults'
 
 export const LabelList = memo(function LabelList(): JSX.Element {
-  const { data: labels, isPending } = useLabels()
+  const { data: labels, isPending } = useListLabelsInUser({ id: USER_ID })
 
   if (isPending) return <p>Loading...</p>
 

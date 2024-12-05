@@ -2,10 +2,12 @@ import { memo } from 'react'
 import { TransactionAccount } from '@fire/pocketsmith-api'
 
 import { CollapsibleSection } from 'components'
-import { useAccounts } from 'queries'
+import { useListAccountsInInstitution } from 'queries'
+
+import { INSTITUTION_ID } from '../BarefootFire.defaults'
 
 export const AccountList = memo(function AccountList(): JSX.Element {
-  const { data: accounts, isPending } = useAccounts()
+  const { data: accounts, isPending } = useListAccountsInInstitution({ id: INSTITUTION_ID })
 
   if (isPending) return <p>Loading...</p>
 

@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import { useBudgetTrendAnalysis } from 'queries'
+import { useGetTrendAnalysisForUser } from 'queries'
 
 export const BudgetTrendAnalysis = memo(function BudgetTrendAnalysis(): JSX.Element {
-  const { data: budgets, isPending } = useBudgetTrendAnalysis()
+  const { data: budgets, isPending } = useGetTrendAnalysisForUser()
 
   if (isPending) return <p>Loading...</p>
 

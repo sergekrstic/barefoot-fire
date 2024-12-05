@@ -2,10 +2,12 @@ import { memo } from 'react'
 import { Category } from '@fire/pocketsmith-api'
 
 import { CollapsibleTree } from 'components'
-import { useCategories } from 'queries'
+import { useListCategoriesInUser } from 'queries'
+
+import { USER_ID } from '../BarefootFire.defaults'
 
 export const CategoryList = memo(function CategoryList(): JSX.Element {
-  const { data: categories, isPending } = useCategories()
+  const { data: categories, isPending } = useListCategoriesInUser({ id: USER_ID })
 
   if (isPending) return <p>Loading...</p>
 

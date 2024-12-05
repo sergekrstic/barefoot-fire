@@ -2,10 +2,10 @@ import { memo } from 'react'
 import { BudgetAnalysisPackage, Category } from '@fire/pocketsmith-api'
 
 import { CollapsibleTree } from 'components'
-import { useBudgetList, BudgetMap } from 'queries'
+import { useListBudgetsInUser, BudgetMap } from 'queries'
 
 export const BudgetList = memo(function BudgetList(): JSX.Element {
-  const { data: budgets, isPending } = useBudgetList()
+  const { data: budgets, isPending } = useListBudgetsInUser()
 
   if (isPending) return <p>Loading...</p>
 

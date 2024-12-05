@@ -42,9 +42,8 @@ export function useUpdateUser({
       return (await api.users.usersIdPut({ id, usersIdPutRequest })).data
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['user', id],
-      })
+      // Todo: invalidate the query
+      queryClient.invalidateQueries({ queryKey: ['user', id] })
     },
   })
 }

@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import { useBudgetSummary } from 'queries'
+import { useGetBudgetSummaryForUser } from 'queries'
 
 export const BudgetSummary = memo(function BudgetSummary(): JSX.Element {
-  const { data: budgets, isPending } = useBudgetSummary()
+  const { data: budgets, isPending } = useGetBudgetSummaryForUser()
 
   if (isPending) return <p>Loading...</p>
 
