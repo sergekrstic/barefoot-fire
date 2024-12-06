@@ -16,7 +16,12 @@ export const AccountList = memo(function AccountList(): JSX.Element {
   return (
     <>
       {accounts.map((account) => (
-        <CollapsibleSection key={account.id} title={account.title} insight={account.current_balance} as="h6">
+        <CollapsibleSection
+          key={account.id}
+          title={account.title}
+          insight={account.current_balance?.toFixed(0)}
+          as="h6"
+        >
           {account.transaction_accounts?.map((transactionAccount) => (
             <TransactionAccountItem key={transactionAccount.id} transactionAccount={transactionAccount} />
           ))}
@@ -34,7 +39,7 @@ function TransactionAccountItem({ transactionAccount }: TransactionAccountItemPr
   return (
     <div className="fire-section-item">
       <div>{transactionAccount.name}</div>
-      <div>{transactionAccount.current_balance}</div>
+      <div>{transactionAccount.current_balance?.toFixed(0)}</div>
     </div>
   )
 }
