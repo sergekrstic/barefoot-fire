@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fire/pocketsmith-api": "workspace:^",
+    "@floating-ui/react": "^0.27.0",
     "@tanstack/query-sync-storage-persister": "^5.61.4",
     "@tanstack/react-query": "^5.61.4",
     "@tanstack/react-query-persist-client": "^5.61.4",
