@@ -77,7 +77,25 @@ const statusInfoMap = {
   },
   'on-track': { id: 'on-track', icon: '🟢', status: 'On track', content: '' },
   'review-required': { id: 'review-required', icon: '🟠', status: 'Review required', content: '' },
-  'review-overdue': { id: 'review-overdue', icon: '🔴', status: 'Review overdue', content: '' },
+  'review-overdue': {
+    id: 'review-overdue',
+    icon: '🔴',
+    status: 'Review overdue',
+    content: (
+      <>
+        <h5>Barefoot review overdue</h5>
+        <p>It's time to review your Barefoot progress.</p>
+        <li>Transfer income across accounts</li>
+        <li>Categorize expenses in PocketSmith</li>
+        <li>Ensure buckets are within targets</li>
+        <li>Tag tax-related expense</li>
+        <li>Upload tax invoices to PocketSmith</li>
+        <li>Cancel any unnecessary subscriptions</li>
+        <li>Adjust *smile* budgets for mid-term goals</li>
+        <li>Express gratitude for FIRE</li>
+      </>
+    ),
+  },
   'off-track': { id: 'off-track', icon: '❌', status: 'Off track', content: '' },
 }
 
@@ -85,7 +103,7 @@ function getStatusInfo(): { status: string; content: JSX.Element | string } {
   const now = moment()
   const reviewData = moment('2024-12-03')
 
-  const info = !now.isAfter(reviewData) ? statusInfoMap['review-overdue'] : statusInfoMap['on-fire']
+  const info = now.isAfter(reviewData) ? statusInfoMap['review-overdue'] : statusInfoMap['on-fire']
   // return now.isAfter(reviewData) ? 3 : Math.floor(Math.random() * statusEmojis.length)
 
   return { status: `${info.icon} ${info.status}`, content: info.content }
