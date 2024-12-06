@@ -8,10 +8,7 @@ export function useAuthorisedUser(): UseQueryResult<User, Error> {
 
   return useQuery({
     queryKey: ['authorised-user'],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.users.meGet()).data
-    },
+    queryFn: async () => (await api.users.meGet()).data,
   })
 }
 
@@ -21,10 +18,7 @@ export function useUser({ id }: UsersApiUsersIdGetRequest): UseQueryResult<User,
 
   return useQuery({
     queryKey: ['user', id],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.users.usersIdGet({ id })).data
-    },
+    queryFn: async () => (await api.users.usersIdGet({ id })).data,
   })
 }
 
@@ -37,12 +31,8 @@ export function useUpdateUser({
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (user) => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.users.usersIdPut({ id, usersIdPutRequest })).data
-    },
+    mutationFn: async () => (await api.users.usersIdPut({ id, usersIdPutRequest })).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       queryClient.invalidateQueries({ queryKey: ['user', id] })
     },
   })

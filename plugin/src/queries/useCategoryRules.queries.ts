@@ -9,10 +9,7 @@ export function useListCategoryRulesInUser(): UseQueryResult<CategoryRule[], Err
 
   return useQuery({
     queryKey: ['category-rules'],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.categoryRules.usersIdCategoryRulesGet({ id: USER_ID })).data
-    },
+    queryFn: async () => (await api.categoryRules.usersIdCategoryRulesGet({ id: USER_ID })).data,
   })
 }
 
@@ -25,12 +22,8 @@ export function useCreateCategoryRuleInUser(
 
   return useMutation({
     mutationKey: ['create-category-rule-in-user', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.categoryRules.categoriesIdCategoryRulesPost(args)).data
-    },
+    mutationFn: async () => (await api.categoryRules.categoriesIdCategoryRulesPost(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })

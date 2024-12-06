@@ -7,9 +7,6 @@ export function useListLabelsInUser(args: LabelsApiUsersIdLabelsGetRequest): Use
 
   return useQuery({
     queryKey: ['list-labels-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.labels.usersIdLabelsGet(args)).data
-    },
+    queryFn: async () => (await api.labels.usersIdLabelsGet(args)).data,
   })
 }

@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { createPocketSmithApi, PocketSmithApi } from '@fire/pocketsmith-api'
 import { usePluginStore } from 'stores'
 
-export function usePocketsmithApi(): PocketSmithApi | null {
+export function usePocketsmithApi(): PocketSmithApi {
   const apiKey = usePluginStore((state) => state.pocketsmithApiKey)
-  const [pocketsmithApi, setPocketsmithApi] = useState<PocketSmithApi | null>(null)
+  const pocketsmithApi = useRef<PocketSmithApi>(createPocketSmithApi(apiKey))
 
   useEffect(() => {
-    const api = apiKey ? createPocketSmithApi(apiKey) : null
-    setPocketsmithApi(api)
+    if (!apiKey) throw new Error('No API key provided')
+    pocketsmithApi.current = createPocketSmithApi(apiKey)
   }, [apiKey])
 
-  return pocketsmithApi
+  return pocketsmithApi.current
 }

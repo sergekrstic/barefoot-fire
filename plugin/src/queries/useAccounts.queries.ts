@@ -7,6 +7,7 @@ import {
   AccountsApiInstitutionsIdAccountsGetRequest,
   AccountsApiUsersIdAccountsGetRequest,
   AccountsApiUsersIdAccountsPostRequest,
+  AccountsApiUsersIdAccountsPutRequest,
 } from '@fire/pocketsmith-api'
 
 import { usePocketsmithApi } from 'hooks'
@@ -17,10 +18,7 @@ export function useGetAccount({ id }: AccountsApiAccountsIdGetRequest): UseQuery
 
   return useQuery({
     queryKey: ['get-account', id],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.accounts.accountsIdGet({ id })).data
-    },
+    queryFn: async () => (await api.accounts.accountsIdGet({ id })).data,
   })
 }
 
@@ -33,12 +31,8 @@ export function useUpdateAccount(
 
   return useMutation({
     mutationKey: ['update-account', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.accounts.accountsIdPut(args)).data
-    },
+    mutationFn: async () => (await api.accounts.accountsIdPut(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -53,12 +47,8 @@ export function useDeleteAccount(
 
   return useMutation({
     mutationKey: ['delete-account', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.accounts.accountsIdDelete(args)).data
-    },
+    mutationFn: async () => (await api.accounts.accountsIdDelete(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -70,34 +60,41 @@ export function useListAccountsInUser(args: AccountsApiUsersIdAccountsGetRequest
 
   return useQuery({
     queryKey: ['list-accounts-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.accounts.usersIdAccountsGet(args)).data
-    },
+    queryFn: async () => (await api.accounts.usersIdAccountsGet(args)).data,
   })
 }
 
 // Todo: test this function
 export function useUpdateAccountsDisplayOrder(
-  args: AccountsApiUsersIdAccountsPostRequest,
-): UseMutationResult<Account[], Error, AccountsApiUsersIdAccountsPostRequest, unknown> {
+  args: AccountsApiUsersIdAccountsPutRequest,
+): UseMutationResult<Account[], Error, AccountsApiUsersIdAccountsPutRequest, unknown> {
   const api = usePocketsmithApi()
   // const queryClient = useQueryClient()
 
   return useMutation({
     mutationKey: ['update-accounts-display-order', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.accounts.usersIdAccountsPut(args)).data
-    },
+    mutationFn: async () => (await api.accounts.usersIdAccountsPut(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
 }
 
-// Todo: useCreateAccountInUser
+// Todo: test this function
+export function useCreateAccountInUser(
+  args: AccountsApiUsersIdAccountsPostRequest,
+): UseMutationResult<Account, Error, AccountsApiUsersIdAccountsPostRequest, unknown> {
+  const api = usePocketsmithApi()
+  // const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationKey: ['create-account-in-user', args],
+    mutationFn: async () => (await api.accounts.usersIdAccountsPost(args)).data,
+    onSuccess: () => {
+      // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
+    },
+  })
+}
 
 export function useListAccountsInInstitution(
   args: AccountsApiInstitutionsIdAccountsGetRequest,
@@ -106,9 +103,6 @@ export function useListAccountsInInstitution(
 
   return useQuery({
     queryKey: ['list-accounts', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.accounts.institutionsIdAccountsGet(args)).data
-    },
+    queryFn: async () => (await api.accounts.institutionsIdAccountsGet(args)).data,
   })
 }

@@ -16,10 +16,7 @@ export function useGetEvent(args: EventsApiEventsIdGetRequest): UseQueryResult<E
 
   return useQuery({
     queryKey: ['get-event', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.events.eventsIdGet(args)).data
-    },
+    queryFn: async () => (await api.events.eventsIdGet(args)).data,
   })
 }
 
@@ -32,12 +29,8 @@ export function useUpdateEvent(
 
   return useMutation({
     mutationKey: ['update-event', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.events.eventsIdPut(args)).data
-    },
+    mutationFn: async () => (await api.events.eventsIdPut(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -52,12 +45,8 @@ export function useDeleteEvent(
 
   return useMutation({
     mutationKey: ['delete-event', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.events.eventsIdDelete(args)).data
-    },
+    mutationFn: async () => (await api.events.eventsIdDelete(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -69,10 +58,7 @@ export function useListEventsInUser(args: EventsApiUsersIdEventsGetRequest): Use
 
   return useQuery({
     queryKey: ['list-events-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.events.usersIdEventsGet(args)).data
-    },
+    queryFn: async () => (await api.events.usersIdEventsGet(args)).data,
   })
 }
 
@@ -82,10 +68,7 @@ export function useListEventsInScenario(args: EventsApiScenariosIdEventsGetReque
 
   return useQuery({
     queryKey: ['list-events-in-scenario', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.events.scenariosIdEventsGet(args)).data
-    },
+    queryFn: async () => (await api.events.scenariosIdEventsGet(args)).data,
   })
 }
 
@@ -98,12 +81,8 @@ export function useCreateEventInScenario(
 
   return useMutation({
     mutationKey: ['create-event-in-scenario', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.events.scenariosIdEventsPost(args)).data
-    },
+    mutationFn: async () => (await api.events.scenariosIdEventsPost(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })

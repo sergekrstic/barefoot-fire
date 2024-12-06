@@ -16,10 +16,7 @@ export function useGetInstitution({ id }: InstitutionsApiInstitutionsIdGetReques
 
   return useQuery({
     queryKey: ['get-institution', id],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.institutions.institutionsIdGet({ id })).data
-    },
+    queryFn: async () => (await api.institutions.institutionsIdGet({ id })).data,
   })
 }
 
@@ -38,12 +35,8 @@ export function useUpdateInstitution({
 
   return useMutation({
     mutationKey: ['update-institution', id],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.institutions.institutionsIdPut({ id, institutionsIdPutRequest })).data
-    },
+    mutationFn: async () => (await api.institutions.institutionsIdPut({ id, institutionsIdPutRequest })).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -64,12 +57,8 @@ export function useDeleteInstitution({
 
   return useMutation({
     mutationKey: ['update-institution', id],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.institutions.institutionsIdDelete({ id, mergeIntoInstitutionId })).data
-    },
+    mutationFn: async () => (await api.institutions.institutionsIdDelete({ id, mergeIntoInstitutionId })).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -90,12 +79,9 @@ export function useCreateInstitutionInUser({
 
   return useMutation({
     mutationKey: ['update-institution', id],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.institutions.usersIdInstitutionsPost({ id, usersIdInstitutionsPostRequest })).data
-    },
+    mutationFn: async () =>
+      (await api.institutions.usersIdInstitutionsPost({ id, usersIdInstitutionsPostRequest })).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -109,9 +95,6 @@ export function useListInstitutionsInUser({
 
   return useQuery({
     queryKey: ['list-institutions', id],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.institutions.usersIdInstitutionsGet({ id })).data
-    },
+    queryFn: async () => (await api.institutions.usersIdInstitutionsGet({ id })).data,
   })
 }

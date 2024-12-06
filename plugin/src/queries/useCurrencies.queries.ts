@@ -8,10 +8,7 @@ export function useListCurrencies(): UseQueryResult<Currency[], Error> {
 
   return useQuery({
     queryKey: ['list-currencies'],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.currencies.currenciesGet()).data
-    },
+    queryFn: async () => (await api.currencies.currenciesGet()).data,
   })
 }
 
@@ -21,9 +18,6 @@ export function useGetCurrency(args: CurrenciesApiCurrenciesIdGetRequest): UseQu
 
   return useQuery({
     queryKey: ['get-currencies', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.currencies.currenciesIdGet(args)).data
-    },
+    queryFn: async () => (await api.currencies.currenciesIdGet(args)).data,
   })
 }

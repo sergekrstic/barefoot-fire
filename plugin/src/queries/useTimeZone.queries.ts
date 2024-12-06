@@ -8,9 +8,6 @@ export function useListTimeZones(): UseQueryResult<TimeZone[], Error> {
 
   return useQuery({
     queryKey: ['list-time-zones'],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.timeZones.timeZonesGet()).data
-    },
+    queryFn: async () => (await api.timeZones.timeZonesGet()).data,
   })
 }

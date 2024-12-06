@@ -18,10 +18,7 @@ export function useGetCategory(args: CategoriesApiCategoriesIdGetRequest): UseQu
 
   return useQuery({
     queryKey: ['get-category', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.categories.categoriesIdGet(args)).data
-    },
+    queryFn: async () => (await api.categories.categoriesIdGet(args)).data,
     enabled: !!user,
   })
 }
@@ -35,12 +32,8 @@ export function useUpdateCategory(
 
   return useMutation({
     mutationKey: ['update-category', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.categories.categoriesIdPut(args)).data
-    },
+    mutationFn: async () => (await api.categories.categoriesIdPut(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -55,12 +48,8 @@ export function useDeleteCategory(
 
   return useMutation({
     mutationKey: ['delete-category', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.categories.categoriesIdDelete(args)).data
-    },
+    mutationFn: async () => (await api.categories.categoriesIdDelete(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -70,15 +59,12 @@ export function useListCategoriesInUser(
   args: CategoriesApiUsersIdCategoriesGetRequest,
 ): UseQueryResult<Category[], Error> {
   const api = usePocketsmithApi()
-  const { data: user } = useAuthorisedUser()
+  // const { data: user } = useAuthorisedUser()
 
   return useQuery({
     queryKey: ['list-categories-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.categories.usersIdCategoriesGet(args)).data
-    },
-    enabled: !!user,
+    queryFn: async () => (await api.categories.usersIdCategoriesGet(args)).data,
+    // enabled: !!user,
   })
 }
 
@@ -91,12 +77,8 @@ export function useCreateCategoryInUser(
 
   return useMutation({
     mutationKey: ['create-category-in-user', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.categories.usersIdCategoriesPost(args)).data
-    },
+    mutationFn: async () => (await api.categories.usersIdCategoriesPost(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })

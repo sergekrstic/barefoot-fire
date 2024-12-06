@@ -10,9 +10,6 @@ export function useListSavedSearchesInUser(
 
   return useQuery({
     queryKey: ['list-saved-searches-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.savedSearches.usersIdSavedSearchesGet(args)).data
-    },
+    queryFn: async () => (await api.savedSearches.usersIdSavedSearchesGet(args)).data,
   })
 }

@@ -18,10 +18,7 @@ export function useGetAttachment(args: AttachmentsApiAttachmentsIdGetRequest): U
 
   return useQuery({
     queryKey: ['get-attachment', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.attachmentsIdGet(args)).data
-    },
+    queryFn: async () => (await api.attachments.attachmentsIdGet(args)).data,
   })
 }
 
@@ -34,12 +31,8 @@ export function useUpdateAttachment(
 
   return useMutation({
     mutationKey: ['update-attachment', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.attachmentsIdPut(args)).data
-    },
+    mutationFn: async () => (await api.attachments.attachmentsIdPut(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -54,12 +47,8 @@ export function useDeleteAttachment(
 
   return useMutation({
     mutationKey: ['delete-attachment', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.attachmentsIdDelete(args)).data
-    },
+    mutationFn: async () => (await api.attachments.attachmentsIdDelete(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -73,10 +62,7 @@ export function useListAttachmentsInUser(
 
   return useQuery({
     queryKey: ['list-attachments-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.usersIdAttachmentsGet(args)).data
-    },
+    queryFn: async () => (await api.attachments.usersIdAttachmentsGet(args)).data,
   })
 }
 
@@ -89,12 +75,8 @@ export function useCreateAttachmentInUser(
 
   return useMutation({
     mutationKey: ['create-attachment-in-user', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.usersIdAttachmentsPost(args)).data
-    },
+    mutationFn: async () => (await api.attachments.usersIdAttachmentsPost(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -108,10 +90,7 @@ export function useListAttachmentsInTransaction(
 
   return useQuery({
     queryKey: ['list-attachments-in-transaction', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.transactionsIdAttachmentsGet(args)).data
-    },
+    queryFn: async () => (await api.attachments.transactionsIdAttachmentsGet(args)).data,
   })
 }
 
@@ -124,18 +103,14 @@ export function useAssignAttachmentToTransaction(
 
   return useMutation({
     mutationKey: ['assign-attachment-in-transaction', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.transactionsIdAttachmentsPost(args)).data
-    },
+    mutationFn: async () => (await api.attachments.transactionsIdAttachmentsPost(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
 }
 
-// Todo:
+// Todo: test this function
 export function useUnassignAttachmentInTransaction(
   args: AttachmentsApiTransactionsTransactionIdAttachmentsAttachmentIdDeleteRequest,
 ): UseMutationResult<
@@ -149,12 +124,8 @@ export function useUnassignAttachmentInTransaction(
 
   return useMutation({
     mutationKey: ['unassign-attachment-in-transaction', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.attachments.transactionsTransactionIdAttachmentsAttachmentIdDelete(args)).data
-    },
+    mutationFn: async () => (await api.attachments.transactionsTransactionIdAttachmentsAttachmentIdDelete(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })

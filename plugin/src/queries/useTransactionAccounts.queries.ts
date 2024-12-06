@@ -16,10 +16,7 @@ export function useGetTransactionAccount(
 
   return useQuery({
     queryKey: ['get-transaction-account', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactionAccounts.transactionAccountsIdGet(args)).data
-    },
+    queryFn: async () => (await api.transactionAccounts.transactionAccountsIdGet(args)).data,
   })
 }
 
@@ -32,12 +29,8 @@ export function useUpdateTransactionAccount(
 
   return useMutation({
     mutationKey: ['update-transaction-account', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactionAccounts.transactionAccountsIdPut(args)).data
-    },
+    mutationFn: async () => (await api.transactionAccounts.transactionAccountsIdPut(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -51,9 +44,6 @@ export function useListTransactionAccountsInUser(
 
   return useQuery({
     queryKey: ['list-transaction-account-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactionAccounts.usersIdTransactionAccountsGet(args)).data
-    },
+    queryFn: async () => (await api.transactionAccounts.usersIdTransactionAccountsGet(args)).data,
   })
 }

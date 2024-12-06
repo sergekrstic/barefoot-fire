@@ -18,10 +18,7 @@ export function useGetTransaction(args: TransactionsApiTransactionsIdGetRequest)
 
   return useQuery({
     queryKey: ['get-transaction', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.transactionsIdGet(args)).data
-    },
+    queryFn: async () => (await api.transactions.transactionsIdGet(args)).data,
   })
 }
 
@@ -34,12 +31,8 @@ export function useUpdateTransaction(
 
   return useMutation({
     mutationKey: ['update-transaction', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.transactionsIdPut(args)).data
-    },
+    mutationFn: async () => (await api.transactions.transactionsIdPut(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -54,12 +47,8 @@ export function useDeleteTransaction(
 
   return useMutation({
     mutationKey: ['delete-transaction', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.transactionsIdDelete(args)).data
-    },
+    mutationFn: async () => (await api.transactions.transactionsIdDelete(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
@@ -73,10 +62,7 @@ export function useListTransactionsInUser(
 
   return useQuery({
     queryKey: ['list-transactions-in-user', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.usersIdTransactionsGet(args)).data
-    },
+    queryFn: async () => (await api.transactions.usersIdTransactionsGet(args)).data,
   })
 }
 
@@ -88,10 +74,7 @@ export function useListTransactionsInAccount(
 
   return useQuery({
     queryKey: ['list-transactions-in-account', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.accountsIdTransactionsGet(args)).data
-    },
+    queryFn: async () => (await api.transactions.accountsIdTransactionsGet(args)).data,
   })
 }
 
@@ -103,10 +86,7 @@ export function useListTransactionsInCategory(
 
   return useQuery({
     queryKey: ['list-transactions-in-category', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.categoriesIdTransactionsGet(args)).data
-    },
+    queryFn: async () => (await api.transactions.categoriesIdTransactionsGet(args)).data,
   })
 }
 
@@ -118,10 +98,7 @@ export function useListTransactionsInTransactionAccount(
 
   return useQuery({
     queryKey: ['list-transactions-in-category', args],
-    queryFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.transactionAccountsIdTransactionsGet(args)).data
-    },
+    queryFn: async () => (await api.transactions.transactionAccountsIdTransactionsGet(args)).data,
   })
 }
 
@@ -134,12 +111,8 @@ export function useCreateTransactionInTransactionAccount(
 
   return useMutation({
     mutationKey: ['update-transaction-account', args],
-    mutationFn: async () => {
-      if (!api) throw new Error('No API key provided')
-      return (await api.transactions.transactionAccountsIdTransactionsPost(args)).data
-    },
+    mutationFn: async () => (await api.transactions.transactionAccountsIdTransactionsPost(args)).data,
     onSuccess: () => {
-      // Todo: invalidate the query
       // queryClient.invalidateQueries({ queryKey: ['get-institution', id] })
     },
   })
