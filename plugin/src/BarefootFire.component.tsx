@@ -14,6 +14,7 @@ import {
   GroupedLabels,
   LabelList,
   SavedSearchesList,
+  Status,
 } from 'components'
 import { usePluginStore } from 'stores'
 
@@ -34,6 +35,10 @@ export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.
       </div>
       {showContent && (
         <div className="fire-content">
+          <CollapsibleSection title="Status" as="h5">
+            {/* Status */}
+            <Status />
+          </CollapsibleSection>
           <CollapsibleSection title="Accounts" as="h5">
             {/* Accounts List */}
             <AccountList />
