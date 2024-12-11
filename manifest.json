@@ -1,7 +1,7 @@
 {
 	"id": "barefoot-fire",
 	"name": "Barefoot F.I.R.E.",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"minAppVersion": "0.15.0",
 	"description": "A financial dashboard using PocketSmith for Obsidian",
 	"author": "Serge Krstic",

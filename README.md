@@ -107,7 +107,7 @@ Todo: Figure out precisely what is required to make this helpful dashboard.
   - Update the version number in `<root>/package.json` to `1.0.1`.
   - Run the script to bump the version in `manifest.json` and `version.json`: `pnpm bump-version`.
   - Add the changed files to git staging: `git add .`
-  - Commit the changed files to git: `git commit -m "your-commit-message-here"`
+  - Commit the changed files to git: `git commit -m "Release x.x.x"`
   - Create a tag that matches the version in the `manifest.json` file: `git tag -a 1.0.1 -m "1.0.1"`
   - Push the tagged commit to origin: `git push origin 1.0.1`
   - Browse to your repository on GitHub and select the Actions tab. Your workflow might still be running, or it might have finished already.
