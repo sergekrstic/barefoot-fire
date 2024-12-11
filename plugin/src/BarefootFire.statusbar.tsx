@@ -12,7 +12,10 @@ import {
   useInteractions,
 } from '@floating-ui/react'
 import { moment } from 'obsidian'
-import { useInterval } from 'hooks'
+
+import { useStatusInfo } from 'hooks'
+import { usePluginStore } from 'stores'
+import { StatusInfo, Status } from 'BarefootFire.types'
 
 export function createBarefootFireStatusBar(containerEl: HTMLElement): void {
   this.root = createRoot(containerEl)
@@ -23,12 +26,8 @@ export function createBarefootFireStatusBar(containerEl: HTMLElement): void {
   )
 }
 
-export const ONE_SECOND = 1000
-export const ONE_MINUTE = 60 * ONE_SECOND
-export const ONE_HOUR = 60 * ONE_MINUTE
-
 function Statusbar(): JSX.Element {
-  const [statusInfo, setStatusInfo] = useState(getStatusInfo())
+  const status = useStatusInfo()
   const [showPopup, setShowPopup] = useState(false)
 
   const { refs, floatingStyles, context } = useFloating({
@@ -43,19 +42,15 @@ function Statusbar(): JSX.Element {
 
   const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss])
 
-  useInterval(() => {
-    setStatusInfo(getStatusInfo())
-  }, ONE_HOUR)
-
   return (
     <>
       <div ref={refs.setReference} {...getReferenceProps()}>
-        {statusInfo.status}
+        {statusInfoMap[status].title}
       </div>
       {showPopup && (
         <FloatingFocusManager context={context} modal={false}>
           <div className="status-popup" ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
-            {statusInfo.content}
+            {statusInfoMap[status].content}
           </div>
         </FloatingFocusManager>
       )}
@@ -63,48 +58,95 @@ function Statusbar(): JSX.Element {
   )
 }
 
-const statusInfoMap = {
+const statusInfoMap: Record<Status, StatusInfo> = {
   'on-fire': {
-    id: 'on-fire',
-    icon: '🔥',
-    status: 'On fire',
-    content: (
-      <>
-        <p>You are on fire!</p>
-        <p>Keep up the the consistent effort.</p>
-      </>
-    ),
+    status: 'on-fire',
+    title: '🔥 On fire',
+    content: <OnFireStatus />,
   },
-  'on-track': { id: 'on-track', icon: '🟢', status: 'On track', content: '' },
-  'review-required': { id: 'review-required', icon: '🟠', status: 'Review required', content: '' },
+  'on-track': {
+    status: 'on-track',
+    title: '🟢 On track',
+    content: <OnTrackStatus />,
+  },
+  'review-required': {
+    status: 'review-required',
+    title: '🟠 Review required',
+    content: <ReviewRequiredStatus />,
+  },
   'review-overdue': {
-    id: 'review-overdue',
-    icon: '🔴',
-    status: 'Review overdue',
-    content: (
-      <>
-        <h5>Barefoot review overdue</h5>
-        <p>It's time to review your Barefoot progress.</p>
-        <li>Transfer income across accounts</li>
-        <li>Categorize expenses in PocketSmith</li>
-        <li>Ensure buckets are within targets</li>
-        <li>Tag tax-related expense</li>
-        <li>Upload tax invoices to PocketSmith</li>
-        <li>Cancel any unnecessary subscriptions</li>
-        <li>Adjust *smile* budgets for mid-term goals</li>
-        <li>Express gratitude for FIRE</li>
-      </>
-    ),
+    status: 'review-overdue',
+    title: '🔴 Review overdue',
+    content: <ReviewOverdueStatus />,
   },
-  'off-track': { id: 'off-track', icon: '❌', status: 'Off track', content: '' },
+  'off-track': {
+    status: 'off-track',
+    title: '❌ Off track',
+    content: <OffTrackStatus />,
+  },
 }
 
-function getStatusInfo(): { status: string; content: JSX.Element | string } {
-  const now = moment()
-  const reviewData = moment('2024-12-03')
+function OnFireStatus(): JSX.Element {
+  return (
+    <>
+      <h5>You are on fire!</h5>
+      <p>Keep up the the consistent effort.</p>
+    </>
+  )
+}
 
-  const info = now.isAfter(reviewData) ? statusInfoMap['review-overdue'] : statusInfoMap['on-fire']
-  // return now.isAfter(reviewData) ? 3 : Math.floor(Math.random() * statusEmojis.length)
+function OnTrackStatus(): JSX.Element {
+  return (
+    <>
+      <h5>You are on track!</h5>
+      <p>Keep up the the consistent effort.</p>
+    </>
+  )
+}
 
-  return { status: `${info.icon} ${info.status}`, content: info.content }
+function ReviewRequiredStatus(): JSX.Element {
+  return (
+    <>
+      <p>You are on fire!</p>
+      <p>Keep up the the consistent effort.</p>
+    </>
+  )
+}
+
+function ReviewOverdueStatus(): JSX.Element {
+  const setLastCompletedReviewDate = usePluginStore((state) => state.setLastCompletedReviewDate)
+
+  return (
+    <>
+      <h5>Barefoot review overdue</h5>
+      <p>It's time to review your Barefoot progress.</p>
+      <li>Transfer income across accounts.</li>
+      <li>Categorize expenses in PocketSmith.</li>
+      <li>Ensure buckets are within targets.</li>
+      <li>Tag tax-related expenses.</li>
+      <li>Upload tax invoices to PocketSmith.</li>
+      <li>Cancel any unnecessary subscriptions.</li>
+      <li>
+        Adjust <b>smile</b> budgets for mid-term goals.
+      </li>
+      <li>Express gratitude for FIRE.</li>
+      <button>Review now</button>
+      <button
+        onClick={() => {
+          setLastCompletedReviewDate(moment().format('YYYY-MM-DD'))
+        }}
+      >
+        Complete
+      </button>
+    </>
+  )
+}
+
+function OffTrackStatus(): JSX.Element {
+  return (
+    <>
+      <h5>You are on track!</h5>
+      <p>Serious effort and focus is require find you path to freedom.</p>
+    </>
+  )
 }
