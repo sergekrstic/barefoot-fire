@@ -64,6 +64,7 @@ The dashboard displays the current state of your bucket.
 - [ ] Figure out how the events data works.
 - [ ] Figure out how I might use the "budgeting" data for my barefoot fire dashboard
 - [ ] Figure out how I might use the "event" data for my barefoot fire dashboard
+- [ ] Figure out how to normalise the data in `react-query`. This will reduce the memory footprint.
 
 ## Statusbar
 
