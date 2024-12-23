@@ -6,15 +6,17 @@ export interface CollapsibleSectionProps {
   title?: string | React.ReactNode
   insight?: string | React.ReactNode
   children: React.ReactNode
+  initialOpen?: boolean
 }
 
 export const CollapsibleSection = memo(function CollapsibleSection({
   as: Tag = 'h1',
   title,
   insight,
+  initialOpen = false,
   children,
 }: CollapsibleSectionProps): JSX.Element {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(initialOpen)
 
   return (
     <>
