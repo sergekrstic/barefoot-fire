@@ -48,8 +48,12 @@
 .status-popup {
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  border-radius: 8px;
+  padding: var(--size-4-4);
+  border-width: var(--border-width);
+  border-style: solid;
+  border-radius: var(--radius-m);
+  border-color: var(--background-modifier-border);
   width: max-content;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); */
+  background-color: var(--background-primary-alt);
 }
