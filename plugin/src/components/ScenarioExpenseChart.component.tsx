@@ -42,7 +42,7 @@ const scenarioBudgets: ScenarioBudgets = {
 
 const scenario: ScenarioEvents = calculateScenarioBudgets(scenarioBudgets)
 
-export function ScenarioExpenseChart(): JSX.Element {
+export function ScenarioExpenseChart(): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

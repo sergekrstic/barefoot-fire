@@ -15,7 +15,7 @@ export const CollapsibleSection = memo(function CollapsibleSection({
   insight,
   initialOpen = false,
   children,
-}: CollapsibleSectionProps): JSX.Element {
+}: CollapsibleSectionProps): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(initialOpen)
 
   return (

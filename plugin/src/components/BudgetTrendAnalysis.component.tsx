@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { useGetTrendAnalysisForUser } from 'queries'
 import { USER_ID } from 'BarefootFire.defaults'
 
-export const BudgetTrendAnalysis = memo(function BudgetTrendAnalysis(): JSX.Element {
+export const BudgetTrendAnalysis = memo(function BudgetTrendAnalysis(): React.JSX.Element {
   const { data: budgets, isPending } = useGetTrendAnalysisForUser({
     id: USER_ID,
     period: 'months',

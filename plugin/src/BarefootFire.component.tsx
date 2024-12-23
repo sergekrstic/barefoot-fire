@@ -19,7 +19,7 @@ import {
 } from 'components'
 import { usePluginStore } from 'stores'
 
-export const BarefootFireComponent = memo(function BarefootFireComponent(): JSX.Element {
+export const BarefootFireComponent = memo(function BarefootFireComponent(): React.JSX.Element {
   const apiKey = usePluginStore((state) => state.pocketsmithApiKey)
   const [showContent, setShowContent] = useState(true)
 

@@ -26,7 +26,7 @@ export function createBarefootFireStatusBar(containerEl: HTMLElement): void {
   )
 }
 
-function Statusbar(): JSX.Element {
+function Statusbar(): React.JSX.Element {
   const status = useStatusInfo()
   const [showPopup, setShowPopup] = useState(false)
 
@@ -86,7 +86,7 @@ const statusInfoMap: Record<Status, StatusInfo> = {
   },
 }
 
-function OnFireStatus(): JSX.Element {
+function OnFireStatus(): React.JSX.Element {
   return (
     <>
       <h5>You are on fire!</h5>
@@ -95,7 +95,7 @@ function OnFireStatus(): JSX.Element {
   )
 }
 
-function OnTrackStatus(): JSX.Element {
+function OnTrackStatus(): React.JSX.Element {
   return (
     <>
       <h5>You are on track!</h5>
@@ -104,7 +104,7 @@ function OnTrackStatus(): JSX.Element {
   )
 }
 
-function ReviewRequiredStatus(): JSX.Element {
+function ReviewRequiredStatus(): React.JSX.Element {
   return (
     <>
       <p>You are on fire!</p>
@@ -113,7 +113,7 @@ function ReviewRequiredStatus(): JSX.Element {
   )
 }
 
-function ReviewOverdueStatus(): JSX.Element {
+function ReviewOverdueStatus(): React.JSX.Element {
   const setLastCompletedReviewDate = usePluginStore((state) => state.setLastCompletedReviewDate)
 
   return (
@@ -142,7 +142,7 @@ function ReviewOverdueStatus(): JSX.Element {
   )
 }
 
-function OffTrackStatus(): JSX.Element {
+function OffTrackStatus(): React.JSX.Element {
   return (
     <>
       <h5>You are on track!</h5>

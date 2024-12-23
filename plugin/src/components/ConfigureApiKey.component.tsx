@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-export const ConfigureApiKey = memo(function ConfigureApiKey(): JSX.Element {
+export const ConfigureApiKey = memo(function ConfigureApiKey(): React.JSX.Element {
   return (
     <div className="fire-container">
       <div className="fire-title">

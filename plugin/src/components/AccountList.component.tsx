@@ -6,7 +6,7 @@ import { useListAccountsInInstitution } from 'queries'
 
 import { INSTITUTION_ID } from '../BarefootFire.defaults'
 
-export const AccountList = memo(function AccountList(): JSX.Element {
+export const AccountList = memo(function AccountList(): React.JSX.Element {
   const { data: accounts, isPending } = useListAccountsInInstitution({ id: INSTITUTION_ID })
 
   if (isPending) return <p>Loading...</p>
@@ -35,7 +35,7 @@ interface TransactionAccountItemProps {
   transactionAccount: TransactionAccount
 }
 
-function TransactionAccountItem({ transactionAccount }: TransactionAccountItemProps): JSX.Element {
+function TransactionAccountItem({ transactionAccount }: TransactionAccountItemProps): React.JSX.Element {
   return (
     <div className="fire-section-item">
       <div>{transactionAccount.name}</div>

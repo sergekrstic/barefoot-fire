@@ -1,6 +1,6 @@
 import { useStatusInfo } from 'hooks'
 
-export function Status(): JSX.Element {
+export function Status(): React.JSX.Element {
   const status = useStatusInfo()
 
   return (

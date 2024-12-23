@@ -11,8 +11,8 @@ interface CollapsibleTreeProps {
   tree: TreeData[]
   level?: number
   context?: unknown
-  renderCollapsibleItemContent: (item: unknown, context?: unknown) => JSX.Element
-  renderLeafItemContent: (item: unknown, context?: unknown) => JSX.Element
+  renderCollapsibleItemContent: (item: unknown, context?: unknown) => React.JSX.Element
+  renderLeafItemContent: (item: unknown, context?: unknown) => React.JSX.Element
 }
 
 export function CollapsibleTree({
@@ -21,7 +21,7 @@ export function CollapsibleTree({
   context,
   renderCollapsibleItemContent,
   renderLeafItemContent,
-}: CollapsibleTreeProps): JSX.Element {
+}: CollapsibleTreeProps): React.JSX.Element {
   const [showNested, setShowNested] = useState<Record<string, boolean>>({})
 
   const toggleNested = (id: string): void => {

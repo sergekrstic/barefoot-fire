@@ -1,6 +1,6 @@
 import { Icon, IconProps } from './IconWrapper.component'
 
-export function ChevronRightIcon({ size = 24 }: IconProps): JSX.Element {
+export function ChevronRightIcon({ size = 24 }: IconProps): React.JSX.Element {
   return (
     <Icon>
       <svg

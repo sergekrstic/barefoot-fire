@@ -9,5 +9,5 @@ export type Status = 'on-fire' | 'on-track' | 'review-required' | 'review-overdu
 export interface StatusInfo {
   status: Status
   title: string
-  content: JSX.Element
+  content: React.JSX.Element
 }

@@ -6,7 +6,7 @@ import { useListCategoriesInUser } from 'queries'
 
 import { USER_ID } from '../BarefootFire.defaults'
 
-export const CategoryList = memo(function CategoryList(): JSX.Element {
+export const CategoryList = memo(function CategoryList(): React.JSX.Element {
   const { data: categories, isPending } = useListCategoriesInUser({ id: USER_ID })
 
   if (isPending) return <p>Loading...</p>

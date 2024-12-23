@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-export const BucketList = memo(function BucketList(): JSX.Element {
+export const BucketList = memo(function BucketList(): React.JSX.Element {
   return (
     <>
       <p>

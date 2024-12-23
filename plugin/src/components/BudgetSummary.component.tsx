@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { useGetBudgetSummaryForUser } from 'queries'
 import { USER_ID } from 'BarefootFire.defaults'
 
-export const BudgetSummary = memo(function BudgetSummary(): JSX.Element {
+export const BudgetSummary = memo(function BudgetSummary(): React.JSX.Element {
   const { data: budgets, isPending } = useGetBudgetSummaryForUser({
     id: USER_ID,
     period: 'months',

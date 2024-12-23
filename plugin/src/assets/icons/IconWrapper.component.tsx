@@ -6,6 +6,6 @@ export interface IconWrapperProps {
   children: React.ReactNode
 }
 
-export function Icon({ children }: IconWrapperProps): JSX.Element {
+export function Icon({ children }: IconWrapperProps): React.JSX.Element {
   return <div className="fire-icon">{children}</div>
 }
