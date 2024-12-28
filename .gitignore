@@ -1,19 +1,38 @@
-# vscode
-.vscode
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node and output directories
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 .env
 
 # Intellij
 *.iml
 .idea
 
-# npm
-node_modules
-
-# Don't include personal data in the repo.
-packages/pocketsmith-api/responses/
-private/
 
 # Ignore sensitive data files
+packages/pocketsmith-api/responses/
+private/
 obsidian-ex.d.ts
 
 # Don't include the compiled main.js file in the repo.
@@ -28,5 +47,7 @@ cache.json
 # obsidian
 data.json
 
-# Exclude macOS Finder (System Explorer) View States
-.DS_Store
+
+
+
+
