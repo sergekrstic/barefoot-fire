@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import cy from 'cytoscape'
+// @ts-expect-error - cytoscape-all-paths is not typed
 import cytoscapeAllPaths from 'cytoscape-all-paths'
 import tidytree from 'cytoscape-tidytree'
 
@@ -36,10 +37,12 @@ const settings: cy.CytoscapeOptions = {
         'line-color': '#c5c',
         'target-arrow-color': '#c5c',
         'target-arrow-shape': 'triangle',
+        // @ts-expect-error - cytoscape-all-paths is not typed
         'curve-style': 'round-taxi',
       },
     },
   ],
+  // @ts-expect-error - cytoscape-all-paths is not typed
   layout: { name: 'tidytree', direction: 'LR' },
 }
 
@@ -66,9 +69,4 @@ export function ScenarioGraph(): React.JSX.Element {
   }, [cytoInstance])
 
   return <div ref={containerRef} className="h-full w-full" />
-  // return <div ref={containerRef} className="h-screen w-screen" />
 }
-
-// export function ScenarioGraph() {
-//   return <div className="flex h-full w-full items-center justify-center border border-black">Scenario Graph</div>
-// }

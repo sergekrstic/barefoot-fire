@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@fire/pocketsmith-api": "workspace:^",
+    "@fire/forecast-engine": "workspace:^",
     "@floating-ui/react": "^0.27.0",
     "@observablehq/plot": "^0.6.16",
     "@tanstack/query-sync-storage-persister": "^5.61.4",

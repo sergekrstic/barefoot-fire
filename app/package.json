@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@fire/forecast-engine": "workspace:^",
     "cytoscape": "^3.30.4",
     "cytoscape-all-paths": "^0.1.0",
     "cytoscape-tidytree": "^0.2.0",

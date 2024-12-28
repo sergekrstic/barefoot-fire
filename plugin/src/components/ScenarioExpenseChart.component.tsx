@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import * as Plot from '@observablehq/plot'
 
-import { calculateScenarioBudgets, ScenarioBudgets, ScenarioEvents } from 'engine'
+import { calculateScenarioBudgets, ScenarioBudgets, ScenarioEvents } from '@fire/forecast-engine'
 
 const scenarioBudgets: ScenarioBudgets = {
   period: {
