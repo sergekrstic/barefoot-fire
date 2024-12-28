@@ -12,6 +12,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "cytoscape": "^3.30.4",
+    "cytoscape-all-paths": "^0.1.0",
+    "cytoscape-tidytree": "^0.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -26,6 +29,7 @@
     "@storybook/react-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
     "@trivago/prettier-plugin-sort-imports": "^5.2.0",
+    "@types/cytoscape": "^3.21.8",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react-swc": "^3.5.0",
