@@ -1,0 +1,21 @@
+{
+  "name": "@fire/forecast-engine",
+  "version": "1.0.0",
+  "author": "Serge Krstic",
+  "main": "./src/index.js",
+  "scripts": {
+    "spike": "tsx src/spikes/index",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write .",
+    "generate:api": "rm -rf src/generated-api; openapi-generator generate -i ./src/config/pocketsmith.openapi.json -g typescript-axios -o src/generated-api --skip-validate-spec --additional-properties=useSingleRequestParameter=true,withoutPrefixEnums=true,enumNameSuffix=,withSeparateModelsAndApi=true,apiPackage=server,modelPackage=model --openapi-normalizer REFACTOR_ALLOF_WITH_PROPERTIES_ONLY=true"
+  },
+  "dependencies": {
+    "moment": "^2.30.1"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^2.1.8",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}
