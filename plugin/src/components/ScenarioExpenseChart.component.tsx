@@ -11,28 +11,28 @@ const scenarioBudgets: ScenarioBudgets = {
   budgets: [
     {
       name: 'Budget 1',
-      expense: 1000,
+      amount: 1000,
       frequency: 'year',
       startDate: '2024-01-01',
       endDate: '2034-12-31',
     },
     {
       name: 'Budget 2',
-      expense: 100,
+      amount: 100,
       frequency: 'week',
       startDate: '2024-01-01',
       endDate: '2034-12-31',
     },
     {
       name: 'Budget 33',
-      expense: 10,
+      amount: 10,
       frequency: 'day',
       startDate: '2024-01-01',
       endDate: '2034-12-31',
     },
     {
       name: 'Budget 4',
-      expense: 10,
+      amount: 10,
       frequency: 'day',
       startDate: '2024-01-01',
       endDate: '2034-12-31',

@@ -10,13 +10,16 @@ export interface Period {
 
 export interface Budget {
   name: string
-  expense: number
+  // type: BudgetType
+  amount: number
   frequency: BudgetFrequency
   startDate: string
   endDate: string
   initialAmount?: number
   interestRate?: number
 }
+
+export type BudgetType = 'income' | 'expense'
 
 export type BudgetFrequency = 'year' | 'month' | 'week' | 'day'
 
@@ -35,5 +38,11 @@ export interface Event {
 export interface ScenarioEvents {
   period: Period
   budgetEvents: BudgetEvents[]
+  totalExpense: number
+}
+
+export interface ScenarioTree {
+  name: string
+  children: ScenarioTree[]
   totalExpense: number
 }

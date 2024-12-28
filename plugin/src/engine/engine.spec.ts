@@ -5,7 +5,8 @@ import { Budget, Period, ScenarioBudgets } from './engine.types'
 describe('@calculateBudgetEvents()', () => {
   const budget: Budget = {
     name: 'Budget 1',
-    expense: 100,
+    // type: 'expense',
+    amount: 100,
     frequency: 'month',
     startDate: '2024-01-01',
     endDate: '2034-12-31',
@@ -64,10 +65,7 @@ describe('@calculateBudgetEvents()', () => {
       endDate: '2024-12-31',
     }
 
-    const budgetEvents = calculateBudgetEvents(
-      { ...budget, initialAmount: 1000, expense: 0, interestRate: 0.1 },
-      period,
-    )
+    const budgetEvents = calculateBudgetEvents({ ...budget, initialAmount: 1000, amount: 0, interestRate: 0.1 }, period)
 
     expect(budgetEvents.totalExpense).toBeCloseTo(1114.71)
     expect(budgetEvents.events).toHaveLength(13)
@@ -96,14 +94,16 @@ describe('@calculateScenarioBudgets()', () => {
       budgets: [
         {
           name: 'Budget 1',
-          expense: 100,
+          // type: 'expense',
+          amount: 100,
           frequency: 'month',
           startDate: '2024-01-01',
           endDate: '2034-12-31',
         },
         {
           name: 'Budget 2',
-          expense: 1000,
+          // type: 'expense',
+          amount: 1000,
           frequency: 'year',
           startDate: '2024-01-01',
           endDate: '2034-12-31',
