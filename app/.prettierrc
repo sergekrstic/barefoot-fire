@@ -6,6 +6,9 @@
   "singleQuote": true,
   "trailingComma": "all",
   "endOfLine": "lf",
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindFunctions": ["cx"]
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["cx"],
+  "importOrder": ["^react$|^react-dom", "<THIRD_PARTY_MODULES>", "^[.]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }
