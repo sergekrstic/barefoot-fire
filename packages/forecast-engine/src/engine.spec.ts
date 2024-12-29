@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { calculateBudgetEvents, calculateScenarioBudgets } from './engine.core'
+import { calculateBudgetEvents, calculateScenarioEvents } from './engine.core'
 import { Budget, Period, ScenarioBudgets } from './engine.types'
 
 describe('@calculateBudgetEvents()', () => {
@@ -111,7 +111,7 @@ describe('@calculateScenarioBudgets()', () => {
       ],
     }
 
-    const scenarioEvents = calculateScenarioBudgets(scenarioBudgets)
+    const scenarioEvents = calculateScenarioEvents(scenarioBudgets)
 
     expect(scenarioEvents.totalExpense).toBe(2200)
     expect(scenarioEvents.budgetEvents).toHaveLength(2)

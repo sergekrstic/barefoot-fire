@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { Budget, BudgetEvents, BudgetFrequency, Period, ScenarioBudgets, ScenarioEvents } from './engine.types'
 
-export function calculateScenarioBudgets({ period, budgets }: ScenarioBudgets): ScenarioEvents {
+export function calculateScenarioEvents({ period, budgets }: ScenarioBudgets): ScenarioEvents {
   // Calculate all the budget events in the scenario
   const events = budgets.map((budget) => calculateBudgetEvents(budget, period))
 
