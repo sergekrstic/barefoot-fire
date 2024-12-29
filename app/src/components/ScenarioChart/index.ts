@@ -1,1 +1,1 @@
-export * from './ScenarioChart.component'
+export * from './ScenarioChart.container'

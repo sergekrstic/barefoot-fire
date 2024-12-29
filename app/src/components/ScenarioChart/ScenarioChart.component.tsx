@@ -42,10 +42,17 @@ const scenarioBudgets: ScenarioBudgets = {
 
 const scenario: ScenarioEvents = calculateScenarioBudgets(scenarioBudgets)
 
-export function ScenarioChart(): React.JSX.Element {
+export interface ScenarioChartProps {
+  width: number
+  height: number
+}
+
+export function ScenarioChart({ width, height }: ScenarioChartProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    console.log('rendering chart', { width, height })
+
     const processedData = scenario.budgetEvents.map((budgetEvent) => {
       return budgetEvent.events.map((event) => ({
         date: new Date(event.date),
@@ -55,6 +62,9 @@ export function ScenarioChart(): React.JSX.Element {
     })
 
     const plot = Plot.plot({
+      width,
+      height,
+      marginLeft: 50,
       y: { grid: true },
       marks: [
         Plot.ruleY([0]),
@@ -68,7 +78,7 @@ export function ScenarioChart(): React.JSX.Element {
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()
-  }, [])
+  }, [height, width])
 
-  return <div ref={containerRef} className="flex h-full w-full" />
+  return <div ref={containerRef} className="h-full w-full" />
 }
