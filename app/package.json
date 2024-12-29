@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "release": "pnpm build && rm -rf ../release && mkdir ../release && cp -r dist/* ../release"
+    "release": "pnpm build && rm -rf ../assets && cp -r dist/* ../"
   },
   "dependencies": {
     "@fire/forecast-engine": "workspace:^",
