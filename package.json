@@ -10,11 +10,13 @@
     "dev": "cd plugin/ && node esbuild.config.mjs",
     "format": "pnpm run --recursive format",
     "lint": "pnpm run --recursive lint",
-    "test": "pnpm run --recursive test",
+    "test": "pnpm run --recursive test:ci",
     "build": "pnpm run --recursive build",
-    "bump-version": "node version-bump.mjs && git add package.json manifest.json versions.json"
+    "bump-version": "node version-bump.mjs && git add package.json manifest.json versions.json",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "prettier": "^3.3.3"
   }
 }

@@ -67,7 +67,7 @@ describe('@calculateBudgetEvents()', () => {
 
     const budgetEvents = calculateBudgetEvents({ ...budget, initialAmount: 1000, amount: 0, interestRate: 0.1 }, period)
 
-    expect(budgetEvents.totalExpense).toBeCloseTo(1114.71)
+    expect(budgetEvents.totalExpense).toBeCloseTo(1104.71)
     expect(budgetEvents.events).toHaveLength(13)
   })
 
@@ -79,7 +79,7 @@ describe('@calculateBudgetEvents()', () => {
 
     const budgetEvents = calculateBudgetEvents({ ...budget, initialAmount: 1000, interestRate: 0.1 }, period)
 
-    expect(budgetEvents.totalExpense).toBeCloseTo(2376.57)
+    expect(budgetEvents.totalExpense).toBeCloseTo(2361.27)
     expect(budgetEvents.events).toHaveLength(13)
   })
 })

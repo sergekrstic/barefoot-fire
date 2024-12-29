@@ -6,7 +6,6 @@
   "main": "./src/index.js",
   "scripts": {
     "spike": "tsx src/spikes/index",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write .",
     "generate:api": "rm -rf src/generated-api; openapi-generator generate -i ./src/config/pocketsmith.openapi.json -g typescript-axios -o src/generated-api --skip-validate-spec --additional-properties=useSingleRequestParameter=true,withoutPrefixEnums=true,enumNameSuffix=,withSeparateModelsAndApi=true,apiPackage=server,modelPackage=model --openapi-normalizer REFACTOR_ALLOF_WITH_PROPERTIES_ONLY=true"
   },
