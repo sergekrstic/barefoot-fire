@@ -8,7 +8,7 @@
   "endOfLine": "lf",
   "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
   "tailwindFunctions": ["cx"],
-  "importOrder": ["^react$|^react-dom", "<THIRD_PARTY_MODULES>", "^[.]"],
+  "importOrder": ["^react$|^react-dom|^@storybook", "<THIRD_PARTY_MODULES>", "^@fire", "^[.]"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true
 }
