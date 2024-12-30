@@ -48,6 +48,7 @@ export function getNumberOfPeriods(period: Period, frequency: BudgetFrequency): 
   if (frequency === 'day') return 365
   if (frequency === 'week') return 52
   if (frequency === 'month') return 12
+  if (frequency === 'quarter') return 4
   if (frequency === 'year') return 1
   throw new Error(`Invalid frequency: ${frequency}`)
 }

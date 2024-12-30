@@ -21,7 +21,7 @@ export interface Budget {
 
 export type BudgetType = 'income' | 'expense'
 
-export type BudgetFrequency = 'year' | 'month' | 'week' | 'day'
+export type BudgetFrequency = 'year' | 'quarter' | 'month' | 'week' | 'day'
 
 export interface BudgetEvents {
   budget: Budget
