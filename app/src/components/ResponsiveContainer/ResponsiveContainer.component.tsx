@@ -7,7 +7,7 @@ export type ParentSizeProvidedProps = ParentSizeState & {
   resize: (state: ParentSizeState) => void
 }
 
-export type ParentSizeProps = {
+export type ResponsiveContainerProps = {
   /** Optional `className` to add to the parent `div` wrapper used for size measurement. */
   className?: string
   /**
@@ -22,7 +22,7 @@ export type ParentSizeProps = {
 
 const defaultParentSizeStyles = { width: '100%', height: '100%' }
 
-export function ParentSize({
+export function ResponsiveContainer({
   className,
   children,
   debounceTime,
@@ -32,7 +32,7 @@ export function ParentSize({
   enableDebounceLeadingCall = true,
   resizeObserverPolyfill,
   ...restProps
-}: ParentSizeProps & Omit<React.HTMLAttributes<HTMLDivElement>, keyof ParentSizeProps>) {
+}: ResponsiveContainerProps & Omit<React.HTMLAttributes<HTMLDivElement>, keyof ResponsiveContainerProps>) {
   const { parentRef, resize, ...dimensions } = useParentSize({
     initialSize,
     debounceTime,

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import debounce from 'lodash/debounce'
 
-import { DebounceSettings } from './ParentSize.types'
+import { DebounceSettings } from './useParentSize.types'
 
 interface ScreenSize {
   width: number

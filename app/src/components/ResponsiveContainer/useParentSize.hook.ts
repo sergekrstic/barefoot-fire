@@ -2,7 +2,7 @@ import { RefObject, useEffect, useMemo, useRef, useState } from 'react'
 
 import debounce from 'lodash/debounce'
 
-import { DebounceSettings, PrivateWindow, ResizeObserverPolyfill } from './ParentSize.types'
+import { DebounceSettings, PrivateWindow, ResizeObserverPolyfill } from './useParentSize.types'
 
 export type ParentSizeState = {
   width: number

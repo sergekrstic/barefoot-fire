@@ -1,5 +1,5 @@
 export * from './BudgetPropertiesPanel'
-export * from './ParentSize'
+export * from './ResponsiveContainer'
 export * from './ScenarioChart'
 export * from './ScenarioGraph'
 export * from './TimelineScrubber'

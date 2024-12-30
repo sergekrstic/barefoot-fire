@@ -1,6 +1,6 @@
 import { ScenarioEvents } from '@fire/forecast-engine'
 
-import { ParentSize } from '../ParentSize'
+import { ResponsiveContainer } from '../ResponsiveContainer'
 import { ScenarioChart as ScenarioChartComponent } from './ScenarioChart.component'
 
 export interface ScenarioChartProps {
@@ -9,8 +9,8 @@ export interface ScenarioChartProps {
 
 export function ScenarioChart({ scenarioEvents }: ScenarioChartProps): React.JSX.Element {
   return (
-    <ParentSize>
+    <ResponsiveContainer>
       {({ width, height }) => <ScenarioChartComponent width={width} height={height} scenarioEvents={scenarioEvents} />}
-    </ParentSize>
+    </ResponsiveContainer>
   )
 }
