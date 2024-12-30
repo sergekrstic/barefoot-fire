@@ -1,22 +1,48 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { ResponsiveContainer } from 'components'
+import moment from 'moment'
 import { withChartContainer } from 'storybook'
 
-const DummyComponent = () => <div>dummy</div>
+import { BarChart as BarChartComponent, LineChart as LineChartComponent } from './components'
+
+const PlaceholderComponent = () => <div>Placeholder</div>
 
 const meta = {
-  component: DummyComponent,
+  component: PlaceholderComponent,
   parameters: { layout: 'fullscreen' },
   decorators: [withChartContainer],
-} satisfies Meta<typeof DummyComponent>
+} satisfies Meta<typeof PlaceholderComponent>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const BarChart: Story = {
-  args: {},
+  render: () => {
+    const data = generateRandomTimeSeriesData()
+    return (
+      <ResponsiveContainer>
+        {({ width, height }) => <BarChartComponent width={width} height={height} data={data} />}
+      </ResponsiveContainer>
+    )
+  },
 }
 
 export const LineChart: Story = {
-  args: {},
+  render: () => {
+    const data = generateRandomTimeSeriesData()
+    return (
+      <ResponsiveContainer>
+        {({ width, height }) => <LineChartComponent width={width} height={height} data={data} />}
+      </ResponsiveContainer>
+    )
+  },
+}
+
+function generateRandomTimeSeriesData() {
+  const data = []
+  for (let i = 0; i < 100; i++) {
+    data.push({ date: moment().add(i, 'w').toISOString(), amount: Math.random() * 100, name: 'A' })
+  }
+  return data
 }
