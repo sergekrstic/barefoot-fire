@@ -9,7 +9,7 @@ export interface ScenarioChartProps {
 
 export function ScenarioChart({ scenarioEvents }: ScenarioChartProps): React.JSX.Element {
   return (
-    <ParentSize className="p-4">
+    <ParentSize>
       {({ width, height }) => <ScenarioChartComponent width={width} height={height} scenarioEvents={scenarioEvents} />}
     </ParentSize>
   )

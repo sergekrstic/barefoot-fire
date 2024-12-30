@@ -5,44 +5,16 @@ import cy from 'cytoscape'
 import cytoscapeAllPaths from 'cytoscape-all-paths'
 import tidytree from 'cytoscape-tidytree'
 
+import { graphData } from './ScenarioGraph.data'
+import { graphStyles } from './ScenarioGraph.styles'
+
 cy.use(tidytree)
 cy.use(cytoscapeAllPaths)
 
 const settings: cy.CytoscapeOptions = {
-  elements: {
-    nodes: [
-      { data: { id: '0', name: 'start' } },
-      { data: { id: '1', name: 'job 1' } },
-      { data: { id: '2', name: 'job 2' } },
-      { data: { id: '3', name: 'job 3' } },
-    ],
-    edges: [
-      { data: { source: '0', target: '1' } },
-      { data: { source: '1', target: '2' } },
-      { data: { source: '1', target: '3' } },
-    ],
-  },
-  style: [
-    {
-      selector: 'node',
-      style: {
-        'background-color': '#606',
-        label: 'data(name)',
-      },
-    },
-    {
-      selector: 'edge',
-      style: {
-        width: 3,
-        'line-color': '#c5c',
-        'target-arrow-color': '#c5c',
-        'target-arrow-shape': 'triangle',
-        // @ts-expect-error - cytoscape-all-paths is not typed
-        'curve-style': 'round-taxi',
-      },
-    },
-  ],
-  // @ts-expect-error - cytoscape-all-paths is not typed
+  elements: graphData,
+  style: graphStyles,
+  // @ts-expect-error - cytoscape-tidytree is not typed
   layout: { name: 'tidytree', direction: 'LR' },
 }
 
@@ -54,6 +26,16 @@ export function ScenarioGraph(): React.JSX.Element {
     if (containerRef.current) {
       const instance = cy({ container: containerRef.current, ...settings })
       setCytoInstance(instance)
+
+      // // Change cursor on grab
+      // instance.on('mousedown', (e) => {
+      //   console.log('mousedown', e)
+      //   // e.target.style('cursor', 'grabbing')
+      // })
+      // instance.on('mouseup', (e) => {
+      //   // e.target.style('cursor', 'grab')
+      // })
+
       return () => instance.destroy()
     }
   }, [containerRef])
@@ -68,5 +50,5 @@ export function ScenarioGraph(): React.JSX.Element {
     }
   }, [cytoInstance])
 
-  return <div ref={containerRef} className="h-full w-full" />
+  return <div ref={containerRef} className="h-full w-full cursor-grab" />
 }
