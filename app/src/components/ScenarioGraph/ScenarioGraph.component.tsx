@@ -20,7 +20,8 @@ const settings: cy.CytoscapeOptions = {
 
 export function ScenarioGraph(): React.JSX.Element {
   const containerRef = useRef(null)
-  const [cytoInstance, setCytoInstance] = useState<cy.Core>()
+  const [, setCytoInstance] = useState<cy.Core>()
+  // const [_cytoInstance, setCytoInstance] = useState<cy.Core>()
 
   useEffect(() => {
     if (containerRef.current) {
@@ -40,15 +41,15 @@ export function ScenarioGraph(): React.JSX.Element {
     }
   }, [containerRef])
 
-  useEffect(() => {
-    if (cytoInstance) {
-      // @ts-expect-error - cytoscape-all-paths is not typed
-      const paths = cytoInstance.elements().cytoscapeAllPaths() as cy.CollectionReturnValue[]
-      paths[0].nodes().forEach((node) => {
-        console.log(node.data('name'))
-      })
-    }
-  }, [cytoInstance])
+  // useEffect(() => {
+  //   if (cytoInstance) {
+  //     // @ts-expect-error - cytoscape-all-paths is not typed
+  //     const paths = cytoInstance.elements().cytoscapeAllPaths() as cy.CollectionReturnValue[]
+  //     paths[0].nodes().forEach((node) => {
+  //       console.log(node.data('name'))
+  //     })
+  //   }
+  // }, [cytoInstance])
 
   return <div ref={containerRef} className="h-full w-full cursor-grab" />
 }

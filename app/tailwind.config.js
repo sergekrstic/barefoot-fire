@@ -35,6 +35,8 @@ import colors from 'tailwindcss/colors'
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  // Toggle dark-mode based on .dark class or data-mode="dark"
+  // darkMode: ['class', '[data-mode="dark"]'],
   theme: {
     // Maybe we can override the colors here, and define them ourselves
     // colors: {},
