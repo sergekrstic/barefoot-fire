@@ -133,15 +133,14 @@ const brandSecondaryColor = twColors.amber[400]
 const twNeutrals = twColors.slate // slate, gray, zinc, neutral, stone
 
 const backgroundColorLight = twNeutrals[50]
-const backgroundColorDark = twNeutrals[900]
-const backgroundColorDarker = twNeutrals[950]
-
-const textNormalColor = twNeutrals[300]
-const textMutedColor = twNeutrals[500]
+const backgroundColorMedium = twNeutrals[600]
+const backgroundColorDark = twNeutrals[800]
+const backgroundColorDarker = twNeutrals[900]
+const backgroundColorDarkest = twNeutrals[950]
 
 const textLightColor = twNeutrals[200]
-const textSelectColor = twNeutrals[600]
-const textDarkColor = twNeutrals[800]
+const textNormalColor = twNeutrals[300]
+const textMutedColor = twNeutrals[500]
 
 const borderRadius = 5
 
@@ -155,9 +154,9 @@ export const brand = create({
   // ====================================
   // UI
   // ====================================
-  appBg: backgroundColorDark,
-  // appContentBg: backgroundColorDarker,
-  appContentBg: backgroundColorDark,
+  appBg: backgroundColorDarker,
+  // appContentBg: backgroundColorDark,
+  appContentBg: backgroundColorDarkest,
   appPreviewBg: backgroundColorLight,
   appBorderColor: 'rgba(255,255,255,.1)',
   appBorderRadius: borderRadius,
@@ -166,7 +165,7 @@ export const brand = create({
   // Text colors
   // ====================================
   textColor: textNormalColor,
-  textInverseColor: backgroundColorDark,
+  textInverseColor: backgroundColorDarker,
   textMutedColor: textMutedColor,
 
   // ====================================
@@ -175,17 +174,17 @@ export const brand = create({
   barTextColor: textLightColor,
   barHoverColor: brandSecondaryColor,
   barSelectedColor: brandSecondaryColor,
-  barBg: textDarkColor,
+  barBg: backgroundColorDark,
 
   // ====================================
   // Form colors
   // ====================================
-  buttonBg: backgroundColorDark,
+  buttonBg: backgroundColorDarker,
   buttonBorder: 'rgba(255,255,255,.1)',
-  booleanBg: backgroundColorDark,
-  booleanSelectedBg: textSelectColor,
+  booleanBg: backgroundColorDarker,
+  booleanSelectedBg: backgroundColorMedium,
 
-  inputBg: backgroundColorDarker,
+  inputBg: backgroundColorDarkest,
   inputBorder: 'rgba(255,255,255,.1)',
   inputTextColor: backgroundColorLight,
   inputBorderRadius: borderRadius,
