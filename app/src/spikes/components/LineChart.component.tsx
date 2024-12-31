@@ -33,3 +33,5 @@ export function LineChart({ width, height, data }: LineChartProps): React.JSX.El
 
   return <div ref={containerRef} className="h-full w-full" />
 }
+
+// "publish:storybook": "pnpm build-storybook && tsx scripts/modify-build-urls && rm -rf ../assets && cp -r storybook-static/* ../"

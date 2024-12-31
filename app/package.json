@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "release": "pnpm build && tsx scripts/modify-build-urls && rm -rf ../assets && cp -r dist/* ../"
+    "publish:app": "pnpm build && tsx scripts/modify-build-urls && rm -rf ../assets && cp -r dist/* ../",
+    "publish:storybook": "pnpm build-storybook"
   },
   "dependencies": {
     "@fire/forecast-engine": "workspace:^",
