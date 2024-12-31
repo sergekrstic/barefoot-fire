@@ -9,9 +9,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook:doctor": "storybook doctor",
+    "storybook:build": "storybook build",
     "publish:app": "pnpm build && tsx scripts/modify-build-urls && rm -rf ../assets && cp -r dist/* ../",
-    "publish:storybook": "pnpm build-storybook"
+    "publish:storybook": "pnpm storybook:build && rm -rf ../storybook && mkdir ../storybook && cp -r storybook-static/* ../storybook"
   },
   "dependencies": {
     "@fire/forecast-engine": "workspace:^",
