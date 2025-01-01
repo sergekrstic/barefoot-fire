@@ -29,6 +29,9 @@ importers:
       cytoscape-tidytree:
         specifier: ^0.2.0
         version: 0.2.0
+      htl:
+        specifier: ^0.3.1
+        version: 0.3.1
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2477,6 +2480,10 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  htl@0.3.1:
+    resolution: {integrity: sha512-1LBtd+XhSc+++jpOOt0lCcEycXs/zTQSupOISnVAUmvGBpV7DH+C2M6hwV7zWYfpTMMg9ch4NO0lHiOTAMHdVA==}
+    engines: {node: '>=12'}
 
   husky@9.1.7:
     resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
@@ -5658,6 +5665,8 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  htl@0.3.1: {}
 
   husky@9.1.7: {}
 

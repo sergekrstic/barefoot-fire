@@ -42,9 +42,10 @@ export function calculateBudgetEvents(budget: Budget, period: Period): BudgetEve
   return { budget, period, events, totalExpense: runningTotal }
 }
 
+// @ts-ignore
 export function getNumberOfPeriods(period: Period, frequency: BudgetFrequency): number {
   // Todo: figure out if I need to use the period argument
-  console.log('getNumberOfPeriods', { period, frequency })
+  // console.log('getNumberOfPeriods', { period, frequency })
   if (frequency === 'day') return 365
   if (frequency === 'week') return 52
   if (frequency === 'month') return 12

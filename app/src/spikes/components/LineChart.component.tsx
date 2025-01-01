@@ -1,37 +1,48 @@
 import { useEffect, useRef } from 'react'
 
 import * as Plot from '@observablehq/plot'
+import twColors from 'tailwindcss/colors'
 
 export interface LineChartProps {
   width: number
   height: number
   data: Plot.Data
+  color?: string
+  smooth?: boolean
 }
 
-export function LineChart({ width, height, data }: LineChartProps): React.JSX.Element {
+export function LineChart({
+  width,
+  height,
+  data,
+  color = twColors.violet[700],
+  smooth = false,
+}: LineChartProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const plot = Plot.plot({
+    const plot = Plot.marks([
+      Plot.ruleY([0]),
+      Plot.lineY(data, {
+        x: (d) => new Date(d.date),
+        y: 'amount',
+        stroke: color,
+        curve: smooth ? 'natural' : undefined,
+      }),
+    ]).plot({
       width,
       height,
       marginLeft: 50,
       y: { grid: true },
-      marks: [
-        Plot.ruleY([0]),
-        Plot.line(
-          data,
-          // @ts-expect-error - TS doesn't like the object shorthand
-          Plot.binX({ y: 'sum' }, { x: 'date', y: 'amount', fill: 'name', interval: 'month', cumulative: false }),
-        ),
-      ],
     })
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()
-  }, [data, height, width])
+  }, [color, data, height, smooth, width])
 
   return <div ref={containerRef} className="h-full w-full" />
 }
 
 // "publish:storybook": "pnpm build-storybook && tsx scripts/modify-build-urls && rm -rf ../assets && cp -r storybook-static/* ../"
+
+// quantitative, ordinal, temporal, nominal

@@ -1,2 +1,5 @@
+export * from './AreaChart.component'
 export * from './BarChart.component'
+export * from './DotChart.component'
 export * from './LineChart.component'
+export * from './StyledAreaChart.component'
