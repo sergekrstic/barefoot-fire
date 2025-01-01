@@ -10,6 +10,7 @@ export const colors = {
   // secondary: twColors.amber[200], // ok
   // secondary: twColors.amber[300], // ok, better
   secondary: twColors.amber[400], // ok, better
+  secondaryDark: twColors.amber[500], // ok, better
   // secondary: twColors.amber[500], // ok
   // secondary: twColors.amber[600],
   // secondary: twColors.amber[700],
@@ -67,6 +68,13 @@ export const graphStyles: Stylesheet[] = [
       'target-arrow-shape': 'triangle',
       // @ts-expect-error - cytoscape-all-paths is not typed
       'curve-style': 'round-taxi',
+    },
+  },
+  {
+    selector: 'edge[selected]',
+    style: {
+      'line-color': colors.secondaryDark,
+      'target-arrow-color': colors.secondaryDark,
     },
   },
 ]

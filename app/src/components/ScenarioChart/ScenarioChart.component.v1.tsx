@@ -4,13 +4,13 @@ import * as Plot from '@observablehq/plot'
 
 import { ScenarioEvents } from '@fire/forecast-engine'
 
-export interface ScenarioChartProps {
+export interface ScenarioChartV1Props {
   width: number
   height: number
   scenarioEvents: ScenarioEvents
 }
 
-export function ScenarioChart({ width, height, scenarioEvents }: ScenarioChartProps): React.JSX.Element {
+export function ScenarioChartV1({ width, height, scenarioEvents }: ScenarioChartV1Props): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
