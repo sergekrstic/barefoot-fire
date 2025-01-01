@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { ResponsiveContainer } from 'components'
-import moment from 'moment'
 import { withChartContainer } from 'storybook'
 import twColors from 'tailwindcss/colors'
+import { generateRandomTimeSeriesData } from 'utils'
 
 import {
   AreaChart as AreaChartComponent,
@@ -210,20 +210,4 @@ export const StyledAreaTransparentSecondary: Story = {
       </ResponsiveContainer>
     )
   },
-}
-
-function generateRandomTimeSeriesData() {
-  const data = []
-  for (let i = 0; i < 100; i++) {
-    data.push({ date: moment().add(i, 'w').toISOString(), amount: Math.random() * 100, name: 'A' })
-  }
-
-  // accumulate the amount
-  let total = 0
-  for (const d of data) {
-    total += d.amount
-    d.amount = total
-  }
-
-  return data
 }

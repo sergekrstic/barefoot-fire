@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { ScenarioChart } from 'components'
+import { ScenarioChartV1 } from 'components'
 
 import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
 
 const meta = {
-  component: ScenarioChart,
+  component: ScenarioChartV1,
   parameters: { layout: 'fullscreen' },
   decorators: [
     (Story) => (
@@ -14,7 +14,7 @@ const meta = {
       </div>
     ),
   ],
-} satisfies Meta<typeof ScenarioChart>
+} satisfies Meta<typeof ScenarioChartV1>
 
 export default meta
 type Story = StoryObj<typeof meta>
