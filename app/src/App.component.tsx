@@ -1,4 +1,4 @@
-import { BudgetPropertiesPanel, ScenarioChartV2, ScenarioGraph, TimelineScrubber } from 'components'
+import { BudgetDetails, ScenarioChartV2, ScenarioGraph, TimelineScrubber } from 'components'
 import { generateRandomTimeSeriesData } from 'utils'
 
 // import { scenarioEvents } from './App.data'
@@ -15,7 +15,7 @@ export function App() {
         {/* <ScenarioChartV1 scenarioEvents={scenarioEvents} /> */}
       </div>
       <div className="flex h-full w-1/4 items-center justify-center">
-        <BudgetPropertiesPanel />
+        <BudgetDetails />
       </div>
     </div>
   )

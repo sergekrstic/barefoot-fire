@@ -1,4 +1,5 @@
-export * from './BudgetPropertiesPanel'
+export * from './BudgetDetails'
+export * from './CollapsibleTree'
 export * from './ResponsiveContainer'
 export * from './ScenarioChart'
 export * from './ScenarioGraph'

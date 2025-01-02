@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-const DummyComponent = () => <div>To do...</div>
+import { BudgetDetails } from './BudgetDetails.component'
 
 const meta = {
-  component: DummyComponent,
+  component: BudgetDetails,
   parameters: { layout: 'fullscreen' },
-} satisfies Meta<typeof DummyComponent>
+} satisfies Meta<typeof BudgetDetails>
 
 export default meta
 type Story = StoryObj<typeof meta>
