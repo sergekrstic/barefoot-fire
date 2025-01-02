@@ -10,7 +10,7 @@ export function App() {
     <div className="flex h-screen w-screen bg-slate-950 text-slate-500">
       <div className="flex h-full w-3/4 flex-col items-center justify-center">
         <ScenarioGraph />
-        <TimelineScrubber data={data} />
+        <TimelineScrubber data={data} initialSelection={[0.4, 0.75]} />
         <ScenarioChartV2 data={data} />
         {/* <ScenarioChartV1 scenarioEvents={scenarioEvents} /> */}
       </div>
