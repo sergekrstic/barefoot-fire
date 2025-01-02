@@ -10,7 +10,6 @@ export function EyeOffIcon(): React.JSX.Element {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      // class="lucide lucide-eye-off"
     >
       <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
       <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
@@ -19,5 +18,3 @@ export function EyeOffIcon(): React.JSX.Element {
     </svg>
   )
 }
-
-///

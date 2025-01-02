@@ -1,15 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-const DummyComponent = () => <div>To do...</div>
+import { generateRandomTimeSeriesData } from 'utils'
+
+import { ScenarioChartV2 } from './ScenarioChart.container.v2'
 
 const meta = {
-  component: DummyComponent,
+  component: ScenarioChartV2,
   parameters: { layout: 'fullscreen' },
-} satisfies Meta<typeof DummyComponent>
+} satisfies Meta<typeof ScenarioChartV2>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {},
+  args: {
+    data: generateRandomTimeSeriesData(),
+  },
+  render: (props) => (
+    <div className="h-screen w-screen">
+      <ScenarioChartV2 {...props} />
+    </div>
+  ),
 }

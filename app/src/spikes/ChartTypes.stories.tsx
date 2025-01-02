@@ -169,7 +169,7 @@ export const AreaTransparentPrimary: Story = {
     const data = generateRandomTimeSeriesData()
     return (
       <ResponsiveContainer>
-        {({ width, height }) => <AreaChartComponent width={width} height={height} data={data} opacity={0.5} />}
+        {({ width, height }) => <AreaChartComponent width={width} height={height} data={data} opacity={0.4} />}
       </ResponsiveContainer>
     )
   },
@@ -181,14 +181,14 @@ export const AreaTransparentSecondary: Story = {
     return (
       <ResponsiveContainer>
         {({ width, height }) => (
-          <AreaChartComponent width={width} height={height} data={data} color={secondaryColor} opacity={0.5} />
+          <AreaChartComponent width={width} height={height} data={data} color={secondaryColor} opacity={0.4} />
         )}
       </ResponsiveContainer>
     )
   },
 }
 
-export const StyledAreaTransparentPrimary: Story = {
+export const StyledAreaPrimary: Story = {
   render: () => {
     const data = generateRandomTimeSeriesData()
     return (
@@ -199,7 +199,7 @@ export const StyledAreaTransparentPrimary: Story = {
   },
 }
 
-export const StyledAreaTransparentSecondary: Story = {
+export const StyledAreaSecondary: Story = {
   render: () => {
     const data = generateRandomTimeSeriesData()
     return (

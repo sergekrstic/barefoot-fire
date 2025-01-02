@@ -1,17 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-const DummyComponent = () => <div>To do...</div>
+import { generateRandomTimeSeriesData } from 'utils'
+
+import { TimelineScrubber } from './TimelineScrubber.component'
 
 const meta = {
-  component: DummyComponent,
+  component: TimelineScrubber,
   parameters: { layout: 'fullscreen' },
-} satisfies Meta<typeof DummyComponent>
+} satisfies Meta<typeof TimelineScrubber>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const NoData: Story = {
   args: {
     data: [],
+  },
+}
+
+export const WithDataZoomedOut: Story = {
+  args: {
+    data: generateRandomTimeSeriesData(),
+  },
+}
+
+export const WithDataZoomedIn: Story = {
+  args: {
+    data: generateRandomTimeSeriesData(),
+    initialSelection: [0.2, 0.75],
   },
 }

@@ -1,15 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-const DummyComponent = () => <div>To do...</div>
+import { ScenarioGraph } from './ScenarioGraph.component'
 
 const meta = {
-  component: DummyComponent,
+  component: ScenarioGraph,
   parameters: { layout: 'fullscreen' },
-} satisfies Meta<typeof DummyComponent>
+} satisfies Meta<typeof ScenarioGraph>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {},
+  render: () => (
+    <div className="h-screen w-screen">
+      <ScenarioGraph />
+    </div>
+  ),
 }
