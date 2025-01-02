@@ -1,1 +1,0 @@
-import{h as n}from"./TimelineScrubber.component-W7CwS7jP.js";function r(){const o=[];for(let t=0;t<100;t++)o.push({date:n().add(t,"w").toISOString(),amount:Math.random()*100,name:"A"});let a=0;for(const t of o)a+=t.amount,t.amount=a;return o}export{r as g};
