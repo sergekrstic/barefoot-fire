@@ -21,10 +21,12 @@
     "cytoscape-all-paths": "^0.1.0",
     "cytoscape-tidytree": "^0.2.0",
     "htl": "^0.3.1",
+    "immer": "^10.1.1",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",

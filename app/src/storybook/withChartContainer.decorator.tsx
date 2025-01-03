@@ -1,6 +1,6 @@
-import type { StoryFn } from '@storybook/react'
+import type { Decorator } from '@storybook/react'
 
-export function withChartContainer(Story: StoryFn): JSX.Element {
+export const withChartContainer: Decorator = (Story) => {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <Story />
