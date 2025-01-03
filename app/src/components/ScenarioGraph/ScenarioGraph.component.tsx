@@ -4,15 +4,16 @@ import cy from 'cytoscape'
 // @ts-expect-error - cytoscape-all-paths is not typed
 import cytoscapeAllPaths from 'cytoscape-all-paths'
 import tidytree from 'cytoscape-tidytree'
+import { mockGraphData } from 'mocks'
+import { useAppStore } from 'stores'
 
-import { graphData } from './ScenarioGraph.data'
 import { graphStyles } from './ScenarioGraph.styles'
 
 cy.use(tidytree)
 cy.use(cytoscapeAllPaths)
 
 const settings: cy.CytoscapeOptions = {
-  elements: graphData,
+  elements: mockGraphData,
   style: graphStyles,
   // @ts-expect-error - cytoscape-tidytree is not typed
   layout: { name: 'tidytree', direction: 'LR' },
@@ -21,6 +22,7 @@ const settings: cy.CytoscapeOptions = {
 export function ScenarioGraph(): React.JSX.Element {
   const containerRef = useRef(null)
   const [, setCytoInstance] = useState<cy.Core>()
+  const setSelectedBudgetId = useAppStore((state) => state.setSelectedBudgetId)
   // const [_cytoInstance, setCytoInstance] = useState<cy.Core>()
 
   useEffect(() => {
@@ -28,18 +30,19 @@ export function ScenarioGraph(): React.JSX.Element {
       const instance = cy({ container: containerRef.current, ...settings })
       setCytoInstance(instance)
 
-      // // Change cursor on grab
-      // instance.on('mousedown', (e) => {
-      //   console.log('mousedown', e)
-      //   // e.target.style('cursor', 'grabbing')
-      // })
-      // instance.on('mouseup', (e) => {
-      //   // e.target.style('cursor', 'grab')
-      // })
+      const selectNode = (event: cy.EventObject): void => {
+        const node = event.target.data()
+        setSelectedBudgetId(node.id)
+      }
 
-      return (): void => instance.destroy()
+      instance.on('select', 'node', selectNode)
+
+      return (): void => {
+        instance.off('select', 'node', selectNode)
+        instance.destroy()
+      }
     }
-  }, [containerRef])
+  }, [containerRef, setSelectedBudgetId])
 
   // useEffect(() => {
   //   if (cytoInstance) {
