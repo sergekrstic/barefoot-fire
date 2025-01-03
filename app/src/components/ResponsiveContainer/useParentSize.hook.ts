@@ -76,7 +76,7 @@ export function useParentSize<T extends HTMLElement = HTMLDivElement>({
     })
     if (parentRef.current) observer.observe(parentRef.current)
 
-    return () => {
+    return (): void => {
       window.cancelAnimationFrame(animationFrameID.current)
       observer.disconnect()
       resize.cancel()

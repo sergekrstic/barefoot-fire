@@ -32,7 +32,8 @@ export function ResponsiveContainer({
   enableDebounceLeadingCall = true,
   resizeObserverPolyfill,
   ...restProps
-}: ResponsiveContainerProps & Omit<React.HTMLAttributes<HTMLDivElement>, keyof ResponsiveContainerProps>) {
+}: ResponsiveContainerProps &
+  Omit<React.HTMLAttributes<HTMLDivElement>, keyof ResponsiveContainerProps>): React.JSX.Element {
   const { parentRef, resize, ...dimensions } = useParentSize({
     initialSize,
     debounceTime,

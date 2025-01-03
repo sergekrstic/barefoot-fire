@@ -25,7 +25,7 @@ export function StyledAreaChart({
 
   useEffect(() => {
     const plot = Plot.marks([
-      () => htl.svg`<defs>
+      (): SVGElement => htl.svg`<defs>
         <linearGradient id="gradient" gradientTransform="rotate(90)">
           <stop offset="20%" stop-color="${color}" stop-opacity="0.5" />
           <stop offset="100%" stop-color="${color}" stop-opacity="0" />

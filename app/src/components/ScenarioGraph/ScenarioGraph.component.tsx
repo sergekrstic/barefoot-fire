@@ -37,7 +37,7 @@ export function ScenarioGraph(): React.JSX.Element {
       //   // e.target.style('cursor', 'grab')
       // })
 
-      return () => instance.destroy()
+      return (): void => instance.destroy()
     }
   }, [containerRef])
 

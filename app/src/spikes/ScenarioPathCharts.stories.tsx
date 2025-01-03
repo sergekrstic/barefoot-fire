@@ -8,7 +8,7 @@ const meta = {
   component: ScenarioChartV1,
   parameters: { layout: 'fullscreen' },
   decorators: [
-    (Story) => (
+    (Story): React.JSX.Element => (
       <div style={{ height: '100vh' }}>
         <Story />
       </div>

@@ -1,7 +1,7 @@
 import { CollapsibleTree } from 'components'
 import { mockBudgetOne } from 'mocks'
 
-export function BudgetDetails() {
+export function BudgetDetails(): React.JSX.Element {
   return (
     <div className="p-4x flex h-full w-full select-none flex-col border-l border-slate-800 bg-slate-900 text-slate-300">
       <div className="bg-slate-800 px-4 py-1 text-sm font-medium text-slate-500">Budget Details</div>

@@ -3,7 +3,7 @@ import { generateRandomTimeSeriesData } from 'utils'
 
 // import { scenarioEvents } from './App.data'
 
-export function App() {
+export function App(): React.JSX.Element {
   const data = generateRandomTimeSeriesData()
 
   return (

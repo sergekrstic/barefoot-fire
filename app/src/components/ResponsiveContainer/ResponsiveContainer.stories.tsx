@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-const DummyComponent = () => <div>To do...</div>
+const DummyComponent = (): React.JSX.Element => <div>To do...</div>
 
 const meta = {
   component: DummyComponent,

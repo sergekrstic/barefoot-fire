@@ -16,5 +16,5 @@ const initialState: AppState = {
 
 export const usePluginStore = createStore<PluginStore>((setState: (newState: Partial<AppState>) => void) => ({
   ...initialState,
-  setSelectedBudgetId: (value: string | null) => setState({ selectedBudgetId: value }),
+  setSelectedBudgetId: (value: string | null): void => setState({ selectedBudgetId: value }),
 }))

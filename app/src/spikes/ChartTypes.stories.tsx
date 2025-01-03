@@ -13,7 +13,7 @@ import {
   StyledAreaChart as StyledAreaChartComponent,
 } from './components'
 
-const PlaceholderComponent = () => <div>Placeholder</div>
+const PlaceholderComponent = (): React.JSX.Element => <div>Placeholder</div>
 
 const meta = {
   component: PlaceholderComponent,

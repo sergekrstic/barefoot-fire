@@ -23,7 +23,7 @@ export const useScreenSize = ({
   initialSize = defaultInitialSize,
   debounceTime = 300,
   enableDebounceLeadingCall = true,
-}: UseScreenSizeConfig = {}) => {
+}: UseScreenSizeConfig = {}): ScreenSize => {
   const [screenSize, setScreenSize] = useState<ScreenSize>(initialSize)
 
   const handleResize = useMemo(
@@ -44,7 +44,7 @@ export const useScreenSize = ({
   useEffect(() => {
     handleResize()
     window.addEventListener('resize', handleResize, false)
-    return () => {
+    return (): void => {
       window.removeEventListener('resize', handleResize, false)
       handleResize.cancel()
     }
