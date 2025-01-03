@@ -1,1 +1,1 @@
-export * from './plugin.store'
+export * from './app.store'

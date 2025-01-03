@@ -11,10 +11,11 @@ type AppActions = {
 export type PluginStore = AppState & AppActions
 
 const initialState: AppState = {
-  selectedBudgetId: null,
+  // selectedBudgetId: null,
+  selectedBudgetId: 'job1',
 }
 
-export const usePluginStore = createStore<PluginStore>((setState: (newState: Partial<AppState>) => void) => ({
+export const useAppStore = createStore<PluginStore>((setState: (newState: Partial<AppState>) => void) => ({
   ...initialState,
   setSelectedBudgetId: (value: string | null): void => setState({ selectedBudgetId: value }),
 }))
