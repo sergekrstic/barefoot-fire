@@ -1,8 +1,8 @@
 import { CollapsibleTree } from 'components'
-import { Budget } from 'mocks'
+import { MockBudget } from 'mocks'
 
 export interface ScenarioBudgetProps {
-  budget: Budget | null
+  budget: MockBudget | null
 }
 
 export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Element {

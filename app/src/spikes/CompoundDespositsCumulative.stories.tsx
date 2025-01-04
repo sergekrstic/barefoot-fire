@@ -34,12 +34,12 @@ const thirtyYearPeriod: Period = {
   endDate: '2054-12-31',
 }
 
-const oneYearBudget: Budget = {
+const yearlyBudget: Budget = {
   name: 'Budget 1',
   amount: 1000,
+  interestRate: 0.05,
   frequency: 'year',
-  startDate: '2024-01-01',
-  endDate: '3034-12-31',
+  ...thirtyYearPeriod,
 }
 
 // ############################################
@@ -48,45 +48,50 @@ const oneYearBudget: Budget = {
 
 export const OneYearYearlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: oneYearPeriod,
-      budgets: [oneYearBudget],
+      budgets: [yearlyBudget],
     }),
   },
 }
 
 export const OneYearQuarterlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: oneYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'quarter' }],
+      budgets: [{ ...yearlyBudget, frequency: 'quarter' }],
     }),
   },
 }
 
 export const OneYearMonthlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: oneYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'month' }],
+      budgets: [{ ...yearlyBudget, frequency: 'month' }],
     }),
   },
 }
 
 export const OneYearWeeklyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: oneYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'week' }],
+      budgets: [{ ...yearlyBudget, frequency: 'week' }],
     }),
   },
 }
 
 export const OneYearDailyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: oneYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'day' }],
+      budgets: [{ ...yearlyBudget, frequency: 'day' }],
     }),
   },
 }
@@ -97,45 +102,50 @@ export const OneYearDailyDeposit: Story = {
 
 export const TenYearYearlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: tenYearPeriod,
-      budgets: [oneYearBudget],
+      budgets: [yearlyBudget],
     }),
   },
 }
 
 export const TenYearQuarterlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: tenYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'quarter' }],
+      budgets: [{ ...yearlyBudget, frequency: 'quarter' }],
     }),
   },
 }
 
 export const TenYearMonthlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: tenYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'month' }],
+      budgets: [{ ...yearlyBudget, frequency: 'month' }],
     }),
   },
 }
 
 export const TenYearWeeklyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: tenYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'week' }],
+      budgets: [{ ...yearlyBudget, frequency: 'week' }],
     }),
   },
 }
 
 export const TenYearDailyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: tenYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'day' }],
+      budgets: [{ ...yearlyBudget, frequency: 'day' }],
     }),
   },
 }
@@ -146,86 +156,50 @@ export const TenYearDailyDeposit: Story = {
 
 export const ThirtyYearYearlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: thirtyYearPeriod,
-      budgets: [oneYearBudget],
+      budgets: [yearlyBudget],
     }),
   },
 }
 
 export const ThirtyYearQuarterlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: thirtyYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'quarter' }],
+      budgets: [{ ...yearlyBudget, frequency: 'quarter' }],
     }),
   },
 }
 
 export const ThirtyYearMonthlyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: thirtyYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'month' }],
+      budgets: [{ ...yearlyBudget, frequency: 'month' }],
     }),
   },
 }
 
 export const ThirtyYearWeeklyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: thirtyYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'week' }],
+      budgets: [{ ...yearlyBudget, frequency: 'week' }],
     }),
   },
 }
 
 export const ThirtyYearDailyDeposit: Story = {
   args: {
+    cumulative: true,
     scenarioEvents: calculateScenarioEvents({
       period: thirtyYearPeriod,
-      budgets: [{ ...oneYearBudget, frequency: 'day' }],
-    }),
-  },
-}
-
-export const FourBudgets: Story = {
-  args: {
-    scenarioEvents: calculateScenarioEvents({
-      period: {
-        startDate: '2024-01-01',
-        endDate: '2024-12-31',
-      },
-      budgets: [
-        {
-          name: 'Budget 1',
-          amount: 1000,
-          frequency: 'year',
-          startDate: '2024-01-01',
-          endDate: '2034-12-31',
-        },
-        {
-          name: 'Budget 2',
-          amount: 100,
-          frequency: 'week',
-          startDate: '2024-01-01',
-          endDate: '2034-12-31',
-        },
-        {
-          name: 'Budget 33',
-          amount: 10,
-          frequency: 'day',
-          startDate: '2024-01-01',
-          endDate: '2034-12-31',
-        },
-        {
-          name: 'Budget 4',
-          amount: 10,
-          frequency: 'day',
-          startDate: '2024-01-01',
-          endDate: '2034-12-31',
-        },
-      ],
+      budgets: [{ ...yearlyBudget, frequency: 'day' }],
     }),
   },
 }

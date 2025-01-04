@@ -1,8 +1,8 @@
 import { Header, ScenarioBudget, ScenarioChartV2, ScenarioGraph, TimelineScrubber } from 'components'
-import { generateRandomTimeSeriesData } from 'utils'
+import { thirtyYearPlotData } from 'mocks'
 
 export function App(): React.JSX.Element {
-  const data = generateRandomTimeSeriesData()
+  const data = thirtyYearPlotData
 
   return (
     <div className="h-screen w-screen bg-slate-950 text-slate-500">

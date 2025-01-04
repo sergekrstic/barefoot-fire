@@ -1,17 +1,19 @@
 import { TreeData } from 'components'
 
-export interface Budget {
+import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
+
+export interface MockBudget {
   name: string
   categories: TreeData[]
 }
 
-export const mockBudgetStart: Budget = {
+export const mockBudgetStart: MockBudget = {
   name: 'Start',
   categories: [
     {
       id: '1',
       name: 'Income',
-      value: 2200,
+      value: 300,
       children: [
         { id: '1.1', name: 'Salary', value: 0 },
         { id: '1.2', name: 'Other', value: 300 },
@@ -20,13 +22,13 @@ export const mockBudgetStart: Budget = {
     {
       id: '2',
       name: 'Expenses',
-      value: 1000,
+      value: 250,
       children: [{ id: '2.2', name: 'Living', value: 250 }],
     },
   ],
 }
 
-export const mockBudgetOne: Budget = {
+export const mockBudgetOne: MockBudget = {
   name: 'Job 1',
   categories: [
     {
@@ -59,7 +61,7 @@ export const mockBudgetOne: Budget = {
   ],
 }
 
-export const mockBudgetTwo: Budget = {
+export const mockBudgetTwo: MockBudget = {
   name: 'Job 2',
   categories: [
     {
@@ -92,7 +94,7 @@ export const mockBudgetTwo: Budget = {
   ],
 }
 
-export const mockBudgetThree: Budget = {
+export const mockBudgetThree: MockBudget = {
   name: 'Job 3',
   categories: [
     {
@@ -125,9 +127,37 @@ export const mockBudgetThree: Budget = {
   ],
 }
 
-export const mockBudgetMap: Record<string, Budget> = {
+export const mockBudgetMap: Record<string, MockBudget> = {
   start: mockBudgetStart,
   job1: mockBudgetOne,
   job2: mockBudgetTwo,
   job3: mockBudgetThree,
 }
+
+const thirtyYearPeriod: Period = {
+  startDate: '2024-01-01',
+  endDate: '2054-12-31',
+}
+
+const yearlyBudget: Budget = {
+  name: 'Budget 1',
+  amount: 1000,
+  interestRate: 0.05,
+  frequency: 'year',
+  ...thirtyYearPeriod,
+}
+
+const scenarioEvents = calculateScenarioEvents({
+  period: thirtyYearPeriod,
+  budgets: [{ ...yearlyBudget, frequency: 'year' }],
+})
+
+export const thirtyYearPlotData = scenarioEvents.budgetEvents
+  .map((budgetEvent) => {
+    return budgetEvent.events.map((event) => ({
+      date: new Date(event.date),
+      amount: event.value,
+      name: budgetEvent.budget.name,
+    }))
+  })
+  .flat()
