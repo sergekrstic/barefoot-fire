@@ -1,4 +1,4 @@
-import { Stylesheet } from 'cytoscape'
+// import { Stylesheet } from 'cytoscape'
 import twColors from 'tailwindcss/colors'
 
 export const colors = {
@@ -8,9 +8,10 @@ export const colors = {
   // secondary: twColors.amber[50],
   // secondary: twColors.amber[100],
   // secondary: twColors.amber[200], // ok
-  // secondary: twColors.amber[300], // ok, better
-  secondary: twColors.amber[400], // ok, better
-  secondaryDark: twColors.amber[500], // ok, better
+  // secondaryLight: twColors.yellow[300], // ok, better
+  // secondary: twColors.amber[400], // ok, better
+  secondary: twColors.amber[500], // ok, better
+  secondaryDark: twColors.amber[600], // ok, better
   // secondary: twColors.amber[500], // ok
   // secondary: twColors.amber[600],
   // secondary: twColors.amber[700],
@@ -41,24 +42,65 @@ export const colors = {
   // secondary: twColors.orange[800],
   // secondary: twColors.orange[900],
   // secondary: twColors.orange[950],
-  text: twColors.stone[300],
+  text: twColors.stone[800],
 }
 
-export const graphStyles: Stylesheet[] = [
+export const graphStyles = [
+  {
+    selector: 'core',
+    style: {
+      // Remove the grey circle when dragging
+      'active-bg-size': 0,
+    },
+  },
   {
     selector: 'node',
     style: {
+      // 'active-bg-color': twColors.slate[950],
+      // 'active-bg-opacity': 0,
+      'overlay-opacity': 0, // Hides the overlay selection box
+      // Body
+      shape: 'round-rectangle',
+      width: 'label',
+      height: 'label',
+      padding: 16,
       'background-color': colors.primary,
+      'border-width': 1,
+      'border-color': colors.primaryDark,
+      'corner-radius': '4',
+      // Text
       label: 'data(name)',
-      color: colors.text,
+      color: twColors.violet[950],
+      'text-valign': 'center',
+      'text-halign': 'center',
+      'font-weight': 500,
     },
   },
   {
-    selector: 'node[selected]',
+    selector: 'node[?highlighted]',
     style: {
+      color: twColors.amber[950],
       'background-color': colors.secondary,
+      'border-color': colors.secondaryDark,
     },
   },
+  {
+    selector: 'node:selected',
+    style: {
+      color: twColors.violet[200],
+      'outline-width': 2,
+      'outline-color': colors.primaryDark,
+    },
+  },
+  {
+    selector: 'node:selected[?highlighted]',
+    style: {
+      color: twColors.amber[100],
+      'outline-width': 2,
+      'outline-color': colors.secondaryDark,
+    },
+  },
+
   {
     selector: 'edge',
     style: {
@@ -66,15 +108,23 @@ export const graphStyles: Stylesheet[] = [
       'line-color': colors.primaryDark,
       'target-arrow-color': colors.primaryDark,
       'target-arrow-shape': 'triangle',
-      // @ts-expect-error - cytoscape-all-paths is not typed
+
+      // Experimental
       'curve-style': 'round-taxi',
+      'taxi-radius': '5%',
+      'taxi-turn': 10, // 10, -10, 20%, -20%
+      // 'taxi-direction': 'auto', // auto, vertical, horizontal, upward, downward, leftward, rightward
+      // 'taxi-turn-min-distance': 100,
+      // 'radius-type': 'arc-radius', // arc-radius, influence-radius
+      // 'edge-distances': 'node-position', // intersection, node-position
     },
   },
   {
-    selector: 'edge[selected]',
+    selector: 'edge[?highlighted]',
     style: {
       'line-color': colors.secondaryDark,
       'target-arrow-color': colors.secondaryDark,
+      width: 5,
     },
   },
 ]

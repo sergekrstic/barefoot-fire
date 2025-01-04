@@ -7,17 +7,10 @@ import tidytree from 'cytoscape-tidytree'
 import { mockGraphData } from 'mocks'
 import { useAppStore } from 'stores'
 
-import { graphStyles } from './ScenarioGraph.styles'
+import { graphSettings } from './ScenarioGraph.settings'
 
 cy.use(tidytree)
 cy.use(cytoscapeAllPaths)
-
-const settings: cy.CytoscapeOptions = {
-  elements: mockGraphData,
-  style: graphStyles,
-  // @ts-expect-error - cytoscape-tidytree is not typed
-  layout: { name: 'tidytree', direction: 'LR' },
-}
 
 export function ScenarioGraph(): React.JSX.Element {
   const containerRef = useRef(null)
@@ -27,7 +20,7 @@ export function ScenarioGraph(): React.JSX.Element {
 
   useEffect(() => {
     if (containerRef.current) {
-      const instance = cy({ container: containerRef.current, ...settings })
+      const instance = cy({ container: containerRef.current, elements: mockGraphData, ...graphSettings })
       setCytoInstance(instance)
 
       const selectNode = (event: cy.EventObject): void => {
@@ -35,10 +28,26 @@ export function ScenarioGraph(): React.JSX.Element {
         setSelectedBudgetId(node.id)
       }
 
+      const enterNode = (): void => {
+        if (instance) {
+          instance.container()!.style.cursor = 'pointer'
+        }
+      }
+
+      const exitNode = (): void => {
+        if (instance) {
+          instance.container()!.style.cursor = 'grab'
+        }
+      }
+
       instance.on('select', 'node', selectNode)
+      instance.on('mouseover', 'node', enterNode)
+      instance.on('mouseout', 'node', exitNode)
 
       return (): void => {
         instance.off('select', 'node', selectNode)
+        instance.off('mouseover', 'node', enterNode)
+        instance.off('mouseout', 'node', exitNode)
         instance.destroy()
       }
     }
