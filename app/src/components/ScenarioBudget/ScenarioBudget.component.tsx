@@ -15,6 +15,7 @@ export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Eleme
         <>
           <div className="px-4 pb-2 pt-4 text-lg font-medium">{budget ? budget.name : 'No budget selected'}</div>
           <CollapsibleTree
+            key={budget.name}
             tree={budget.categories}
             parentContainerClasses="cursor-pointer hover:bg-slate-800 px-4"
             childContainerClasses="cursor-default px-4"
