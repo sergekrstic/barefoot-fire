@@ -56,7 +56,7 @@ export const mockBudgetOne: MockBudget = {
             { id: '2.2.2', name: 'Phone', value: 200 },
           ],
         },
-        { id: '2.2', name: 'Living', value: 400 },
+        { id: '2.3', name: 'Living', value: 400 },
       ],
     },
   ],
@@ -89,7 +89,7 @@ export const mockBudgetTwo: MockBudget = {
             { id: '2.2.2', name: 'Phone', value: 200 },
           ],
         },
-        { id: '2.2', name: 'Living', value: 450 },
+        { id: '2.3', name: 'Living', value: 450 },
       ],
     },
   ],
@@ -122,7 +122,7 @@ export const mockBudgetThree: MockBudget = {
             { id: '2.2.2', name: 'Phone', value: 200 },
           ],
         },
-        { id: '2.2', name: 'Living', value: 450 },
+        { id: '2.3', name: 'Living', value: 450 },
       ],
     },
   ],
@@ -154,7 +154,7 @@ const yearlyBudget: Budget = {
   name: 'Budget 1',
   amount: 1000,
   interestRate: 0.05,
-  frequency: 'year',
+  frequency: 'week',
   ...thirtyYearPeriod,
 }
 
@@ -169,15 +169,15 @@ export const nextFiveYearPeriod: Period = {
 }
 
 export const remainingThirtyYearPeriod: Period = {
-  startDate: '2027-01-01',
-  endDate: '2031-12-31',
+  startDate: '2032-01-01',
+  endDate: '2034-12-31',
 }
 
 export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
   id: 'mock-scenario',
   name: 'Mock scenario',
   period: thirtyYearPeriod,
-  budgets: [{ ...yearlyBudget, frequency: 'year' }],
+  budgets: [{ ...yearlyBudget, frequency: 'week' }],
 })
 
 export const budgetStart: ScenarioBudgets = {
@@ -195,12 +195,12 @@ export const budgetStart: ScenarioBudgets = {
     {
       name: 'Other',
       amount: 300,
-      frequency: 'year',
+      frequency: 'week',
       ...firstThreeYearPeriod,
     },
     {
       name: 'Living',
-      amount: 250,
+      amount: -250,
       frequency: 'year',
       ...firstThreeYearPeriod,
     },
@@ -219,25 +219,25 @@ export const budgetStart: ScenarioBudgets = {
     },
     {
       name: 'Rent',
-      amount: 300,
+      amount: -300,
       frequency: 'week',
       ...nextFiveYearPeriod,
     },
     {
       name: 'Electricity',
-      amount: 100,
+      amount: -100,
       frequency: 'year',
       ...nextFiveYearPeriod,
     },
     {
       name: 'Phone',
-      amount: 200,
+      amount: -200,
       frequency: 'week',
       ...nextFiveYearPeriod,
     },
     {
       name: 'Living',
-      amount: 400,
+      amount: -400,
       frequency: 'year',
       ...nextFiveYearPeriod,
     },
@@ -256,25 +256,25 @@ export const budgetStart: ScenarioBudgets = {
     },
     {
       name: 'Rent',
-      amount: 350,
+      amount: -350,
       frequency: 'week',
       ...remainingThirtyYearPeriod,
     },
     {
       name: 'Electricity',
-      amount: 100,
+      amount: -100,
       frequency: 'year',
       ...remainingThirtyYearPeriod,
     },
     {
       name: 'Phone',
-      amount: 200,
+      amount: -200,
       frequency: 'week',
       ...remainingThirtyYearPeriod,
     },
     {
       name: 'Living',
-      amount: 450,
+      amount: -450,
       frequency: 'year',
       ...remainingThirtyYearPeriod,
     },

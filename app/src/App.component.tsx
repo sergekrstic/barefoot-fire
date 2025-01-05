@@ -7,7 +7,10 @@ import { preprocessPlotData } from 'utils'
 
 export function App(): React.JSX.Element {
   const data = useMemo(() => {
-    return preprocessPlotData({ data: startBudgetPlotData, cumulative: true })
+    // const result = preprocessPlotData({ data: thirtyYearPlotData, cumulative: true })
+    // const result = preprocessPlotData({ data: startBudgetPlotData, cumulative: false })
+    const result = preprocessPlotData({ data: startBudgetPlotData, cumulative: true })
+    return result
   }, [])
 
   return (
@@ -16,7 +19,8 @@ export function App(): React.JSX.Element {
       <div className="flex h-[calc(100vh-45px)] w-full flex-row">
         <div className="flex h-full w-3/4 flex-col">
           <ScenarioGraph />
-          <TimelineScrubber data={data} initialSelection={[0.4, 0.75]} />
+          <TimelineScrubber data={data} initialSelection={[0, 1]} />
+          {/* <TimelineScrubber data={data} initialSelection={[0.4, 0.75]} /> */}
           <ScenarioChartV2 data={data} />
         </div>
         <div className="flex h-full w-1/4">
