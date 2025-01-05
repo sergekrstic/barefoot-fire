@@ -1,8 +1,14 @@
+import { useMemo } from 'react'
+
 import { Header, ScenarioBudget, ScenarioChartV2, ScenarioGraph, TimelineScrubber } from 'components'
-import { thirtyYearPlotData } from 'mocks'
+// import { thirtyYearPlotData } from 'mocks'
+import { startBudgetPlotData } from 'mocks'
+import { preprocessPlotData } from 'utils'
 
 export function App(): React.JSX.Element {
-  const data = thirtyYearPlotData
+  const data = useMemo(() => {
+    return preprocessPlotData({ data: startBudgetPlotData, cumulative: true })
+  }, [])
 
   return (
     <div className="h-screen w-screen bg-slate-950 text-slate-500">

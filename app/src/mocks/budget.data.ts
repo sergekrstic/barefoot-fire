@@ -1,6 +1,7 @@
 import { TreeData } from 'components'
+import { convertScenarioBudgetsToPlotData } from 'utils'
 
-import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
+import { Budget, Period, ScenarioBudgets } from '@fire/forecast-engine'
 
 export interface MockBudget {
   name: string
@@ -134,7 +135,17 @@ export const mockBudgetMap: Record<string, MockBudget> = {
   job3: mockBudgetThree,
 }
 
-const thirtyYearPeriod: Period = {
+export const oneYearPeriod: Period = {
+  startDate: '2024-01-01',
+  endDate: '2024-12-31',
+}
+
+export const tenYearPeriod: Period = {
+  startDate: '2024-01-01',
+  endDate: '2034-12-31',
+}
+
+export const thirtyYearPeriod: Period = {
   startDate: '2024-01-01',
   endDate: '2054-12-31',
 }
@@ -147,17 +158,127 @@ const yearlyBudget: Budget = {
   ...thirtyYearPeriod,
 }
 
-const scenarioEvents = calculateScenarioEvents({
+const firstThreeYearPeriod: Period = {
+  startDate: '2024-01-01',
+  endDate: '2026-12-31',
+}
+
+export const nextFiveYearPeriod: Period = {
+  startDate: '2027-01-01',
+  endDate: '2031-12-31',
+}
+
+export const remainingThirtyYearPeriod: Period = {
+  startDate: '2027-01-01',
+  endDate: '2031-12-31',
+}
+
+export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
+  id: 'mock-scenario',
+  name: 'Mock scenario',
   period: thirtyYearPeriod,
   budgets: [{ ...yearlyBudget, frequency: 'year' }],
 })
 
-export const thirtyYearPlotData = scenarioEvents.budgetEvents
-  .map((budgetEvent) => {
-    return budgetEvent.events.map((event) => ({
-      date: new Date(event.date),
-      amount: event.value,
-      name: budgetEvent.budget.name,
-    }))
-  })
-  .flat()
+export const budgetStart: ScenarioBudgets = {
+  id: 'start',
+  name: 'Start',
+  period: thirtyYearPeriod,
+  budgets: [
+    // Start
+    {
+      name: 'Salary',
+      amount: 0,
+      frequency: 'week',
+      ...firstThreeYearPeriod,
+    },
+    {
+      name: 'Other',
+      amount: 300,
+      frequency: 'year',
+      ...firstThreeYearPeriod,
+    },
+    {
+      name: 'Living',
+      amount: 250,
+      frequency: 'year',
+      ...firstThreeYearPeriod,
+    },
+    // Job 1
+    {
+      name: 'Salary',
+      amount: 2000,
+      frequency: 'week',
+      ...nextFiveYearPeriod,
+    },
+    {
+      name: 'Other',
+      amount: 200,
+      frequency: 'year',
+      ...nextFiveYearPeriod,
+    },
+    {
+      name: 'Rent',
+      amount: 300,
+      frequency: 'week',
+      ...nextFiveYearPeriod,
+    },
+    {
+      name: 'Electricity',
+      amount: 100,
+      frequency: 'year',
+      ...nextFiveYearPeriod,
+    },
+    {
+      name: 'Phone',
+      amount: 200,
+      frequency: 'week',
+      ...nextFiveYearPeriod,
+    },
+    {
+      name: 'Living',
+      amount: 400,
+      frequency: 'year',
+      ...nextFiveYearPeriod,
+    },
+    // Job 3
+    {
+      name: 'Salary',
+      amount: 3000,
+      frequency: 'week',
+      ...remainingThirtyYearPeriod,
+    },
+    {
+      name: 'Other',
+      amount: 200,
+      frequency: 'year',
+      ...remainingThirtyYearPeriod,
+    },
+    {
+      name: 'Rent',
+      amount: 350,
+      frequency: 'week',
+      ...remainingThirtyYearPeriod,
+    },
+    {
+      name: 'Electricity',
+      amount: 100,
+      frequency: 'year',
+      ...remainingThirtyYearPeriod,
+    },
+    {
+      name: 'Phone',
+      amount: 200,
+      frequency: 'week',
+      ...remainingThirtyYearPeriod,
+    },
+    {
+      name: 'Living',
+      amount: 450,
+      frequency: 'year',
+      ...remainingThirtyYearPeriod,
+    },
+  ],
+}
+
+export const startBudgetPlotData = convertScenarioBudgetsToPlotData(budgetStart)

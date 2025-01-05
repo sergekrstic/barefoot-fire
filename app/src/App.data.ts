@@ -1,6 +1,8 @@
 import { ScenarioBudgets, ScenarioEvents, calculateScenarioEvents } from '@fire/forecast-engine'
 
 export const scenarioBudgets: ScenarioBudgets = {
+  id: 'four-budgets',
+  name: 'Four budgets',
   period: {
     startDate: '2024-01-01',
     endDate: '2024-12-31',
@@ -21,7 +23,7 @@ export const scenarioBudgets: ScenarioBudgets = {
       endDate: '2034-12-31',
     },
     {
-      name: 'Budget 33',
+      name: 'Budget 3',
       amount: 10,
       frequency: 'day',
       startDate: '2024-01-01',
