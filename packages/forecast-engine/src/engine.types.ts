@@ -1,4 +1,6 @@
 export interface ScenarioBudgets {
+  id: string
+  name: string
   period: Period
   budgets: Budget[]
 }
@@ -27,7 +29,7 @@ export interface BudgetEvents {
   budget: Budget
   period: Period
   events: Event[]
-  totalExpense: number
+  totalAmount: number
 }
 
 export interface Event {
