@@ -4,7 +4,6 @@ import cy from 'cytoscape'
 // @ts-expect-error - cytoscape-all-paths is not typed
 import cytoscapeAllPaths from 'cytoscape-all-paths'
 import tidytree from 'cytoscape-tidytree'
-import { mockGraphData } from 'mocks'
 import { useAppStore } from 'stores'
 
 import { graphSettings } from './ScenarioGraph.settings'
@@ -12,7 +11,11 @@ import { graphSettings } from './ScenarioGraph.settings'
 cy.use(tidytree)
 cy.use(cytoscapeAllPaths)
 
-export function ScenarioGraph(): React.JSX.Element {
+export interface ScenarioGraphProps {
+  data: cy.CytoscapeOptions['elements']
+}
+
+export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
   const containerRef = useRef(null)
   const [, setCytoInstance] = useState<cy.Core>()
   const setSelectedBudgetId = useAppStore((state) => state.setSelectedBudgetId)
@@ -20,7 +23,7 @@ export function ScenarioGraph(): React.JSX.Element {
 
   useEffect(() => {
     if (containerRef.current) {
-      const instance = cy({ container: containerRef.current, elements: mockGraphData, ...graphSettings })
+      const instance = cy({ container: containerRef.current, elements: data, ...graphSettings })
       setCytoInstance(instance)
 
       const selectNode = (event: cy.EventObject): void => {
@@ -51,7 +54,7 @@ export function ScenarioGraph(): React.JSX.Element {
         instance.destroy()
       }
     }
-  }, [containerRef, setSelectedBudgetId])
+  }, [containerRef, data, setSelectedBudgetId])
 
   // useEffect(() => {
   //   if (cytoInstance) {

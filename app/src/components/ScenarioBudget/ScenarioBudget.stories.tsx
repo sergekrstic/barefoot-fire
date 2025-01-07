@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { mockBudgetOne } from 'mocks'
+import { mockBudgetCategoriesForScenarioOne } from 'mocks'
 
 import { ScenarioBudget } from './ScenarioBudget.component'
 
@@ -14,6 +14,6 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    budget: mockBudgetOne,
+    budget: mockBudgetCategoriesForScenarioOne,
   },
 }

@@ -1,15 +1,12 @@
 import { Fragment, useState } from 'react'
 
 import { ChevronDownIcon, ChevronRightIcon } from 'assets'
-
-export interface TreeData extends Record<string, unknown> {
-  id: string
-  children?: TreeData[]
-}
+import { TreeData } from 'types'
 
 interface CollapsibleTreeProps {
   tree: TreeData[]
   level?: number
+  expanded?: boolean
   context?: unknown
   parentContainerClasses?: string
   childContainerClasses?: string
@@ -20,13 +17,14 @@ interface CollapsibleTreeProps {
 export function CollapsibleTree({
   tree,
   level = 0,
+  expanded = false,
   context,
   parentContainerClasses,
   childContainerClasses,
   renderCollapsibleItemContent,
   renderLeafItemContent,
 }: CollapsibleTreeProps): React.JSX.Element {
-  const [showNested, setShowNested] = useState<Record<string, boolean>>(() => populateShowNested(tree, true))
+  const [showNested, setShowNested] = useState<Record<string, boolean>>(() => populateShowNested(tree, expanded))
 
   const toggleNested = (id: string): void => {
     setShowNested({ ...showNested, [id]: !showNested[id] })

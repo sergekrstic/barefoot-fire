@@ -1,14 +1,9 @@
-import { TreeData } from 'components'
+import { BudgetCategories } from 'types'
 import { convertScenarioBudgetsToPlotData } from 'utils'
 
 import { Budget, Period, ScenarioBudgets } from '@fire/forecast-engine'
 
-export interface MockBudget {
-  name: string
-  categories: TreeData[]
-}
-
-export const mockBudgetStart: MockBudget = {
+export const mockBudgetCategoriesForScenarioStart: BudgetCategories = {
   name: 'Start',
   categories: [
     {
@@ -29,7 +24,7 @@ export const mockBudgetStart: MockBudget = {
   ],
 }
 
-export const mockBudgetOne: MockBudget = {
+export const mockBudgetCategoriesForScenarioOne: BudgetCategories = {
   name: 'Job 1',
   categories: [
     {
@@ -62,7 +57,7 @@ export const mockBudgetOne: MockBudget = {
   ],
 }
 
-export const mockBudgetTwo: MockBudget = {
+export const mockBudgetCategoriesForScenarioTwo: BudgetCategories = {
   name: 'Job 2',
   categories: [
     {
@@ -95,7 +90,7 @@ export const mockBudgetTwo: MockBudget = {
   ],
 }
 
-export const mockBudgetThree: MockBudget = {
+export const mockBudgetCategoriesForScenarioThree: BudgetCategories = {
   name: 'Job 3',
   categories: [
     {
@@ -128,11 +123,11 @@ export const mockBudgetThree: MockBudget = {
   ],
 }
 
-export const mockBudgetMap: Record<string, MockBudget> = {
-  start: mockBudgetStart,
-  job1: mockBudgetOne,
-  job2: mockBudgetTwo,
-  job3: mockBudgetThree,
+export const mockBudgetMap: Record<string, BudgetCategories> = {
+  start: mockBudgetCategoriesForScenarioStart,
+  job1: mockBudgetCategoriesForScenarioOne,
+  job2: mockBudgetCategoriesForScenarioTwo,
+  job3: mockBudgetCategoriesForScenarioThree,
 }
 
 export const oneYearPeriod: Period = {

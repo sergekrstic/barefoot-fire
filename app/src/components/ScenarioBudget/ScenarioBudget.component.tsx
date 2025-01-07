@@ -1,8 +1,8 @@
 import { CollapsibleTree } from 'components'
-import { MockBudget } from 'mocks'
+import { BudgetCategories } from 'types'
 
 export interface ScenarioBudgetProps {
-  budget: MockBudget | null
+  budget: BudgetCategories | null
 }
 
 export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Element {
@@ -12,7 +12,7 @@ export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Eleme
       {!budget ? (
         <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-600">{'No budget selected'}</div>
       ) : (
-        <>
+        <div className="flex-grow overflow-y-auto pb-4">
           <div className="px-4 pb-2 pt-4 text-lg font-medium">{budget ? budget.name : 'No budget selected'}</div>
           <CollapsibleTree
             key={budget.name}
@@ -28,12 +28,16 @@ export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Eleme
             renderLeafItemContent={(item) => (
               <div className="flex flex-row py-2">
                 <div className="grow">{item.name as string}</div>
-                <div>{item.value as string}</div>
+                <div>{formatBudgetValue(item.value as number)}</div>
               </div>
             )}
           />
-        </>
+        </div>
       )}
     </div>
   )
+}
+
+function formatBudgetValue(value: number): string {
+  return value >= 0 ? value.toFixed(0).toString() : `(${Math.abs(value).toFixed(0)})`
 }
