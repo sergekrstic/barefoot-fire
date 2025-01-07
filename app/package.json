@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "test": "vitest --ui",
     "storybook": "storybook dev -p 6006",
     "storybook:doctor": "storybook doctor",
     "storybook:build": "storybook build",
@@ -26,6 +27,7 @@
     "moment": "^2.30.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-resizable-panels": "^2.1.7",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
