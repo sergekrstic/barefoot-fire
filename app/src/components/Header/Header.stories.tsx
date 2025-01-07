@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { mockBudgetOne } from 'mocks'
-
 import { Header } from './Header.component'
 
 const meta = {
@@ -13,7 +11,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    budget: mockBudgetOne,
-  },
+  args: {},
 }
