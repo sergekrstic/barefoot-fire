@@ -10,6 +10,14 @@ export interface TimeSeriesElement {
 }
 export type TimeSeriesData = TimeSeriesElement[]
 
+export interface PlotData {
+  date: Date
+  amount: number
+  name: string
+}
+
+export type Interval = 'year' | 'month' | 'week'
+
 export function generateRandomTimeSeriesData(): TimeSeriesData {
   const data = []
   for (let i = 0; i < 100; i++) {
@@ -24,12 +32,6 @@ export function generateRandomTimeSeriesData(): TimeSeriesData {
   }
 
   return data
-}
-
-export interface PlotData {
-  date: Date
-  amount: number
-  name: string
 }
 
 export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudgets): PlotData[] {
@@ -47,27 +49,26 @@ export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudget
     .sort((a, b) => a.date.getTime() - b.date.getTime())
 }
 
-export function preprocessPlotData(args: { data: TimeSeriesData; cumulative: boolean }): Plot.Data {
-  const { data, cumulative } = args
+export function preprocessPlotData(args: { data: TimeSeriesData; interval: Interval; cumulative: boolean }): Plot.Data {
+  const { data, interval, cumulative } = args
 
   const binned: TimeSeriesData = []
-  console.log()
-  let currentMonth = getCurrentMonth(data[0].date)
+  let currentMonth = getCurrentInterval(data[0].date, interval)
   let currentAmount = 0
   for (const datum of data) {
-    if (getCurrentMonth(datum.date) !== currentMonth) {
+    if (getCurrentInterval(datum.date, interval) !== currentMonth) {
       binned.push({
-        date: dateFromCurrentMonth(currentMonth),
+        date: dateFromCurrentInterval(currentMonth, interval),
         amount: currentAmount,
         name: '',
       })
-      currentMonth = getCurrentMonth(datum.date)
+      currentMonth = getCurrentInterval(datum.date, interval)
       currentAmount = 0
     }
     currentAmount += datum.amount
   }
   binned.push({
-    date: dateFromCurrentMonth(currentMonth),
+    date: dateFromCurrentInterval(currentMonth, interval),
     amount: currentAmount,
     name: '',
   })
@@ -83,13 +84,46 @@ export function preprocessPlotData(args: { data: TimeSeriesData; cumulative: boo
   return binned
 }
 
+export function getCurrentInterval(date: Date, interval: Interval): string {
+  switch (interval) {
+    case 'year':
+      return getCurrentYear(date)
+    case 'month':
+      return getCurrentMonth(date)
+    case 'week':
+      return getCurrentWeek(date)
+  }
+}
+
+function getCurrentYear(date: Date): string {
+  return date.toISOString().slice(0, 4)
+}
+
 function getCurrentMonth(date: Date): string {
   return date.toISOString().slice(0, 7)
 }
 
-function dateFromCurrentMonth(currentMonth: string): Date {
-  const year = Number(currentMonth.split('-')[0])
-  const month = Number(currentMonth.split('-')[1])
-  const day = 1
-  return new Date(year, month, day)
+function getCurrentWeek(date: Date): string {
+  const year = getCurrentYear(date)
+  const week = moment(date).isoWeek()
+  return `${year}-${week}`
+}
+
+export function dateFromCurrentInterval(currentInterval: string, interval: Interval): Date {
+  switch (interval) {
+    case 'year': {
+      return new Date(Number(currentInterval), 0, 1)
+    }
+    case 'month': {
+      return new Date(Number(currentInterval.split('-')[0]), Number(currentInterval.split('-')[1]), 1)
+    }
+    case 'week': {
+      const year = Number(currentInterval.split('-')[0])
+      const week = Number(currentInterval.split('-')[1])
+      return moment(new Date(year, 0, 1))
+        .year(year)
+        .isoWeek(week)
+        .toDate()
+    }
+  }
 }

@@ -38,7 +38,7 @@ export function ScenarioChartV2({
         y: 'amount',
         stroke: color,
         marker: 'dot',
-        channels: { amount: { label: 'Amount', value: 'amount' }, date: { label: '', value: 'date' } },
+        channels: { amount: { label: '', value: 'amount' }, date: { label: '', value: 'date' } },
         tip: {
           stroke: twColors.slate[700],
           fill: twColors.slate[800],
@@ -46,8 +46,8 @@ export function ScenarioChartV2({
           format: {
             x: false,
             y: false,
-            date: (d) => moment(d).format('D MMMM, YYYY'),
             amount: (d) => d.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }),
+            date: (d) => moment(d).format('D MMMM, YYYY'),
           },
         },
       }),
