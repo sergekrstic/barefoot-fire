@@ -1,16 +1,13 @@
 import { useMemo } from 'react'
 
 import { Header, ScenarioBudget, ScenarioChartV2, ScenarioGraph, TimelineScrubber } from 'components'
-// import { thirtyYearPlotData } from 'mocks'
-import { startBudgetPlotData } from 'mocks'
 import { preprocessPlotData } from 'utils'
 
+import { appData } from './App.data'
+
 export function App(): React.JSX.Element {
-  const data = useMemo(() => {
-    // const result = preprocessPlotData({ data: thirtyYearPlotData, cumulative: true })
-    // const result = preprocessPlotData({ data: startBudgetPlotData, cumulative: false })
-    const result = preprocessPlotData({ data: startBudgetPlotData, cumulative: true })
-    return result
+  const plotData = useMemo(() => {
+    return preprocessPlotData({ data: appData.plot, interval: 'month', cumulative: true })
   }, [])
 
   return (
@@ -18,10 +15,9 @@ export function App(): React.JSX.Element {
       <Header />
       <div className="flex h-[calc(100vh-45px)] w-full flex-row">
         <div className="flex h-full w-3/4 flex-col">
-          <ScenarioGraph />
-          <TimelineScrubber data={data} initialSelection={[0, 1]} />
-          {/* <TimelineScrubber data={data} initialSelection={[0.4, 0.75]} /> */}
-          <ScenarioChartV2 data={data} />
+          <ScenarioGraph data={appData.graph} />
+          <TimelineScrubber data={plotData} initialSelection={[0, 100]} />
+          <ScenarioChartV2 data={plotData} />
         </div>
         <div className="flex h-full w-1/4">
           <ScenarioBudget />

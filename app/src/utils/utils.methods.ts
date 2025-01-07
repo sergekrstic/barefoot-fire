@@ -95,14 +95,19 @@ export function getCurrentInterval(date: Date, interval: Interval): string {
   }
 }
 
+// Todo: fix the one year off issue
 function getCurrentYear(date: Date): string {
   return date.toISOString().slice(0, 4)
+  // const year = date.getFullYear() + 1
+  // return year.toString()
 }
 
+// Todo: fix the one month off issue
 function getCurrentMonth(date: Date): string {
   return date.toISOString().slice(0, 7)
 }
 
+// Todo: fix the one week off issue
 function getCurrentWeek(date: Date): string {
   const year = getCurrentYear(date)
   const week = moment(date).isoWeek()

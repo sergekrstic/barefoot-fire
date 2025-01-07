@@ -170,14 +170,14 @@ export const remainingThirtyYearPeriod: Period = {
 
 export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
   id: 'mock-scenario',
-  name: 'Mock scenario',
+  name: 'Mock compound scenario',
   period: thirtyYearPeriod,
   budgets: [{ ...yearlyBudget, frequency: 'week' }],
 })
 
 export const budgetStart: ScenarioBudgets = {
   id: 'start',
-  name: 'Start',
+  name: 'Mock Start',
   period: thirtyYearPeriod,
   budgets: [
     // Start
