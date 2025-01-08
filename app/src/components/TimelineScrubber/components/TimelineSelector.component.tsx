@@ -38,13 +38,13 @@ export function TimelineSelector({
         defaultSize={initialStart}
         onResize={updateStart}
       />
-      <PanelResizeHandle className="flex w-1 flex-col items-center justify-center bg-slate-700">
-        <DragVerticalIcon className="pl-[1px] text-slate-950" size={16} />
+      <PanelResizeHandle className="flex w-[5px] flex-col items-center justify-center bg-slate-700">
+        <DragVerticalIcon className="text-slate-950" size={16} />
       </PanelResizeHandle>
 
-      <Panel className={`border border-slate-700 ${isDraggable && 'cursor-grab'}`} />
-      <PanelResizeHandle className="flex w-1 flex-col items-center justify-center bg-slate-700">
-        <DragVerticalIcon className="pr-[1px] text-slate-950" size={16} />
+      <Panel className={`border-b border-t border-slate-700 ${isDraggable && 'cursor-grab'}`} />
+      <PanelResizeHandle className="flex w-[5px] flex-col items-center justify-center bg-slate-700">
+        <DragVerticalIcon className="text-slate-950" size={16} />
       </PanelResizeHandle>
       <Panel
         // Apply subtle glass effect, see: https://css.glass
