@@ -1,11 +1,16 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
-import { Header, ScenarioBudget, ScenarioChartV2, ScenarioGraph, TimelineScrubber } from 'components'
+import { Header, ScenarioBudget, ScenarioChart, ScenarioGraph, TimelineScrubber } from 'components'
+import { Selection } from 'types'
 import { preprocessPlotData } from 'utils'
 
 import { appData } from './App.data'
 
+const initialSelection: Selection = [0, 100]
+
 export function App(): React.JSX.Element {
+  const [selection, setSelection] = useState<Selection>(initialSelection)
+
   const plotData = useMemo(() => {
     return preprocessPlotData({ data: appData.plot, interval: 'month', cumulative: true })
   }, [])
@@ -16,8 +21,8 @@ export function App(): React.JSX.Element {
       <div className="flex h-[calc(100vh-45px)] w-full flex-row">
         <div className="flex h-full w-3/4 flex-col">
           <ScenarioGraph data={appData.graph} />
-          <TimelineScrubber data={plotData} initialSelection={[0, 100]} />
-          <ScenarioChartV2 data={plotData} />
+          <TimelineScrubber data={plotData} initialSelection={initialSelection} onUpdateSelection={setSelection} />
+          <ScenarioChart data={plotData} selection={selection} />
         </div>
         <div className="flex h-full w-1/4">
           <ScenarioBudget />

@@ -5,16 +5,17 @@ import * as Plot from '@observablehq/plot'
 import * as htl from 'htl'
 import moment from 'moment'
 import twColors from 'tailwindcss/colors'
+import { TimeSeriesData } from 'types'
 
 export interface ScenarioChartV2Props {
   width: number
   height: number
-  data: Plot.Data
+  data: TimeSeriesData
   color?: string
   opacity?: number
 }
 
-export function ScenarioChartV2({
+export function ScenarioChart({
   width,
   height,
   data,

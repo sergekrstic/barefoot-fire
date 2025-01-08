@@ -27,6 +27,5 @@ export const WithDataZoomedOut: Story = {
 export const WithDataZoomedIn: Story = {
   args: {
     data: generateRandomTimeSeriesData(),
-    initialSelection: [20, 75],
   },
 }

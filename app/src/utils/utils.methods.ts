@@ -1,22 +1,7 @@
-import * as Plot from '@observablehq/plot'
 import moment from 'moment'
+import { Interval, TimeSeriesData } from 'types'
 
 import { ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
-
-export interface TimeSeriesElement {
-  date: Date
-  amount: number
-  name: string
-}
-export type TimeSeriesData = TimeSeriesElement[]
-
-export interface PlotData {
-  date: Date
-  amount: number
-  name: string
-}
-
-export type Interval = 'year' | 'month' | 'week'
 
 export function generateRandomTimeSeriesData(): TimeSeriesData {
   const data = []
@@ -24,17 +9,17 @@ export function generateRandomTimeSeriesData(): TimeSeriesData {
     data.push({ date: moment().add(i, 'w').toDate(), amount: Math.random() * 100, name: 'A' })
   }
 
-  // accumulate the amount
-  let total = 0
+  // Accumulate the amount
+  let runningTotal = 0
   for (const d of data) {
-    total += d.amount
-    d.amount = total
+    runningTotal += d.amount
+    d.amount = runningTotal
   }
 
   return data
 }
 
-export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudgets): PlotData[] {
+export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudgets): TimeSeriesData {
   const scenarioEvents = calculateScenarioEvents(scenarioBudgets)
 
   return scenarioEvents.budgetEvents
@@ -49,7 +34,11 @@ export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudget
     .sort((a, b) => a.date.getTime() - b.date.getTime())
 }
 
-export function preprocessPlotData(args: { data: TimeSeriesData; interval: Interval; cumulative: boolean }): Plot.Data {
+export function preprocessPlotData(args: {
+  data: TimeSeriesData
+  interval: Interval
+  cumulative: boolean
+}): TimeSeriesData {
   const { data, interval, cumulative } = args
 
   const binned: TimeSeriesData = []
