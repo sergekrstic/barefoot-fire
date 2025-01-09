@@ -9,7 +9,7 @@ export interface BudgetCategories {
 }
 
 export interface TimeSeriesElement {
-  date: Date
+  date: string
   amount: number
   name: string
 }

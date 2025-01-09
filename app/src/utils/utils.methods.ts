@@ -6,7 +6,7 @@ import { ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
 export function generateRandomTimeSeriesData(): TimeSeriesData {
   const data = []
   for (let i = 0; i < 100; i++) {
-    data.push({ date: moment().add(i, 'w').toDate(), amount: Math.random() * 100, name: 'A' })
+    data.push({ date: moment().add(i, 'w').toISOString(), amount: Math.random() * 100, name: 'A' })
   }
 
   // Accumulate the amount
@@ -25,13 +25,13 @@ export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudget
   return scenarioEvents.budgetEvents
     .map((budgetEvent) => {
       return budgetEvent.events.map((event) => ({
-        date: new Date(event.date),
+        date: event.date,
         amount: event.value,
         name: budgetEvent.budget.name,
       }))
     })
     .flat()
-    .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .sort((a, b) => moment(a.date).diff(b.date))
 }
 
 export function preprocessPlotData(args: {
@@ -42,22 +42,25 @@ export function preprocessPlotData(args: {
   const { data, interval, cumulative } = args
 
   const binned: TimeSeriesData = []
-  let currentMonth = getCurrentInterval(data[0].date, interval)
+  binned.push({ ...data[0], name: '' })
+  let currentInterval = getCurrentInterval(data[0].date, interval)
   let currentAmount = 0
-  for (const datum of data) {
-    if (getCurrentInterval(datum.date, interval) !== currentMonth) {
+  for (let i = 1; i < data.length; i++) {
+    const datum = data[i]
+    // Todo: improve the logic here to test if the datum is within the current interval using two dates
+    if (getCurrentInterval(datum.date, interval) !== currentInterval) {
       binned.push({
-        date: dateFromCurrentInterval(currentMonth, interval),
+        date: dateFromCurrentInterval(currentInterval, interval),
         amount: currentAmount,
         name: '',
       })
-      currentMonth = getCurrentInterval(datum.date, interval)
+      currentInterval = getCurrentInterval(datum.date, interval)
       currentAmount = 0
     }
     currentAmount += datum.amount
   }
   binned.push({
-    date: dateFromCurrentInterval(currentMonth, interval),
+    date: dateFromCurrentInterval(currentInterval, interval),
     amount: currentAmount,
     name: '',
   })
@@ -73,7 +76,7 @@ export function preprocessPlotData(args: {
   return binned
 }
 
-export function getCurrentInterval(date: Date, interval: Interval): string {
+export function getCurrentInterval(date: string, interval: Interval): string {
   switch (interval) {
     case 'year':
       return getCurrentYear(date)
@@ -84,40 +87,42 @@ export function getCurrentInterval(date: Date, interval: Interval): string {
   }
 }
 
-// Todo: fix the one year off issue
-function getCurrentYear(date: Date): string {
-  return date.toISOString().slice(0, 4)
-  // const year = date.getFullYear() + 1
-  // return year.toString()
+function getCurrentYear(date: string): string {
+  return moment.utc(date).toISOString().slice(0, 4)
 }
 
-// Todo: fix the one month off issue
-function getCurrentMonth(date: Date): string {
-  return date.toISOString().slice(0, 7)
+function getCurrentMonth(date: string): string {
+  return moment.utc(date).toISOString().slice(0, 7)
 }
 
-// Todo: fix the one week off issue
-function getCurrentWeek(date: Date): string {
+function getCurrentWeek(date: string): string {
   const year = getCurrentYear(date)
-  const week = moment(date).isoWeek()
-  return `${year}-${week}`
+  const week = moment.utc(date).isoWeek()
+  return `${year}-w${week}`
 }
 
-export function dateFromCurrentInterval(currentInterval: string, interval: Interval): Date {
+export function dateFromCurrentInterval(currentInterval: string, interval: Interval): string {
   switch (interval) {
     case 'year': {
-      return new Date(Number(currentInterval), 0, 1)
+      return moment.utc(currentInterval).add(1, 'year').format('YYYY-MM-DD')
     }
     case 'month': {
-      return new Date(Number(currentInterval.split('-')[0]), Number(currentInterval.split('-')[1]), 1)
+      return moment.utc(currentInterval).add(1, 'month').format('YYYY-MM-DD')
     }
     case 'week': {
-      const year = Number(currentInterval.split('-')[0])
-      const week = Number(currentInterval.split('-')[1])
-      return moment(new Date(year, 0, 1))
-        .year(year)
-        .isoWeek(week)
-        .toDate()
+      const year = Number(currentInterval.split('-w')[0])
+      const week = Number(currentInterval.split('-w')[1])
+
+      // Todo: Fix this off by one error
+      const date = moment.utc(`${year}-01-01`).isoWeek(week).add(1, 'week')
+      // console.log(date.format('YYYY-MM-DD'), { year, week })
+      if (week === 0 && date.year() < year) {
+        date.add(1, 'year')
+        // console.log('adding a year', date.format('YYYY-MM-DD'))
+      }
+
+      return date.format('YYYY-MM-DD')
+      // return moment.utc(`${year}-01-01`).isoWeek(week).add(1, 'week').format('YYYY-MM-DD')
     }
   }
 }
