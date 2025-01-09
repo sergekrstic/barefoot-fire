@@ -68,7 +68,7 @@ export class DefaultOptions implements TidytreeLayoutOptions {
   spacingFactor: number = 1
 
   // allows to transform a given node's position before it is applied
-  transform: (node: cy.NodeSingular, position: cy.Position) => cy.Position = (n, p) => p
+  transform: (node: cy.NodeSingular, position: cy.Position) => cy.Position = (_n, p) => p
 
   animate: boolean = false // animate the layout`s changes
   animationDuration: number = 500 // duration of the animation in ms
