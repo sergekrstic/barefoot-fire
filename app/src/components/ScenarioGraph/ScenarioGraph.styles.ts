@@ -2,75 +2,53 @@
 import twColors from 'tailwindcss/colors'
 
 export const colors = {
-  primary: twColors.violet[700],
-  primaryDark: twColors.violet[800],
-  // amber
-  // secondary: twColors.amber[50],
-  // secondary: twColors.amber[100],
-  // secondary: twColors.amber[200], // ok
-  // secondaryLight: twColors.yellow[300], // ok, better
-  // secondary: twColors.amber[400], // ok, better
-  secondary: twColors.amber[500], // ok, better
-  secondaryDark: twColors.amber[600], // ok, better
-  // secondary: twColors.amber[500], // ok
-  // secondary: twColors.amber[600],
-  // secondary: twColors.amber[700],
-  // secondary: twColors.amber[800],
-  // secondary: twColors.amber[900],
-  // secondary: twColors.amber[950],
-  // yellow
-  // secondary: twColors.yellow[50],
-  // secondary: twColors.yellow[100],
-  // secondary: twColors.yellow[200], // ok
-  // secondary: twColors.yellow[300], // ok
-  // secondary: twColors.yellow[400], // ok, better
-  // secondary: twColors.yellow[500], // ok, better
-  // secondary: twColors.yellow[600],
-  // secondary: twColors.yellow[700],
-  // secondary: twColors.yellow[800],
-  // secondary: twColors.yellow[900],
-  // secondary: twColors.yellow[950],
-  // orange
-  // secondary: twColors.orange[50],
-  // secondary: twColors.orange[100],
-  // secondary: twColors.orange[200],
-  // secondary: twColors.orange[300],
-  // secondary: twColors.orange[400],
-  // secondary: twColors.orange[500],
-  // secondary: twColors.orange[600],
-  // secondary: twColors.orange[700],
-  // secondary: twColors.orange[800],
-  // secondary: twColors.orange[900],
-  // secondary: twColors.orange[950],
-  text: twColors.stone[800],
+  // Default
+  default: twColors.violet[800],
+  defaultDark: twColors.violet[950],
+
+  // Highlighted
+  highlighted: twColors.violet[600],
+  highlightedOutline: twColors.violet[500],
+  highlightedText: twColors.violet[300],
+  highlightedSelectedText: twColors.violet[200],
+  highlightedSelectedOutline: twColors.violet[300],
+
+  // Pinned -- amber, yellow, orange
+  pinned1: twColors.amber[600],
+  pinned2: twColors.amber[500],
+  pinned3: twColors.amber[200],
+  pinned4: twColors.amber[50],
 }
 
 export const graphStyles = [
+  // ===========================================================================
+  // Core
+  // ===========================================================================
   {
     selector: 'core',
     style: {
-      // Remove the grey circle when dragging
-      'active-bg-size': 0,
+      'active-bg-size': 0, // <== Remove the grey circle when dragging
     },
   },
+  // ===========================================================================
+  // Nodes
+  // ===========================================================================
   {
     selector: 'node',
     style: {
-      // 'active-bg-color': twColors.slate[950],
-      // 'active-bg-opacity': 0,
-      'overlay-opacity': 0, // Hides the overlay selection box
+      'overlay-opacity': 0, // <== Hides the overlay selection box
       // Body
       shape: 'round-rectangle',
       width: 'label',
       height: 'label',
       padding: 16,
-      'background-color': colors.primary,
+      'background-color': colors.default,
+      'border-color': colors.defaultDark,
       'border-width': 1,
-      'border-color': colors.primaryDark,
       'corner-radius': '4',
       // Text
       label: 'data(name)',
-      color: twColors.violet[950],
+      color: colors.defaultDark,
       'text-valign': 'center',
       'text-halign': 'center',
       'font-weight': 500,
@@ -79,40 +57,51 @@ export const graphStyles = [
   {
     selector: 'node[?highlighted]',
     style: {
-      color: twColors.amber[950],
-      'background-color': colors.secondary,
-      'border-color': colors.secondaryDark,
+      color: colors.highlightedText,
+      'background-color': colors.highlighted,
+      'border-color': colors.highlightedOutline,
     },
   },
   {
-    selector: 'node:selected',
+    selector: 'node[?highlighted][?selected]',
     style: {
-      color: twColors.violet[200],
+      color: colors.highlightedSelectedText,
+      'outline-color': colors.highlightedSelectedOutline,
       'outline-width': 2,
-      'outline-color': colors.primaryDark,
     },
   },
   {
-    selector: 'node:selected[?highlighted]',
+    selector: 'node[?pinned]',
     style: {
-      color: twColors.amber[100],
-      'outline-width': 2,
-      'outline-color': colors.secondaryDark,
+      color: colors.pinned3,
+      'background-color': colors.pinned1,
+      'border-color': colors.pinned2,
     },
   },
-
+  {
+    selector: 'node[?pinned][?selected]',
+    style: {
+      color: colors.pinned4,
+      'outline-color': colors.pinned3,
+      'outline-width': 2,
+    },
+  },
+  // ===========================================================================
+  // Nodes
+  // ===========================================================================
   {
     selector: 'edge',
     style: {
+      'overlay-opacity': 0, // <== Hides the overlay selection box
       width: 3,
-      'line-color': colors.primaryDark,
-      'target-arrow-color': colors.primaryDark,
+      'line-color': colors.defaultDark,
+      'target-arrow-color': colors.defaultDark,
       'target-arrow-shape': 'triangle',
 
       // Experimental
       'curve-style': 'round-taxi',
       'taxi-radius': '5%',
-      'taxi-turn': 10, // 10, -10, 20%, -20%
+      // 'taxi-turn': 10, // 10, -10, 20%, -20%
       // 'taxi-direction': 'auto', // auto, vertical, horizontal, upward, downward, leftward, rightward
       // 'taxi-turn-min-distance': 100,
       // 'radius-type': 'arc-radius', // arc-radius, influence-radius
@@ -122,8 +111,18 @@ export const graphStyles = [
   {
     selector: 'edge[?highlighted]',
     style: {
-      'line-color': colors.secondaryDark,
-      'target-arrow-color': colors.secondaryDark,
+      'line-color': colors.highlightedOutline,
+      'target-arrow-color': colors.highlightedOutline,
+      'z-index': 1,
+      // width: 5,
+    },
+  },
+  {
+    selector: 'edge[?pinned]',
+    style: {
+      'line-color': colors.pinned2,
+      'target-arrow-color': colors.pinned2,
+      'z-index': 2,
       width: 5,
     },
   },
