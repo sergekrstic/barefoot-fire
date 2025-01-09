@@ -1,4 +1,4 @@
-import{j as r}from"./jsx-runtime-D_zvdyIk.js";import{g as p,t as d}from"./budget.data-CpXsGSqR.js";import{S as l}from"./ScenarioChart.container.v2-BI2yzkxS.js";import"./index-PahMPgEy.js";import"./colors-Cuw9ST8W.js";const f={component:l,parameters:{layout:"fullscreen"},decorators:[m=>r.jsx("div",{style:{height:"100vh"},children:r.jsx(m,{})})]},e={args:{data:p(),selection:[0,100]}},a={args:{data:d,selection:[0,100]}};var t,s,o;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`{
+import{j as r}from"./jsx-runtime-D_zvdyIk.js";import{g as p,t as d}from"./budget.data-CUMDTik3.js";import{S as l}from"./ScenarioChart.container.v2-DgtBo0TP.js";import"./index-PahMPgEy.js";import"./colors-Cuw9ST8W.js";const f={component:l,parameters:{layout:"fullscreen"},decorators:[m=>r.jsx("div",{style:{height:"100vh"},children:r.jsx(m,{})})]},e={args:{data:p(),selection:[0,100]}},a={args:{data:d,selection:[0,100]}};var t,s,o;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`{
   args: {
     data: generateRandomTimeSeriesData(),
     selection: [0, 100]
