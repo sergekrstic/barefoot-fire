@@ -11,6 +11,7 @@ const overlapEndPeriod: Period = { startDate: '2033-07-01', endDate: '2035-01-01
 
 describe('@calculateBudgetEvents()', () => {
   const budget: Budget = {
+    id: 'budget-1',
     name: 'Budget 1',
     amount: 100,
     frequency: 'month',
@@ -312,12 +313,14 @@ describe('@calculateScenarioBudgets()', () => {
     period: overlapOneYearPeriod,
     budgets: [
       {
+        id: 'budget-1',
         name: 'Budget 1',
         amount: 100,
         frequency: 'month',
         ...tenYearPeriod,
       },
       {
+        id: 'budget-2',
         name: 'Budget 2',
         amount: 1000,
         frequency: 'year',

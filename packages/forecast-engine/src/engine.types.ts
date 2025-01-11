@@ -11,6 +11,7 @@ export interface Period {
 }
 
 export interface Budget {
+  id: string
   name: string
   // type: BudgetType
   amount: number

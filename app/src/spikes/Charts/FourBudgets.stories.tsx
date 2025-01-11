@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { ScenarioChartV1 } from 'components'
-
 import { Budget, calculateScenarioEvents } from '@fire/forecast-engine'
 
+import { ScenarioChartV1 } from './components/ScenarioChart.container.v1'
 import { defaultScenarioBudgets, oneYearPeriod, tenYearPeriod, thirtyYearPeriod } from './sharedStoryData'
 
 const meta = {
@@ -23,24 +22,28 @@ type Story = StoryObj<typeof meta>
 
 const fourLinearBudgets: Budget[] = [
   {
+    id: '1',
     name: 'Budget 1',
     amount: 1000,
     frequency: 'year',
     ...thirtyYearPeriod,
   },
   {
+    id: '2',
     name: 'Budget 2',
     amount: 100,
     frequency: 'week',
     ...thirtyYearPeriod,
   },
   {
+    id: '3',
     name: 'Budget 3',
     amount: 10,
     frequency: 'day',
     ...thirtyYearPeriod,
   },
   {
+    id: '4',
     name: 'Budget 4',
     amount: 10,
     frequency: 'day',
@@ -50,6 +53,7 @@ const fourLinearBudgets: Budget[] = [
 
 const fourCompoundBudgets: Budget[] = [
   {
+    id: '1',
     name: 'Budget 1',
     amount: 1000,
     interestRate: 0.01,
@@ -57,6 +61,7 @@ const fourCompoundBudgets: Budget[] = [
     ...thirtyYearPeriod,
   },
   {
+    id: '2',
     name: 'Budget 2',
     amount: 100,
     interestRate: 0.02,
@@ -64,6 +69,7 @@ const fourCompoundBudgets: Budget[] = [
     ...thirtyYearPeriod,
   },
   {
+    id: '3',
     name: 'Budget 3',
     amount: 10,
     interestRate: 0.03,
@@ -71,6 +77,7 @@ const fourCompoundBudgets: Budget[] = [
     ...thirtyYearPeriod,
   },
   {
+    id: '4',
     name: 'Budget 4',
     amount: 10,
     interestRate: 0.04,

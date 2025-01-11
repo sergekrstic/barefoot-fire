@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { ScenarioChartV1 } from 'components'
-
 import { calculateScenarioEvents } from '@fire/forecast-engine'
 
+import { ScenarioChartV1 } from './components/ScenarioChart.container.v1'
 import {
   defaultScenarioBudgets,
   oneYearPeriod,

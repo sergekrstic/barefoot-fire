@@ -19,6 +19,7 @@ describe('@convertScenarioBudgetsToPlotData()', () => {
     },
     budgets: [
       {
+        id: 'mock-budget-01',
         name: 'mock-budget-01',
         amount: 100,
         frequency: 'month',
@@ -26,6 +27,7 @@ describe('@convertScenarioBudgetsToPlotData()', () => {
         endDate: '2024-03-01',
       },
       {
+        id: 'mock-budget-02',
         name: 'mock-budget-02',
         amount: 50,
         frequency: 'week',
@@ -70,6 +72,7 @@ describe('@preprocessPlotData()', () => {
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
       budgets: [
         {
+          id: 'mock-budget-01',
           name: 'mock-budget-01',
           amount: 100,
           frequency: 'month',
@@ -97,6 +100,7 @@ describe('@preprocessPlotData()', () => {
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
       budgets: [
         {
+          id: 'mock-budget-01',
           name: 'mock-budget-01',
           amount: 100,
           frequency: 'week',
@@ -124,6 +128,7 @@ describe('@preprocessPlotData()', () => {
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
       budgets: [
         {
+          id: 'mock-budget-01',
           name: 'mock-budget-01',
           amount: 100,
           frequency: 'day',
@@ -153,6 +158,7 @@ describe('@preprocessPlotData()', () => {
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
       budgets: [
         {
+          id: 'mock-budget-01',
           name: 'mock-budget-01',
           amount: 100,
           frequency: 'day',
@@ -168,8 +174,9 @@ describe('@preprocessPlotData()', () => {
 
     const processedPlotData = preprocessPlotData({ data: plotData, interval: 'week', cumulative: false })
 
-    console.log(processedPlotData)
+    // console.log(processedPlotData)
 
+    expect(processedPlotData.length).toBe(999)
     // expect(processedPlotData.length).toBe(6)
     // expect(processedPlotData).toStrictEqual([
     //   { date: '2024-01-01', amount: 100, name: '' },

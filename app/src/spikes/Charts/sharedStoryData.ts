@@ -22,6 +22,7 @@ export const defaultScenarioBudgets: ScenarioBudgets = {
   budgets: [],
 }
 export const oneYearLinearBudget: Budget = {
+  id: '1',
   name: 'Budget 1',
   amount: 1000,
   frequency: 'year',
@@ -29,6 +30,7 @@ export const oneYearLinearBudget: Budget = {
 }
 
 export const yearlyCompoundBudget: Budget = {
+  id: '2',
   name: 'Budget 1',
   amount: 1000,
   interestRate: 0.05,

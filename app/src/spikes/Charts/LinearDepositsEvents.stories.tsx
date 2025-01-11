@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { ScenarioChartV1 } from 'components'
-
 import { Budget, calculateScenarioEvents } from '@fire/forecast-engine'
 
+import { ScenarioChartV1 } from './components/ScenarioChart.container.v1'
 import { defaultScenarioBudgets, oneYearPeriod, tenYearPeriod, thirtyYearPeriod } from './sharedStoryData'
 
 const meta = {
@@ -22,6 +21,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const oneYearBudget: Budget = {
+  id: '1',
   name: 'Budget 1',
   amount: 1000,
   frequency: 'year',
