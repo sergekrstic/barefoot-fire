@@ -7,13 +7,13 @@ export interface ScenarioBudgetProps {
 
 export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Element {
   return (
-    <div className="flex h-full w-full select-none flex-col border-l border-slate-800 bg-slate-900 text-slate-300">
+    <div className="flex h-full w-full select-none flex-col bg-slate-900 text-slate-300">
       <div className="bg-slate-800 px-4 py-1 text-sm font-medium text-slate-500">Budget Details</div>
       {!budget ? (
         <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-600">{'No budget selected'}</div>
       ) : (
         <div className="flex-grow overflow-y-auto pb-4">
-          <div className="px-4 pb-2 pt-4 text-lg font-medium">{budget ? budget.name : 'No budget selected'}</div>
+          <div className="px-4 pb-2 pt-4 text-lg font-medium">{budget.name}</div>
           <CollapsibleTree
             key={budget.name}
             tree={budget.categories}
