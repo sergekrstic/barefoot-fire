@@ -7,11 +7,13 @@ import { Selection } from 'types'
 import { useResizeSelection } from './TimelineSelector.hooks'
 
 export interface TimelineSelectorProps {
+  disabled?: boolean
   initialSelection?: Selection
   onUpdateSelection?: (selection: Selection) => void
 }
 
 export function TimelineSelector({
+  disabled = false,
   initialSelection = [0, 100],
   onUpdateSelection,
 }: TimelineSelectorProps): React.JSX.Element {
@@ -38,12 +40,11 @@ export function TimelineSelector({
         defaultSize={initialStart}
         onResize={updateStart}
       />
-      <PanelResizeHandle className="flex w-[5px] flex-col items-center justify-center bg-slate-700">
+      <PanelResizeHandle className="flex w-[5px] flex-col items-center justify-center bg-slate-700" disabled={disabled}>
         <DragVerticalIcon className="text-slate-950" size={16} />
       </PanelResizeHandle>
-
       <Panel className={`border-b border-t border-slate-700 ${isDraggable && 'cursor-grab'}`} />
-      <PanelResizeHandle className="flex w-[5px] flex-col items-center justify-center bg-slate-700">
+      <PanelResizeHandle className="flex w-[5px] flex-col items-center justify-center bg-slate-700" disabled={disabled}>
         <DragVerticalIcon className="text-slate-950" size={16} />
       </PanelResizeHandle>
       <Panel

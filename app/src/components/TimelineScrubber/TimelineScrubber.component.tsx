@@ -15,18 +15,22 @@ export function TimelineScrubber({
   initialSelection,
   onUpdateSelection,
 }: TimelineScrubberProps): React.JSX.Element {
-  const hasData = data && Array.from(data).length !== 0
+  const disabled = data && Array.from(data).length < 2
 
   return (
-    <div className="relative flex h-40 w-full items-center justify-center border-y border-slate-800 bg-slate-900">
-      <ResponsiveContainer>
-        {({ width, height }) => <TimelineChart width={width} height={height} data={data} />}
-      </ResponsiveContainer>
-      {hasData && (
-        <div className="absolute bottom-0 left-0 right-0 top-0 flex">
-          <TimelineSelector initialSelection={initialSelection} onUpdateSelection={onUpdateSelection} />
-        </div>
+    <div className="relative h-20 bg-slate-900">
+      {!disabled && (
+        <ResponsiveContainer>
+          {({ width, height }) => <TimelineChart width={width} height={height} data={data} />}
+        </ResponsiveContainer>
       )}
+      <div className="absolute bottom-0 left-0 right-0 top-0">
+        <TimelineSelector
+          initialSelection={initialSelection}
+          onUpdateSelection={onUpdateSelection}
+          disabled={disabled}
+        />
+      </div>
     </div>
   )
 }
