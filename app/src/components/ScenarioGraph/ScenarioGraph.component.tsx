@@ -20,6 +20,7 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
   const [cytoInstance, setCytoInstance] = useState<cy.Core>()
   const selectedBudgetId = useAppStore((state) => state.selectedBudgetId)
   const setSelectedBudgetId = useAppStore((state) => state.setSelectedBudgetId)
+  const setScenarioPath = useAppStore((state) => state.setScenarioPath)
 
   // Initialize the graph
   useEffect(() => {
@@ -27,10 +28,13 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       const instance = cy({ container: containerRef.current, elements: data, ...graphSettings })
       setCytoInstance(instance)
 
+      // console.log('data', data?.nodes.map((element) => [element.data.name, element.data.highlighted]))
+
       // Highlight the root node
       setSelectedBudgetId('root')
       instance.$id('root').data('selected', true)
       instance.$id('root').data('highlighted', true)
+      instance.center(instance.elements())
 
       return (): void => {
         instance.destroy()
@@ -83,11 +87,14 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       })
 
       // Find the path back to the root and then highlight it
-      const dijkstra = cytoInstance.elements().dijkstra({ root: 'root' })
+      const dijkstra = cytoInstance.elements().dijkstra({ root: '#root' })
       const shortestPath = dijkstra.pathTo(cytoInstance.$id(node.id))
       shortestPath.forEach((element) => {
         element.data('highlighted', true)
       })
+
+      const scenarioPath = shortestPath.nodes().map((element) => element.data('id'))
+      setScenarioPath(scenarioPath)
 
       // Todo: Improve the path animation, somehow, to make it more engaging
       shortestPath.edges().animate({ style: { width: 5 }, easing: 'ease-in-out' }, { duration: 100 })

@@ -1,12 +1,32 @@
 import moment from 'moment'
-import { Interval, TimeSeriesData } from 'types'
+import { BudgetMap, Interval, ScenarioMap, TimeSeriesData } from 'types'
 
-import { ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
+import { Budget, Period, ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
+
+export function deepCloneData<T>(data: T): T {
+  return JSON.parse(JSON.stringify(data))
+}
 
 export function generateRandomTimeSeriesData(): TimeSeriesData {
   const data = []
   for (let i = 0; i < 100; i++) {
     data.push({ date: moment().add(i, 'w').toISOString(), amount: Math.random() * 100, name: 'A' })
+  }
+
+  // Accumulate the amount
+  let runningTotal = 0
+  for (const d of data) {
+    runningTotal += d.amount
+    d.amount = runningTotal
+  }
+
+  return data
+}
+
+export function generateSineWaveTimeSeriesData(): TimeSeriesData {
+  const data = []
+  for (let i = 0; i < 365; i++) {
+    data.push({ date: moment('2025').add(i, 'd').toISOString(), amount: Math.sin(i / 29) * 100, name: 'A' })
   }
 
   // Accumulate the amount
@@ -40,6 +60,8 @@ export function preprocessPlotData(args: {
   cumulative: boolean
 }): TimeSeriesData {
   const { data, interval, cumulative } = args
+
+  if (data.length === 0) return []
 
   const binned: TimeSeriesData = []
   binned.push({ ...data[0], name: '' })
@@ -124,5 +146,38 @@ export function dateFromCurrentInterval(currentInterval: string, interval: Inter
       return date.format('YYYY-MM-DD')
       // return moment.utc(`${year}-01-01`).isoWeek(week).add(1, 'week').format('YYYY-MM-DD')
     }
+  }
+}
+
+export function cloneBudgets(budgetIds: string[], budgetMap: BudgetMap): Budget[] {
+  return budgetIds.map((id) => ({ ...budgetMap[id] }))
+}
+
+// Create a compound scenario from the given scenario IDs
+export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMap, period: Period): ScenarioBudgets {
+  const adjustedBudgets: Budget[] = []
+
+  // Adjust the end date of each scenario
+  scenarioIds.forEach((scenarioId, index) => {
+    const scenario = scenarioMap[scenarioId]
+    const nextScenario = scenarioMap[scenarioIds[index + 1]]
+
+    const clonedBudgets = scenario.budgets.map((budget) => ({ ...budget }))
+
+    // If there is a next scenario, adjust the end date of the current scenario
+    if (nextScenario) {
+      clonedBudgets.forEach((budget) => {
+        budget.endDate = nextScenario.period.startDate
+      })
+    }
+
+    adjustedBudgets.push(...clonedBudgets)
+  })
+
+  return {
+    id: scenarioIds[scenarioIds.length - 1],
+    name: 'Mock compound scenario',
+    budgets: adjustedBudgets,
+    period,
   }
 }

@@ -7,6 +7,7 @@ import { graphStyles } from './ScenarioGraph.styles'
 export const graphSettings: cy.CytoscapeOptions = {
   style: graphStyles as cy.Stylesheet[],
   autoungrabify: true,
+  zoomingEnabled: false,
   layout: {
     // Todo: consider create a custom layout using d3 or dagre
     name: 'tidytree',

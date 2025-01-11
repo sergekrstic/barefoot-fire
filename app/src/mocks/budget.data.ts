@@ -1,7 +1,7 @@
-import { BudgetCategories } from 'types'
-import { convertScenarioBudgetsToPlotData } from 'utils'
+import { BudgetCategories, BudgetMap, ScenarioMap } from 'types'
+import { cloneBudgets, convertScenarioBudgetsToPlotData } from 'utils'
 
-import { Budget, Period, ScenarioBudgets } from '@fire/forecast-engine'
+import { Period } from '@fire/forecast-engine'
 
 // #############################################################################
 // Budget categories
@@ -194,7 +194,7 @@ export const shareMarketPeriod: Period = {
 // Budgets
 // #############################################################################
 
-export const mockBudgetMap: Record<string, Budget> = {
+export const mockBudgetMap: BudgetMap = {
   // =========================================================================
   // Start
   // =========================================================================
@@ -433,121 +433,76 @@ export const mockBudgetMap: Record<string, Budget> = {
   },
 }
 
-export const scenarioBudgetsMap: Record<string, ScenarioBudgets> = {
-  'root-scenario': {
+export const mockScenarioBudgetsMap: ScenarioMap = {
+  root: {
     id: 'root',
     name: 'Start',
     period: startPeriod,
-    budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start']),
+    budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start'], mockBudgetMap),
   },
-  'job-search-scenario': {
+  'job-search': {
     id: 'job-search',
     name: 'Job Search',
     period: jobSearchPeriod,
-    budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search']),
+    budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'], mockBudgetMap),
   },
-  'full-time-scenario': {
+  'full-time': {
     id: 'full-time',
     name: 'Full Time',
     period: fullTimePeriod,
-    budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time']),
+    budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'], mockBudgetMap),
   },
-  'contract-scenario': {
+  contract: {
     id: 'contract',
     name: 'Contract',
     period: contractPeriod,
-    budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract']),
+    budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract'], mockBudgetMap),
   },
-  'renting-after-full-time-scenario': {
-    id: 'renting-after-full-time',
+  'full-time-rent': {
+    id: 'full-time-rent',
     name: 'Renting',
     period: fullTimeRentingPeriod,
-    budgets: cloneBudgets([
-      'i-salary-full-time-renting',
-      'i-other-full-time-renting',
-      'e-rent-full-time-renting',
-      'e-living-full-time-renting',
-    ]),
+    budgets: cloneBudgets(
+      [
+        'i-salary-full-time-renting',
+        'i-other-full-time-renting',
+        'e-rent-full-time-renting',
+        'e-living-full-time-renting',
+      ],
+      mockBudgetMap,
+    ),
   },
-  'renting-after-contract-scenario': {
-    id: 'renting-after-full-time',
+  'contract-rent': {
+    id: 'contract-rent',
     name: 'Renting',
     period: contractRentingPeriod,
-    budgets: cloneBudgets([
-      'i-salary-contract-renting',
-      'i-other-contract-renting',
-      'e-rent-contract-renting',
-      'e-living-contract-renting',
-    ]),
+    budgets: cloneBudgets(
+      ['i-salary-contract-renting', 'i-other-contract-renting', 'e-rent-contract-renting', 'e-living-contract-renting'],
+      mockBudgetMap,
+    ),
   },
-  'home-scenario': {
+  'contract-home': {
     id: 'home',
     name: 'Home',
     period: homePeriod,
-    budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home']),
+    budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'], mockBudgetMap),
   },
-  'share-market-scenario': {
-    id: 'share-market',
+  'contract-share-market': {
+    id: 'contract-share-market',
     name: 'Share Market',
     period: shareMarketPeriod,
-    budgets: cloneBudgets([
-      'i-salary-share-market',
-      'i-other-share-market',
-      'i-investments-deposit-share-market',
-      'i-investments-transfer-share-market',
-      'e-rent-share-market',
-      'e-living-share-market',
-    ]),
+    budgets: cloneBudgets(
+      [
+        'i-salary-share-market',
+        'i-other-share-market',
+        'i-investments-deposit-share-market',
+        'i-investments-transfer-share-market',
+        'e-rent-share-market',
+        'e-living-share-market',
+      ],
+      mockBudgetMap,
+    ),
   },
-}
-
-export const shareMarketScenarioPath = [
-  'root-scenario',
-  'job-search-scenario',
-  'contract-scenario',
-  'renting-after-contract-scenario',
-  'share-market-scenario',
-]
-
-export const homePropertyScenarioPath = [
-  'root-scenario',
-  'job-search-scenario',
-  'contract-scenario',
-  'renting-after-contract-scenario',
-  'home-scenario',
-]
-
-export function cloneBudgets(budgetIds: string[]): Budget[] {
-  return budgetIds.map((id) => ({ ...mockBudgetMap[id] }))
-}
-
-// Create a compound scenario from the given scenario IDs
-export function buildScenarioPath(scenarioIds: string[]): ScenarioBudgets {
-  const adjustedBudgets: Budget[] = []
-
-  // Adjust the end date of each scenario
-  scenarioIds.forEach((scenarioId, index) => {
-    const scenario = scenarioBudgetsMap[scenarioId]
-    const nextScenario = scenarioBudgetsMap[scenarioIds[index + 1]]
-
-    const clonedBudgets = scenario.budgets.map((budget) => ({ ...budget }))
-
-    // If there is a next scenario, adjust the end date of the current scenario
-    if (nextScenario) {
-      clonedBudgets.forEach((budget) => {
-        budget.endDate = nextScenario.period.startDate
-      })
-    }
-
-    adjustedBudgets.push(...clonedBudgets)
-  })
-
-  return {
-    id: scenarioIds[scenarioIds.length - 1],
-    name: 'Mock compound scenario',
-    period: defaultPeriod,
-    budgets: adjustedBudgets,
-  }
 }
 
 // #############################################################################
@@ -569,7 +524,3 @@ export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
     },
   ],
 })
-
-// export const startBudgetPlotData = convertScenarioBudgetsToPlotData(scenarioBudgetsMap['root-scenario'])
-export const startBudgetPlotData = convertScenarioBudgetsToPlotData(buildScenarioPath(shareMarketScenarioPath))
-// export const startBudgetPlotData = convertScenarioBudgetsToPlotData(buildScenarioPath(homePropertyScenarioPath))
