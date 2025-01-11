@@ -1,4 +1,4 @@
-import{j as Y}from"./jsx-runtime-D_zvdyIk.js";import"./CollapsibleTree.component-DSHTWi39.js";import"./Header.component-BGqI9wSV.js";import"./ScenarioChart.container.v2-DgtBo0TP.js";import{a as ne}from"./TimelineScrubber.component-2C1Y7zSr.js";import"./ScenarioGraph.component-CUOipr2P.js";import{c as r}from"./budget.data-CUMDTik3.js";import{a as e,d as a,o as f,t as S}from"./sharedStoryData-DL3TjDZl.js";import"./index-PahMPgEy.js";import"./Fire.icon-Di-S4vvp.js";import"./colors-Cuw9ST8W.js";import"./react-resizable-panels.browser.esm-zIh8wNIw.js";const Ee={component:ne,parameters:{layout:"fullscreen"},decorators:[ae=>Y.jsx("div",{style:{height:"100vh"},children:Y.jsx(ae,{})})]},n=[{name:"Budget 1",amount:1e3,frequency:"year",...e},{name:"Budget 2",amount:100,frequency:"week",...e},{name:"Budget 3",amount:10,frequency:"day",...e},{name:"Budget 4",amount:10,frequency:"day",...e}],t=[{name:"Budget 1",amount:1e3,interestRate:.01,frequency:"year",...e},{name:"Budget 2",amount:100,interestRate:.02,frequency:"week",...e},{name:"Budget 3",amount:10,interestRate:.03,frequency:"day",...e},{name:"Budget 4",amount:10,interestRate:.04,frequency:"day",...e}],s={args:{scenarioEvents:r({...a,period:f,budgets:n})}},o={args:{scenarioEvents:r({...a,period:S,budgets:n})}},u={args:{scenarioEvents:r({...a,period:e,budgets:n})}},c={args:{cumulative:!0,scenarioEvents:r({...a,period:f,budgets:n})}},i={args:{cumulative:!0,scenarioEvents:r({...a,period:S,budgets:n})}},d={args:{cumulative:!0,scenarioEvents:r({...a,period:e,budgets:n})}},m={args:{scenarioEvents:r({...a,period:f,budgets:t})}},p={args:{scenarioEvents:r({...a,period:S,budgets:t})}},g={args:{scenarioEvents:r({...a,period:e,budgets:t})}},l={args:{cumulative:!0,scenarioEvents:r({...a,period:f,budgets:t})}},v={args:{cumulative:!0,scenarioEvents:r({...a,period:S,budgets:t})}},E={args:{cumulative:!0,scenarioEvents:r({...a,period:e,budgets:t})}};var B,C,y;s.parameters={...s.parameters,docs:{...(B=s.parameters)==null?void 0:B.docs,source:{originalSource:`{
+import{j as Y}from"./jsx-runtime-D_zvdyIk.js";import{d as r}from"./ScenarioGraph.component-CFO1VuCQ.js";import{S as ne,a as e,d as a,o as f,t as S}from"./sharedStoryData-J2m90dxl.js";import"./index-PahMPgEy.js";import"./colors-Cuw9ST8W.js";import"./CollapsibleTree.component-DSHTWi39.js";import"./Fire.icon-Di-S4vvp.js";import"./Header.component-BGqI9wSV.js";import"./TimelineScrubber.component-Dmo5TZmq.js";import"./react-resizable-panels.browser.esm-zIh8wNIw.js";const le={component:ne,parameters:{layout:"fullscreen"},decorators:[ae=>Y.jsx("div",{style:{height:"100vh"},children:Y.jsx(ae,{})})]},n=[{id:"1",name:"Budget 1",amount:1e3,frequency:"year",...e},{id:"2",name:"Budget 2",amount:100,frequency:"week",...e},{id:"3",name:"Budget 3",amount:10,frequency:"day",...e},{id:"4",name:"Budget 4",amount:10,frequency:"day",...e}],t=[{id:"1",name:"Budget 1",amount:1e3,interestRate:.01,frequency:"year",...e},{id:"2",name:"Budget 2",amount:100,interestRate:.02,frequency:"week",...e},{id:"3",name:"Budget 3",amount:10,interestRate:.03,frequency:"day",...e},{id:"4",name:"Budget 4",amount:10,interestRate:.04,frequency:"day",...e}],s={args:{scenarioEvents:r({...a,period:f,budgets:n})}},o={args:{scenarioEvents:r({...a,period:S,budgets:n})}},u={args:{scenarioEvents:r({...a,period:e,budgets:n})}},i={args:{cumulative:!0,scenarioEvents:r({...a,period:f,budgets:n})}},c={args:{cumulative:!0,scenarioEvents:r({...a,period:S,budgets:n})}},d={args:{cumulative:!0,scenarioEvents:r({...a,period:e,budgets:n})}},m={args:{scenarioEvents:r({...a,period:f,budgets:t})}},p={args:{scenarioEvents:r({...a,period:S,budgets:t})}},g={args:{scenarioEvents:r({...a,period:e,budgets:t})}},l={args:{cumulative:!0,scenarioEvents:r({...a,period:f,budgets:t})}},v={args:{cumulative:!0,scenarioEvents:r({...a,period:S,budgets:t})}},E={args:{cumulative:!0,scenarioEvents:r({...a,period:e,budgets:t})}};var B,C,y;s.parameters={...s.parameters,docs:{...(B=s.parameters)==null?void 0:B.docs,source:{originalSource:`{
   args: {
     scenarioEvents: calculateScenarioEvents({
       ...defaultScenarioBudgets,
@@ -22,7 +22,7 @@ import{j as Y}from"./jsx-runtime-D_zvdyIk.js";import"./CollapsibleTree.component
       budgets: fourLinearBudgets
     })
   }
-}`,...(O=(P=u.parameters)==null?void 0:P.docs)==null?void 0:O.source}}};var q,x,R;c.parameters={...c.parameters,docs:{...(q=c.parameters)==null?void 0:q.docs,source:{originalSource:`{
+}`,...(O=(P=u.parameters)==null?void 0:P.docs)==null?void 0:O.source}}};var q,x,R;i.parameters={...i.parameters,docs:{...(q=i.parameters)==null?void 0:q.docs,source:{originalSource:`{
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
@@ -31,7 +31,7 @@ import{j as Y}from"./jsx-runtime-D_zvdyIk.js";import"./CollapsibleTree.component
       budgets: fourLinearBudgets
     })
   }
-}`,...(R=(x=c.parameters)==null?void 0:x.docs)==null?void 0:R.source}}};var j,k,w;i.parameters={...i.parameters,docs:{...(j=i.parameters)==null?void 0:j.docs,source:{originalSource:`{
+}`,...(R=(x=i.parameters)==null?void 0:x.docs)==null?void 0:R.source}}};var j,k,w;c.parameters={...c.parameters,docs:{...(j=c.parameters)==null?void 0:j.docs,source:{originalSource:`{
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
@@ -40,7 +40,7 @@ import{j as Y}from"./jsx-runtime-D_zvdyIk.js";import"./CollapsibleTree.component
       budgets: fourLinearBudgets
     })
   }
-}`,...(w=(k=i.parameters)==null?void 0:k.docs)==null?void 0:w.source}}};var _,V,z;d.parameters={...d.parameters,docs:{...(_=d.parameters)==null?void 0:_.docs,source:{originalSource:`{
+}`,...(w=(k=c.parameters)==null?void 0:k.docs)==null?void 0:w.source}}};var _,V,z;d.parameters={...d.parameters,docs:{...(_=d.parameters)==null?void 0:_.docs,source:{originalSource:`{
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
@@ -100,4 +100,4 @@ import{j as Y}from"./jsx-runtime-D_zvdyIk.js";import"./CollapsibleTree.component
       budgets: fourCompoundBudgets
     })
   }
-}`,...(re=(ee=E.parameters)==null?void 0:ee.docs)==null?void 0:re.source}}};const fe=["OneYearLinearEvents","TenYearLinearEvents","ThirtyYearLinearEvents","OneYearLinearCumulative","TenYearLinearCumulative","ThirtyYearLinearCumulative","OneYearCompoundEvents","TenYearCompoundEvents","ThirtyYearCompoundEvents","OneYearCompoundCumulative","TenYearCompoundCumulative","ThirtyYearCompoundCumulative"];export{l as OneYearCompoundCumulative,m as OneYearCompoundEvents,c as OneYearLinearCumulative,s as OneYearLinearEvents,v as TenYearCompoundCumulative,p as TenYearCompoundEvents,i as TenYearLinearCumulative,o as TenYearLinearEvents,E as ThirtyYearCompoundCumulative,g as ThirtyYearCompoundEvents,d as ThirtyYearLinearCumulative,u as ThirtyYearLinearEvents,fe as __namedExportsOrder,Ee as default};
+}`,...(re=(ee=E.parameters)==null?void 0:ee.docs)==null?void 0:re.source}}};const ve=["OneYearLinearEvents","TenYearLinearEvents","ThirtyYearLinearEvents","OneYearLinearCumulative","TenYearLinearCumulative","ThirtyYearLinearCumulative","OneYearCompoundEvents","TenYearCompoundEvents","ThirtyYearCompoundEvents","OneYearCompoundCumulative","TenYearCompoundCumulative","ThirtyYearCompoundCumulative"];export{l as OneYearCompoundCumulative,m as OneYearCompoundEvents,i as OneYearLinearCumulative,s as OneYearLinearEvents,v as TenYearCompoundCumulative,p as TenYearCompoundEvents,c as TenYearLinearCumulative,o as TenYearLinearEvents,E as ThirtyYearCompoundCumulative,g as ThirtyYearCompoundEvents,d as ThirtyYearLinearCumulative,u as ThirtyYearLinearEvents,ve as __namedExportsOrder,le as default};
