@@ -2,36 +2,36 @@ import cy from 'cytoscape'
 
 export const mockGraphData: cy.CytoscapeOptions['elements'] = {
   nodes: [
-    { data: { id: 'root', name: 'Start', highlighted: true } },
-    { data: { id: 'job1', name: 'Job 1', highlighted: true, selected: true } },
-    { data: { id: 'job2', name: 'Job 2', highlighted: false } },
-    { data: { id: 'job3', name: 'Job 3', highlighted: true } },
+    { data: { id: 'root', name: 'Start' } },
+    { data: { id: 'job1', name: 'Job 1' } },
+    { data: { id: 'job2', name: 'Job 2' } },
+    { data: { id: 'job3', name: 'Job 3' } },
   ],
   edges: [
-    { data: { source: 'root', target: 'job1', highlighted: true } },
-    { data: { source: 'job1', target: 'job2', highlighted: false } },
-    { data: { source: 'job1', target: 'job3', highlighted: true } },
+    { data: { source: 'root', target: 'job1' } },
+    { data: { source: 'job1', target: 'job2' } },
+    { data: { source: 'job1', target: 'job3' } },
   ],
 }
 
 export const mockRepresentativeGraphData: cy.CytoscapeOptions['elements'] = {
   nodes: [
-    { data: { id: 'root', name: 'Start', highlighted: false, selected: false } },
-    { data: { id: 'job-search', name: 'Job Search', highlighted: false, selected: false } },
-    { data: { id: 'contract', name: 'Contract', highlighted: false, selected: false } },
-    { data: { id: 'contract-rent', name: 'Renting', highlighted: false, selected: false } },
-    { data: { id: 'full-time-rent', name: 'Renting', highlighted: false, selected: false } },
-    { data: { id: 'full-time', name: 'Full Time', highlighted: false, selected: false } },
-    { data: { id: 'contract-home', name: 'Home', highlighted: false, selected: false } },
-    { data: { id: 'contract-share-market', name: 'Share Market', highlighted: false, selected: false } },
+    { data: { id: 'root', name: 'Start' } },
+    { data: { id: 'job-search', name: 'Job Search' } },
+    { data: { id: 'contract', name: 'Contract' } },
+    { data: { id: 'contract-rent', name: 'Renting' } },
+    { data: { id: 'full-time-rent', name: 'Renting' } },
+    { data: { id: 'full-time', name: 'Full Time' } },
+    { data: { id: 'contract-home', name: 'Home' } },
+    { data: { id: 'contract-share-market', name: 'Share Market' } },
   ],
   edges: [
-    { data: { source: 'root', target: 'job-search', highlighted: false } },
-    { data: { source: 'job-search', target: 'full-time', highlighted: false } },
-    { data: { source: 'job-search', target: 'contract', highlighted: false } },
-    { data: { source: 'contract', target: 'contract-rent', highlighted: false } },
-    { data: { source: 'full-time', target: 'full-time-rent', highlighted: false } },
-    { data: { source: 'contract-rent', target: 'contract-home', highlighted: false } },
-    { data: { source: 'contract-rent', target: 'contract-share-market', highlighted: false } },
+    { data: { source: 'root', target: 'job-search' } },
+    { data: { source: 'job-search', target: 'full-time' } },
+    { data: { source: 'job-search', target: 'contract' } },
+    { data: { source: 'contract', target: 'contract-rent' } },
+    { data: { source: 'full-time', target: 'full-time-rent' } },
+    { data: { source: 'contract-rent', target: 'contract-home' } },
+    { data: { source: 'contract-rent', target: 'contract-share-market' } },
   ],
 }

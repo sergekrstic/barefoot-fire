@@ -3,7 +3,11 @@ import { convertScenarioBudgetsToPlotData } from 'utils'
 
 import { Budget, Period, ScenarioBudgets } from '@fire/forecast-engine'
 
-export const mockBudgetCategoriesForScenarioStart: BudgetCategories = {
+// #############################################################################
+// Budget categories
+// #############################################################################
+
+export const mockCategoriesForScenarioStart: BudgetCategories = {
   name: 'Start',
   categories: [
     {
@@ -24,7 +28,7 @@ export const mockBudgetCategoriesForScenarioStart: BudgetCategories = {
   ],
 }
 
-export const mockBudgetCategoriesForScenarioOne: BudgetCategories = {
+export const mockCategoriesForScenarioOne: BudgetCategories = {
   name: 'Job 1',
   categories: [
     {
@@ -57,7 +61,7 @@ export const mockBudgetCategoriesForScenarioOne: BudgetCategories = {
   ],
 }
 
-export const mockBudgetCategoriesForScenarioTwo: BudgetCategories = {
+export const mockCategoriesForScenarioTwo: BudgetCategories = {
   name: 'Job 2',
   categories: [
     {
@@ -90,7 +94,7 @@ export const mockBudgetCategoriesForScenarioTwo: BudgetCategories = {
   ],
 }
 
-export const mockBudgetCategoriesForScenarioThree: BudgetCategories = {
+export const mockCategoriesForScenarioThree: BudgetCategories = {
   name: 'Job 3',
   categories: [
     {
@@ -123,157 +127,449 @@ export const mockBudgetCategoriesForScenarioThree: BudgetCategories = {
   ],
 }
 
-export const mockBudgetMap: Record<string, BudgetCategories> = {
-  start: mockBudgetCategoriesForScenarioStart,
-  job1: mockBudgetCategoriesForScenarioOne,
-  job2: mockBudgetCategoriesForScenarioTwo,
-  job3: mockBudgetCategoriesForScenarioThree,
+export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
+  root: mockCategoriesForScenarioStart,
+  job1: mockCategoriesForScenarioOne,
+  job2: mockCategoriesForScenarioTwo,
+  job3: mockCategoriesForScenarioThree,
 }
 
-export const oneYearPeriod: Period = {
-  startDate: '2024-01-01',
-  endDate: '2024-12-31',
-}
+// #############################################################################
+// Time periods
+// #############################################################################
 
-export const tenYearPeriod: Period = {
+export const defaultPeriod: Period = {
   startDate: '2024-01-01',
-  endDate: '2034-12-31',
+  endDate: '2034-01-01', // ten years
+  // endDate: '2044-01-01', // twenty years
+  // endDate: '2054-01-01', // thirty years
 }
 
 export const thirtyYearPeriod: Period = {
   startDate: '2024-01-01',
-  endDate: '2054-12-31',
+  endDate: '2054-01-01',
 }
 
-const yearlyBudget: Budget = {
-  name: 'Budget 1',
-  amount: 1000,
-  interestRate: 0.05,
-  frequency: 'week',
-  ...thirtyYearPeriod,
+export const startPeriod: Period = {
+  startDate: '2022-07-01',
+  endDate: defaultPeriod.endDate,
 }
 
-const firstThreeYearPeriod: Period = {
-  startDate: '2024-01-01',
-  endDate: '2026-12-31',
+export const jobSearchPeriod: Period = {
+  startDate: '2024-11-01',
+  endDate: defaultPeriod.endDate,
 }
 
-export const nextFiveYearPeriod: Period = {
-  startDate: '2027-01-01',
-  endDate: '2031-12-31',
+export const fullTimePeriod: Period = {
+  startDate: '2025-03-01',
+  endDate: defaultPeriod.endDate,
 }
 
-export const remainingThirtyYearPeriod: Period = {
-  startDate: '2032-01-01',
-  endDate: '2034-12-31',
+export const fullTimeRentingPeriod: Period = {
+  startDate: '2025-09-01',
+  endDate: defaultPeriod.endDate,
 }
+
+export const contractPeriod: Period = {
+  startDate: '2025-03-01',
+  endDate: defaultPeriod.endDate,
+}
+
+export const contractRentingPeriod: Period = {
+  startDate: '2025-09-01',
+  endDate: defaultPeriod.endDate,
+}
+
+export const homePeriod: Period = {
+  startDate: '2026-01-01',
+  endDate: defaultPeriod.endDate,
+}
+
+export const shareMarketPeriod: Period = {
+  startDate: '2025-11-01',
+  endDate: defaultPeriod.endDate,
+}
+
+// #############################################################################
+// Budgets
+// #############################################################################
+
+export const mockBudgetMap: Record<string, Budget> = {
+  // =========================================================================
+  // Start
+  // =========================================================================
+  'i-salary-start': {
+    id: 'i-salary-start',
+    name: 'Salary',
+    amount: 1000,
+    frequency: 'month',
+    ...startPeriod,
+  },
+  'i-other-start': {
+    id: 'i-other-start',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...startPeriod,
+  },
+  'e-living-start': {
+    id: 'e-living-start',
+    name: 'Living',
+    amount: -250,
+    frequency: 'month',
+    ...startPeriod,
+  },
+  // =========================================================================
+  // Job Search
+  // =========================================================================
+  'i-salary-job-search': {
+    id: 'i-salary-job-search',
+    name: 'Salary',
+    amount: 0,
+    frequency: 'month',
+    ...jobSearchPeriod,
+  },
+  'i-other-job-search': {
+    id: 'i-other-job-search',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...jobSearchPeriod,
+  },
+  'e-living-job-search': {
+    id: 'e-living-job-search',
+    name: 'Living',
+    amount: -150,
+    frequency: 'month',
+    ...jobSearchPeriod,
+  },
+  // =========================================================================
+  // Full Time
+  // =========================================================================
+  'i-salary-full-time': {
+    id: 'i-salary-full-time',
+    name: 'Salary',
+    amount: 1000,
+    frequency: 'month',
+    ...fullTimePeriod,
+  },
+  'i-other-full-time': {
+    id: 'i-other-full-time',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...fullTimePeriod,
+  },
+  'e-living-full-time': {
+    id: 'e-living-full-time',
+    name: 'Living',
+    amount: -350,
+    frequency: 'month',
+    ...fullTimePeriod,
+  },
+  // =========================================================================
+  // Full Time -> Renting
+  // =========================================================================
+  'i-salary-full-time-renting': {
+    id: 'i-salary-full-time-renting',
+    name: 'Salary',
+    amount: 1000,
+    frequency: 'month',
+    ...fullTimeRentingPeriod,
+  },
+  'i-other-full-time-renting': {
+    id: 'i-other-full-time-renting',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...fullTimeRentingPeriod,
+  },
+  'e-rent-full-time-renting': {
+    id: 'e-rent-full-time-renting',
+    name: 'Living',
+    amount: -350,
+    frequency: 'month',
+    ...fullTimeRentingPeriod,
+  },
+  'e-living-full-time-renting': {
+    id: 'e-living-full-time-renting',
+    name: 'Rent',
+    amount: -350,
+    frequency: 'month',
+    ...fullTimeRentingPeriod,
+  },
+  // =========================================================================
+  // Contract
+  // =========================================================================
+  'i-salary-contract': {
+    id: 'i-salary-contract',
+    name: 'Salary',
+    amount: 1500,
+    frequency: 'month',
+    ...contractPeriod,
+  },
+  'i-other-contract': {
+    id: 'i-other-contract',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...contractPeriod,
+  },
+  'e-living-contract': {
+    id: 'e-living-contract',
+    name: 'Living',
+    amount: -350,
+    frequency: 'month',
+    ...contractPeriod,
+  },
+  // =========================================================================
+  // Contract -> Renting
+  // =========================================================================
+  'i-salary-contract-renting': {
+    id: 'i-salary-contract-renting',
+    name: 'Salary',
+    amount: 1500,
+    frequency: 'month',
+    ...contractRentingPeriod,
+  },
+  'i-other-contract-renting': {
+    id: 'i-other-contract-renting',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...contractRentingPeriod,
+  },
+  'e-rent-contract-renting': {
+    id: 'e-rent-contract-renting',
+    name: 'Rent',
+    amount: -350,
+    frequency: 'month',
+    ...contractRentingPeriod,
+  },
+  'e-living-contract-renting': {
+    id: 'e-living-contract-renting',
+    name: 'Living',
+    amount: -350,
+    frequency: 'month',
+    ...contractRentingPeriod,
+  },
+  // =========================================================================
+  // Contract -> Renting -> Home
+  // =========================================================================
+  'i-salary-home': {
+    id: 'i-salary-home',
+    name: 'Salary',
+    amount: 1500,
+    frequency: 'month',
+    ...homePeriod,
+  },
+  'i-other-home': {
+    id: 'i-other-home',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...homePeriod,
+  },
+  'e-mortgage-home': {
+    id: 'e-mortgage-home',
+    name: 'Mortgage',
+    amount: -400,
+    initialAmount: -100000,
+    frequency: 'month',
+    ...homePeriod,
+  },
+  'e-living-home': {
+    id: 'e-living-home',
+    name: 'Living',
+    amount: -350,
+    frequency: 'month',
+    ...homePeriod,
+  },
+  // =========================================================================
+  // Contract -> Renting -> Share Market
+  // =========================================================================
+  'i-salary-share-market': {
+    id: 'i-salary-share-market',
+    name: 'Salary',
+    amount: 1500,
+    frequency: 'month',
+    ...shareMarketPeriod,
+  },
+  'i-other-share-market': {
+    id: 'i-other-share-market',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...shareMarketPeriod,
+  },
+  'i-investments-deposit-share-market': {
+    id: 'i-investments-deposit-share-market',
+    name: 'Living',
+    amount: 150,
+    frequency: 'month',
+    interestRate: 0.3,
+    ...shareMarketPeriod,
+  },
+  'i-investments-transfer-share-market': {
+    id: 'i-investments-transfer-share-market',
+    name: 'Living',
+    amount: -150,
+    frequency: 'month',
+    ...shareMarketPeriod,
+  },
+  'e-rent-share-market': {
+    id: 'e-rent-share-market',
+    name: 'Rent',
+    amount: -350,
+    frequency: 'month',
+    ...shareMarketPeriod,
+  },
+  'e-living-share-market': {
+    id: 'e-living-share-market',
+    name: 'Living',
+    amount: -350,
+    frequency: 'month',
+    ...shareMarketPeriod,
+  },
+}
+
+export const scenarioBudgetsMap: Record<string, ScenarioBudgets> = {
+  'root-scenario': {
+    id: 'root',
+    name: 'Start',
+    period: startPeriod,
+    budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start']),
+  },
+  'job-search-scenario': {
+    id: 'job-search',
+    name: 'Job Search',
+    period: jobSearchPeriod,
+    budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search']),
+  },
+  'full-time-scenario': {
+    id: 'full-time',
+    name: 'Full Time',
+    period: fullTimePeriod,
+    budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time']),
+  },
+  'contract-scenario': {
+    id: 'contract',
+    name: 'Contract',
+    period: contractPeriod,
+    budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract']),
+  },
+  'renting-after-full-time-scenario': {
+    id: 'renting-after-full-time',
+    name: 'Renting',
+    period: fullTimeRentingPeriod,
+    budgets: cloneBudgets([
+      'i-salary-full-time-renting',
+      'i-other-full-time-renting',
+      'e-rent-full-time-renting',
+      'e-living-full-time-renting',
+    ]),
+  },
+  'renting-after-contract-scenario': {
+    id: 'renting-after-full-time',
+    name: 'Renting',
+    period: contractRentingPeriod,
+    budgets: cloneBudgets([
+      'i-salary-contract-renting',
+      'i-other-contract-renting',
+      'e-rent-contract-renting',
+      'e-living-contract-renting',
+    ]),
+  },
+  'home-scenario': {
+    id: 'home',
+    name: 'Home',
+    period: homePeriod,
+    budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home']),
+  },
+  'share-market-scenario': {
+    id: 'share-market',
+    name: 'Share Market',
+    period: shareMarketPeriod,
+    budgets: cloneBudgets([
+      'i-salary-share-market',
+      'i-other-share-market',
+      'i-investments-deposit-share-market',
+      'i-investments-transfer-share-market',
+      'e-rent-share-market',
+      'e-living-share-market',
+    ]),
+  },
+}
+
+export const shareMarketScenarioPath = [
+  'root-scenario',
+  'job-search-scenario',
+  'contract-scenario',
+  'renting-after-contract-scenario',
+  'share-market-scenario',
+]
+
+export const homePropertyScenarioPath = [
+  'root-scenario',
+  'job-search-scenario',
+  'contract-scenario',
+  'renting-after-contract-scenario',
+  'home-scenario',
+]
+
+export function cloneBudgets(budgetIds: string[]): Budget[] {
+  return budgetIds.map((id) => ({ ...mockBudgetMap[id] }))
+}
+
+// Create a compound scenario from the given scenario IDs
+export function buildScenarioPath(scenarioIds: string[]): ScenarioBudgets {
+  const adjustedBudgets: Budget[] = []
+
+  // Adjust the end date of each scenario
+  scenarioIds.forEach((scenarioId, index) => {
+    const scenario = scenarioBudgetsMap[scenarioId]
+    const nextScenario = scenarioBudgetsMap[scenarioIds[index + 1]]
+
+    const clonedBudgets = scenario.budgets.map((budget) => ({ ...budget }))
+
+    // If there is a next scenario, adjust the end date of the current scenario
+    if (nextScenario) {
+      clonedBudgets.forEach((budget) => {
+        budget.endDate = nextScenario.period.startDate
+      })
+    }
+
+    adjustedBudgets.push(...clonedBudgets)
+  })
+
+  return {
+    id: scenarioIds[scenarioIds.length - 1],
+    name: 'Mock compound scenario',
+    period: defaultPeriod,
+    budgets: adjustedBudgets,
+  }
+}
+
+// #############################################################################
+// Plot data
+// #############################################################################
 
 export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
   id: 'mock-scenario',
   name: 'Mock compound scenario',
   period: thirtyYearPeriod,
-  budgets: [{ ...yearlyBudget, frequency: 'week' }],
-})
-
-export const budgetStart: ScenarioBudgets = {
-  id: 'start',
-  name: 'Mock Start',
-  period: thirtyYearPeriod,
   budgets: [
-    // Start
     {
-      name: 'Salary',
-      amount: 0,
+      id: 'i-salary-start',
+      name: 'Budget 1',
+      amount: 1000,
+      interestRate: 0.05,
       frequency: 'week',
-      ...firstThreeYearPeriod,
-    },
-    {
-      name: 'Other',
-      amount: 300,
-      frequency: 'week',
-      ...firstThreeYearPeriod,
-    },
-    {
-      name: 'Living',
-      amount: -250,
-      frequency: 'year',
-      ...firstThreeYearPeriod,
-    },
-    // Job 1
-    {
-      name: 'Salary',
-      amount: 2000,
-      frequency: 'week',
-      ...nextFiveYearPeriod,
-    },
-    {
-      name: 'Other',
-      amount: 200,
-      frequency: 'year',
-      ...nextFiveYearPeriod,
-    },
-    {
-      name: 'Rent',
-      amount: -300,
-      frequency: 'week',
-      ...nextFiveYearPeriod,
-    },
-    {
-      name: 'Electricity',
-      amount: -100,
-      frequency: 'year',
-      ...nextFiveYearPeriod,
-    },
-    {
-      name: 'Phone',
-      amount: -200,
-      frequency: 'week',
-      ...nextFiveYearPeriod,
-    },
-    {
-      name: 'Living',
-      amount: -400,
-      frequency: 'year',
-      ...nextFiveYearPeriod,
-    },
-    // Job 3
-    {
-      name: 'Salary',
-      amount: 3000,
-      frequency: 'week',
-      ...remainingThirtyYearPeriod,
-    },
-    {
-      name: 'Other',
-      amount: 200,
-      frequency: 'year',
-      ...remainingThirtyYearPeriod,
-    },
-    {
-      name: 'Rent',
-      amount: -350,
-      frequency: 'week',
-      ...remainingThirtyYearPeriod,
-    },
-    {
-      name: 'Electricity',
-      amount: -100,
-      frequency: 'year',
-      ...remainingThirtyYearPeriod,
-    },
-    {
-      name: 'Phone',
-      amount: -200,
-      frequency: 'week',
-      ...remainingThirtyYearPeriod,
-    },
-    {
-      name: 'Living',
-      amount: -450,
-      frequency: 'year',
-      ...remainingThirtyYearPeriod,
+      ...thirtyYearPeriod,
     },
   ],
-}
+})
 
-export const startBudgetPlotData = convertScenarioBudgetsToPlotData(budgetStart)
+// export const startBudgetPlotData = convertScenarioBudgetsToPlotData(scenarioBudgetsMap['root-scenario'])
+export const startBudgetPlotData = convertScenarioBudgetsToPlotData(buildScenarioPath(shareMarketScenarioPath))
+// export const startBudgetPlotData = convertScenarioBudgetsToPlotData(buildScenarioPath(homePropertyScenarioPath))
