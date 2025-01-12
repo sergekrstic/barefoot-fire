@@ -1,34 +1,21 @@
 import { useEffect, useRef } from 'react'
 
 import * as Plot from '@observablehq/plot'
-import twColors from 'tailwindcss/colors'
 
-export interface LineChartProps {
+export interface StackedAreaChartV1Props {
   width: number
   height: number
   data: Plot.Data
-  color?: string
-  smooth?: boolean
 }
 
-export function LineChart({
-  width,
-  height,
-  data,
-  color = twColors.violet[700],
-  smooth = false,
-}: LineChartProps): React.JSX.Element {
+export function StackedAreaChartV1({ width, height, data }: StackedAreaChartV1Props): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const plot = Plot.marks([
       Plot.ruleY([0]),
-      Plot.lineY(data, {
-        x: (d) => new Date(d.date),
-        y: 'amount',
-        stroke: color,
-        curve: smooth ? 'natural' : undefined,
-      }),
+      Plot.areaY(data, { x: (d) => new Date(d.date), y: 'amount', fill: 'name', opacity: 0.5 }),
+      Plot.lineY(data, { x: (d) => new Date(d.date), y: 'amount', stroke: 'name' }),
     ]).plot({
       width,
       height,
@@ -38,7 +25,7 @@ export function LineChart({
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()
-  }, [color, data, height, smooth, width])
+  }, [data, height, width])
 
   return <div ref={containerRef} className="h-full w-full" />
 }

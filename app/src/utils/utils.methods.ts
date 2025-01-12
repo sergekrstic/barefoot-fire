@@ -7,10 +7,17 @@ export function deepCloneData<T>(data: T): T {
   return JSON.parse(JSON.stringify(data))
 }
 
-export function generateRandomTimeSeriesData(): TimeSeriesData {
+export function generateRandomTimeSeriesData(args?: {
+  name?: string
+  magnitude?: number
+  offset?: number
+}): TimeSeriesData {
+  const name = args?.name || 'A'
+  const magnitude = args?.magnitude || 100
+  const offset = args?.offset || 0
   const data = []
   for (let i = 0; i < 100; i++) {
-    data.push({ date: moment().add(i, 'w').toISOString(), amount: Math.random() * 100, name: 'A' })
+    data.push({ date: moment('2025').add(i, 'w').toISOString(), amount: Math.random() * magnitude - offset, name })
   }
 
   // Accumulate the amount

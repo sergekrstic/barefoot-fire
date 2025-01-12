@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react'
 
 import * as Plot from '@observablehq/plot'
-import twColors from 'tailwindcss/colors'
 
-export interface LineChartProps {
+export interface DifferenceChartV1Props {
   width: number
   height: number
   data: Plot.Data
@@ -11,23 +10,23 @@ export interface LineChartProps {
   smooth?: boolean
 }
 
-export function LineChart({
-  width,
-  height,
-  data,
-  color = twColors.violet[700],
-  smooth = false,
-}: LineChartProps): React.JSX.Element {
+export function DifferenceChartV1({ width, height, data }: DifferenceChartV1Props): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const plot = Plot.marks([
       Plot.ruleY([0]),
+      Plot.differenceY(data, {
+        x: (d) => new Date(d.date),
+        y: 'amount',
+        positiveFill: 'green',
+        negativeFill: 'red',
+        fillOpacity: 0.3,
+      }),
       Plot.lineY(data, {
         x: (d) => new Date(d.date),
         y: 'amount',
-        stroke: color,
-        curve: smooth ? 'natural' : undefined,
+        stroke: 'name',
       }),
     ]).plot({
       width,
@@ -38,7 +37,7 @@ export function LineChart({
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()
-  }, [color, data, height, smooth, width])
+  }, [data, height, width])
 
   return <div ref={containerRef} className="h-full w-full" />
 }
