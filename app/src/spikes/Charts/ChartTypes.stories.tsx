@@ -10,6 +10,7 @@ import {
   BarChart as BarChartComponent,
   DotChart as DotChartComponent,
   LineChart as LineChartComponent,
+  LineChartWithLabelledPeriods as LineChartWithLabelledPeriodsComponent,
   StyledAreaChart as StyledAreaChartComponent,
 } from './components'
 
@@ -206,6 +207,30 @@ export const StyledAreaSecondary: Story = {
       <ResponsiveContainer>
         {({ width, height }) => (
           <StyledAreaChartComponent width={width} height={height} data={data} color={secondaryColor} opacity={0.5} />
+        )}
+      </ResponsiveContainer>
+    )
+  },
+}
+
+export const LineChartWithLabelledPeriods: Story = {
+  render: () => {
+    const data = generateRandomTimeSeriesData()
+    const periods = [
+      { date: '2025-03-05', name: 'Period 1' },
+      { date: '2025-08-01', name: 'Period 2' },
+      { date: '2026-05-01', name: 'Period 2' },
+    ]
+    return (
+      <ResponsiveContainer>
+        {({ width, height }) => (
+          <LineChartWithLabelledPeriodsComponent
+            width={width}
+            height={height}
+            data={data}
+            periods={periods}
+            color={secondaryColor}
+          />
         )}
       </ResponsiveContainer>
     )

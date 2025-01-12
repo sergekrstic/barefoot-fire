@@ -2,9 +2,10 @@ import * as Plot from '@observablehq/plot'
 import { ResponsiveContainer } from 'components'
 import { Selection } from 'types'
 
-import { TimelineChart, TimelineSelector } from './components'
+import { TimelineAreaChart, TimelineDifferenceChart, TimelineSelector } from './components'
 
 export interface TimelineScrubberProps {
+  type: 'area' | 'difference'
   data?: Plot.Data
   initialSelection?: Selection
   onUpdateSelection?: (selection: Selection) => void
@@ -12,6 +13,7 @@ export interface TimelineScrubberProps {
 
 export function TimelineScrubber({
   data,
+  type,
   initialSelection,
   onUpdateSelection,
 }: TimelineScrubberProps): React.JSX.Element {
@@ -21,7 +23,13 @@ export function TimelineScrubber({
     <div className="relative h-20 bg-slate-900">
       {!disabled && (
         <ResponsiveContainer>
-          {({ width, height }) => <TimelineChart width={width} height={height} data={data} />}
+          {({ width, height }) =>
+            type === 'area' ? (
+              <TimelineAreaChart width={width} height={height} data={data} />
+            ) : (
+              <TimelineDifferenceChart width={width} height={height} data={data} />
+            )
+          }
         </ResponsiveContainer>
       )}
       <div className="absolute bottom-0 left-0 right-0 top-0">

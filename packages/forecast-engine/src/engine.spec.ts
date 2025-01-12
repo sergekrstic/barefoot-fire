@@ -311,6 +311,7 @@ describe('@calculateScenarioBudgets()', () => {
     id: 'test-scenario',
     name: 'Test scenario',
     period: overlapOneYearPeriod,
+    periods: [],
     budgets: [
       {
         id: 'budget-1',

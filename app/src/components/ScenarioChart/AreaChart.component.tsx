@@ -7,21 +7,25 @@ import moment from 'moment'
 import twColors from 'tailwindcss/colors'
 import { TimeSeriesData } from 'types'
 
-export interface ScenarioChartV2Props {
+import { Periods } from '@fire/forecast-engine'
+
+export interface AreaChartProps {
   width: number
   height: number
-  data: TimeSeriesData
+  timeseries: TimeSeriesData
+  periods: Periods
   color?: string
   opacity?: number
 }
 
-export function ScenarioChart({
+export function AreaChart({
   width,
   height,
-  data,
+  timeseries,
+  periods,
   color = twColors.violet[700],
   opacity = 0.5,
-}: ScenarioChartV2Props): React.JSX.Element {
+}: AreaChartProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -33,8 +37,23 @@ export function ScenarioChart({
         </linearGradient>
       </defs>`,
       Plot.ruleY([0]),
-      Plot.areaY(data, { x: (d) => new Date(d.date), y: 'amount', fill: 'url(#gradient)', opacity }),
-      Plot.lineY(data, {
+      Plot.ruleX(periods, {
+        x: (d) => new Date(d.date),
+        stroke: twColors.slate[500],
+        opacity: 0.3,
+      }),
+      Plot.textX(periods, {
+        x: (d) => new Date(d.date),
+        text: (d) => d.name,
+        frameAnchor: 'top',
+        textAnchor: 'start',
+        fill: twColors.slate[500],
+        stroke: twColors.slate[950],
+        dx: 1,
+        dy: -17,
+      }),
+      Plot.areaY(timeseries, { x: (d) => new Date(d.date), y: 'amount', fill: 'url(#gradient)', opacity }),
+      Plot.lineY(timeseries, {
         x: (d) => new Date(d.date),
         y: 'amount',
         stroke: color,
@@ -56,7 +75,7 @@ export function ScenarioChart({
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()
-  }, [color, data, height, opacity, width])
+  }, [color, timeseries, height, opacity, periods, width])
 
   return <div ref={containerRef} className="h-full w-full" />
 }

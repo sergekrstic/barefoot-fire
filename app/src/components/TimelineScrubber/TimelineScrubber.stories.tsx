@@ -14,18 +14,21 @@ type Story = StoryObj<typeof meta>
 
 export const NoData: Story = {
   args: {
+    type: 'area',
     data: [],
   },
 }
 
 export const WithDataZoomedOut: Story = {
   args: {
+    type: 'area',
     data: generateRandomTimeSeriesData(),
   },
 }
 
 export const WithDataZoomedIn: Story = {
   args: {
+    type: 'area',
     data: generateRandomTimeSeriesData(),
     initialSelection: [25, 75],
   },

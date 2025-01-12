@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { BudgetMap, Interval, ScenarioMap, TimeSeriesData } from 'types'
 
-import { Budget, Period, ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
+import { Budget, Period, Periods, ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
 
 export function deepCloneData<T>(data: T): T {
   return JSON.parse(JSON.stringify(data))
@@ -46,7 +46,22 @@ export function generateSineWaveTimeSeriesData(): TimeSeriesData {
   return data
 }
 
-export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudgets): TimeSeriesData {
+// Todo: Delete this function
+// export function generatePlotData(
+//   scenarioIds: string[] | null,
+//   scenarioMap: ScenarioMap,
+//   name: string,
+// ): TimeSeriesData | null {
+//   if (!scenarioIds) return null
+
+//   const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
+//   const scenarioBudgets = buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod)
+//   const plotData = convertScenarioBudgetsToPlotData(scenarioBudgets, name)
+
+//   return plotData
+// }
+
+export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudgets, name?: string): TimeSeriesData {
   const scenarioEvents = calculateScenarioEvents(scenarioBudgets)
 
   return scenarioEvents.budgetEvents
@@ -54,7 +69,7 @@ export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudget
       return budgetEvent.events.map((event) => ({
         date: event.date,
         amount: event.value,
-        name: budgetEvent.budget.name,
+        name: name || budgetEvent.budget.name,
       }))
     })
     .flat()
@@ -71,9 +86,10 @@ export function preprocessPlotData(args: {
   if (data.length === 0) return []
 
   const binned: TimeSeriesData = []
-  binned.push({ ...data[0], name: '' })
+  binned.push({ ...data[0] })
   let currentInterval = getCurrentInterval(data[0].date, interval)
   let currentAmount = 0
+  let currentName = data[0].name
   for (let i = 1; i < data.length; i++) {
     const datum = data[i]
     // Todo: improve the logic here to test if the datum is within the current interval using two dates
@@ -81,17 +97,18 @@ export function preprocessPlotData(args: {
       binned.push({
         date: dateFromCurrentInterval(currentInterval, interval),
         amount: currentAmount,
-        name: '',
+        name: currentName,
       })
       currentInterval = getCurrentInterval(datum.date, interval)
       currentAmount = 0
     }
     currentAmount += datum.amount
+    currentName = datum.name
   }
   binned.push({
     date: dateFromCurrentInterval(currentInterval, interval),
     amount: currentAmount,
-    name: '',
+    name: currentName,
   })
 
   const processed: TimeSeriesData = [{ ...binned[0] }]
@@ -163,6 +180,7 @@ export function cloneBudgets(budgetIds: string[], budgetMap: BudgetMap): Budget[
 // Create a compound scenario from the given scenario IDs
 export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMap, period: Period): ScenarioBudgets {
   const adjustedBudgets: Budget[] = []
+  const periods: Periods = []
 
   // Adjust the end date of each scenario
   scenarioIds.forEach((scenarioId, index) => {
@@ -179,12 +197,14 @@ export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMa
     }
 
     adjustedBudgets.push(...clonedBudgets)
+    periods.push({ date: scenario.period.startDate, name: scenario.name })
   })
 
   return {
     id: scenarioIds[scenarioIds.length - 1],
     name: 'Mock compound scenario',
     budgets: adjustedBudgets,
+    periods,
     period,
   }
 }

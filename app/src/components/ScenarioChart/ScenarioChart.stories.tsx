@@ -20,72 +20,109 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+// Todo: Ensure all the stories are correct with the new timeseries and period data
 export const NoData: Story = {
   args: {
-    data: [],
+    type: 'area',
+    timeseries: [],
+    periods: [],
     selection: [0, 100],
   },
 }
 
 export const InsufficientData: Story = {
   args: {
-    data: [{ date: '2025-01-01', amount: 0, name: 'A' }],
+    type: 'area',
+    timeseries: [{ date: '2025-01-01', amount: 0, name: 'A' }],
+    periods: [],
     selection: [0, 100],
   },
 }
 
 export const OneYearDailyDeposit: Story = {
   args: {
-    data: generateRandomTimeSeriesData(),
+    type: 'area',
+    timeseries: generateRandomTimeSeriesData(),
+    periods: [],
     selection: [0, 100],
   },
 }
 
-export const ThirtyYearDailyDepositCompounded: Story = {
+export const ThirtyYearDepositCompounded: Story = {
   args: {
-    data: thirtyYearPlotData,
+    type: 'area',
+    timeseries: thirtyYearPlotData,
+    periods: [],
     selection: [0, 100],
   },
 }
 
 export const OneYearOscillatingDepositFullSelection: Story = {
   args: {
-    data: generateSineWaveTimeSeriesData(),
+    type: 'area',
+    timeseries: generateSineWaveTimeSeriesData(),
+    periods: [],
     selection: [0, 100],
   },
 }
 
 export const OneYearOscillatingDepositLowSelection: Story = {
   args: {
-    data: generateSineWaveTimeSeriesData(),
+    type: 'area',
+    timeseries: generateSineWaveTimeSeriesData(),
+    periods: [],
     selection: [0, 50],
   },
 }
 
 export const OneYearOscillatingDepositHighSelection: Story = {
   args: {
-    data: generateSineWaveTimeSeriesData(),
+    type: 'area',
+    timeseries: generateSineWaveTimeSeriesData(),
+    periods: [],
     selection: [50, 100],
   },
 }
 
 export const OneYearOscillatingDepositPartialSelection: Story = {
   args: {
-    data: generateSineWaveTimeSeriesData(),
+    type: 'area',
+    timeseries: generateSineWaveTimeSeriesData(),
+    periods: [],
     selection: [25, 75],
   },
 }
 
 export const OneYearOscillatingDepositZeroSelection: Story = {
   args: {
-    data: generateSineWaveTimeSeriesData(),
+    type: 'area',
+    timeseries: generateSineWaveTimeSeriesData(),
+    periods: [],
     selection: [0, 0],
   },
 }
 
 export const OneYearOscillatingDepositOneHundredSelection: Story = {
   args: {
-    data: generateSineWaveTimeSeriesData(),
+    type: 'area',
+    timeseries: generateSineWaveTimeSeriesData(),
+    periods: [],
     selection: [100, 100],
+  },
+}
+
+const highlightedData = generateRandomTimeSeriesData({ name: 'highlighted', magnitude: 50 })
+const pinnedData = generateRandomTimeSeriesData({ name: 'pinned', magnitude: 100 })
+const pinnedOffsetData = pinnedData.map((d) => ({ ...d, amount: d.amount - 1000 }))
+const data = [...highlightedData, ...pinnedOffsetData].sort(
+  (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+)
+
+export const DifferenceChart: Story = {
+  args: {
+    type: 'difference',
+    timeseries: data,
+    periods: [],
+    selection: [0, 100],
   },
 }

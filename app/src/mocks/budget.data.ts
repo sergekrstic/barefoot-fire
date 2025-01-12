@@ -438,30 +438,35 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
     id: 'root',
     name: 'Start',
     period: startPeriod,
+    periods: [],
     budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start'], mockBudgetMap),
   },
   'job-search': {
     id: 'job-search',
     name: 'Job Search',
     period: jobSearchPeriod,
+    periods: [],
     budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'], mockBudgetMap),
   },
   'full-time': {
     id: 'full-time',
     name: 'Full Time',
     period: fullTimePeriod,
+    periods: [],
     budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'], mockBudgetMap),
   },
   contract: {
     id: 'contract',
     name: 'Contract',
     period: contractPeriod,
+    periods: [],
     budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract'], mockBudgetMap),
   },
   'full-time-rent': {
     id: 'full-time-rent',
     name: 'Renting',
     period: fullTimeRentingPeriod,
+    periods: [],
     budgets: cloneBudgets(
       [
         'i-salary-full-time-renting',
@@ -476,6 +481,7 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
     id: 'contract-rent',
     name: 'Renting',
     period: contractRentingPeriod,
+    periods: [],
     budgets: cloneBudgets(
       ['i-salary-contract-renting', 'i-other-contract-renting', 'e-rent-contract-renting', 'e-living-contract-renting'],
       mockBudgetMap,
@@ -485,12 +491,14 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
     id: 'home',
     name: 'Home',
     period: homePeriod,
+    periods: [],
     budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'], mockBudgetMap),
   },
   'contract-share-market': {
     id: 'contract-share-market',
     name: 'Share Market',
     period: shareMarketPeriod,
+    periods: [],
     budgets: cloneBudgets(
       [
         'i-salary-share-market',
@@ -513,13 +521,14 @@ export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
   id: 'mock-scenario',
   name: 'Mock compound scenario',
   period: thirtyYearPeriod,
+  periods: [],
   budgets: [
     {
       id: 'i-salary-start',
       name: 'Budget 1',
       amount: 1000,
       interestRate: 0.05,
-      frequency: 'week',
+      frequency: 'year',
       ...thirtyYearPeriod,
     },
   ],

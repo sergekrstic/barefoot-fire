@@ -34,6 +34,8 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
 
       // Highlight the root node
       setSelectedBudgetId('root')
+      // Todo: Highlight the root node
+      // setHighlightedPath(['root'])
       instance.$id('root').data('focused', true)
       instance.$id('root').data('highlighted', true)
       instance.center(instance.elements())
@@ -42,7 +44,7 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
         instance.destroy()
       }
     }
-  }, [containerRef, data, setSelectedBudgetId])
+  }, [containerRef, data, setHighlightedPath, setSelectedBudgetId])
 
   // Set up mouse events
   useEffect(() => {
@@ -102,7 +104,7 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
       setHighlightedPath(shortestPathIds)
       const isIdenticalPath =
-        shortestPathIds.length === pinnedPath.length && shortestPathIds.every((id) => pinnedPath.includes(id))
+        shortestPathIds.length === pinnedPath?.length && shortestPathIds.every((id) => pinnedPath.includes(id))
       if (!isIdenticalPath) {
         shortestPath.forEach((element) => {
           element.data('highlighted', true)
@@ -136,6 +138,7 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       })
 
       const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
+      console.log('shortestPathIds', shortestPathIds)
       setPinnedPath(shortestPathIds)
     }
 
@@ -151,6 +154,7 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
 
       // Highlight the root node
       setSelectedBudgetId('root')
+      setPinnedPath(null)
       cytoInstance.$id('root').data('focused', true)
       cytoInstance.$id('root').data('highlighted', true)
 

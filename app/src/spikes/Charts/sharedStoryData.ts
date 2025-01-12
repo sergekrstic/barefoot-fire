@@ -19,6 +19,7 @@ export const defaultScenarioBudgets: ScenarioBudgets = {
   id: 'mock-scenario',
   name: 'Mock scenario',
   period: oneYearPeriod,
+  periods: [],
   budgets: [],
 }
 export const oneYearLinearBudget: Budget = {

@@ -13,5 +13,7 @@ export function withMiddlewares<S>(f: StateCreator<S>) {
 }
 
 export function createStore<S>(f: StateCreator<S>) {
-  return create(withMiddlewares(f))
+  // Todo: figure out is this is slowing down the app in dev mode
+  return create(f)
+  // return create(withMiddlewares(f))
 }

@@ -18,11 +18,11 @@ export interface TimeSeriesElement {
 
 export type TimeSeriesData = TimeSeriesElement[]
 
-export interface PlotData {
-  date: Date
-  amount: number
-  name: string
-}
+// Todo: decide it's best to group these together or not
+// export interface PlotData {
+//   timeSeries: TimeSeriesData
+//   periods: Periods
+// }
 
 export type Interval = 'year' | 'month' | 'week'
 

@@ -3,25 +3,36 @@ import { useMemo } from 'react'
 import { ResponsiveContainer } from 'components'
 import { Selection, TimeSeriesData } from 'types'
 
-import { ScenarioChart as ScenarioChartComponent } from './ScenarioChart.component'
+import { Periods } from '@fire/forecast-engine'
+
+import { AreaChart } from './AreaChart.component'
+import { DifferenceChart } from './DifferenceChart.component'
 import { filterData } from './ScenarioChart.methods'
 
 export interface ScenarioChartV2Props {
-  data: TimeSeriesData
+  type: 'area' | 'difference'
+  timeseries: TimeSeriesData
+  periods: Periods
   selection: Selection
 }
 
-export function ScenarioChart({ data, selection }: ScenarioChartV2Props): React.JSX.Element {
-  const filteredData = useMemo(() => filterData(data, selection), [data, selection])
+export function ScenarioChart({ type, timeseries, periods, selection }: ScenarioChartV2Props): React.JSX.Element {
+  const filteredTimeseries = useMemo(() => filterData(timeseries, selection), [timeseries, selection])
 
-  if (filteredData.length < 2) {
-    const message = filteredData.length === 0 ? 'No data' : 'Insufficient data'
+  if (filteredTimeseries.length < 2) {
+    const message = filteredTimeseries.length === 0 ? 'No data' : 'Insufficient data'
     return <div className="flex h-full items-center justify-center text-lg font-medium text-slate-600">{message}</div>
   }
 
   return (
     <ResponsiveContainer>
-      {({ width, height }) => <ScenarioChartComponent width={width} height={height} data={filteredData} />}
+      {({ width, height }) => {
+        return type === 'area' ? (
+          <AreaChart width={width} height={height} timeseries={filteredTimeseries} periods={periods} />
+        ) : (
+          <DifferenceChart width={width} height={height} timeseries={filteredTimeseries} periods={periods} />
+        )
+      }}
     </ResponsiveContainer>
   )
 }

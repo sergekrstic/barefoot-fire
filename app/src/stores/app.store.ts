@@ -2,7 +2,7 @@ import cy from 'cytoscape'
 import { BudgetCategories, ScenarioMap, Selection, TimeSeriesData } from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData } from 'utils'
 
-import { Period } from '@fire/forecast-engine'
+import { Period, Periods } from '@fire/forecast-engine'
 
 import { createStore } from './createStore'
 
@@ -13,9 +13,11 @@ export interface AppState {
   selectedBudgetId: string | null
   selectedBudget: BudgetCategories | null
   selection: Selection
-  plotData: TimeSeriesData
+  highlightedPlotData: TimeSeriesData
   highlightedPath: string[]
-  pinnedPath: string[]
+  pinnedPlotData: TimeSeriesData | null
+  pinnedPath: string[] | null
+  periods: Periods
 }
 
 export type AppLoadData = Pick<AppState, 'graphDefinition' | 'scenarioMap' | 'budgetMap'>
@@ -26,7 +28,7 @@ export type AppActions = {
   setSelectedBudgetId: (value: string | null) => void
   setSelection: (value: Selection) => void
   setHighlightedPath: (value: string[]) => void
-  setPinnedPath: (value: string[]) => void
+  setPinnedPath: (value: string[] | null) => void
 }
 
 export type PluginStore = AppState & AppActions
@@ -38,10 +40,20 @@ const initialState: AppState = {
   selectedBudgetId: null,
   selectedBudget: null,
   selection: [0, 100],
-  plotData: [],
+  highlightedPlotData: [],
   highlightedPath: [],
-  pinnedPath: [],
+  pinnedPlotData: null,
+  pinnedPath: null,
+  periods: [],
 }
+
+// const periods = [
+//   { date: '2025-03-05', name: 'Period 1' },
+//   { date: '2025-08-01', name: 'Period 2' },
+//   { date: '2026-05-01', name: 'Period 2' },
+// ]
+
+const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 
 export const useAppStore = createStore<PluginStore>((set, get) => ({
   ...initialState,
@@ -59,14 +71,19 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   setSelection: (value: Selection): void => {
     set({ selection: value })
   },
-  setHighlightedPath: (value: string[]): void => {
-    const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
-    const scenarioBudgets = buildScenarioPath(value, get().scenarioMap, defaultPeriod)
-    const newPlotData = convertScenarioBudgetsToPlotData(scenarioBudgets)
-    set({ plotData: newPlotData })
+  setHighlightedPath: (scenarioIds: string[]): void => {
+    const scenarioMap = get().scenarioMap
+    const scenarioBudgets = buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod)
+    const newPlotData = convertScenarioBudgetsToPlotData(scenarioBudgets, 'highlighted')
+    set({ highlightedPlotData: newPlotData || [], periods: scenarioBudgets.periods })
   },
-  setPinnedPath: (value: string[]): void => {
-    set({ pinnedPath: value })
+  setPinnedPath: (scenarioIds: string[] | null): void => {
+    const scenarioMap = get().scenarioMap
+    const scenarioBudgets = scenarioIds ? buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod) : null
+    const newPlotData = scenarioBudgets ? convertScenarioBudgetsToPlotData(scenarioBudgets, 'pinned') : null
+    // const scenarioMap = get().scenarioMap
+    // const newPlotData = generatePlotData(value, scenarioMap, 'pinned')
+    set({ pinnedPath: scenarioIds, pinnedPlotData: newPlotData })
   },
 }))
 

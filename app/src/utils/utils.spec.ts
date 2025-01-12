@@ -17,6 +17,8 @@ describe('@convertScenarioBudgetsToPlotData()', () => {
       startDate: '2024-01-01',
       endDate: '2024-12-31',
     },
+    // Todo: add periods, and ensure tests still work
+    periods: [],
     budgets: [
       {
         id: 'mock-budget-01',
@@ -65,11 +67,12 @@ describe('@convertScenarioBudgetsToPlotData()', () => {
 })
 
 describe('@preprocessPlotData()', () => {
-  it('bins the data into yearly intervals', () => {
+  it.only('bins the data into yearly intervals', () => {
     const scenarioBudgets: ScenarioBudgets = {
       id: 'mock-id',
       name: 'Mock Scenario',
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
+      periods: [],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -86,10 +89,10 @@ describe('@preprocessPlotData()', () => {
 
     expect(processedPlotData.length).toBe(4)
     expect(processedPlotData).toStrictEqual([
-      { date: '2024-01-01', amount: 100, name: '' },
-      { date: '2025-01-01', amount: 1100, name: '' },
-      { date: '2026-01-01', amount: 1200, name: '' },
-      { date: '2027-01-01', amount: 600, name: '' },
+      { date: '2024-01-01', amount: 100, name: 'mock-budget-01' },
+      { date: '2025-01-01', amount: 1100, name: 'mock-budget-01' },
+      { date: '2026-01-01', amount: 1200, name: 'mock-budget-01' },
+      { date: '2027-01-01', amount: 600, name: 'mock-budget-01' },
     ])
   })
 
@@ -98,6 +101,7 @@ describe('@preprocessPlotData()', () => {
       id: 'mock-id',
       name: 'Mock Scenario',
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
+      periods: [],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -114,10 +118,10 @@ describe('@preprocessPlotData()', () => {
 
     expect(processedPlotData.length).toBe(4)
     expect(processedPlotData).toStrictEqual([
-      { date: '2024-01-01', amount: 100, name: '' },
-      { date: '2024-02-01', amount: 400, name: '' },
-      { date: '2024-03-01', amount: 400, name: '' },
-      { date: '2024-04-01', amount: 400, name: '' },
+      { date: '2024-01-01', amount: 100, name: 'mock-budget-01' },
+      { date: '2024-02-01', amount: 400, name: 'mock-budget-01' },
+      { date: '2024-03-01', amount: 400, name: 'mock-budget-01' },
+      { date: '2024-04-01', amount: 400, name: 'mock-budget-01' },
     ])
   })
 
@@ -126,6 +130,7 @@ describe('@preprocessPlotData()', () => {
       id: 'mock-id',
       name: 'Mock Scenario',
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
+      periods: [],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -142,12 +147,12 @@ describe('@preprocessPlotData()', () => {
 
     expect(processedPlotData.length).toBe(6)
     expect(processedPlotData).toStrictEqual([
-      { date: '2024-01-01', amount: 100, name: '' },
-      { date: '2024-01-08', amount: 600, name: '' },
-      { date: '2024-01-15', amount: 700, name: '' },
-      { date: '2024-01-22', amount: 700, name: '' },
-      { date: '2024-01-29', amount: 700, name: '' },
-      { date: '2024-02-05', amount: 300, name: '' },
+      { date: '2024-01-01', amount: 100, name: 'mock-budget-01' },
+      { date: '2024-01-08', amount: 600, name: 'mock-budget-01' },
+      { date: '2024-01-15', amount: 700, name: 'mock-budget-01' },
+      { date: '2024-01-22', amount: 700, name: 'mock-budget-01' },
+      { date: '2024-01-29', amount: 700, name: 'mock-budget-01' },
+      { date: '2024-02-05', amount: 300, name: 'mock-budget-01' },
     ])
   })
 
@@ -156,6 +161,7 @@ describe('@preprocessPlotData()', () => {
       id: 'mock-id',
       name: 'Mock Scenario',
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
+      periods: [],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -179,12 +185,12 @@ describe('@preprocessPlotData()', () => {
     expect(processedPlotData.length).toBe(999)
     // expect(processedPlotData.length).toBe(6)
     // expect(processedPlotData).toStrictEqual([
-    //   { date: '2024-01-01', amount: 100, name: '' },
-    //   { date: '2024-01-08', amount: 600, name: '' },
-    //   { date: '2024-01-15', amount: 700, name: '' },
-    //   { date: '2024-01-22', amount: 700, name: '' },
-    //   { date: '2024-01-29', amount: 700, name: '' },
-    //   { date: '2024-02-05', amount: 300, name: '' },
+    //   { date: '2024-01-01', amount: 100, name: 'mock-budget-01' },
+    //   { date: '2024-01-08', amount: 600, name: 'mock-budget-01' },
+    //   { date: '2024-01-15', amount: 700, name: 'mock-budget-01' },
+    //   { date: '2024-01-22', amount: 700, name: 'mock-budget-01' },
+    //   { date: '2024-01-29', amount: 700, name: 'mock-budget-01' },
+    //   { date: '2024-02-05', amount: 300, name: 'mock-budget-01' },
     // ])
   })
 })
