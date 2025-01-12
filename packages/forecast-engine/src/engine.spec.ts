@@ -400,11 +400,6 @@ describe('@calculateScenarioBudgets()', () => {
   it('calculates a scenario when period partially overlaps budget end dates', () => {
     const scenarioEvents = calculateScenarioEvents({ ...scenarioBudgets, period: overlapEndPeriod })
 
-    // console.log(JSON.stringify(scenarioEvents, undefined, 2))
-
-    // expect(scenarioEvents.totalExpense).toBe(600)
-    // expect(scenarioEvents.budgetEvents).toHaveLength(2)
-
     // Budget 1
     const budget1 = scenarioEvents.budgetEvents[0]
     const values1 = budget1.events.map((event) => event.value)
@@ -427,9 +422,6 @@ describe('@calculateScenarioBudgets()', () => {
     const budget2 = scenarioEvents.budgetEvents[1]
     const values2 = budget2.events.map((event) => event.value)
     const dates2 = budget2.events.map((event) => event.date)
-
-    console.log(values2)
-    console.log(dates2)
 
     expect(budget2.totalAmount).toBe(1000)
     expect(budget2.events).toHaveLength(1)

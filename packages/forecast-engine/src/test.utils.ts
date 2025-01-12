@@ -5,6 +5,7 @@ export function expectToBeCloseToArray(actual: number[], expected: number[]): vo
   actual.forEach((x, i) => expect(x).toBeCloseTo(expected[i]))
   // actual.forEach((x, i) => expect(x).withContext(`[${i}]`).toBeCloseTo(expected[i]))
 }
+
 // expect.extend({
 //   toBeCloseToArray(received: number[], expected: number[]) {
 //     const { isNot } = this

@@ -1,7 +1,7 @@
 import { Selection, TimeSeriesData } from 'types'
 import { describe, expect, it } from 'vitest'
 
-import { filterData } from './ScenarioChart.methods'
+import { filterTimeseries } from './ScenarioChart.methods'
 
 describe('@filterData()', () => {
   const fullSelection: Selection = [0, 100]
@@ -26,45 +26,45 @@ describe('@filterData()', () => {
 
   describe('empty array', () => {
     it('filters with full selection', () => {
-      const filteredData = filterData([], fullSelection)
+      const filteredTimeseries = filterTimeseries([], fullSelection)
 
-      expect(filteredData.length).toBe(0)
-      expect(filteredData).toStrictEqual([])
+      expect(filteredTimeseries.length).toBe(0)
+      expect(filteredTimeseries).toStrictEqual([])
     })
 
     it('filters with low selection', () => {
-      const filteredData = filterData([], lowSelection)
+      const filteredTimeseries = filterTimeseries([], lowSelection)
 
-      expect(filteredData.length).toBe(0)
-      expect(filteredData).toStrictEqual([])
+      expect(filteredTimeseries.length).toBe(0)
+      expect(filteredTimeseries).toStrictEqual([])
     })
 
     it('filters with high selection', () => {
-      const filteredData = filterData([], highSelection)
+      const filteredTimeseries = filterTimeseries([], highSelection)
 
-      expect(filteredData.length).toBe(0)
-      expect(filteredData).toStrictEqual([])
+      expect(filteredTimeseries.length).toBe(0)
+      expect(filteredTimeseries).toStrictEqual([])
     })
 
     it('filters with partial selection', () => {
-      const filteredData = filterData([], partialSelection)
+      const filteredTimeseries = filterTimeseries([], partialSelection)
 
-      expect(filteredData.length).toBe(0)
-      expect(filteredData).toStrictEqual([])
+      expect(filteredTimeseries.length).toBe(0)
+      expect(filteredTimeseries).toStrictEqual([])
     })
 
     it('filters with zero selection', () => {
-      const filteredData = filterData([], zeroSelection)
+      const filteredTimeseries = filterTimeseries([], zeroSelection)
 
-      expect(filteredData.length).toBe(0)
-      expect(filteredData).toStrictEqual([])
+      expect(filteredTimeseries.length).toBe(0)
+      expect(filteredTimeseries).toStrictEqual([])
     })
 
     it('filters with one hundred selection', () => {
-      const filteredData = filterData([], oneHundredSelection)
+      const filteredTimeseries = filterTimeseries([], oneHundredSelection)
 
-      expect(filteredData.length).toBe(0)
-      expect(filteredData).toStrictEqual([])
+      expect(filteredTimeseries.length).toBe(0)
+      expect(filteredTimeseries).toStrictEqual([])
     })
   })
 
@@ -72,45 +72,45 @@ describe('@filterData()', () => {
     const data = mockPlotData.slice(0, 1)
 
     it('filters with full selection', () => {
-      const filteredData = filterData(data, fullSelection)
+      const filteredTimeseries = filterTimeseries(data, fullSelection)
 
-      expect(filteredData.length).toBe(1)
-      expect(filteredData).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
+      expect(filteredTimeseries.length).toBe(1)
+      expect(filteredTimeseries).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
     })
 
     it('filters with low selection', () => {
-      const filteredData = filterData(data, lowSelection)
+      const filteredTimeseries = filterTimeseries(data, lowSelection)
 
-      expect(filteredData.length).toBe(1)
-      expect(filteredData).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
+      expect(filteredTimeseries.length).toBe(1)
+      expect(filteredTimeseries).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
     })
 
     it('filters with high selection', () => {
-      const filteredData = filterData(data, highSelection)
+      const filteredTimeseries = filterTimeseries(data, highSelection)
 
-      expect(filteredData.length).toBe(1)
-      expect(filteredData).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
+      expect(filteredTimeseries.length).toBe(1)
+      expect(filteredTimeseries).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
     })
 
     it('filters with partial selection', () => {
-      const filteredData = filterData(data, partialSelection)
+      const filteredTimeseries = filterTimeseries(data, partialSelection)
 
-      expect(filteredData.length).toBe(1)
-      expect(filteredData).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
+      expect(filteredTimeseries.length).toBe(1)
+      expect(filteredTimeseries).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
     })
 
     it('filters with zero selection', () => {
-      const filteredData = filterData(data, zeroSelection)
+      const filteredTimeseries = filterTimeseries(data, zeroSelection)
 
-      expect(filteredData.length).toBe(1)
-      expect(filteredData).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
+      expect(filteredTimeseries.length).toBe(1)
+      expect(filteredTimeseries).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
     })
 
     it('filters with one hundred selection', () => {
-      const filteredData = filterData(data, oneHundredSelection)
+      const filteredTimeseries = filterTimeseries(data, oneHundredSelection)
 
-      expect(filteredData.length).toBe(1)
-      expect(filteredData).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
+      expect(filteredTimeseries.length).toBe(1)
+      expect(filteredTimeseries).toStrictEqual([{ date: '2025-01-01', amount: 100, name: 'selected' }])
     })
   })
 
@@ -118,60 +118,60 @@ describe('@filterData()', () => {
     const data = mockPlotData.slice(0, 2)
 
     it('filters with full selection', () => {
-      const filteredData = filterData(data, fullSelection)
+      const filteredTimeseries = filterTimeseries(data, fullSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with low selection', () => {
-      const filteredData = filterData(data, lowSelection)
+      const filteredTimeseries = filterTimeseries(data, lowSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with high selection', () => {
-      const filteredData = filterData(data, highSelection)
+      const filteredTimeseries = filterTimeseries(data, highSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with partial selection', () => {
-      const filteredData = filterData(data, partialSelection)
+      const filteredTimeseries = filterTimeseries(data, partialSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with zero selection', () => {
-      const filteredData = filterData(data, zeroSelection)
+      const filteredTimeseries = filterTimeseries(data, zeroSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with one hundred selection', () => {
-      const filteredData = filterData(data, oneHundredSelection)
+      const filteredTimeseries = filterTimeseries(data, oneHundredSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
@@ -182,10 +182,10 @@ describe('@filterData()', () => {
     const data = mockPlotData.slice(0, 3)
 
     it('filters with full selection', () => {
-      const filteredData = filterData(data, fullSelection)
+      const filteredTimeseries = filterTimeseries(data, fullSelection)
 
-      expect(filteredData.length).toBe(3)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(3)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
         { date: '2025-03-01', amount: 300, name: 'selected' },
@@ -193,50 +193,50 @@ describe('@filterData()', () => {
     })
 
     it('filters with low selection', () => {
-      const filteredData = filterData(data, lowSelection)
+      const filteredTimeseries = filterTimeseries(data, lowSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with high selection', () => {
-      const filteredData = filterData(data, highSelection)
+      const filteredTimeseries = filterTimeseries(data, highSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-02-01', amount: 200, name: 'selected' },
         { date: '2025-03-01', amount: 300, name: 'selected' },
       ])
     })
 
     it('filters with partial selection', () => {
-      const filteredData = filterData(data, partialSelection)
+      const filteredTimeseries = filterTimeseries(data, partialSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with zero selection', () => {
-      const filteredData = filterData(data, zeroSelection)
+      const filteredTimeseries = filterTimeseries(data, zeroSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with one hundred selection', () => {
-      const filteredData = filterData(data, oneHundredSelection)
+      const filteredTimeseries = filterTimeseries(data, oneHundredSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-02-01', amount: 200, name: 'selected' },
         { date: '2025-03-01', amount: 300, name: 'selected' },
       ])
@@ -247,10 +247,10 @@ describe('@filterData()', () => {
     const data = mockPlotData
 
     it('filters with full selection', () => {
-      const filteredData = filterData(data, fullSelection)
+      const filteredTimeseries = filterTimeseries(data, fullSelection)
 
-      expect(filteredData.length).toBe(10)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(10)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
         { date: '2025-03-01', amount: 300, name: 'selected' },
@@ -265,10 +265,10 @@ describe('@filterData()', () => {
     })
 
     it('filters with low selection', () => {
-      const filteredData = filterData(data, lowSelection)
+      const filteredTimeseries = filterTimeseries(data, lowSelection)
 
-      expect(filteredData.length).toBe(5)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(5)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
         { date: '2025-03-01', amount: 300, name: 'selected' },
@@ -278,10 +278,10 @@ describe('@filterData()', () => {
     })
 
     it('filters with high selection', () => {
-      const filteredData = filterData(data, highSelection)
+      const filteredTimeseries = filterTimeseries(data, highSelection)
 
-      expect(filteredData.length).toBe(6)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(6)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-05-01', amount: 500, name: 'selected' },
         { date: '2025-06-01', amount: 600, name: 'selected' },
         { date: '2025-07-01', amount: 700, name: 'selected' },
@@ -292,10 +292,10 @@ describe('@filterData()', () => {
     })
 
     it('filters with partial selection', () => {
-      const filteredData = filterData(data, partialSelection)
+      const filteredTimeseries = filterTimeseries(data, partialSelection)
 
-      expect(filteredData.length).toBe(5)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(5)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-03-01', amount: 300, name: 'selected' },
         { date: '2025-04-01', amount: 400, name: 'selected' },
         { date: '2025-05-01', amount: 500, name: 'selected' },
@@ -305,20 +305,20 @@ describe('@filterData()', () => {
     })
 
     it('filters with zero selection', () => {
-      const filteredData = filterData(data, zeroSelection)
+      const filteredTimeseries = filterTimeseries(data, zeroSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-01-01', amount: 100, name: 'selected' },
         { date: '2025-02-01', amount: 200, name: 'selected' },
       ])
     })
 
     it('filters with one hundred selection', () => {
-      const filteredData = filterData(data, oneHundredSelection)
+      const filteredTimeseries = filterTimeseries(data, oneHundredSelection)
 
-      expect(filteredData.length).toBe(2)
-      expect(filteredData).toStrictEqual([
+      expect(filteredTimeseries.length).toBe(2)
+      expect(filteredTimeseries).toStrictEqual([
         { date: '2025-09-01', amount: 900, name: 'selected' },
         { date: '2025-10-01', amount: 1000, name: 'selected' },
       ])

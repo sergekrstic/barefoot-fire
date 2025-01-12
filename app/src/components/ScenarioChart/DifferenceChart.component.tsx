@@ -18,8 +18,6 @@ export interface DifferenceChartProps {
 export function DifferenceChart({ width, height, timeseries, periods }: DifferenceChartProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  console.log('DifferenceChart', { timeseries, periods })
-
   useEffect(() => {
     const plot = Plot.marks([
       Plot.ruleY([0]),

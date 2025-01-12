@@ -151,7 +151,7 @@ export const thirtyYearPeriod: Period = {
 }
 
 export const startPeriod: Period = {
-  startDate: '2022-07-01',
+  startDate: '2024-07-01',
   endDate: defaultPeriod.endDate,
 }
 

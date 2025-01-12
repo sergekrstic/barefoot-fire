@@ -30,8 +30,6 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       const instance = cy({ container: containerRef.current, elements: data, ...graphSettings })
       setCytoInstance(instance)
 
-      // console.log('data', data?.nodes.map((element) => [element.data.name, element.data.highlighted]))
-
       // Highlight the root node
       setSelectedBudgetId('root')
       // Todo: Highlight the root node
@@ -138,7 +136,6 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       })
 
       const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
-      console.log('shortestPathIds', shortestPathIds)
       setPinnedPath(shortestPathIds)
     }
 
