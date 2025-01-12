@@ -20,7 +20,9 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
   const [cytoInstance, setCytoInstance] = useState<cy.Core>()
   const selectedBudgetId = useAppStore((state) => state.selectedBudgetId)
   const setSelectedBudgetId = useAppStore((state) => state.setSelectedBudgetId)
-  const setScenarioPath = useAppStore((state) => state.setScenarioPath)
+  const pinnedPath = useAppStore((state) => state.pinnedPath)
+  const setHighlightedPath = useAppStore((state) => state.setHighlightedPath)
+  const setPinnedPath = useAppStore((state) => state.setPinnedPath)
 
   // Initialize the graph
   useEffect(() => {
@@ -32,7 +34,7 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
 
       // Highlight the root node
       setSelectedBudgetId('root')
-      instance.$id('root').data('selected', true)
+      instance.$id('root').data('focused', true)
       instance.$id('root').data('highlighted', true)
       instance.center(instance.elements())
 
@@ -46,19 +48,27 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
   useEffect(() => {
     if (cytoInstance) {
       const enterNode = (): void => {
-        if (cytoInstance) {
-          cytoInstance.container()!.style.cursor = 'pointer'
-        }
+        cytoInstance.container()!.style.cursor = 'pointer'
       }
 
       const exitNode = (): void => {
-        if (cytoInstance) {
-          cytoInstance.container()!.style.cursor = 'grab'
-        }
+        cytoInstance.container()!.style.cursor = 'grab'
+      }
+
+      const panStart = (event: cy.EventObject): void => {
+        if (event.target !== cytoInstance) return
+        cytoInstance.container()!.style.cursor = 'grabbing'
+      }
+
+      const panEnd = (event: cy.EventObject): void => {
+        if (event.target !== cytoInstance) return
+        cytoInstance.container()!.style.cursor = 'grab'
       }
 
       cytoInstance.on('mouseover', 'node', enterNode)
       cytoInstance.on('mouseout', 'node', exitNode)
+      cytoInstance.on('mousedown', panStart)
+      cytoInstance.on('mouseup', panEnd)
 
       return (): void => {
         cytoInstance.off('mouseover', 'node', enterNode)
@@ -73,12 +83,12 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
 
     const selectScenarioPath = (event: cy.EventObject): void => {
       const node = event.target.data()
-      // First, deselect the currently selected node
+      // First, deselect the currently focused node
       if (selectedBudgetId) {
-        cytoInstance.$id(selectedBudgetId).data('selected', false)
+        cytoInstance.$id(selectedBudgetId).data('focused', false)
       }
       // Then, select the new node
-      cytoInstance.$id(node.id).data('selected', true)
+      cytoInstance.$id(node.id).data('focused', true)
       setSelectedBudgetId(node.id)
 
       // Reset all highlights
@@ -89,12 +99,15 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       // Find the path back to the root and then highlight it
       const dijkstra = cytoInstance.elements().dijkstra({ root: '#root' })
       const shortestPath = dijkstra.pathTo(cytoInstance.$id(node.id))
-      shortestPath.forEach((element) => {
-        element.data('highlighted', true)
-      })
-
-      const scenarioPath = shortestPath.nodes().map((element) => element.data('id'))
-      setScenarioPath(scenarioPath)
+      const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
+      setHighlightedPath(shortestPathIds)
+      const isIdenticalPath =
+        shortestPathIds.length === pinnedPath.length && shortestPathIds.every((id) => pinnedPath.includes(id))
+      if (!isIdenticalPath) {
+        shortestPath.forEach((element) => {
+          element.data('highlighted', true)
+        })
+      }
 
       // Todo: Improve the path animation, somehow, to make it more engaging
       shortestPath.edges().animate({ style: { width: 5 }, easing: 'ease-in-out' }, { duration: 100 })
@@ -119,7 +132,11 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       const shortestPath = dijkstra.pathTo(cytoInstance.$id(node.id))
       shortestPath.forEach((element) => {
         element.data('pinned', true)
+        element.data('highlighted', false)
       })
+
+      const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
+      setPinnedPath(shortestPathIds)
     }
 
     const deselectAndUnpinAll = (event: cy.EventObject): void => {
@@ -127,14 +144,14 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
 
       // Reset all selections
       cytoInstance.elements().forEach((element) => {
-        element.data('selected', false)
+        element.data('focused', false)
         element.data('highlighted', false)
         element.data('pinned', false)
       })
 
       // Highlight the root node
       setSelectedBudgetId('root')
-      cytoInstance.$id('root').data('selected', true)
+      cytoInstance.$id('root').data('focused', true)
       cytoInstance.$id('root').data('highlighted', true)
 
       // Reset all edges
@@ -154,7 +171,7 @@ export function ScenarioGraph({ data }: ScenarioGraphProps): React.JSX.Element {
       cytoInstance.off('dblclick', 'node', pinScenarioPath)
       cytoInstance.off('dblclick', deselectAndUnpinAll)
     }
-  }, [cytoInstance, selectedBudgetId, setSelectedBudgetId])
+  }, [cytoInstance, pinnedPath, selectedBudgetId, setHighlightedPath, setPinnedPath, setSelectedBudgetId])
 
   // useEffect(() => {
   //   if (cytoInstance) {

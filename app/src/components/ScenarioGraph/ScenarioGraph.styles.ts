@@ -7,17 +7,19 @@ export const colors = {
   defaultDark: twColors.violet[950],
 
   // Highlighted
-  highlighted: twColors.violet[600],
+  highlightedBase: twColors.violet[600],
   highlightedOutline: twColors.violet[500],
   highlightedText: twColors.violet[300],
-  highlightedSelectedText: twColors.violet[200],
-  highlightedSelectedOutline: twColors.violet[300],
+  highlightedFocusedText: twColors.violet[200],
+  highlightedFocusedOutline: twColors.violet[300],
 
   // Pinned -- amber, yellow, orange
-  pinned1: twColors.amber[600],
-  pinned2: twColors.amber[500],
-  pinned3: twColors.amber[200],
-  pinned4: twColors.amber[50],
+  pinnedBase: twColors.amber[600],
+  pinnedOutline: twColors.amber[500],
+  pinnedText: twColors.amber[200],
+  pinnedFocusedText: twColors.amber[50],
+  pinnedFocusedOutline: twColors.amber[200],
+  pinnedHighlightedOutline: twColors.violet[700],
 }
 
 export const graphStyles = [
@@ -58,32 +60,45 @@ export const graphStyles = [
     selector: 'node[?highlighted]',
     style: {
       color: colors.highlightedText,
-      'background-color': colors.highlighted,
+      'background-color': colors.highlightedBase,
       'border-color': colors.highlightedOutline,
     },
   },
   {
-    selector: 'node[?highlighted][?selected]',
+    selector: 'node[?highlighted][?focused]',
     style: {
-      color: colors.highlightedSelectedText,
-      'outline-color': colors.highlightedSelectedOutline,
+      color: colors.highlightedFocusedText,
+      'outline-color': colors.highlightedFocusedOutline,
       'outline-width': 2,
     },
   },
   {
     selector: 'node[?pinned]',
     style: {
-      color: colors.pinned3,
-      'background-color': colors.pinned1,
-      'border-color': colors.pinned2,
+      color: colors.pinnedText,
+      'background-color': colors.pinnedBase,
+      'border-color': colors.pinnedOutline,
     },
   },
   {
-    selector: 'node[?pinned][?selected]',
+    selector: 'node[?pinned][?focused]',
     style: {
-      color: colors.pinned4,
-      'outline-color': colors.pinned3,
+      color: colors.pinnedFocusedText,
+      'outline-color': colors.pinnedFocusedOutline,
       'outline-width': 2,
+    },
+  },
+  {
+    selector: 'node[?pinned][?highlighted]',
+    style: {
+      // Todo: consider using a striped background (SVG pattern)
+      'background-fill': 'linear-gradient',
+      'background-gradient-stop-colors': [colors.pinnedBase, colors.highlightedBase],
+      'background-gradient-stop-positions': '0',
+      'background-gradient-direction': 'to-bottom-left',
+      // color: colors.pinnedHighlightedOutline,
+      // 'border-color': colors.pinnedHighlightedOutline,
+      // 'outline-width': 2,
     },
   },
   // ===========================================================================
@@ -120,8 +135,8 @@ export const graphStyles = [
   {
     selector: 'edge[?pinned]',
     style: {
-      'line-color': colors.pinned2,
-      'target-arrow-color': colors.pinned2,
+      'line-color': colors.pinnedOutline,
+      'target-arrow-color': colors.pinnedOutline,
       'z-index': 2,
       width: 5,
     },

@@ -14,6 +14,8 @@ export interface AppState {
   selectedBudget: BudgetCategories | null
   selection: Selection
   plotData: TimeSeriesData
+  highlightedPath: string[]
+  pinnedPath: string[]
 }
 
 export type AppLoadData = Pick<AppState, 'graphDefinition' | 'scenarioMap' | 'budgetMap'>
@@ -23,7 +25,8 @@ export type AppActions = {
   load: (data: AppLoadData) => void
   setSelectedBudgetId: (value: string | null) => void
   setSelection: (value: Selection) => void
-  setScenarioPath: (value: string[]) => void
+  setHighlightedPath: (value: string[]) => void
+  setPinnedPath: (value: string[]) => void
 }
 
 export type PluginStore = AppState & AppActions
@@ -36,6 +39,8 @@ const initialState: AppState = {
   selectedBudget: null,
   selection: [0, 100],
   plotData: [],
+  highlightedPath: [],
+  pinnedPath: [],
 }
 
 export const useAppStore = createStore<PluginStore>((set, get) => ({
@@ -54,11 +59,14 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   setSelection: (value: Selection): void => {
     set({ selection: value })
   },
-  setScenarioPath: (value: string[]): void => {
+  setHighlightedPath: (value: string[]): void => {
     const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
     const scenarioBudgets = buildScenarioPath(value, get().scenarioMap, defaultPeriod)
     const newPlotData = convertScenarioBudgetsToPlotData(scenarioBudgets)
     set({ plotData: newPlotData })
+  },
+  setPinnedPath: (value: string[]): void => {
+    set({ pinnedPath: value })
   },
 }))
 
