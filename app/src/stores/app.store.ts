@@ -33,9 +33,11 @@ export type AppActions = {
 
 export type PluginStore = AppState & AppActions
 
+const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
+
 const initialState: AppState = {
   graphDefinition: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
-  scenarioMap: {},
+  scenarioMap: { root: { id: 'root', name: 'Initial budget', budgets: [], periods: [], period: defaultPeriod } },
   budgetMap: {},
   selectedBudgetId: null,
   selectedBudget: null,
@@ -46,14 +48,6 @@ const initialState: AppState = {
   pinnedPath: null,
   periods: [],
 }
-
-// const periods = [
-//   { date: '2025-03-05', name: 'Period 1' },
-//   { date: '2025-08-01', name: 'Period 2' },
-//   { date: '2026-05-01', name: 'Period 2' },
-// ]
-
-const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 
 export const useAppStore = createStore<PluginStore>((set, get) => ({
   ...initialState,

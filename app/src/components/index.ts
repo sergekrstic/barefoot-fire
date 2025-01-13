@@ -1,6 +1,7 @@
 export * from './CollapsibleTree'
 export * from './Header'
 export * from './ResponsiveContainer'
+export * from './ScenarioBrushChart'
 export * from './ScenarioBudget'
 export * from './ScenarioChart'
 export * from './ScenarioGraph'
