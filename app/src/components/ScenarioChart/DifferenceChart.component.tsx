@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react'
 
 import * as Plot from '@observablehq/plot'
 import { chartColors } from 'config'
-import moment from 'moment'
-import twColors from 'tailwindcss/colors'
 import { TimeSeriesData } from 'types'
 
 import { Periods } from '@fire/forecast-engine'
+
+import { createBasePlotMarks, plotBaseConfig, plotTipConfig } from './ScenarioChart.config'
 
 export interface DifferenceChartProps {
   width: number
@@ -20,22 +20,7 @@ export function DifferenceChart({ width, height, timeseries, periods }: Differen
 
   useEffect(() => {
     const plot = Plot.marks([
-      Plot.ruleY([0]),
-      Plot.ruleX(periods, {
-        x: (d) => new Date(d.date),
-        stroke: twColors.slate[500],
-        opacity: 0.3,
-      }),
-      Plot.textX(periods, {
-        x: (d) => new Date(d.date),
-        text: (d) => d.name,
-        frameAnchor: 'top',
-        textAnchor: 'start',
-        fill: twColors.slate[500],
-        stroke: twColors.slate[950],
-        dx: 1,
-        dy: -17,
-      }),
+      ...createBasePlotMarks(periods),
       Plot.differenceY(
         timeseries,
         Plot.groupX(
@@ -58,25 +43,9 @@ export function DifferenceChart({ width, height, timeseries, periods }: Differen
         stroke: (d) => (d.name === 'highlighted' ? chartColors.primaryLight : chartColors.secondary),
         marker: 'dot',
         channels: { amount: { label: '', value: 'amount' }, date: { label: '', value: 'date' } },
-        tip: {
-          stroke: twColors.slate[700],
-          fill: twColors.slate[800],
-          fillOpacity: 0.9,
-          format: {
-            x: false,
-            y: false,
-            z: false,
-            amount: (d) => d.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }),
-            date: (d) => moment(d).format('D MMMM, YYYY'),
-          },
-        },
+        tip: plotTipConfig,
       }),
-    ]).plot({
-      width,
-      height,
-      marginLeft: 50,
-      y: { grid: true },
-    })
+    ]).plot({ ...plotBaseConfig, width, height })
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()

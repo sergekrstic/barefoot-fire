@@ -10,8 +10,6 @@ import { appData } from './App.data'
 export function App(): React.JSX.Element {
   const load = useAppStore((state) => state.load)
 
-  console.log('App rendered', {})
-
   useEffect(() => {
     load({
       graphDefinition: deepCloneData(appData.graphDefinition),
