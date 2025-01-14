@@ -26,14 +26,16 @@ export function ScenarioChart({ type, timeseries, periods, selection }: Scenario
   }
 
   return (
-    <ResponsiveContainer>
-      {({ width, height }) => {
-        return type === 'area' ? (
-          <AreaChart width={width} height={height} timeseries={filteredTimeseries} periods={filteredPeriods} />
-        ) : (
-          <DifferenceChart width={width} height={height} timeseries={filteredTimeseries} periods={filteredPeriods} />
-        )
-      }}
-    </ResponsiveContainer>
+    <div className="h-full pt-1">
+      <ResponsiveContainer>
+        {({ width, height }) => {
+          return type === 'area' ? (
+            <AreaChart width={width} height={height} timeseries={filteredTimeseries} periods={filteredPeriods} />
+          ) : (
+            <DifferenceChart width={width} height={height} timeseries={filteredTimeseries} periods={filteredPeriods} />
+          )
+        }}
+      </ResponsiveContainer>
+    </div>
   )
 }

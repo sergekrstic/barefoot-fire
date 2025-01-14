@@ -17,12 +17,13 @@ export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Eleme
           <CollapsibleTree
             key={budget.name}
             tree={budget.categories}
+            expanded={true}
             parentContainerClasses="cursor-pointer hover:bg-slate-800 px-4"
             childContainerClasses="cursor-default px-4"
             renderCollapsibleItemContent={(item) => (
               <div className="flex flex-row py-2">
                 <div className="grow">{item.name as string}</div>
-                <div className="text-gray-500">{item.value as string}</div>
+                <div className="text-gray-500">{formatBudgetValue(item.value as number)}</div>
               </div>
             )}
             renderLeafItemContent={(item) => (

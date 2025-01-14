@@ -32,11 +32,10 @@ export function filterTimeseries(timeseries: TimeSeriesData, selection: Selectio
   return timeseries.filter((d) => d.date >= startDate && d.date <= endDate)
 }
 
+// Todo: Add unit tests
 export function filterPeriods(periods: Periods, timeseries: TimeSeriesData): Periods {
   if (timeseries.length < 2) {
-    // throw new Error('Insufficient data points')
-    console.error('Insufficient data points')
-    return periods
+    return []
   }
 
   const startDate = timeseries[0].date
