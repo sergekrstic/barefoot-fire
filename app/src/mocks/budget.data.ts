@@ -1,193 +1,64 @@
-import { BudgetCategories, BudgetMap, ScenarioMap } from 'types'
+import { BudgetCategories, BudgetMap, ScenarioMap, TreeData } from 'types'
 import { cloneBudgets, convertScenarioBudgetsToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
 
 // #############################################################################
-// Budget categories
-// #############################################################################
-
-export const mockCategoriesForScenarioStart: BudgetCategories = {
-  name: 'Start',
-  categories: [
-    {
-      id: '1',
-      name: 'Income',
-      value: 300,
-      children: [
-        { id: '1.1', name: 'Salary', value: 0 },
-        { id: '1.2', name: 'Other', value: 300 },
-      ],
-    },
-    {
-      id: '2',
-      name: 'Expenses',
-      value: 250,
-      children: [{ id: '2.2', name: 'Living', value: 250 }],
-    },
-  ],
-}
-
-export const mockCategoriesForScenarioOne: BudgetCategories = {
-  name: 'Job 1',
-  categories: [
-    {
-      id: '1',
-      name: 'Income',
-      value: 2200,
-      children: [
-        { id: '1.1', name: 'Salary', value: 2000 },
-        { id: '1.2', name: 'Other', value: 200 },
-      ],
-    },
-    {
-      id: '2',
-      name: 'Expenses',
-      value: 1000,
-      children: [
-        { id: '2.1', name: 'Rent', value: 300 },
-        {
-          id: '2.2',
-          name: 'Bills',
-          value: 300,
-          children: [
-            { id: '2.2.1', name: 'Electricity', value: 100 },
-            { id: '2.2.2', name: 'Phone', value: 200 },
-          ],
-        },
-        { id: '2.3', name: 'Living', value: 400 },
-      ],
-    },
-  ],
-}
-
-export const mockCategoriesForScenarioTwo: BudgetCategories = {
-  name: 'Job 2',
-  categories: [
-    {
-      id: '1',
-      name: 'Income',
-      value: 2700,
-      children: [
-        { id: '1.1', name: 'Salary', value: 2500 },
-        { id: '1.2', name: 'Other', value: 200 },
-      ],
-    },
-    {
-      id: '2',
-      name: 'Expenses',
-      value: 1100,
-      children: [
-        { id: '2.1', name: 'Rent', value: 350 },
-        {
-          id: '2.2',
-          name: 'Bills',
-          value: 300,
-          children: [
-            { id: '2.2.1', name: 'Electricity', value: 100 },
-            { id: '2.2.2', name: 'Phone', value: 200 },
-          ],
-        },
-        { id: '2.3', name: 'Living', value: 450 },
-      ],
-    },
-  ],
-}
-
-export const mockCategoriesForScenarioThree: BudgetCategories = {
-  name: 'Job 3',
-  categories: [
-    {
-      id: '1',
-      name: 'Income',
-      value: 3200,
-      children: [
-        { id: '1.1', name: 'Salary', value: 3000 },
-        { id: '1.2', name: 'Other', value: 200 },
-      ],
-    },
-    {
-      id: '2',
-      name: 'Expenses',
-      value: 1100,
-      children: [
-        { id: '2.1', name: 'Rent', value: 350 },
-        {
-          id: '2.2',
-          name: 'Bills',
-          value: 300,
-          children: [
-            { id: '2.2.1', name: 'Electricity', value: 100 },
-            { id: '2.2.2', name: 'Phone', value: 200 },
-          ],
-        },
-        { id: '2.3', name: 'Living', value: 450 },
-      ],
-    },
-  ],
-}
-
-export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
-  root: mockCategoriesForScenarioStart,
-  job1: mockCategoriesForScenarioOne,
-  job2: mockCategoriesForScenarioTwo,
-  job3: mockCategoriesForScenarioThree,
-}
-
-// #############################################################################
 // Time periods
 // #############################################################################
 
-export const defaultPeriod: Period = {
+const defaultPeriod: Period = {
   startDate: '2024-01-01',
   endDate: '2034-01-01', // ten years
   // endDate: '2044-01-01', // twenty years
   // endDate: '2054-01-01', // thirty years
 }
 
-export const thirtyYearPeriod: Period = {
-  startDate: '2024-01-01',
-  endDate: '2054-01-01',
-}
+const period: Record<string, Period> = {
+  thirtyYear: {
+    startDate: '2024-01-01',
+    endDate: '2054-01-01',
+  },
 
-export const startPeriod: Period = {
-  startDate: '2024-07-01',
-  endDate: defaultPeriod.endDate,
-}
+  start: {
+    startDate: '2024-07-01',
+    endDate: defaultPeriod.endDate,
+  },
 
-export const jobSearchPeriod: Period = {
-  startDate: '2024-11-01',
-  endDate: defaultPeriod.endDate,
-}
+  jobSearch: {
+    startDate: '2024-11-01',
+    endDate: defaultPeriod.endDate,
+  },
 
-export const fullTimePeriod: Period = {
-  startDate: '2025-03-01',
-  endDate: defaultPeriod.endDate,
-}
+  fullTime: {
+    startDate: '2025-03-01',
+    endDate: defaultPeriod.endDate,
+  },
 
-export const fullTimeRentingPeriod: Period = {
-  startDate: '2025-09-01',
-  endDate: defaultPeriod.endDate,
-}
+  fullTimeRenting: {
+    startDate: '2025-09-01',
+    endDate: defaultPeriod.endDate,
+  },
 
-export const contractPeriod: Period = {
-  startDate: '2025-03-01',
-  endDate: defaultPeriod.endDate,
-}
+  contract: {
+    startDate: '2025-03-01',
+    endDate: defaultPeriod.endDate,
+  },
 
-export const contractRentingPeriod: Period = {
-  startDate: '2025-09-01',
-  endDate: defaultPeriod.endDate,
-}
+  contractRenting: {
+    startDate: '2025-09-01',
+    endDate: defaultPeriod.endDate,
+  },
 
-export const homePeriod: Period = {
-  startDate: '2026-01-01',
-  endDate: defaultPeriod.endDate,
-}
+  home: {
+    startDate: '2026-01-01',
+    endDate: defaultPeriod.endDate,
+  },
 
-export const shareMarketPeriod: Period = {
-  startDate: '2025-11-01',
-  endDate: defaultPeriod.endDate,
+  shareMarket: {
+    startDate: '2025-11-01',
+    endDate: defaultPeriod.endDate,
+  },
 }
 
 // #############################################################################
@@ -203,21 +74,21 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 1000,
     frequency: 'month',
-    ...startPeriod,
+    ...period.start,
   },
   'i-other-start': {
     id: 'i-other-start',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...startPeriod,
+    ...period.start,
   },
   'e-living-start': {
     id: 'e-living-start',
     name: 'Living',
     amount: -250,
     frequency: 'month',
-    ...startPeriod,
+    ...period.start,
   },
   // =========================================================================
   // Job Search
@@ -227,21 +98,21 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 0,
     frequency: 'month',
-    ...jobSearchPeriod,
+    ...period.jobSearch,
   },
   'i-other-job-search': {
     id: 'i-other-job-search',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...jobSearchPeriod,
+    ...period.jobSearch,
   },
   'e-living-job-search': {
     id: 'e-living-job-search',
     name: 'Living',
     amount: -150,
     frequency: 'month',
-    ...jobSearchPeriod,
+    ...period.jobSearch,
   },
   // =========================================================================
   // Full Time
@@ -251,21 +122,21 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 1000,
     frequency: 'month',
-    ...fullTimePeriod,
+    ...period.fullTime,
   },
   'i-other-full-time': {
     id: 'i-other-full-time',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...fullTimePeriod,
+    ...period.fullTime,
   },
   'e-living-full-time': {
     id: 'e-living-full-time',
     name: 'Living',
     amount: -350,
     frequency: 'month',
-    ...fullTimePeriod,
+    ...period.fullTime,
   },
   // =========================================================================
   // Full Time -> Renting
@@ -275,28 +146,28 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 1000,
     frequency: 'month',
-    ...fullTimeRentingPeriod,
+    ...period.fullTimeRenting,
   },
   'i-other-full-time-renting': {
     id: 'i-other-full-time-renting',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...fullTimeRentingPeriod,
+    ...period.fullTimeRenting,
   },
   'e-rent-full-time-renting': {
     id: 'e-rent-full-time-renting',
     name: 'Living',
     amount: -350,
     frequency: 'month',
-    ...fullTimeRentingPeriod,
+    ...period.fullTimeRenting,
   },
   'e-living-full-time-renting': {
     id: 'e-living-full-time-renting',
     name: 'Rent',
     amount: -350,
     frequency: 'month',
-    ...fullTimeRentingPeriod,
+    ...period.fullTimeRenting,
   },
   // =========================================================================
   // Contract
@@ -306,21 +177,21 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 1500,
     frequency: 'month',
-    ...contractPeriod,
+    ...period.contract,
   },
   'i-other-contract': {
     id: 'i-other-contract',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...contractPeriod,
+    ...period.contract,
   },
   'e-living-contract': {
     id: 'e-living-contract',
     name: 'Living',
     amount: -350,
     frequency: 'month',
-    ...contractPeriod,
+    ...period.contract,
   },
   // =========================================================================
   // Contract -> Renting
@@ -330,28 +201,28 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 1500,
     frequency: 'month',
-    ...contractRentingPeriod,
+    ...period.contractRenting,
   },
   'i-other-contract-renting': {
     id: 'i-other-contract-renting',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...contractRentingPeriod,
+    ...period.contractRenting,
   },
   'e-rent-contract-renting': {
     id: 'e-rent-contract-renting',
     name: 'Rent',
     amount: -350,
     frequency: 'month',
-    ...contractRentingPeriod,
+    ...period.contractRenting,
   },
   'e-living-contract-renting': {
     id: 'e-living-contract-renting',
     name: 'Living',
     amount: -350,
     frequency: 'month',
-    ...contractRentingPeriod,
+    ...period.contractRenting,
   },
   // =========================================================================
   // Contract -> Renting -> Home
@@ -361,14 +232,14 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 1500,
     frequency: 'month',
-    ...homePeriod,
+    ...period.home,
   },
   'i-other-home': {
     id: 'i-other-home',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...homePeriod,
+    ...period.home,
   },
   'e-mortgage-home': {
     id: 'e-mortgage-home',
@@ -376,14 +247,14 @@ export const mockBudgetMap: BudgetMap = {
     amount: -400,
     initialAmount: -100000,
     frequency: 'month',
-    ...homePeriod,
+    ...period.home,
   },
   'e-living-home': {
     id: 'e-living-home',
     name: 'Living',
     amount: -350,
     frequency: 'month',
-    ...homePeriod,
+    ...period.home,
   },
   // =========================================================================
   // Contract -> Renting -> Share Market
@@ -393,43 +264,43 @@ export const mockBudgetMap: BudgetMap = {
     name: 'Salary',
     amount: 1500,
     frequency: 'month',
-    ...shareMarketPeriod,
+    ...period.shareMarket,
   },
   'i-other-share-market': {
     id: 'i-other-share-market',
     name: 'Other',
     amount: 300,
     frequency: 'month',
-    ...shareMarketPeriod,
+    ...period.shareMarket,
   },
   'i-investments-deposit-share-market': {
     id: 'i-investments-deposit-share-market',
-    name: 'Living',
+    name: 'Shares (deposit)',
     amount: 150,
     frequency: 'month',
     interestRate: 0.3,
-    ...shareMarketPeriod,
+    ...period.shareMarket,
   },
-  'i-investments-transfer-share-market': {
-    id: 'i-investments-transfer-share-market',
-    name: 'Living',
+  'e-investments-transfer-share-market': {
+    id: 'e-investments-transfer-share-market',
+    name: 'Shares (transfer)',
     amount: -150,
     frequency: 'month',
-    ...shareMarketPeriod,
+    ...period.shareMarket,
   },
   'e-rent-share-market': {
     id: 'e-rent-share-market',
     name: 'Rent',
     amount: -350,
     frequency: 'month',
-    ...shareMarketPeriod,
+    ...period.shareMarket,
   },
   'e-living-share-market': {
     id: 'e-living-share-market',
     name: 'Living',
     amount: -350,
     frequency: 'month',
-    ...shareMarketPeriod,
+    ...period.shareMarket,
   },
 }
 
@@ -437,35 +308,35 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
   root: {
     id: 'root',
     name: 'Start',
-    period: startPeriod,
+    period: period.start,
     periods: [],
     budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start'], mockBudgetMap),
   },
   'job-search': {
     id: 'job-search',
     name: 'Job Search',
-    period: jobSearchPeriod,
+    period: period.jobSearch,
     periods: [],
     budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'], mockBudgetMap),
   },
   'full-time': {
     id: 'full-time',
     name: 'Full Time',
-    period: fullTimePeriod,
+    period: period.fullTime,
     periods: [],
     budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'], mockBudgetMap),
   },
   contract: {
     id: 'contract',
     name: 'Contract',
-    period: contractPeriod,
+    period: period.contract,
     periods: [],
     budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract'], mockBudgetMap),
   },
   'full-time-rent': {
     id: 'full-time-rent',
     name: 'Renting',
-    period: fullTimeRentingPeriod,
+    period: period.fullTimeRenting,
     periods: [],
     budgets: cloneBudgets(
       [
@@ -480,31 +351,31 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
   'contract-rent': {
     id: 'contract-rent',
     name: 'Renting',
-    period: contractRentingPeriod,
+    period: period.contractRenting,
     periods: [],
     budgets: cloneBudgets(
-      ['i-salary-contract-renting', 'i-other-contract-renting', 'e-rent-contract-renting', 'e-living-contract-renting'],
+      ['i-salary-contract-renting', 'i-other-contract-renting', 'e-living-contract-renting', 'e-rent-contract-renting'],
       mockBudgetMap,
     ),
   },
   'contract-home': {
     id: 'home',
     name: 'Home',
-    period: homePeriod,
+    period: period.home,
     periods: [],
     budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'], mockBudgetMap),
   },
   'contract-share-market': {
     id: 'contract-share-market',
     name: 'Share Market',
-    period: shareMarketPeriod,
+    period: period.shareMarket,
     periods: [],
     budgets: cloneBudgets(
       [
         'i-salary-share-market',
         'i-other-share-market',
         'i-investments-deposit-share-market',
-        'i-investments-transfer-share-market',
+        'e-investments-transfer-share-market',
         'e-rent-share-market',
         'e-living-share-market',
       ],
@@ -514,13 +385,190 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
 }
 
 // #############################################################################
+// Budget categories
+// #############################################################################
+
+export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
+  root: {
+    name: 'Start',
+    categories: [
+      {
+        id: '1',
+        name: 'Income',
+        value: 300,
+        children: [
+          { id: '1.1', name: 'Salary', value: 0 },
+          { id: '1.2', name: 'Other', value: 300 },
+        ],
+      },
+      {
+        id: '2',
+        name: 'Expenses',
+        value: 250,
+        children: [{ id: '2.2', name: 'Living', value: 250 }],
+      },
+    ],
+  },
+  job1: {
+    name: 'Job 1',
+    categories: [
+      {
+        id: '1',
+        name: 'Income',
+        value: 2200,
+        children: [
+          { id: '1.1', name: 'Salary', value: 2000 },
+          { id: '1.2', name: 'Other', value: 200 },
+        ],
+      },
+      {
+        id: '2',
+        name: 'Expenses',
+        value: 1000,
+        children: [
+          { id: '2.1', name: 'Rent', value: 300 },
+          {
+            id: '2.2',
+            name: 'Bills',
+            value: 300,
+            children: [
+              { id: '2.2.1', name: 'Electricity', value: 100 },
+              { id: '2.2.2', name: 'Phone', value: 200 },
+            ],
+          },
+          { id: '2.3', name: 'Living', value: 400 },
+        ],
+      },
+    ],
+  },
+  job2: {
+    name: 'Job 2',
+    categories: [
+      {
+        id: '1',
+        name: 'Income',
+        value: 2700,
+        children: [
+          { id: '1.1', name: 'Salary', value: 2500 },
+          { id: '1.2', name: 'Other', value: 200 },
+        ],
+      },
+      {
+        id: '2',
+        name: 'Expenses',
+        value: 1100,
+        children: [
+          { id: '2.1', name: 'Rent', value: 350 },
+          {
+            id: '2.2',
+            name: 'Bills',
+            value: 300,
+            children: [
+              { id: '2.2.1', name: 'Electricity', value: 100 },
+              { id: '2.2.2', name: 'Phone', value: 200 },
+            ],
+          },
+          { id: '2.3', name: 'Living', value: 450 },
+        ],
+      },
+    ],
+  },
+  job3: {
+    name: 'Job 3',
+    categories: [
+      {
+        id: '1',
+        name: 'Income',
+        value: 3200,
+        children: [
+          { id: '1.1', name: 'Salary', value: 3000 },
+          { id: '1.2', name: 'Other', value: 200 },
+        ],
+      },
+      {
+        id: '2',
+        name: 'Expenses',
+        value: 1100,
+        children: [
+          { id: '2.1', name: 'Rent', value: 350 },
+          {
+            id: '2.2',
+            name: 'Bills',
+            value: 300,
+            children: [
+              { id: '2.2.1', name: 'Electricity', value: 100 },
+              { id: '2.2.2', name: 'Phone', value: 200 },
+            ],
+          },
+          { id: '2.3', name: 'Living', value: 450 },
+        ],
+      },
+    ],
+  },
+}
+
+export const mockScenarioBudgetCategoriesMap: Record<string, BudgetCategories> = {
+  root: generateCategories('Start', ['i-salary-start', 'i-other-start', 'e-living-start']),
+  'job-search': generateCategories('Job Search', ['i-salary-job-search', 'i-other-job-search', 'e-living-job-search']),
+  'full-time': generateCategories('Full Time', ['i-salary-full-time', 'i-other-full-time', 'e-living-full-time']),
+  'full-time-rent': generateCategories('Renting', [
+    'i-salary-full-time-renting',
+    'i-other-full-time-renting',
+    'e-rent-full-time-renting',
+    'e-living-full-time-renting',
+  ]),
+  contract: generateCategories('Contract', ['i-salary-contract', 'i-other-contract', 'e-living-contract']),
+  'contract-rent': generateCategories('Renting', [
+    'i-salary-contract-renting',
+    'i-other-contract-renting',
+    'e-living-contract-renting',
+    'e-rent-contract-renting',
+  ]),
+  'contract-home': generateCategories('Home', ['i-salary-home', 'i-other-home', 'e-living-home', 'e-mortgage-home']),
+  'contract-share-market': generateCategories('Share Market', [
+    'i-salary-share-market',
+    'i-other-share-market',
+    'i-investments-deposit-share-market',
+    'e-rent-share-market',
+    'e-living-share-market',
+    'e-investments-transfer-share-market',
+  ]),
+}
+
+function generateCategories(name: string, budgetIds: string[]): BudgetCategories {
+  const incomeCategories: TreeData = { id: 'income', name: 'Income', value: 0, children: [] }
+  const expenseCategories: TreeData = { id: 'expenses', name: 'Expenses', value: 0, children: [] }
+
+  budgetIds.forEach((budgetId) => {
+    const budget = mockBudgetMap[budgetId]
+    const { id, name, amount } = budget
+    if (id.includes('i-')) {
+      incomeCategories.children!.push({ id, name, value: amount })
+    } else if (id.includes('e-')) {
+      expenseCategories.children!.push({ id, name, value: amount })
+    }
+  })
+
+  const totalIncome = incomeCategories.children!.reduce((acc, child) => acc + (child.value as number), 0)
+  const totalExpenses = expenseCategories.children!.reduce((acc, child) => acc + (child.value as number), 0)
+
+  return {
+    name,
+    categories: [
+      { ...incomeCategories, value: totalIncome },
+      { ...expenseCategories, value: totalExpenses },
+    ],
+  }
+}
+
+// #############################################################################
 // Plot data
 // #############################################################################
 
 export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
   id: 'mock-scenario',
   name: 'Mock compound scenario',
-  period: thirtyYearPeriod,
+  period: period.thirtyYear,
   periods: [],
   budgets: [
     {
@@ -529,7 +577,7 @@ export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
       amount: 1000,
       interestRate: 0.05,
       frequency: 'year',
-      ...thirtyYearPeriod,
+      ...period.thirtyYear,
     },
   ],
 })
