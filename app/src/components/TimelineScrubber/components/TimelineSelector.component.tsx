@@ -49,7 +49,7 @@ export function TimelineSelector({
       </PanelResizeHandle>
       <Panel
         // Apply subtle glass effect, see: https://css.glass
-        className="bg-gradient-to-tr from-slate-600/5 to-slate-600/20 backdrop-blur-[1px]"
+        className="border-t-slate-50/5x border-b border-b-slate-800 bg-gradient-to-tr from-slate-600/5 to-slate-600/20 backdrop-blur-[1px]"
         ref={rightPanelRef}
         defaultSize={100 - initialEnd}
         onResize={updateEnd}
