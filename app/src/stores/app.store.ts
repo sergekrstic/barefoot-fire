@@ -75,8 +75,6 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
     const scenarioMap = get().scenarioMap
     const scenarioBudgets = scenarioIds ? buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod) : null
     const newPlotData = scenarioBudgets ? convertScenarioBudgetsToPlotData(scenarioBudgets, 'pinned') : null
-    // const scenarioMap = get().scenarioMap
-    // const newPlotData = generatePlotData(value, scenarioMap, 'pinned')
     set({ pinnedPath: scenarioIds, pinnedPlotData: newPlotData })
   },
 }))
