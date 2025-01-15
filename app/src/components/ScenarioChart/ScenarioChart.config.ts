@@ -19,6 +19,7 @@ export function createBasePlotMarks(periods: Periods): Plot.Markish[] {
       textAnchor: 'start',
       fill: twColors.slate[500],
       stroke: twColors.slate[950],
+      strokeWidth: 5,
       dx: 1,
       dy: -17,
     }),

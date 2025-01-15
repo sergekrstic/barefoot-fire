@@ -1,5 +1,6 @@
-import { CollapsibleTree } from 'components'
-import { BudgetCategories } from 'types'
+import { EllipsisIcon } from 'assets'
+import { CollapsibleTree, Menu, MenuItem } from 'components'
+import { BudgetCategories, TreeData } from 'types'
 
 export interface ScenarioBudgetProps {
   budget: BudgetCategories | null
@@ -20,21 +21,46 @@ export function ScenarioBudget({ budget }: ScenarioBudgetProps): React.JSX.Eleme
             expanded={true}
             parentContainerClasses="cursor-pointer hover:bg-slate-800 px-4"
             childContainerClasses="cursor-default px-4"
-            renderCollapsibleItemContent={(item) => (
-              <div className="flex flex-row py-2">
-                <div className="grow">{item.name as string}</div>
-                <div className="text-gray-500">{formatBudgetValue(item.value as number)}</div>
-              </div>
-            )}
-            renderLeafItemContent={(item) => (
-              <div className="flex flex-row py-2">
-                <div className="grow">{item.name as string}</div>
-                <div>{formatBudgetValue(item.value as number)}</div>
-              </div>
-            )}
+            renderCollapsibleItemContent={(item) => <BudgetItem type="parent" item={item} />}
+            renderLeafItemContent={(item) => <BudgetItem type="leaf" item={item} />}
           />
         </div>
       )}
+    </div>
+  )
+}
+
+function BudgetItem({ type, item }: { type: 'parent' | 'leaf'; item: TreeData }): React.JSX.Element {
+  const menuButtonClasses =
+    'ml-3 rounded-sm border border-transparent outline-none hover:border-slate-700 data-[open]:border-slate-600'
+  const menuContainerClasses =
+    'rounded-md border border-slate-300 bg-slate-200 py-1 text-slate-800 outline-none drop-shadow-lg'
+  const menuItemClasses =
+    'flex w-full min-w-28 items-center justify-between px-4 py-1 text-sm outline-none focus:bg-violet-600 focus:text-slate-100'
+
+  return (
+    <div className="flex flex-row items-center justify-center py-2">
+      <div className="grow">{item.name as string}</div>
+      <div className={type === 'parent' ? 'text-gray-500' : ''}>{formatBudgetValue(item.value as number)}</div>
+      <div className="flex items-center justify-center">
+        <Menu
+          menuButtonClasses={menuButtonClasses}
+          menuContainerClasses={menuContainerClasses}
+          // @ts-expect-error - Typescript error: Type 'string' is not assignable to type 'ReactNode'
+          label={
+            <div
+              onClick={(e) => {
+                e.stopPropagation()
+              }}
+            >
+              <EllipsisIcon className="flex h-5 w-5 items-center justify-center text-slate-500" size={14} />
+            </div>
+          }
+        >
+          <MenuItem className={menuItemClasses} label="Edit" />
+          <MenuItem className={menuItemClasses} label="Delete" />
+        </Menu>
+      </div>
     </div>
   )
 }
