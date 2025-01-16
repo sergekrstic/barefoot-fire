@@ -26,12 +26,8 @@ export interface TimeSeriesElement {
 
 export type TimeSeriesData = TimeSeriesElement[]
 
-// Todo: decide it's best to group these together or not
-// export interface PlotData {
-//   timeSeries: TimeSeriesData
-//   periods: Periods
-// }
-
+// Note: Interval is different from BudgetFrequency in the forecast-engine package
+// It is used to determine the interval of the plot data
 export type Interval = 'year' | 'month' | 'week'
 
 export type Selection = [number, number]

@@ -46,7 +46,7 @@ const initialState: AppState = {
   highlightedPath: [],
   pinnedPlotData: null,
   pinnedPath: null,
-  scenarioStartEvents: [],
+  scenarioStartEvents: [], // <-- contains the start date of each scenario in the both highlight and pinned paths
 }
 
 export const useAppStore = createStore<PluginStore>((set, get) => ({
@@ -75,6 +75,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
     const scenarioMap = get().scenarioMap
     const scenarioPath = scenarioIds ? buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod) : null
     const newPlotData = scenarioPath ? convertScenarioPathToPlotData(scenarioPath, 'pinned') : null
+    // Todo: merge the scenarioStartEvents
     set({ pinnedPath: scenarioIds, pinnedPlotData: newPlotData })
   },
 }))

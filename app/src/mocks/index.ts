@@ -1,4 +1,4 @@
-import { detailedBudgetForestMap, detailedScenarioMap } from './budget.data'
+import { detailedBudgetForest, detailedScenarioMap } from './budget.data'
 import { mockRepresentativeGraphData } from './graph.data'
 
 export * from './budget.data'
@@ -7,5 +7,5 @@ export * from './graph.data'
 export const appData = {
   graphDefinition: mockRepresentativeGraphData,
   scenarioMap: detailedScenarioMap,
-  budgetForest: detailedBudgetForestMap,
+  budgetForest: detailedBudgetForest,
 } as const

@@ -503,7 +503,7 @@ export const simpleBudgetForest: BudgetForest = {
   },
 }
 
-export const detailedBudgetForestMap: BudgetForest = {
+export const detailedBudgetForest: BudgetForest = {
   root: generateBudgetTree(detailedBudgetMap, 'Start', ['i-salary-start', 'i-other-start', 'e-living-start']),
   'job-search': generateBudgetTree(detailedBudgetMap, 'Job Search', [
     'i-salary-job-search',
