@@ -3,13 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { calculateScenarioEvents } from '@fire/forecast-engine'
 
 import { ScenarioChartV1 } from './components/ScenarioChart.container.v1'
-import {
-  defaultScenarioBudgets,
-  oneYearPeriod,
-  tenYearPeriod,
-  thirtyYearPeriod,
-  yearlyCompoundBudget,
-} from './sharedStoryData'
+import { oneYearPeriod, tenYearPeriod, thirtyYearPeriod, yearlyCompoundBudget } from './sharedStoryData'
 
 const meta = {
   component: ScenarioChartV1,
@@ -34,7 +28,6 @@ export const OneYearYearlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: [yearlyCompoundBudget],
     }),
@@ -45,7 +38,6 @@ export const OneYearQuarterlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'quarter' }],
     }),
@@ -56,7 +48,6 @@ export const OneYearMonthlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'month' }],
     }),
@@ -67,7 +58,6 @@ export const OneYearWeeklyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'week' }],
     }),
@@ -78,7 +68,6 @@ export const OneYearDailyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'day' }],
     }),
@@ -93,7 +82,6 @@ export const TenYearYearlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: [yearlyCompoundBudget],
     }),
@@ -104,7 +92,6 @@ export const TenYearQuarterlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'quarter' }],
     }),
@@ -115,7 +102,6 @@ export const TenYearMonthlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'month' }],
     }),
@@ -126,7 +112,6 @@ export const TenYearWeeklyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'week' }],
     }),
@@ -137,7 +122,6 @@ export const TenYearDailyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'day' }],
     }),
@@ -152,7 +136,6 @@ export const ThirtyYearYearlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: [yearlyCompoundBudget],
     }),
@@ -163,7 +146,6 @@ export const ThirtyYearQuarterlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'quarter' }],
     }),
@@ -174,7 +156,6 @@ export const ThirtyYearMonthlyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'month' }],
     }),
@@ -185,7 +166,6 @@ export const ThirtyYearWeeklyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'week' }],
     }),
@@ -196,7 +176,6 @@ export const ThirtyYearDailyDeposit: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: [{ ...yearlyCompoundBudget, frequency: 'day' }],
     }),

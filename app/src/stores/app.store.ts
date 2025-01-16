@@ -1,5 +1,5 @@
 import cy from 'cytoscape'
-import { BudgetForest, BudgetTree, ScenarioMap, ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
+import { BudgetForest, BudgetMap, BudgetTree, ScenarioMap, ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData as convertScenarioPathToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
@@ -10,6 +10,7 @@ export interface AppState {
   graphDefinition: cy.CytoscapeOptions['elements']
   scenarioMap: ScenarioMap
   budgetForest: BudgetForest
+  budgetMap: BudgetMap
   selectedBudgetId: string | null
   selectedBudget: BudgetTree | null
   selection: Selection
@@ -20,7 +21,7 @@ export interface AppState {
   scenarioStartEvents: ScenarioStartEvents
 }
 
-export type AppLoadData = Pick<AppState, 'graphDefinition' | 'scenarioMap' | 'budgetForest'>
+export type AppLoadData = Pick<AppState, 'graphDefinition' | 'scenarioMap' | 'budgetForest' | 'budgetMap'>
 
 export type AppActions = {
   reset: () => void
@@ -37,8 +38,9 @@ const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 
 const initialState: AppState = {
   graphDefinition: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
-  scenarioMap: { root: { id: 'root', name: 'Initial budget', budgets: [], period: defaultPeriod } },
+  scenarioMap: { root: { id: 'root', name: 'Initial budget', budgetIds: [], startDate: defaultPeriod.endDate } },
   budgetForest: {},
+  budgetMap: {},
   selectedBudgetId: null,
   selectedBudget: null,
   selection: [0, 100],
@@ -66,14 +68,14 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
     set({ selection: value })
   },
   setHighlightedPath: (scenarioIds: string[]): void => {
-    const scenarioMap = get().scenarioMap
-    const scenarioPath = buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod)
+    const { scenarioMap, budgetMap } = get()
+    const scenarioPath = buildScenarioPath(scenarioIds, scenarioMap, budgetMap, defaultPeriod)
     const newPlotData = convertScenarioPathToPlotData(scenarioPath, 'highlighted')
     set({ highlightedPlotData: newPlotData || [], scenarioStartEvents: scenarioPath.scenarioStartEvents })
   },
   setPinnedPath: (scenarioIds: string[] | null): void => {
-    const scenarioMap = get().scenarioMap
-    const scenarioPath = scenarioIds ? buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod) : null
+    const { scenarioMap, budgetMap } = get()
+    const scenarioPath = scenarioIds ? buildScenarioPath(scenarioIds, scenarioMap, budgetMap, defaultPeriod) : null
     const newPlotData = scenarioPath ? convertScenarioPathToPlotData(scenarioPath, 'pinned') : null
     // Todo: merge the scenarioStartEvents
     set({ pinnedPath: scenarioIds, pinnedPlotData: newPlotData })

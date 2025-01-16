@@ -1,4 +1,4 @@
-import { Budget, Period, ScenarioBudgets } from '@fire/forecast-engine'
+import { Budget, Period } from '@fire/forecast-engine'
 
 export const oneYearPeriod: Period = {
   startDate: '2024-01-01',
@@ -15,12 +15,6 @@ export const thirtyYearPeriod: Period = {
   endDate: '2054-12-31',
 }
 
-export const defaultScenarioBudgets: ScenarioBudgets = {
-  id: 'mock-scenario',
-  name: 'Mock scenario',
-  period: oneYearPeriod,
-  budgets: [],
-}
 export const oneYearLinearBudget: Budget = {
   id: '1',
   name: 'Budget 1',

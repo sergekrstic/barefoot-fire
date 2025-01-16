@@ -158,12 +158,13 @@ export function dateFromCurrentInterval(currentInterval: string, interval: Inter
   }
 }
 
-export function cloneBudgets(budgetIds: string[], budgetMap: BudgetMap): Budget[] {
-  return budgetIds.map((id) => ({ ...budgetMap[id] }))
-}
-
 // Create a compound scenario from the given scenario IDs
-export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMap, period: Period): ScenarioPath {
+export function buildScenarioPath(
+  scenarioIds: string[],
+  scenarioMap: ScenarioMap,
+  budgetMap: BudgetMap,
+  forecastPeriod: Period,
+): ScenarioPath {
   const adjustedBudgets: Budget[] = []
   const scenarioStartEvents: ScenarioStartEvents = []
 
@@ -172,17 +173,17 @@ export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMa
     const scenario = scenarioMap[scenarioId]
     const nextScenario = scenarioMap[scenarioIds[index + 1]]
 
-    const clonedBudgets = scenario.budgets.map((budget) => ({ ...budget }))
+    const clonedBudgets = scenario.budgetIds.map((id) => ({ ...budgetMap[id] }))
 
     // If there is a next scenario, adjust the end date of the current scenario
     if (nextScenario) {
       clonedBudgets.forEach((budget) => {
-        budget.endDate = nextScenario.period.startDate
+        budget.endDate = nextScenario.startDate
       })
     }
 
     adjustedBudgets.push(...clonedBudgets)
-    scenarioStartEvents.push({ date: scenario.period.startDate, name: scenario.name })
+    scenarioStartEvents.push({ date: scenario.startDate, name: scenario.name })
   })
 
   return {
@@ -190,7 +191,7 @@ export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMa
     name: 'Scenario Path',
     budgets: adjustedBudgets,
     scenarioStartEvents,
-    period,
+    period: forecastPeriod,
   }
 }
 

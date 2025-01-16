@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { calculateBudgetEvents, calculateScenarioEvents } from './engine.core'
-import { Budget, Period, ScenarioBudgets } from './engine.types'
+import { Budget, Period } from './engine.types'
 import { expectToBeCloseToArray } from './test.utils'
 
 const tenYearPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
@@ -307,30 +307,25 @@ describe('@calculateBudgetEvents()', () => {
 })
 
 describe('@calculateScenarioBudgets()', () => {
-  const scenarioBudgets: ScenarioBudgets = {
-    id: 'test-scenario',
-    name: 'Test scenario',
-    period: overlapOneYearPeriod,
-    budgets: [
-      {
-        id: 'budget-1',
-        name: 'Budget 1',
-        amount: 100,
-        frequency: 'month',
-        ...tenYearPeriod,
-      },
-      {
-        id: 'budget-2',
-        name: 'Budget 2',
-        amount: 1000,
-        frequency: 'year',
-        ...tenYearPeriod,
-      },
-    ],
-  }
+  const scenarioBudgets: Budget[] = [
+    {
+      id: 'budget-1',
+      name: 'Budget 1',
+      amount: 100,
+      frequency: 'month',
+      ...tenYearPeriod,
+    },
+    {
+      id: 'budget-2',
+      name: 'Budget 2',
+      amount: 1000,
+      frequency: 'year',
+      ...tenYearPeriod,
+    },
+  ]
 
   it('calculates a scenario when period contains budget dates', () => {
-    const scenarioEvents = calculateScenarioEvents(scenarioBudgets)
+    const scenarioEvents = calculateScenarioEvents({ budgets: scenarioBudgets, period: overlapOneYearPeriod })
 
     expect(scenarioEvents.totalExpense).toBe(2200)
     expect(scenarioEvents.budgetEvents).toHaveLength(2)
@@ -370,7 +365,7 @@ describe('@calculateScenarioBudgets()', () => {
   })
 
   it('calculates a scenario when period partially overlaps budget start dates', () => {
-    const scenarioEvents = calculateScenarioEvents({ ...scenarioBudgets, period: overlapStartPeriod })
+    const scenarioEvents = calculateScenarioEvents({ budgets: scenarioBudgets, period: overlapStartPeriod })
 
     expect(scenarioEvents.totalExpense).toBe(1600)
     expect(scenarioEvents.budgetEvents).toHaveLength(2)
@@ -397,7 +392,7 @@ describe('@calculateScenarioBudgets()', () => {
   })
 
   it('calculates a scenario when period partially overlaps budget end dates', () => {
-    const scenarioEvents = calculateScenarioEvents({ ...scenarioBudgets, period: overlapEndPeriod })
+    const scenarioEvents = calculateScenarioEvents({ budgets: scenarioBudgets, period: overlapEndPeriod })
 
     // Budget 1
     const budget1 = scenarioEvents.budgetEvents[0]

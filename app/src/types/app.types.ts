@@ -1,4 +1,4 @@
-import { Budget, ScenarioBudgets } from '@fire/forecast-engine'
+import { Budget, Period } from '@fire/forecast-engine'
 
 export interface TreeData extends Record<string, unknown> {
   id: string
@@ -34,10 +34,21 @@ export type Selection = [number, number]
 
 export type BudgetMap = Record<string, Budget>
 
-export type ScenarioMap = Record<string, ScenarioBudgets>
+export interface Scenario {
+  id: string
+  name: string
+  budgetIds: string[]
+  startDate: string
+}
+
+export type ScenarioMap = Record<string, Scenario>
 
 export type ScenarioStartEvents = Array<{ date: string; name: string }>
 
-export interface ScenarioPath extends ScenarioBudgets {
+export interface ScenarioPath {
+  id: string
+  name: string
+  budgets: Budget[]
+  period: Period
   scenarioStartEvents: ScenarioStartEvents
 }

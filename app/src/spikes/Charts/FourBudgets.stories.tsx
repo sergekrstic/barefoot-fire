@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Budget, calculateScenarioEvents } from '@fire/forecast-engine'
 
 import { ScenarioChartV1 } from './components/ScenarioChart.container.v1'
-import { defaultScenarioBudgets, oneYearPeriod, tenYearPeriod, thirtyYearPeriod } from './sharedStoryData'
+import { oneYearPeriod, tenYearPeriod, thirtyYearPeriod } from './sharedStoryData'
 
 const meta = {
   component: ScenarioChartV1,
@@ -93,7 +93,6 @@ const fourCompoundBudgets: Budget[] = [
 export const OneYearLinearEvents: Story = {
   args: {
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: fourLinearBudgets,
     }),
@@ -103,7 +102,6 @@ export const OneYearLinearEvents: Story = {
 export const TenYearLinearEvents: Story = {
   args: {
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: fourLinearBudgets,
     }),
@@ -113,7 +111,6 @@ export const TenYearLinearEvents: Story = {
 export const ThirtyYearLinearEvents: Story = {
   args: {
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: fourLinearBudgets,
     }),
@@ -128,7 +125,6 @@ export const OneYearLinearCumulative: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: fourLinearBudgets,
     }),
@@ -139,7 +135,6 @@ export const TenYearLinearCumulative: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: fourLinearBudgets,
     }),
@@ -150,7 +145,6 @@ export const ThirtyYearLinearCumulative: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: fourLinearBudgets,
     }),
@@ -164,7 +158,6 @@ export const ThirtyYearLinearCumulative: Story = {
 export const OneYearCompoundEvents: Story = {
   args: {
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: fourCompoundBudgets,
     }),
@@ -174,7 +167,6 @@ export const OneYearCompoundEvents: Story = {
 export const TenYearCompoundEvents: Story = {
   args: {
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: fourCompoundBudgets,
     }),
@@ -184,7 +176,6 @@ export const TenYearCompoundEvents: Story = {
 export const ThirtyYearCompoundEvents: Story = {
   args: {
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: fourCompoundBudgets,
     }),
@@ -199,7 +190,6 @@ export const OneYearCompoundCumulative: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: oneYearPeriod,
       budgets: fourCompoundBudgets,
     }),
@@ -210,7 +200,6 @@ export const TenYearCompoundCumulative: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: tenYearPeriod,
       budgets: fourCompoundBudgets,
     }),
@@ -221,7 +210,6 @@ export const ThirtyYearCompoundCumulative: Story = {
   args: {
     cumulative: true,
     scenarioEvents: calculateScenarioEvents({
-      ...defaultScenarioBudgets,
       period: thirtyYearPeriod,
       budgets: fourCompoundBudgets,
     }),

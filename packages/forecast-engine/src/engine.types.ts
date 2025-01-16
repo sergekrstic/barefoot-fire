@@ -1,10 +1,3 @@
-export interface ScenarioBudgets {
-  id: string
-  name: string
-  budgets: Budget[]
-  period: Period
-}
-
 export interface Budget {
   id: string
   name: string

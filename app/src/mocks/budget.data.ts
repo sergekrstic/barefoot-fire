@@ -1,5 +1,5 @@
 import { BudgetForest, BudgetItem, BudgetMap, BudgetTree, ScenarioMap, TimeSeriesData } from 'types'
-import { cloneBudgets, convertScenarioBudgetsToPlotData, createBudgetItems } from 'utils'
+import { convertScenarioBudgetsToPlotData, createBudgetItems } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
 
@@ -19,42 +19,34 @@ const period: Record<string, Period> = {
     startDate: '2024-01-01',
     endDate: '2054-01-01',
   },
-
   start: {
     startDate: '2024-07-01',
     endDate: defaultPeriod.endDate,
   },
-
   jobSearch: {
     startDate: '2024-11-01',
     endDate: defaultPeriod.endDate,
   },
-
   fullTime: {
     startDate: '2025-03-01',
     endDate: defaultPeriod.endDate,
   },
-
   fullTimeRenting: {
     startDate: '2025-09-01',
     endDate: defaultPeriod.endDate,
   },
-
   contract: {
     startDate: '2025-03-01',
     endDate: defaultPeriod.endDate,
   },
-
   contractRenting: {
     startDate: '2025-09-01',
     endDate: defaultPeriod.endDate,
   },
-
   home: {
     startDate: '2026-01-01',
     endDate: defaultPeriod.endDate,
   },
-
   shareMarket: {
     startDate: '2025-11-01',
     endDate: defaultPeriod.endDate,
@@ -312,71 +304,67 @@ export const detailedScenarioMap: ScenarioMap = {
   root: {
     id: 'root',
     name: 'Start',
-    period: period.start,
-    budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start'], detailedBudgetMap),
+    startDate: period.start.startDate,
+    budgetIds: ['i-salary-start', 'i-other-start', 'e-living-start'],
   },
   'job-search': {
     id: 'job-search',
     name: 'Job Search',
-    period: period.jobSearch,
-    budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'], detailedBudgetMap),
+    startDate: period.jobSearch.startDate,
+    budgetIds: ['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'],
   },
   'full-time': {
     id: 'full-time',
     name: 'Full Time',
-    period: period.fullTime,
-    budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'], detailedBudgetMap),
+    startDate: period.fullTime.startDate,
+    budgetIds: ['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'],
   },
   contract: {
     id: 'contract',
     name: 'Contract',
-    period: period.contract,
-    budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract'], detailedBudgetMap),
+    startDate: period.contract.startDate,
+    budgetIds: ['i-salary-contract', 'i-other-contract', 'e-living-contract'],
   },
   'full-time-rent': {
     id: 'full-time-rent',
     name: 'Renting',
-    period: period.fullTimeRenting,
-    budgets: cloneBudgets(
-      [
-        'i-salary-full-time-renting',
-        'i-other-full-time-renting',
-        'e-rent-full-time-renting',
-        'e-living-full-time-renting',
-      ],
-      detailedBudgetMap,
-    ),
+    startDate: period.fullTimeRenting.startDate,
+    budgetIds: [
+      'i-salary-full-time-renting',
+      'i-other-full-time-renting',
+      'e-rent-full-time-renting',
+      'e-living-full-time-renting',
+    ],
   },
   'contract-rent': {
     id: 'contract-rent',
     name: 'Renting',
-    period: period.contractRenting,
-    budgets: cloneBudgets(
-      ['i-salary-contract-renting', 'i-other-contract-renting', 'e-living-contract-renting', 'e-rent-contract-renting'],
-      detailedBudgetMap,
-    ),
+    startDate: period.contractRenting.startDate,
+    budgetIds: [
+      'i-salary-contract-renting',
+      'i-other-contract-renting',
+      'e-living-contract-renting',
+      'e-rent-contract-renting',
+    ],
   },
   'contract-home': {
     id: 'home',
     name: 'Home',
-    period: period.home,
-    budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'], detailedBudgetMap),
+    startDate: period.home.startDate,
+    budgetIds: ['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'],
   },
   'contract-share-market': {
     id: 'contract-share-market',
     name: 'Share Market',
-    period: period.shareMarket,
-    budgets: cloneBudgets(
-      [
-        'i-salary-share-market',
-        'i-other-share-market',
-        'i-investments-deposit-share-market',
-        'e-investments-transfer-share-market',
-        'e-rent-share-market',
-        'e-living-share-market',
-      ],
-      detailedBudgetMap,
-    ),
+    startDate: period.shareMarket.startDate,
+    budgetIds: [
+      'i-salary-share-market',
+      'i-other-share-market',
+      'i-investments-deposit-share-market',
+      'e-investments-transfer-share-market',
+      'e-rent-share-market',
+      'e-living-share-market',
+    ],
   },
 }
 
