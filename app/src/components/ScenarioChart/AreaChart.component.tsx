@@ -4,9 +4,7 @@ import * as Plot from '@observablehq/plot'
 // @ts-expect-error - htl is not typed
 import * as htl from 'htl'
 import twColors from 'tailwindcss/colors'
-import { TimeSeriesData } from 'types'
-
-import { Periods } from '@fire/forecast-engine'
+import { ScenarioStartEvents, TimeSeriesData } from 'types'
 
 import { createBasePlotMarks, plotBaseConfig, plotTipConfig } from './ScenarioChart.config'
 
@@ -14,7 +12,7 @@ export interface AreaChartProps {
   width: number
   height: number
   timeseries: TimeSeriesData
-  periods: Periods
+  scenarioEvents: ScenarioStartEvents
   color?: string
   opacity?: number
 }
@@ -23,7 +21,7 @@ export function AreaChart({
   width,
   height,
   timeseries,
-  periods,
+  scenarioEvents,
   color = twColors.violet[700],
   opacity = 0.5,
 }: AreaChartProps): React.JSX.Element {
@@ -37,7 +35,7 @@ export function AreaChart({
           <stop offset="100%" stop-color="${color}" stop-opacity="0" />
         </linearGradient>
       </defs>`,
-      ...createBasePlotMarks(periods),
+      ...createBasePlotMarks(scenarioEvents),
       Plot.areaY(timeseries, {
         x: (d) => new Date(d.date),
         y: 'amount',
@@ -56,7 +54,7 @@ export function AreaChart({
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()
-  }, [color, timeseries, height, opacity, periods, width])
+  }, [color, timeseries, height, opacity, scenarioEvents, width])
 
   return <div ref={containerRef} className="h-full w-full" />
 }

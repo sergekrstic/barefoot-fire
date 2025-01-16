@@ -1,7 +1,7 @@
 import moment from 'moment'
-import { BudgetMap, Interval, ScenarioMap, TimeSeriesData } from 'types'
+import { BudgetItem, BudgetMap, Interval, ScenarioMap, ScenarioPath, ScenarioStartEvents, TimeSeriesData } from 'types'
 
-import { Budget, Period, Periods, ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
+import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
 
 export function deepCloneData<T>(data: T): T {
   return JSON.parse(JSON.stringify(data))
@@ -46,23 +46,8 @@ export function generateSineWaveTimeSeriesData(): TimeSeriesData {
   return data
 }
 
-// Todo: Delete this function
-// export function generatePlotData(
-//   scenarioIds: string[] | null,
-//   scenarioMap: ScenarioMap,
-//   name: string,
-// ): TimeSeriesData | null {
-//   if (!scenarioIds) return null
-
-//   const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
-//   const scenarioBudgets = buildScenarioPath(scenarioIds, scenarioMap, defaultPeriod)
-//   const plotData = convertScenarioBudgetsToPlotData(scenarioBudgets, name)
-
-//   return plotData
-// }
-
-export function convertScenarioBudgetsToPlotData(scenarioBudgets: ScenarioBudgets, name?: string): TimeSeriesData {
-  const scenarioEvents = calculateScenarioEvents(scenarioBudgets)
+export function convertScenarioBudgetsToPlotData(scenarioPath: ScenarioPath, name?: string): TimeSeriesData {
+  const scenarioEvents = calculateScenarioEvents(scenarioPath)
 
   return scenarioEvents.budgetEvents
     .map((budgetEvent) => {
@@ -178,9 +163,9 @@ export function cloneBudgets(budgetIds: string[], budgetMap: BudgetMap): Budget[
 }
 
 // Create a compound scenario from the given scenario IDs
-export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMap, period: Period): ScenarioBudgets {
+export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMap, period: Period): ScenarioPath {
   const adjustedBudgets: Budget[] = []
-  const periods: Periods = []
+  const scenarioStartEvents: ScenarioStartEvents = []
 
   // Adjust the end date of each scenario
   scenarioIds.forEach((scenarioId, index) => {
@@ -197,14 +182,25 @@ export function buildScenarioPath(scenarioIds: string[], scenarioMap: ScenarioMa
     }
 
     adjustedBudgets.push(...clonedBudgets)
-    periods.push({ date: scenario.period.startDate, name: scenario.name })
+    scenarioStartEvents.push({ date: scenario.period.startDate, name: scenario.name })
   })
 
   return {
-    id: scenarioIds[scenarioIds.length - 1],
-    name: 'Mock compound scenario',
+    id: 'scenario-path',
+    name: 'Scenario Path',
     budgets: adjustedBudgets,
-    periods,
+    scenarioStartEvents,
     period,
   }
+}
+
+export function createBudgetItems(budgetMap: BudgetMap, budgetIds: string[]): BudgetItem[] {
+  return budgetIds.map((id) => {
+    const budget = budgetMap[id]
+    return {
+      id: budget.name,
+      name: budget.name,
+      value: budget.amount,
+    }
+  })
 }

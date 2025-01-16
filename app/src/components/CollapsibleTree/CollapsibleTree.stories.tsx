@@ -10,6 +10,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+type Item = { title: string }
+
 export const Default: Story = {
   args: {
     tree: [
@@ -37,8 +39,7 @@ export const Default: Story = {
         ],
       },
     ],
-    // Todo: Update the type definition for `renderCollapsibleItemContent` and `renderLeafItemContent`
-    renderCollapsibleItemContent: (item) => <div>{item.title as string}</div>,
-    renderLeafItemContent: (item) => <div>{item.title as string}</div>,
+    renderCollapsibleItemContent: (item) => <div>{(item as Item).title}</div>,
+    renderLeafItemContent: (item) => <div>{(item as Item).title}</div>,
   },
 }

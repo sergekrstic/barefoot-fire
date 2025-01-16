@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { thirtyYearPlotData } from 'mocks'
+import { thirtyYearCompoundPlotData } from 'mocks'
 import { generateRandomTimeSeriesData, generateSineWaveTimeSeriesData } from 'utils'
 
 import { ScenarioChart } from './ScenarioChart.container'
@@ -25,7 +25,7 @@ export const NoData: Story = {
   args: {
     type: 'area',
     timeseries: [],
-    periods: [],
+    scenarioEvents: [],
     selection: [0, 100],
   },
 }
@@ -34,7 +34,7 @@ export const InsufficientData: Story = {
   args: {
     type: 'area',
     timeseries: [{ date: '2025-01-01', amount: 0, name: 'A' }],
-    periods: [],
+    scenarioEvents: [],
     selection: [0, 100],
   },
 }
@@ -43,7 +43,7 @@ export const OneYearDailyDeposit: Story = {
   args: {
     type: 'area',
     timeseries: generateRandomTimeSeriesData(),
-    periods: [],
+    scenarioEvents: [],
     selection: [0, 100],
   },
 }
@@ -51,8 +51,8 @@ export const OneYearDailyDeposit: Story = {
 export const ThirtyYearDepositCompounded: Story = {
   args: {
     type: 'area',
-    timeseries: thirtyYearPlotData,
-    periods: [],
+    timeseries: thirtyYearCompoundPlotData,
+    scenarioEvents: [],
     selection: [0, 100],
   },
 }
@@ -61,7 +61,7 @@ export const OneYearOscillatingDepositFullSelection: Story = {
   args: {
     type: 'area',
     timeseries: generateSineWaveTimeSeriesData(),
-    periods: [],
+    scenarioEvents: [],
     selection: [0, 100],
   },
 }
@@ -70,7 +70,7 @@ export const OneYearOscillatingDepositLowSelection: Story = {
   args: {
     type: 'area',
     timeseries: generateSineWaveTimeSeriesData(),
-    periods: [],
+    scenarioEvents: [],
     selection: [0, 50],
   },
 }
@@ -79,7 +79,7 @@ export const OneYearOscillatingDepositHighSelection: Story = {
   args: {
     type: 'area',
     timeseries: generateSineWaveTimeSeriesData(),
-    periods: [],
+    scenarioEvents: [],
     selection: [50, 100],
   },
 }
@@ -88,7 +88,7 @@ export const OneYearOscillatingDepositPartialSelection: Story = {
   args: {
     type: 'area',
     timeseries: generateSineWaveTimeSeriesData(),
-    periods: [],
+    scenarioEvents: [],
     selection: [25, 75],
   },
 }
@@ -97,7 +97,7 @@ export const OneYearOscillatingDepositZeroSelection: Story = {
   args: {
     type: 'area',
     timeseries: generateSineWaveTimeSeriesData(),
-    periods: [],
+    scenarioEvents: [],
     selection: [0, 0],
   },
 }
@@ -106,7 +106,7 @@ export const OneYearOscillatingDepositOneHundredSelection: Story = {
   args: {
     type: 'area',
     timeseries: generateSineWaveTimeSeriesData(),
-    periods: [],
+    scenarioEvents: [],
     selection: [100, 100],
   },
 }
@@ -122,7 +122,7 @@ export const DifferenceChart: Story = {
   args: {
     type: 'difference',
     timeseries: data,
-    periods: [],
+    scenarioEvents: [],
     selection: [0, 100],
   },
 }

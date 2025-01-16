@@ -1,18 +1,17 @@
 import * as Plot from '@observablehq/plot'
 import moment from 'moment'
 import twColors from 'tailwindcss/colors'
+import { ScenarioStartEvents } from 'types'
 
-import { Periods } from '@fire/forecast-engine'
-
-export function createBasePlotMarks(periods: Periods): Plot.Markish[] {
+export function createBasePlotMarks(scenarioEvents: ScenarioStartEvents): Plot.Markish[] {
   return [
     Plot.ruleY([0]),
-    Plot.ruleX(periods, {
+    Plot.ruleX(scenarioEvents, {
       x: (d) => new Date(d.date),
       stroke: twColors.slate[500],
       opacity: 0.3,
     }),
-    Plot.textX(periods, {
+    Plot.textX(scenarioEvents, {
       x: (d) => new Date(d.date),
       text: (d) => d.name,
       frameAnchor: 'top',

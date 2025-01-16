@@ -2,9 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import * as Plot from '@observablehq/plot'
 import { chartColors } from 'config'
-import { TimeSeriesData } from 'types'
-
-import { Periods } from '@fire/forecast-engine'
+import { ScenarioStartEvents, TimeSeriesData } from 'types'
 
 import { createBasePlotMarks, plotBaseConfig, plotTipConfig } from './ScenarioChart.config'
 
@@ -12,15 +10,20 @@ export interface DifferenceChartProps {
   width: number
   height: number
   timeseries: TimeSeriesData
-  periods: Periods
+  scenarioEvents: ScenarioStartEvents
 }
 
-export function DifferenceChart({ width, height, timeseries, periods }: DifferenceChartProps): React.JSX.Element {
+export function DifferenceChart({
+  width,
+  height,
+  timeseries,
+  scenarioEvents,
+}: DifferenceChartProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const plot = Plot.marks([
-      ...createBasePlotMarks(periods),
+      ...createBasePlotMarks(scenarioEvents),
       Plot.differenceY(
         timeseries,
         Plot.groupX(
@@ -49,7 +52,7 @@ export function DifferenceChart({ width, height, timeseries, periods }: Differen
 
     containerRef.current?.append(plot)
     return (): void => plot.remove()
-  }, [timeseries, height, width, periods])
+  }, [timeseries, height, width, scenarioEvents])
 
   return <div ref={containerRef} className="h-full w-full" />
 }

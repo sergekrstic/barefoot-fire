@@ -10,8 +10,8 @@ interface CollapsibleTreeProps {
   context?: unknown
   parentContainerClasses?: string
   childContainerClasses?: string
-  renderCollapsibleItemContent: (item: TreeData, context: unknown) => React.JSX.Element
-  renderLeafItemContent: (item: TreeData, context?: unknown) => React.JSX.Element
+  renderCollapsibleItemContent: (item: unknown, context: unknown) => React.JSX.Element
+  renderLeafItemContent: (item: unknown, context?: unknown) => React.JSX.Element
 }
 
 export function CollapsibleTree({

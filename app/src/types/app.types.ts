@@ -5,10 +5,18 @@ export interface TreeData extends Record<string, unknown> {
   children?: TreeData[]
 }
 
-export interface BudgetCategories {
+export interface BudgetItem extends TreeData {
   name: string
-  categories: TreeData[]
+  value: number
+  children?: BudgetItem[]
 }
+
+export interface BudgetTree {
+  name: string
+  budgets: BudgetItem[]
+}
+
+export type BudgetForest = Record<string, BudgetTree>
 
 export interface TimeSeriesElement {
   date: string
@@ -31,3 +39,9 @@ export type Selection = [number, number]
 export type BudgetMap = Record<string, Budget>
 
 export type ScenarioMap = Record<string, ScenarioBudgets>
+
+export type ScenarioStartEvents = Array<{ date: string; name: string }>
+
+export interface ScenarioPath extends ScenarioBudgets {
+  scenarioStartEvents: ScenarioStartEvents
+}

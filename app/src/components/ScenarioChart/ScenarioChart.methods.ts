@@ -1,6 +1,4 @@
-import { Selection, TimeSeriesData } from 'types'
-
-import { Periods } from '@fire/forecast-engine'
+import { ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
 
 // Design decision:
 //  - Only filter arrays with more than 2 elements.
@@ -33,7 +31,10 @@ export function filterTimeseries(timeseries: TimeSeriesData, selection: Selectio
 }
 
 // Todo: Add unit tests
-export function filterPeriods(periods: Periods, timeseries: TimeSeriesData): Periods {
+export function filterScenarioEvents(
+  scenarioEvents: ScenarioStartEvents,
+  timeseries: TimeSeriesData,
+): ScenarioStartEvents {
   if (timeseries.length < 2) {
     return []
   }
@@ -41,5 +42,5 @@ export function filterPeriods(periods: Periods, timeseries: TimeSeriesData): Per
   const startDate = timeseries[0].date
   const endDate = timeseries[timeseries.length - 1].date
 
-  return periods.filter((d) => d.date >= startDate && d.date <= endDate)
+  return scenarioEvents.filter((d) => d.date >= startDate && d.date <= endDate)
 }

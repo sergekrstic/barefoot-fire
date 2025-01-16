@@ -1,24 +1,30 @@
 import { useMemo } from 'react'
 
 import { ResponsiveContainer } from 'components'
-import { Selection, TimeSeriesData } from 'types'
-
-import { Periods } from '@fire/forecast-engine'
+import { ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
 
 import { AreaChart } from './AreaChart.component'
 import { DifferenceChart } from './DifferenceChart.component'
-import { filterPeriods, filterTimeseries } from './ScenarioChart.methods'
+import { filterScenarioEvents, filterTimeseries } from './ScenarioChart.methods'
 
 export interface ScenarioChartV2Props {
   type: 'area' | 'difference'
   timeseries: TimeSeriesData
-  periods: Periods
+  scenarioEvents: ScenarioStartEvents
   selection: Selection
 }
 
-export function ScenarioChart({ type, timeseries, periods, selection }: ScenarioChartV2Props): React.JSX.Element {
+export function ScenarioChart({
+  type,
+  timeseries,
+  scenarioEvents,
+  selection,
+}: ScenarioChartV2Props): React.JSX.Element {
   const filteredTimeseries = useMemo(() => filterTimeseries(timeseries, selection), [timeseries, selection])
-  const filteredPeriods = useMemo(() => filterPeriods(periods, filteredTimeseries), [periods, filteredTimeseries])
+  const filteredScenarioEvents = useMemo(
+    () => filterScenarioEvents(scenarioEvents, filteredTimeseries),
+    [scenarioEvents, filteredTimeseries],
+  )
 
   if (filteredTimeseries.length < 2) {
     const message = filteredTimeseries.length === 0 ? 'No data' : 'Insufficient data'
@@ -30,9 +36,19 @@ export function ScenarioChart({ type, timeseries, periods, selection }: Scenario
       <ResponsiveContainer>
         {({ width, height }) => {
           return type === 'area' ? (
-            <AreaChart width={width} height={height} timeseries={filteredTimeseries} periods={filteredPeriods} />
+            <AreaChart
+              width={width}
+              height={height}
+              timeseries={filteredTimeseries}
+              scenarioEvents={filteredScenarioEvents}
+            />
           ) : (
-            <DifferenceChart width={width} height={height} timeseries={filteredTimeseries} periods={filteredPeriods} />
+            <DifferenceChart
+              width={width}
+              height={height}
+              timeseries={filteredTimeseries}
+              scenarioEvents={filteredScenarioEvents}
+            />
           )
         }}
       </ResponsiveContainer>

@@ -11,7 +11,7 @@ const initialSelection: Selection = [0, 100]
 export function ScenarioBrushChart(): React.JSX.Element {
   const selection = useAppStore((state) => state.selection)
   const setSelection = useAppStore((state) => state.setSelection)
-  const periods = useAppStore((state) => state.periods)
+  const scenarioStartEvents = useAppStore((state) => state.scenarioStartEvents)
   const highlightedPlotData = useAppStore((state) => state.highlightedPlotData)
   const pinnedPlotData = useAppStore((state) => state.pinnedPlotData)
 
@@ -37,7 +37,7 @@ export function ScenarioBrushChart(): React.JSX.Element {
       <ScenarioChart
         type={pinnedPlotData ? 'difference' : 'area'}
         timeseries={processedPlotData}
-        periods={periods}
+        scenarioEvents={scenarioStartEvents}
         selection={selection}
       />
     </>

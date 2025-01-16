@@ -1,5 +1,5 @@
-import { BudgetCategories, BudgetMap, ScenarioMap, TreeData } from 'types'
-import { cloneBudgets, convertScenarioBudgetsToPlotData } from 'utils'
+import { BudgetForest, BudgetItem, BudgetMap, BudgetTree, ScenarioMap, TimeSeriesData } from 'types'
+import { cloneBudgets, convertScenarioBudgetsToPlotData, createBudgetItems } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
 
@@ -65,7 +65,7 @@ const period: Record<string, Period> = {
 // Budgets
 // #############################################################################
 
-export const mockBudgetMap: BudgetMap = {
+export const detailedBudgetMap: BudgetMap = {
   // =========================================================================
   // Start
   // =========================================================================
@@ -304,40 +304,39 @@ export const mockBudgetMap: BudgetMap = {
   },
 }
 
-export const mockScenarioBudgetsMap: ScenarioMap = {
+// #############################################################################
+// Scenarios
+// #############################################################################
+
+export const detailedScenarioMap: ScenarioMap = {
   root: {
     id: 'root',
     name: 'Start',
     period: period.start,
-    periods: [],
-    budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start'], mockBudgetMap),
+    budgets: cloneBudgets(['i-salary-start', 'i-other-start', 'e-living-start'], detailedBudgetMap),
   },
   'job-search': {
     id: 'job-search',
     name: 'Job Search',
     period: period.jobSearch,
-    periods: [],
-    budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'], mockBudgetMap),
+    budgets: cloneBudgets(['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'], detailedBudgetMap),
   },
   'full-time': {
     id: 'full-time',
     name: 'Full Time',
     period: period.fullTime,
-    periods: [],
-    budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'], mockBudgetMap),
+    budgets: cloneBudgets(['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'], detailedBudgetMap),
   },
   contract: {
     id: 'contract',
     name: 'Contract',
     period: period.contract,
-    periods: [],
-    budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract'], mockBudgetMap),
+    budgets: cloneBudgets(['i-salary-contract', 'i-other-contract', 'e-living-contract'], detailedBudgetMap),
   },
   'full-time-rent': {
     id: 'full-time-rent',
     name: 'Renting',
     period: period.fullTimeRenting,
-    periods: [],
     budgets: cloneBudgets(
       [
         'i-salary-full-time-renting',
@@ -345,31 +344,28 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
         'e-rent-full-time-renting',
         'e-living-full-time-renting',
       ],
-      mockBudgetMap,
+      detailedBudgetMap,
     ),
   },
   'contract-rent': {
     id: 'contract-rent',
     name: 'Renting',
     period: period.contractRenting,
-    periods: [],
     budgets: cloneBudgets(
       ['i-salary-contract-renting', 'i-other-contract-renting', 'e-living-contract-renting', 'e-rent-contract-renting'],
-      mockBudgetMap,
+      detailedBudgetMap,
     ),
   },
   'contract-home': {
     id: 'home',
     name: 'Home',
     period: period.home,
-    periods: [],
-    budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'], mockBudgetMap),
+    budgets: cloneBudgets(['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'], detailedBudgetMap),
   },
   'contract-share-market': {
     id: 'contract-share-market',
     name: 'Share Market',
     period: period.shareMarket,
-    periods: [],
     budgets: cloneBudgets(
       [
         'i-salary-share-market',
@@ -379,19 +375,19 @@ export const mockScenarioBudgetsMap: ScenarioMap = {
         'e-rent-share-market',
         'e-living-share-market',
       ],
-      mockBudgetMap,
+      detailedBudgetMap,
     ),
   },
 }
 
 // #############################################################################
-// Budget categories
+// Budget forest
 // #############################################################################
 
-export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
+export const simpleBudgetForest: BudgetForest = {
   root: {
     name: 'Start',
-    categories: [
+    budgets: [
       {
         id: '1',
         name: 'Income',
@@ -411,7 +407,7 @@ export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
   },
   job1: {
     name: 'Job 1',
-    categories: [
+    budgets: [
       {
         id: '1',
         name: 'Income',
@@ -443,7 +439,7 @@ export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
   },
   job2: {
     name: 'Job 2',
-    categories: [
+    budgets: [
       {
         id: '1',
         name: 'Income',
@@ -475,7 +471,7 @@ export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
   },
   job3: {
     name: 'Job 3',
-    categories: [
+    budgets: [
       {
         id: '1',
         name: 'Income',
@@ -507,25 +503,42 @@ export const mockBudgetCategoriesMap: Record<string, BudgetCategories> = {
   },
 }
 
-export const mockScenarioBudgetCategoriesMap: Record<string, BudgetCategories> = {
-  root: generateCategories('Start', ['i-salary-start', 'i-other-start', 'e-living-start']),
-  'job-search': generateCategories('Job Search', ['i-salary-job-search', 'i-other-job-search', 'e-living-job-search']),
-  'full-time': generateCategories('Full Time', ['i-salary-full-time', 'i-other-full-time', 'e-living-full-time']),
-  'full-time-rent': generateCategories('Renting', [
+export const detailedBudgetForestMap: BudgetForest = {
+  root: generateBudgetTree(detailedBudgetMap, 'Start', ['i-salary-start', 'i-other-start', 'e-living-start']),
+  'job-search': generateBudgetTree(detailedBudgetMap, 'Job Search', [
+    'i-salary-job-search',
+    'i-other-job-search',
+    'e-living-job-search',
+  ]),
+  'full-time': generateBudgetTree(detailedBudgetMap, 'Full Time', [
+    'i-salary-full-time',
+    'i-other-full-time',
+    'e-living-full-time',
+  ]),
+  'full-time-rent': generateBudgetTree(detailedBudgetMap, 'Renting', [
     'i-salary-full-time-renting',
     'i-other-full-time-renting',
     'e-rent-full-time-renting',
     'e-living-full-time-renting',
   ]),
-  contract: generateCategories('Contract', ['i-salary-contract', 'i-other-contract', 'e-living-contract']),
-  'contract-rent': generateCategories('Renting', [
+  contract: generateBudgetTree(detailedBudgetMap, 'Contract', [
+    'i-salary-contract',
+    'i-other-contract',
+    'e-living-contract',
+  ]),
+  'contract-rent': generateBudgetTree(detailedBudgetMap, 'Renting', [
     'i-salary-contract-renting',
     'i-other-contract-renting',
     'e-living-contract-renting',
     'e-rent-contract-renting',
   ]),
-  'contract-home': generateCategories('Home', ['i-salary-home', 'i-other-home', 'e-living-home', 'e-mortgage-home']),
-  'contract-share-market': generateCategories('Share Market', [
+  'contract-home': generateBudgetTree(detailedBudgetMap, 'Home', [
+    'i-salary-home',
+    'i-other-home',
+    'e-living-home',
+    'e-mortgage-home',
+  ]),
+  'contract-share-market': generateBudgetTree(detailedBudgetMap, 'Share Market', [
     'i-salary-share-market',
     'i-other-share-market',
     'i-investments-deposit-share-market',
@@ -535,28 +548,24 @@ export const mockScenarioBudgetCategoriesMap: Record<string, BudgetCategories> =
   ]),
 }
 
-function generateCategories(name: string, budgetIds: string[]): BudgetCategories {
-  const incomeCategories: TreeData = { id: 'income', name: 'Income', value: 0, children: [] }
-  const expenseCategories: TreeData = { id: 'expenses', name: 'Expenses', value: 0, children: [] }
+function generateBudgetTree(budgetMap: BudgetMap, name: string, budgetIds: string[]): BudgetTree {
+  const incomeBudgetItems: BudgetItem = { id: 'income', name: 'Income', value: 0, children: [] }
+  const expenseBudgetItems: BudgetItem = { id: 'expenses', name: 'Expenses', value: 0, children: [] }
 
-  budgetIds.forEach((budgetId) => {
-    const budget = mockBudgetMap[budgetId]
-    const { id, name, amount } = budget
-    if (id.includes('i-')) {
-      incomeCategories.children!.push({ id, name, value: amount })
-    } else if (id.includes('e-')) {
-      expenseCategories.children!.push({ id, name, value: amount })
-    }
-  })
+  const incomeIds = budgetIds.filter((id) => id.includes('i-'))
+  const expenseIds = budgetIds.filter((id) => id.includes('e-'))
 
-  const totalIncome = incomeCategories.children!.reduce((acc, child) => acc + (child.value as number), 0)
-  const totalExpenses = expenseCategories.children!.reduce((acc, child) => acc + (child.value as number), 0)
+  incomeBudgetItems.children = createBudgetItems(budgetMap, incomeIds)
+  expenseBudgetItems.children = createBudgetItems(budgetMap, expenseIds)
+
+  const totalIncome = incomeBudgetItems.children!.reduce((acc, child) => acc + (child.value as number), 0)
+  const totalExpenses = expenseBudgetItems.children!.reduce((acc, child) => acc + (child.value as number), 0)
 
   return {
     name,
-    categories: [
-      { ...incomeCategories, value: totalIncome },
-      { ...expenseCategories, value: totalExpenses },
+    budgets: [
+      { ...incomeBudgetItems, value: totalIncome },
+      { ...expenseBudgetItems, value: totalExpenses },
     ],
   }
 }
@@ -565,11 +574,10 @@ function generateCategories(name: string, budgetIds: string[]): BudgetCategories
 // Plot data
 // #############################################################################
 
-export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
+export const thirtyYearCompoundPlotData: TimeSeriesData = convertScenarioBudgetsToPlotData({
   id: 'mock-scenario',
   name: 'Mock compound scenario',
   period: period.thirtyYear,
-  periods: [],
   budgets: [
     {
       id: 'i-salary-start',
@@ -578,6 +586,12 @@ export const thirtyYearPlotData = convertScenarioBudgetsToPlotData({
       interestRate: 0.05,
       frequency: 'year',
       ...period.thirtyYear,
+    },
+  ],
+  scenarioStartEvents: [
+    {
+      date: period.thirtyYear.startDate,
+      name: 'Start',
     },
   ],
 })
