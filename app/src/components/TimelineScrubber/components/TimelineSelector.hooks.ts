@@ -1,12 +1,13 @@
-import { MouseEvent, useCallback, useState } from 'react'
+import { MouseEvent, useCallback, useEffect, useState } from 'react'
 
 import { ImperativePanelHandle } from 'react-resizable-panels'
 import { Selection } from 'types'
 
 export interface ResizeSelectionArgs {
+  disabled?: boolean
   leftPanelRef: React.RefObject<ImperativePanelHandle | null>
   rightPanelRef: React.RefObject<ImperativePanelHandle | null>
-  initialSelection: Selection
+  selection: Selection
   onUpdateSelection?: (selection: Selection) => void
 }
 
@@ -19,17 +20,16 @@ export interface ResizeSelection {
 }
 
 export function useResizeSelection({
+  disabled = false,
   leftPanelRef,
   rightPanelRef,
-  initialSelection,
+  selection,
   onUpdateSelection,
 }: ResizeSelectionArgs): ResizeSelection {
-  const [start, setStart] = useState(initialSelection[0])
-  const [end, setEnd] = useState(initialSelection[1])
+  const [start, end] = selection
 
   const updateStart = useCallback(
     (value: number): void => {
-      setStart(value)
       if (onUpdateSelection) {
         onUpdateSelection([value, end])
       }
@@ -39,7 +39,6 @@ export function useResizeSelection({
 
   const updateEnd = useCallback(
     (value: number): void => {
-      setEnd(100 - value)
       if (onUpdateSelection) {
         onUpdateSelection([start, 100 - value])
       }
@@ -52,13 +51,18 @@ export function useResizeSelection({
     if (isExpandable) {
       leftPanelRef.current?.resize(0)
       rightPanelRef.current?.resize(0)
-      setStart(0)
-      setEnd(100)
       if (onUpdateSelection) {
         onUpdateSelection([0, 100])
       }
     }
   }, [start, end, leftPanelRef, rightPanelRef, onUpdateSelection])
+
+  useEffect(() => {
+    if (disabled) {
+      leftPanelRef.current?.resize(start)
+      rightPanelRef.current?.resize(100 - end)
+    }
+  }, [disabled, end, leftPanelRef, rightPanelRef, start])
 
   return { start, end, updateStart, updateEnd, maximize }
 }

@@ -3,10 +3,7 @@ import { useMemo } from 'react'
 import { ScenarioChart, TimelineScrubber } from 'components'
 import moment from 'moment'
 import { useAppStore } from 'stores'
-import { Selection } from 'types'
 import { preprocessPlotData } from 'utils'
-
-const initialSelection: Selection = [0, 100]
 
 export function ScenarioBrushChart(): React.JSX.Element {
   const selection = useAppStore((state) => state.selection)
@@ -31,7 +28,7 @@ export function ScenarioBrushChart(): React.JSX.Element {
       <TimelineScrubber
         type={pinnedPlotData ? 'difference' : 'area'}
         data={processedPlotData}
-        initialSelection={initialSelection}
+        selection={selection}
         onUpdateSelection={setSelection}
       />
       <ScenarioChart

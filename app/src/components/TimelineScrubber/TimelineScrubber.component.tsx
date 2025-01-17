@@ -7,14 +7,14 @@ import { TimelineAreaChart, TimelineDifferenceChart, TimelineSelector } from './
 export interface TimelineScrubberProps {
   type: 'area' | 'difference'
   data?: Plot.Data
-  initialSelection?: Selection
+  selection: Selection
   onUpdateSelection?: (selection: Selection) => void
 }
 
 export function TimelineScrubber({
   data,
   type,
-  initialSelection,
+  selection,
   onUpdateSelection,
 }: TimelineScrubberProps): React.JSX.Element {
   const disabled = data && Array.from(data).length < 2
@@ -33,11 +33,7 @@ export function TimelineScrubber({
         </ResponsiveContainer>
       )}
       <div className="absolute bottom-0 left-0 right-0 top-0">
-        <TimelineSelector
-          initialSelection={initialSelection}
-          onUpdateSelection={onUpdateSelection}
-          disabled={disabled}
-        />
+        <TimelineSelector selection={selection} onUpdateSelection={onUpdateSelection} disabled={disabled} />
       </div>
     </div>
   )
