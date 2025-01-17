@@ -16,6 +16,7 @@ export const NoData: Story = {
   args: {
     type: 'area',
     data: [],
+    selection: [0, 100],
   },
 }
 
@@ -23,6 +24,7 @@ export const WithDataZoomedOut: Story = {
   args: {
     type: 'area',
     data: generateRandomTimeSeriesData(),
+    selection: [0, 100],
   },
 }
 
@@ -30,6 +32,6 @@ export const WithDataZoomedIn: Story = {
   args: {
     type: 'area',
     data: generateRandomTimeSeriesData(),
-    initialSelection: [25, 75],
+    selection: [25, 75],
   },
 }

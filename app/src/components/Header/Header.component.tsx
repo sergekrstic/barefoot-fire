@@ -51,7 +51,7 @@ export function Header(): React.JSX.Element {
         <Menu menuContainerClasses={menuContainerClasses} menuItemClasses={menuItemClasses} label="Examples">
           <MenuItem className={menuItemClasses} label="Simple example" disabled />
           <MenuItem className={menuItemClasses} label="Detailed example" onClick={loadDetailedExample} />
-          <MenuItem className={menuItemClasses} label="Renting vs Mortgage" disabled />
+          <MenuItem className={menuItemClasses} label="Rent vs Mortgage" disabled />
           <MenuItem className={menuItemClasses} label="Petrol vs Hybrid vs Electric" disabled />
           <MenuItem className={menuItemClasses} label="Median vs Professional vs Elite" disabled />
         </Menu>

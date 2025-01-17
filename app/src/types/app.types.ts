@@ -1,47 +1,38 @@
-import { Budget, Period } from '@fire/forecast-engine'
+import {
+  budgetForestSchema,
+  budgetItemSchema,
+  budgetMapSchema,
+  budgetSchema,
+  budgetTreeSchema,
+  scenarioMapSchema,
+  scenarioSchema,
+  treeDataSchema,
+} from 'schemas'
+import { z } from 'zod'
 
-export interface TreeData extends Record<string, unknown> {
-  id: string
-  children?: TreeData[]
-}
+import { Period } from '@fire/forecast-engine'
 
-export interface BudgetItem extends TreeData {
-  name: string
-  value: number
-  children?: BudgetItem[]
-}
+export type TreeData = z.infer<typeof treeDataSchema>
 
-export interface BudgetTree {
-  name: string
-  budgets: BudgetItem[]
-}
+export type BudgetItem = z.infer<typeof budgetItemSchema>
 
-export type BudgetForest = Record<string, BudgetTree>
+export type BudgetTree = z.infer<typeof budgetTreeSchema>
 
-export interface TimeSeriesElement {
-  date: string
-  amount: number
-  name: string
-}
+export type BudgetForest = z.infer<typeof budgetForestSchema>
 
-export type TimeSeriesData = TimeSeriesElement[]
+export type Budget = z.infer<typeof budgetSchema>
+
+export type BudgetMap = z.infer<typeof budgetMapSchema>
+
+export type Scenario = z.infer<typeof scenarioSchema>
+
+export type ScenarioMap = z.infer<typeof scenarioMapSchema>
 
 // Note: Interval is different from BudgetFrequency in the forecast-engine package
 // It is used to determine the interval of the plot data
 export type Interval = 'year' | 'month' | 'week'
 
 export type Selection = [number, number]
-
-export type BudgetMap = Record<string, Budget>
-
-export interface Scenario {
-  id: string
-  name: string
-  budgetIds: string[]
-  startDate: string
-}
-
-export type ScenarioMap = Record<string, Scenario>
 
 export type ScenarioStartEvents = Array<{ date: string; name: string }>
 
@@ -52,3 +43,11 @@ export interface ScenarioPath {
   period: Period
   scenarioStartEvents: ScenarioStartEvents
 }
+
+export interface TimeSeriesElement {
+  date: string
+  amount: number
+  name: string
+}
+
+export type TimeSeriesData = TimeSeriesElement[]

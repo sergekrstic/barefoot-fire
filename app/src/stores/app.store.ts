@@ -1,5 +1,6 @@
 import cy from 'cytoscape'
 import { saveAs } from 'file-saver'
+import { budgetForestSchema, budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schemas'
 import { BudgetForest, BudgetMap, BudgetTree, ScenarioMap, ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData as convertScenarioPathToPlotData } from 'utils'
 
@@ -61,6 +62,9 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   load(data): void {
     if (isAppDataValid(data)) {
       set({ ...data })
+    } else {
+      // Todo: show an error toast message
+      console.error('Invalid data')
     }
   },
   saveAs(): void {
@@ -91,6 +95,27 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
 }))
 
 export function isAppDataValid(data: AppLoadData): boolean {
+  if (budgetForestSchema.safeParse(data.budgetForest).error) {
+    console.error('Budget forest is invalid')
+    return false
+  }
+
+  if (budgetMapSchema.safeParse(data.budgetMap).error) {
+    console.error('Budget map is invalid')
+    return false
+  }
+
+  if (scenarioMapSchema.safeParse(data.scenarioMap).error) {
+    console.error('Scenario map is invalid')
+    return false
+  }
+
+  if (graphDefinitionSchema.safeParse(data.graphDefinition).error) {
+    console.error('Graph definition is invalid')
+    return false
+  }
+
+  // Todo: narrow down the type of data
   // @ts-expect-error - data is not typed
   const graphNodeKeys = data.graphDefinition!.nodes.map((node) => node.data.id)
   const scenarioKeys = Object.keys(data.scenarioMap)
