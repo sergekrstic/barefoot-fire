@@ -22,6 +22,7 @@
     "cytoscape": "^3.31.0",
     "cytoscape-all-paths": "^0.1.0",
     "cytoscape-tidytree": "^0.2.0",
+    "file-saver": "^2.0.5",
     "htl": "^0.3.1",
     "immer": "^10.1.1",
     "lodash": "^4.17.21",
@@ -29,6 +30,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-resizable-panels": "^2.1.7",
+    "use-file-picker": "^2.1.2",
     "zod": "^3.24.1",
     "zustand": "^5.0.3"
   },
@@ -46,6 +48,7 @@
     "@storybook/theming": "^8.4.7",
     "@trivago/prettier-plugin-sort-imports": "^5.2.1",
     "@types/cytoscape": "^3.21.8",
+    "@types/file-saver": "^2.0.7",
     "@types/lodash": "^4.17.14",
     "@types/node": "^22.10.6",
     "@types/react": "^19.0.7",

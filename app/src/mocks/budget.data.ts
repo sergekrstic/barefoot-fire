@@ -540,8 +540,8 @@ function generateBudgetTree(budgetMap: BudgetMap, name: string, budgetIds: strin
   const incomeBudgetItems: BudgetItem = { id: 'income', name: 'Income', value: 0, children: [] }
   const expenseBudgetItems: BudgetItem = { id: 'expenses', name: 'Expenses', value: 0, children: [] }
 
-  const incomeIds = budgetIds.filter((id) => id.includes('i-'))
-  const expenseIds = budgetIds.filter((id) => id.includes('e-'))
+  const incomeIds = budgetIds.filter((id) => id.startsWith('i-'))
+  const expenseIds = budgetIds.filter((id) => id.startsWith('e-'))
 
   incomeBudgetItems.children = createBudgetItems(budgetMap, incomeIds)
   expenseBudgetItems.children = createBudgetItems(budgetMap, expenseIds)

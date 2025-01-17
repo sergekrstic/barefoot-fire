@@ -1,4 +1,5 @@
 import cy from 'cytoscape'
+import { saveAs } from 'file-saver'
 import { BudgetForest, BudgetMap, BudgetTree, ScenarioMap, ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData as convertScenarioPathToPlotData } from 'utils'
 
@@ -25,6 +26,7 @@ export type AppLoadData = Pick<AppState, 'graphDefinition' | 'scenarioMap' | 'bu
 
 export type AppActions = {
   reset: () => void
+  saveAs: () => void
   load: (data: AppLoadData) => void
   setSelectedBudgetId: (value: string | null) => void
   setSelection: (value: Selection) => void
@@ -38,8 +40,8 @@ const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 
 const initialState: AppState = {
   graphDefinition: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
-  scenarioMap: { root: { id: 'root', name: 'Initial budget', budgetIds: [], startDate: defaultPeriod.endDate } },
-  budgetForest: {},
+  scenarioMap: { root: { id: 'root', name: 'Initial budget', budgetIds: [], startDate: defaultPeriod.startDate } },
+  budgetForest: { root: { name: 'Initial budget', budgets: [] } },
   budgetMap: {},
   selectedBudgetId: null,
   selectedBudget: null,
@@ -60,6 +62,12 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
     if (isAppDataValid(data)) {
       set({ ...data })
     }
+  },
+  saveAs(): void {
+    const { graphDefinition, scenarioMap, budgetForest, budgetMap } = get()
+    const data = { graphDefinition, scenarioMap, budgetForest, budgetMap }
+    const file = new Blob([JSON.stringify(data)], { type: 'application/json;charset=utf-8' })
+    saveAs(file, 'barefoot_fire.json') // <-- Use a library to handle all the edge cases
   },
   setSelectedBudgetId: (value: string | null): void => {
     set({ selectedBudgetId: value, selectedBudget: get().budgetForest[value || ''] })

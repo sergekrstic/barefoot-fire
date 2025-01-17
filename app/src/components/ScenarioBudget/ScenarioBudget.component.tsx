@@ -36,8 +36,9 @@ function ScenarioBudgetItem({ type, item }: { type: 'parent' | 'leaf'; item: Bud
     'ml-3 rounded-sm border border-transparent outline-none hover:border-slate-700 data-[open]:border-slate-600'
   const menuContainerClasses =
     'rounded-md border border-slate-300 bg-slate-200 py-1 text-slate-800 outline-none drop-shadow-lg'
+  // const menuItemClasses =
   const menuItemClasses =
-    'flex w-full min-w-28 items-center justify-between px-4 py-1 text-sm outline-none focus:bg-violet-600 focus:text-slate-100'
+    'flex w-full min-w-28 items-center justify-between px-4 py-1 text-sm outline-none focus:bg-violet-600 focus:text-slate-100 disabled:text-slate-400'
 
   return (
     <div className="flex flex-row items-center justify-center py-2">
@@ -58,8 +59,8 @@ function ScenarioBudgetItem({ type, item }: { type: 'parent' | 'leaf'; item: Bud
             </div>
           }
         >
-          <MenuItem className={menuItemClasses} label="Edit" />
-          <MenuItem className={menuItemClasses} label="Delete" />
+          <MenuItem className={menuItemClasses} label="Edit" disabled />
+          <MenuItem className={menuItemClasses} label="Delete" disabled />
         </Menu>
       </div>
     </div>
