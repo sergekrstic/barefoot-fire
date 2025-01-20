@@ -1,3 +1,0 @@
-import{H as a}from"./TimelineScrubber.component-CNSPlmNh.js";import"./jsx-runtime-D_zvdyIk.js";import"./CollapsibleTree.component-30vHkhqS.js";import"./index-PahMPgEy.js";import"./DropdownMenu.component-2YZdI-ss.js";import"./index-jVKrJXHJ.js";import"./index-Dk70umWa.js";import"./ScenarioGraph.component-CJswZ3r9.js";import"./colors-Cuw9ST8W.js";import"./react-resizable-panels.browser.esm-zIh8wNIw.js";const g={component:a,parameters:{layout:"fullscreen"}},r={args:{}};var o,t,e;r.parameters={...r.parameters,docs:{...(o=r.parameters)==null?void 0:o.docs,source:{originalSource:`{
-  args: {}
-}`,...(e=(t=r.parameters)==null?void 0:t.docs)==null?void 0:e.source}}};const x=["Default"];export{r as Default,x as __namedExportsOrder,g as default};
