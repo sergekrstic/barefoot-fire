@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import cy from 'cytoscape'
 import { useAppStore } from 'stores'
@@ -9,17 +9,19 @@ export interface UseGraphProps {
   containerRef: React.RefObject<HTMLDivElement | null>
 }
 
-export function useGraph({ containerRef }: UseGraphProps): cy.Core | undefined {
-  const [cytoInstance, setCytoInstance] = useState<cy.Core>()
+export function useGraph({ containerRef }: UseGraphProps): cy.Core | null {
+  const cytoInstance = useAppStore((state) => state.cytoInstance)
+  const setCytoInstance = useAppStore((state) => state.setCytoInstance)
+  // const [cytoInstance, setCytoInstance] = useState<cy.Core>()
 
-  const graphDefinition = useAppStore((state) => state.graphDefinition)
-  const setSelectedBudgetId = useAppStore((state) => state.setSelectedBudgetId)
+  const scenarioGraph = useAppStore((state) => state.scenarioGraph)
+  const setSelectedScenarioId = useAppStore((state) => state.setSelectedScenarioId)
   const setHighlightedPath = useAppStore((state) => state.setHighlightedPath)
 
   useEffect(() => {
     if (!containerRef.current) return
 
-    const instance = cy({ container: containerRef.current, elements: graphDefinition, ...graphSettings })
+    const instance = cy({ container: containerRef.current, elements: scenarioGraph, ...graphSettings })
     setCytoInstance(instance)
 
     // Highlight the root node and center the graph
@@ -28,22 +30,23 @@ export function useGraph({ containerRef }: UseGraphProps): cy.Core | undefined {
     instance.center(instance.elements())
 
     // Initialise the store
-    setSelectedBudgetId('root')
+    setSelectedScenarioId('root')
     setHighlightedPath(['root'])
 
     return (): void => {
+      setCytoInstance(null)
       instance?.destroy()
     }
-  }, [containerRef, graphDefinition, setHighlightedPath, setSelectedBudgetId])
+  }, [containerRef, scenarioGraph, setCytoInstance, setHighlightedPath, setSelectedScenarioId])
 
   return cytoInstance
 }
 
-export interface UseMouseEventsProps {
-  cytoInstance: cy.Core | undefined
+export interface UseGraphFeatureProps {
+  cytoInstance: cy.Core | null
 }
 
-export function useMouseEvents({ cytoInstance }: UseMouseEventsProps): void {
+export function useMouseEvents({ cytoInstance }: UseGraphFeatureProps): void {
   useEffect(() => {
     const enterNode = (): void => {
       if (!cytoInstance) return
@@ -79,9 +82,9 @@ export function useMouseEvents({ cytoInstance }: UseMouseEventsProps): void {
   }, [cytoInstance])
 }
 
-export function useHighlightedPath({ cytoInstance }: UseMouseEventsProps): void {
-  const selectedBudgetId = useAppStore((state) => state.selectedBudgetId)
-  const setSelectedBudgetId = useAppStore((state) => state.setSelectedBudgetId)
+export function useHighlightedPath({ cytoInstance }: UseGraphFeatureProps): void {
+  const selectedScenarioId = useAppStore((state) => state.selectedScenarioId)
+  const setSelectedScenarioId = useAppStore((state) => state.setSelectedScenarioId)
   const pinnedPath = useAppStore((state) => state.pinnedPath)
   const setHighlightedPath = useAppStore((state) => state.setHighlightedPath)
 
@@ -90,14 +93,14 @@ export function useHighlightedPath({ cytoInstance }: UseMouseEventsProps): void 
       if (!cytoInstance) return
 
       // First, deselect the currently focused node
-      if (selectedBudgetId) {
-        cytoInstance.$id(selectedBudgetId).data('focused', false)
+      if (selectedScenarioId) {
+        cytoInstance.$id(selectedScenarioId).data('focused', false)
       }
 
       // Then, select the new node
       const node = event.target.data()
       cytoInstance.$id(node.id).data('focused', true)
-      setSelectedBudgetId(node.id)
+      setSelectedScenarioId(node.id)
 
       // Reset all highlights
       cytoInstance.elements().forEach((element) => {
@@ -132,10 +135,10 @@ export function useHighlightedPath({ cytoInstance }: UseMouseEventsProps): void 
     return (): void => {
       cytoInstance?.off('select', 'node', highlightScenarioPath)
     }
-  }, [cytoInstance, pinnedPath, selectedBudgetId, setHighlightedPath, setSelectedBudgetId])
+  }, [cytoInstance, pinnedPath, selectedScenarioId, setHighlightedPath, setSelectedScenarioId])
 }
 
-export function usePinnedPath({ cytoInstance }: UseMouseEventsProps): void {
+export function usePinnedPath({ cytoInstance }: UseGraphFeatureProps): void {
   const setPinnedPath = useAppStore((state) => state.setPinnedPath)
 
   useEffect(() => {
@@ -168,8 +171,8 @@ export function usePinnedPath({ cytoInstance }: UseMouseEventsProps): void {
   }, [cytoInstance, setPinnedPath])
 }
 
-export function useResetPaths({ cytoInstance }: UseMouseEventsProps): void {
-  const setSelectedBudgetId = useAppStore((state) => state.setSelectedBudgetId)
+export function useResetPaths({ cytoInstance }: UseGraphFeatureProps): void {
+  const setSelectedScenarioId = useAppStore((state) => state.setSelectedScenarioId)
   const setHighlightedPath = useAppStore((state) => state.setHighlightedPath)
   const setPinnedPath = useAppStore((state) => state.setPinnedPath)
 
@@ -198,7 +201,7 @@ export function useResetPaths({ cytoInstance }: UseMouseEventsProps): void {
       })
 
       // Update the store
-      setSelectedBudgetId('root')
+      setSelectedScenarioId('root')
       setHighlightedPath(['root'])
       setPinnedPath(null)
     }
@@ -208,5 +211,5 @@ export function useResetPaths({ cytoInstance }: UseMouseEventsProps): void {
     return (): void => {
       cytoInstance?.off('dblclick', deselectAndUnpinAll)
     }
-  }, [cytoInstance, setHighlightedPath, setPinnedPath, setSelectedBudgetId])
+  }, [cytoInstance, setHighlightedPath, setPinnedPath, setSelectedScenarioId])
 }

@@ -374,6 +374,7 @@ export const detailedScenarioMap: ScenarioMap = {
 
 export const simpleBudgetForest: BudgetForest = {
   root: {
+    id: 'root',
     name: 'Start',
     budgets: [
       {
@@ -394,6 +395,7 @@ export const simpleBudgetForest: BudgetForest = {
     ],
   },
   job1: {
+    id: 'job1',
     name: 'Job 1',
     budgets: [
       {
@@ -426,6 +428,7 @@ export const simpleBudgetForest: BudgetForest = {
     ],
   },
   job2: {
+    id: 'job2',
     name: 'Job 2',
     budgets: [
       {
@@ -458,6 +461,7 @@ export const simpleBudgetForest: BudgetForest = {
     ],
   },
   job3: {
+    id: 'job3',
     name: 'Job 3',
     budgets: [
       {
@@ -492,41 +496,41 @@ export const simpleBudgetForest: BudgetForest = {
 }
 
 export const detailedBudgetForest: BudgetForest = {
-  root: generateBudgetTree(detailedBudgetMap, 'Start', ['i-salary-start', 'i-other-start', 'e-living-start']),
-  'job-search': generateBudgetTree(detailedBudgetMap, 'Job Search', [
+  root: generateBudgetTree(detailedBudgetMap, 'root', 'Start', ['i-salary-start', 'i-other-start', 'e-living-start']),
+  'job-search': generateBudgetTree(detailedBudgetMap, 'job-search', 'Job Search', [
     'i-salary-job-search',
     'i-other-job-search',
     'e-living-job-search',
   ]),
-  'full-time': generateBudgetTree(detailedBudgetMap, 'Full Time', [
+  'full-time': generateBudgetTree(detailedBudgetMap, 'full-time', 'Full Time', [
     'i-salary-full-time',
     'i-other-full-time',
     'e-living-full-time',
   ]),
-  'full-time-rent': generateBudgetTree(detailedBudgetMap, 'Renting', [
+  'full-time-rent': generateBudgetTree(detailedBudgetMap, 'full-time-rent', 'Renting', [
     'i-salary-full-time-renting',
     'i-other-full-time-renting',
     'e-rent-full-time-renting',
     'e-living-full-time-renting',
   ]),
-  contract: generateBudgetTree(detailedBudgetMap, 'Contract', [
+  contract: generateBudgetTree(detailedBudgetMap, 'contract', 'Contract', [
     'i-salary-contract',
     'i-other-contract',
     'e-living-contract',
   ]),
-  'contract-rent': generateBudgetTree(detailedBudgetMap, 'Renting', [
+  'contract-rent': generateBudgetTree(detailedBudgetMap, 'contract-rent', 'Renting', [
     'i-salary-contract-renting',
     'i-other-contract-renting',
     'e-living-contract-renting',
     'e-rent-contract-renting',
   ]),
-  'contract-home': generateBudgetTree(detailedBudgetMap, 'Home', [
+  'contract-home': generateBudgetTree(detailedBudgetMap, 'contract-home', 'Home', [
     'i-salary-home',
     'i-other-home',
     'e-living-home',
     'e-mortgage-home',
   ]),
-  'contract-share-market': generateBudgetTree(detailedBudgetMap, 'Share Market', [
+  'contract-share-market': generateBudgetTree(detailedBudgetMap, 'contract-share-market', 'Share Market', [
     'i-salary-share-market',
     'i-other-share-market',
     'i-investments-deposit-share-market',
@@ -536,7 +540,7 @@ export const detailedBudgetForest: BudgetForest = {
   ]),
 }
 
-function generateBudgetTree(budgetMap: BudgetMap, name: string, budgetIds: string[]): BudgetTree {
+function generateBudgetTree(budgetMap: BudgetMap, id: string, name: string, budgetIds: string[]): BudgetTree {
   const incomeBudgetItems: BudgetItem = { id: 'income', name: 'Income', value: 0, children: [] }
   const expenseBudgetItems: BudgetItem = { id: 'expenses', name: 'Expenses', value: 0, children: [] }
 
@@ -550,6 +554,7 @@ function generateBudgetTree(budgetMap: BudgetMap, name: string, budgetIds: strin
   const totalExpenses = expenseBudgetItems.children!.reduce((acc, child) => acc + (child.value as number), 0)
 
   return {
+    id,
     name,
     budgets: [
       { ...incomeBudgetItems, value: totalIncome },

@@ -1,7 +1,7 @@
 import cy from 'cytoscape'
 import { saveAs } from 'file-saver'
 import { budgetForestSchema, budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schemas'
-import { BudgetForest, BudgetMap, BudgetTree, ScenarioMap, ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
+import { BudgetForest, BudgetMap, ScenarioMap, ScenarioStartEvents, TimeScrubberSelection, TimeSeriesData } from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData as convertScenarioPathToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
@@ -9,30 +9,37 @@ import { Period } from '@fire/forecast-engine'
 import { createStore } from './createStore'
 
 export interface AppState {
-  graphDefinition: cy.CytoscapeOptions['elements']
+  // Cytoscape instance
+  cytoInstance: cy.Core | null
+
+  // Application data
+  scenarioGraph: cy.ElementsDefinition
   scenarioMap: ScenarioMap
   budgetForest: BudgetForest
   budgetMap: BudgetMap
-  selectedBudgetId: string | null
-  selectedBudget: BudgetTree | null
-  selection: Selection
-  highlightedPlotData: TimeSeriesData
+
+  // Local UI state
+  selectedScenarioId: string | null
+  timeScrubberSelection: TimeScrubberSelection
   highlightedPath: string[]
-  pinnedPlotData: TimeSeriesData | null
+  highlightedPlotData: TimeSeriesData
   pinnedPath: string[] | null
+  pinnedPlotData: TimeSeriesData | null
   scenarioStartEvents: ScenarioStartEvents
 }
 
-export type AppLoadData = Pick<AppState, 'graphDefinition' | 'scenarioMap' | 'budgetForest' | 'budgetMap'>
+export type AppLoadData = Pick<AppState, 'scenarioGraph' | 'scenarioMap' | 'budgetForest' | 'budgetMap'>
 
 export type AppActions = {
+  setCytoInstance: (value: cy.Core | null) => void
   reset: () => void
   saveAs: () => void
   load: (data: AppLoadData) => void
-  setSelectedBudgetId: (value: string | null) => void
-  setSelection: (value: Selection) => void
+  setSelectedScenarioId: (value: string | null) => void
+  setTimeScrubberSelection: (value: TimeScrubberSelection) => void
   setHighlightedPath: (value: string[]) => void
   setPinnedPath: (value: string[] | null) => void
+  updateScenarioName: (id: string, value: string) => void
 }
 
 export type PluginStore = AppState & AppActions
@@ -40,13 +47,13 @@ export type PluginStore = AppState & AppActions
 const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 
 const initialState: AppState = {
-  graphDefinition: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
+  cytoInstance: null,
+  scenarioGraph: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
   scenarioMap: { root: { id: 'root', name: 'Initial budget', budgetIds: [], startDate: defaultPeriod.startDate } },
-  budgetForest: { root: { name: 'Initial budget', budgets: [] } },
+  budgetForest: { root: { id: 'root', name: 'Initial budget', budgets: [] } },
   budgetMap: {},
-  selectedBudgetId: null,
-  selectedBudget: null,
-  selection: [0, 100],
+  selectedScenarioId: null,
+  timeScrubberSelection: [0, 100],
   highlightedPlotData: [],
   highlightedPath: [],
   pinnedPlotData: null,
@@ -56,41 +63,76 @@ const initialState: AppState = {
 
 export const useAppStore = createStore<PluginStore>((set, get) => ({
   ...initialState,
+
+  setCytoInstance: (value: cy.Core | null): void => {
+    set({ cytoInstance: value })
+  },
+
   reset(): void {
     set(initialState)
   },
+
   load(data): void {
     if (isAppDataValid(data)) {
       set({ ...data })
     } else {
-      // Todo: show an error toast message
+      // Todo: fail gracefully, show an error toast message
       console.error('Invalid data')
     }
   },
+
   saveAs(): void {
-    const { graphDefinition, scenarioMap, budgetForest, budgetMap } = get()
-    const data = { graphDefinition, scenarioMap, budgetForest, budgetMap }
+    const { scenarioGraph, scenarioMap, budgetForest, budgetMap } = get()
+    const data = { scenarioGraph, scenarioMap, budgetForest, budgetMap }
     const file = new Blob([JSON.stringify(data)], { type: 'application/json;charset=utf-8' })
     saveAs(file, 'barefoot_fire.json') // <-- Use a library to handle all the edge cases
   },
-  setSelectedBudgetId: (value: string | null): void => {
-    set({ selectedBudgetId: value, selectedBudget: get().budgetForest[value || ''] })
+
+  setSelectedScenarioId: (value: string | null): void => {
+    set({ selectedScenarioId: value })
   },
-  setSelection: (value: Selection): void => {
-    set({ selection: value })
+
+  setTimeScrubberSelection: (value: TimeScrubberSelection): void => {
+    set({ timeScrubberSelection: value })
   },
+
   setHighlightedPath: (scenarioIds: string[]): void => {
     const { scenarioMap, budgetMap } = get()
     const scenarioPath = buildScenarioPath(scenarioIds, scenarioMap, budgetMap, defaultPeriod)
     const newPlotData = convertScenarioPathToPlotData(scenarioPath, 'highlighted')
     set({ highlightedPlotData: newPlotData || [], scenarioStartEvents: scenarioPath.scenarioStartEvents })
   },
+
   setPinnedPath: (scenarioIds: string[] | null): void => {
     const { scenarioMap, budgetMap } = get()
     const scenarioPath = scenarioIds ? buildScenarioPath(scenarioIds, scenarioMap, budgetMap, defaultPeriod) : null
     const newPlotData = scenarioPath ? convertScenarioPathToPlotData(scenarioPath, 'pinned') : null
     // Todo: merge the scenarioStartEvents
     set({ pinnedPath: scenarioIds, pinnedPlotData: newPlotData })
+  },
+
+  updateScenarioName: (id: string, value: string): void => {
+    const { cytoInstance, budgetForest, scenarioMap } = get()
+
+    // Regenerate the budget map
+    const newScenarioMap = { ...scenarioMap, [id]: { ...scenarioMap[id], name: value } }
+
+    // Regenerate the budget forest
+    const newBudgetForest = { ...budgetForest, [id]: { ...budgetForest[id], name: value } }
+
+    // Update the graph node name
+    const newScenarioGraph = get().scenarioGraph
+    const node = newScenarioGraph.nodes.find((node) => node.data.id === id)
+    if (node) {
+      node.data.name = value
+      cytoInstance?.$id(node.data.id || '')?.data('name', value)
+    }
+
+    set({
+      scenarioGraph: newScenarioGraph,
+      scenarioMap: newScenarioMap,
+      budgetForest: newBudgetForest,
+    })
   },
 }))
 
@@ -110,26 +152,24 @@ export function isAppDataValid(data: AppLoadData): boolean {
     return false
   }
 
-  if (graphDefinitionSchema.safeParse(data.graphDefinition).error) {
+  if (graphDefinitionSchema.safeParse(data.scenarioGraph).error) {
     console.error('Graph definition is invalid')
     return false
   }
 
-  // Todo: narrow down the type of data
-  // @ts-expect-error - data is not typed
-  const graphNodeKeys = data.graphDefinition!.nodes.map((node) => node.data.id)
-  const scenarioKeys = Object.keys(data.scenarioMap)
+  const scenarioGraphKeys = data.scenarioGraph.nodes.map((node) => node.data.id)
+  const scenarioMapKeys = Object.keys(data.scenarioMap)
 
   // Ensure that the graph nodes and scenario keys match
-  if (graphNodeKeys.length !== scenarioKeys.length) {
+  if (scenarioGraphKeys.length !== scenarioMapKeys.length) {
     console.error('Graph nodes and scenario keys do not match')
     return false
   }
 
   // Ensure that the graph nodes and scenario keys match
-  if (!scenarioKeys.every((key) => graphNodeKeys.includes(key))) {
+  if (!scenarioMapKeys.every((key) => scenarioGraphKeys.includes(key))) {
     console.error('Graph nodes and scenario keys do not match')
-    console.error({ graphNodeKeys, scenarioKeys })
+    console.error({ scenarioGraphKeys, scenarioKeys: scenarioMapKeys })
     return false
   }
 

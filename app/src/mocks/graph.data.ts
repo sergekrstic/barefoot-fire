@@ -1,6 +1,6 @@
 import cy from 'cytoscape'
 
-export const mockGraphData: cy.CytoscapeOptions['elements'] = {
+export const mockGraphData: cy.ElementsDefinition = {
   nodes: [
     { data: { id: 'root', name: 'Start' } },
     { data: { id: 'job1', name: 'Job 1' } },
@@ -14,7 +14,7 @@ export const mockGraphData: cy.CytoscapeOptions['elements'] = {
   ],
 }
 
-export const mockRepresentativeGraphData: cy.CytoscapeOptions['elements'] = {
+export const mockRepresentativeGraphData: cy.ElementsDefinition = {
   nodes: [
     { data: { id: 'root', name: 'Start' } },
     { data: { id: 'job-search', name: 'Job Search' } },

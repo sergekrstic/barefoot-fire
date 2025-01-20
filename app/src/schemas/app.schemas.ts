@@ -28,6 +28,7 @@ export const budgetItemSchema: z.ZodType<BudgetItem> = baseBudgetItemSchema.exte
 })
 
 export const budgetTreeSchema = z.object({
+  id: z.string(),
   name: z.string(),
   budgets: budgetItemSchema.array(),
 })

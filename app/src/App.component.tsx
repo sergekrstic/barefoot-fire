@@ -12,7 +12,7 @@ export function App(): React.JSX.Element {
 
   useEffect(() => {
     load({
-      graphDefinition: deepCloneData(appData.graphDefinition),
+      scenarioGraph: deepCloneData(appData.scenarioGraph),
       scenarioMap: deepCloneData(appData.scenarioMap),
       budgetForest: deepCloneData(appData.budgetForest),
       budgetMap: deepCloneData(appData.budgetMap),
