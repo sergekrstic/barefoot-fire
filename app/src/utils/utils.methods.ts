@@ -1,4 +1,6 @@
+import { ClassValue, clsx } from 'clsx'
 import moment from 'moment'
+import { twMerge } from 'tailwind-merge'
 import { BudgetItem, BudgetMap, Interval, ScenarioMap, ScenarioPath, ScenarioStartEvents, TimeSeriesData } from 'types'
 
 import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
@@ -204,4 +206,12 @@ export function createBudgetItems(budgetMap: BudgetMap, budgetIds: string[]): Bu
       value: budget.amount,
     }
   })
+}
+
+export function cn(...inputs: ClassValue[]): string {
+  return twMerge(clsx(inputs))
+}
+
+export function formatTransactionValue(value: number): string {
+  return value >= 0 ? value.toFixed(0).toString() : `(${Math.abs(value).toFixed(0)})`
 }

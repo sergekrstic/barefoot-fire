@@ -19,6 +19,7 @@
   "dependencies": {
     "@fire/forecast-engine": "workspace:^",
     "@floating-ui/react": "^0.27.3",
+    "clsx": "^2.1.1",
     "cytoscape": "^3.31.0",
     "cytoscape-all-paths": "^0.1.0",
     "cytoscape-tidytree": "^0.2.0",
@@ -30,6 +31,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-resizable-panels": "^2.1.7",
+    "tailwind-merge": "^2.6.0",
     "use-file-picker": "^2.1.2",
     "zod": "^3.24.1",
     "zustand": "^5.0.3"
