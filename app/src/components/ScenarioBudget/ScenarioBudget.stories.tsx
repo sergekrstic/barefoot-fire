@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { simpleBudgetForest } from 'mocks'
+import { simpleScenarioMap } from 'mocks'
 
 import { ScenarioBudget } from './ScenarioBudget.component'
 
@@ -14,6 +14,6 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    budgetTree: simpleBudgetForest['job1'],
+    budgetTree: simpleScenarioMap['job1'],
   },
 }

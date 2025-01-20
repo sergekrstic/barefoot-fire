@@ -1,4 +1,4 @@
-import { BudgetMap, Forest, ScenarioMap, TimeSeriesData } from 'types'
+import { BudgetMap, ScenarioMap, TimeSeriesData } from 'types'
 import { convertScenarioBudgetsToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
@@ -651,79 +651,7 @@ export const detailedBudgetMap: BudgetMap = {
 // Scenarios
 // #############################################################################
 
-export const detailedScenarioMap: ScenarioMap = {
-  root: {
-    id: 'root',
-    name: 'Start',
-    startDate: period.start.startDate,
-    budgetIds: ['i-salary-start', 'i-other-start', 'e-living-start'],
-  },
-  'job-search': {
-    id: 'job-search',
-    name: 'Job Search',
-    startDate: period.jobSearch.startDate,
-    budgetIds: ['i-salary-job-search', 'i-other-job-search', 'e-living-job-search'],
-  },
-  'full-time': {
-    id: 'full-time',
-    name: 'Full Time',
-    startDate: period.fullTime.startDate,
-    budgetIds: ['i-salary-full-time', 'i-other-full-time', 'e-living-full-time'],
-  },
-  contract: {
-    id: 'contract',
-    name: 'Contract',
-    startDate: period.contract.startDate,
-    budgetIds: ['i-salary-contract', 'i-other-contract', 'e-living-contract'],
-  },
-  'full-time-rent': {
-    id: 'full-time-rent',
-    name: 'Renting',
-    startDate: period.fullTimeRenting.startDate,
-    budgetIds: [
-      'i-salary-full-time-renting',
-      'i-other-full-time-renting',
-      'e-rent-full-time-renting',
-      'e-living-full-time-renting',
-    ],
-  },
-  'contract-rent': {
-    id: 'contract-rent',
-    name: 'Renting',
-    startDate: period.contractRenting.startDate,
-    budgetIds: [
-      'i-salary-contract-renting',
-      'i-other-contract-renting',
-      'e-living-contract-renting',
-      'e-rent-contract-renting',
-    ],
-  },
-  'contract-home': {
-    id: 'home',
-    name: 'Home',
-    startDate: period.home.startDate,
-    budgetIds: ['i-salary-home', 'i-other-home', 'e-mortgage-home', 'e-living-home'],
-  },
-  'contract-share-market': {
-    id: 'contract-share-market',
-    name: 'Share Market',
-    startDate: period.shareMarket.startDate,
-    budgetIds: [
-      'i-salary-share-market',
-      'i-other-share-market',
-      'i-investments-deposit-share-market',
-      'e-investments-transfer-share-market',
-      'e-rent-share-market',
-      'e-living-share-market',
-    ],
-  },
-}
-
-// #############################################################################
-// Budget forest
-// #############################################################################
-
-export const simpleBudgetForest: Forest = {
+export const simpleScenarioMap: ScenarioMap = {
   root: {
     id: 'root',
     name: 'Start',
@@ -807,7 +735,7 @@ export const simpleBudgetForest: Forest = {
   },
 }
 
-export const detailedBudgetForest: Forest = {
+export const detailedScenarioMap: ScenarioMap = {
   root: {
     id: 'root',
     name: 'Start',

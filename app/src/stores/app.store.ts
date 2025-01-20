@@ -1,15 +1,7 @@
 import cy from 'cytoscape'
 import { saveAs } from 'file-saver'
 import { budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schemas'
-import {
-  // BudgetForest,
-  BudgetMap,
-  Forest,
-  ScenarioMap,
-  ScenarioStartEvents,
-  TimeScrubberSelection,
-  TimeSeriesData,
-} from 'types'
+import { BudgetMap, ScenarioMap, ScenarioStartEvents, TimeScrubberSelection, TimeSeriesData } from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData as convertScenarioPathToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
@@ -23,7 +15,6 @@ export interface AppState {
   // Application data
   scenarioGraph: cy.ElementsDefinition
   scenarioMap: ScenarioMap
-  budgetForest: Forest // BudgetForest
   budgetMap: BudgetMap
 
   // Local UI state
@@ -36,7 +27,7 @@ export interface AppState {
   scenarioStartEvents: ScenarioStartEvents
 }
 
-export type AppLoadData = Pick<AppState, 'scenarioGraph' | 'scenarioMap' | 'budgetForest' | 'budgetMap'>
+export type AppLoadData = Pick<AppState, 'scenarioGraph' | 'scenarioMap' | 'budgetMap'>
 
 export type AppActions = {
   // Cytoscape instance
@@ -52,7 +43,11 @@ export type AppActions = {
   setTimeScrubberSelection: (value: TimeScrubberSelection) => void
   setHighlightedPath: (value: string[]) => void
   setPinnedPath: (value: string[] | null) => void
+
+  // Editing actions
   updateScenarioName: (id: string, value: string) => void
+  updateBudgetName: (id: string, value: string) => void
+  updateBudgetAmount: (id: string, value: number) => void
 }
 
 export type PluginStore = AppState & AppActions
@@ -65,8 +60,7 @@ const initialState: AppState = {
 
   // Application data
   scenarioGraph: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
-  scenarioMap: { root: { id: 'root', name: 'Initial budget', budgetIds: [], startDate: defaultPeriod.startDate } },
-  budgetForest: { root: { id: 'root', name: 'Initial budget', startDate: defaultPeriod.startDate, budgets: [] } },
+  scenarioMap: { root: { id: 'root', name: 'Initial budget', startDate: defaultPeriod.startDate, budgets: [] } },
   budgetMap: {},
 
   // Local UI state
@@ -100,8 +94,8 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   },
 
   saveAs(): void {
-    const { scenarioGraph, scenarioMap, budgetForest, budgetMap } = get()
-    const data = { scenarioGraph, scenarioMap, budgetForest, budgetMap }
+    const { scenarioGraph, scenarioMap, budgetMap } = get()
+    const data = { scenarioGraph, scenarioMap, budgetMap }
     const file = new Blob([JSON.stringify(data)], { type: 'application/json;charset=utf-8' })
     saveAs(file, 'barefoot_fire.json') // <-- Use a library to handle all the edge cases
   },
@@ -130,13 +124,10 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   },
 
   updateScenarioName: (id: string, value: string): void => {
-    const { cytoInstance, budgetForest, scenarioMap } = get()
+    const { cytoInstance, scenarioMap } = get()
 
     // Regenerate the budget map
     const newScenarioMap = { ...scenarioMap, [id]: { ...scenarioMap[id], name: value } }
-
-    // Regenerate the budget forest
-    const newBudgetForest = { ...budgetForest, [id]: { ...budgetForest[id], name: value } }
 
     // Update the graph node name
     const newScenarioGraph = get().scenarioGraph
@@ -149,19 +140,31 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
     set({
       scenarioGraph: newScenarioGraph,
       scenarioMap: newScenarioMap,
-      budgetForest: newBudgetForest,
     })
+  },
+
+  updateBudgetName: (id: string, value: string): void => {
+    const { budgetMap } = get()
+    const newBudgetMap = { ...budgetMap, [id]: { ...budgetMap[id], name: value } }
+    set({ budgetMap: newBudgetMap })
+  },
+
+  updateBudgetAmount: (id: string, value: number): void => {
+    const { budgetMap } = get()
+    const newBudgetMap = { ...budgetMap, [id]: { ...budgetMap[id], amount: Number(value) } }
+    set({ budgetMap: newBudgetMap })
+
+    // Todo: figure out how to update the plot data
+    // const { scenarioMap, pinnedPath } = get()
+    // const scenarioPath = pinnedPath ? buildScenarioPath(pinnedPath, scenarioMap, budgetMap, defaultPeriod) : null
+    // const newPlotData = scenarioPath ? convertScenarioPathToPlotData(scenarioPath, 'pinned') : null
+    // set({ budgetMap: newBudgetMap, pinnedPlotData: newPlotData, pinnedPath })
   },
 }))
 
 export function isAppDataValid(data: AppLoadData): boolean {
-  // if (budgetForestSchema.safeParse(data.budgetForest).error) {
-  //   console.error('Budget forest is invalid')
-  //   return false
-  // }
-
-  if (budgetMapSchema.safeParse(data.budgetMap).error) {
-    console.error('Budget map is invalid')
+  if (graphDefinitionSchema.safeParse(data.scenarioGraph).error) {
+    console.error('Graph definition is invalid')
     return false
   }
 
@@ -170,8 +173,8 @@ export function isAppDataValid(data: AppLoadData): boolean {
     return false
   }
 
-  if (graphDefinitionSchema.safeParse(data.scenarioGraph).error) {
-    console.error('Graph definition is invalid')
+  if (budgetMapSchema.safeParse(data.budgetMap).error) {
+    console.error('Budget map is invalid')
     return false
   }
 

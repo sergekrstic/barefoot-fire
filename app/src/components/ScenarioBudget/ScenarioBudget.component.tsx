@@ -1,12 +1,12 @@
 import { CollapsibleTree } from 'components'
 import { useAppStore } from 'stores'
-import { TreeData, TreeGroup } from 'types'
+import { Scenario, TreeData } from 'types'
 
 import { ScenarioBudgetItem } from './components'
 import { EditableText } from './components/ScenarioBudgetItem/EditableText.component'
 
 export interface ScenarioBudgetProps {
-  budgetTree: TreeGroup | null
+  budgetTree: Scenario | null
 }
 
 export function ScenarioBudget({ budgetTree }: ScenarioBudgetProps): React.JSX.Element {

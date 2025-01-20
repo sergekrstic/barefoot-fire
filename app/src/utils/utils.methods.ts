@@ -1,7 +1,16 @@
 import { ClassValue, clsx } from 'clsx'
 import moment from 'moment'
 import { twMerge } from 'tailwind-merge'
-import { BudgetItem, BudgetMap, Interval, ScenarioMap, ScenarioPath, ScenarioStartEvents, TimeSeriesData } from 'types'
+import {
+  BudgetMap,
+  Interval,
+  Scenario,
+  ScenarioMap,
+  ScenarioPath,
+  ScenarioStartEvents,
+  TimeSeriesData,
+  TreeData,
+} from 'types'
 
 import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
 
@@ -175,7 +184,8 @@ export function buildScenarioPath(
     const scenario = scenarioMap[scenarioId]
     const nextScenario = scenarioMap[scenarioIds[index + 1]]
 
-    const clonedBudgets = scenario.budgetIds.map((id) => ({ ...budgetMap[id] }))
+    // Traverse the budget tree and clone the budgets
+    const clonedBudgets: Budget[] = retrieveBudgetsFromScenario(scenario, budgetMap)
 
     // If there is a next scenario, adjust the end date of the current scenario
     if (nextScenario) {
@@ -197,7 +207,29 @@ export function buildScenarioPath(
   }
 }
 
-export function createBudgetItems(budgetMap: BudgetMap, budgetIds: string[]): BudgetItem[] {
+function retrieveBudgetsFromScenario(scenario: Scenario, budgetMap: BudgetMap): Budget[] {
+  const retrievedBudgets: Budget[] = []
+
+  const retrieveBudgets = (tree: TreeData): void => {
+    if (tree.children) {
+      tree.children.forEach((child) => {
+        retrieveBudgets(child)
+      })
+    } else {
+      const budget = budgetMap[tree.id]
+      retrievedBudgets.push(deepCloneData(budget))
+    }
+  }
+
+  scenario.budgets.forEach((tree) => {
+    retrieveBudgets(tree)
+  })
+
+  return retrievedBudgets
+}
+
+// Todo: Deprecate this function
+export function createBudgetItems(budgetMap: BudgetMap, budgetIds: string[]): TreeData[] {
   return budgetIds.map((id) => {
     const budget = budgetMap[id]
     return {

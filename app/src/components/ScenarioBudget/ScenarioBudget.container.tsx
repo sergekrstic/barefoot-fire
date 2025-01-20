@@ -4,7 +4,7 @@ import { ScenarioBudget as ScenarioBudgetComponent } from './ScenarioBudget.comp
 
 export function ScenarioBudget(): React.JSX.Element {
   const selectedScenarioId = useAppStore((state) => state.selectedScenarioId)
-  const selectedBudget = useAppStore((state) => (selectedScenarioId ? state.budgetForest[selectedScenarioId] : null))
+  const selectedBudget = useAppStore((state) => (selectedScenarioId ? state.scenarioMap[selectedScenarioId] : null))
 
   return <ScenarioBudgetComponent budgetTree={selectedBudget} />
 }

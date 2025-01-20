@@ -14,7 +14,6 @@ export function App(): React.JSX.Element {
     load({
       scenarioGraph: deepCloneData(appData.scenarioGraph),
       scenarioMap: deepCloneData(appData.scenarioMap),
-      budgetForest: deepCloneData(appData.budgetForest),
       budgetMap: deepCloneData(appData.budgetMap),
     })
   }, [load])
