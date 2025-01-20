@@ -1,15 +1,15 @@
-import { Selection, TimeSeriesData } from 'types'
+import { TimeScrubberSelection, TimeSeriesData } from 'types'
 import { describe, expect, it } from 'vitest'
 
 import { filterTimeseries } from './ScenarioChart.methods'
 
 describe('@filterData()', () => {
-  const fullSelection: Selection = [0, 100]
-  const lowSelection: Selection = [0, 50]
-  const highSelection: Selection = [50, 100]
-  const partialSelection: Selection = [25, 75]
-  const zeroSelection: Selection = [0, 0]
-  const oneHundredSelection: Selection = [100, 100]
+  const fullSelection: TimeScrubberSelection = [0, 100]
+  const lowSelection: TimeScrubberSelection = [0, 50]
+  const highSelection: TimeScrubberSelection = [50, 100]
+  const partialSelection: TimeScrubberSelection = [25, 75]
+  const zeroSelection: TimeScrubberSelection = [0, 0]
+  const oneHundredSelection: TimeScrubberSelection = [100, 100]
 
   const mockPlotData: TimeSeriesData = [
     { date: '2025-01-01', amount: 100, name: 'selected' },

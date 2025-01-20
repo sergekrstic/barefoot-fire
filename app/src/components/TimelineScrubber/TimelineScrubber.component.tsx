@@ -1,14 +1,14 @@
 import * as Plot from '@observablehq/plot'
 import { ResponsiveContainer } from 'components'
-import { Selection } from 'types'
+import { TimeScrubberSelection } from 'types'
 
 import { TimelineAreaChart, TimelineDifferenceChart, TimelineSelector } from './components'
 
 export interface TimelineScrubberProps {
   type: 'area' | 'difference'
   data?: Plot.Data
-  selection: Selection
-  onUpdateSelection?: (selection: Selection) => void
+  selection: TimeScrubberSelection
+  onUpdateSelection?: (selection: TimeScrubberSelection) => void
 }
 
 export function TimelineScrubber({

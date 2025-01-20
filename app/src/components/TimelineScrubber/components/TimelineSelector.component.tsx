@@ -2,14 +2,14 @@ import { useRef } from 'react'
 
 import { DragVerticalIcon } from 'assets'
 import { ImperativePanelHandle, Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
-import { Selection } from 'types'
+import { TimeScrubberSelection } from 'types'
 
 import { useResizeSelection } from './TimelineSelector.hooks'
 
 export interface TimelineSelectorProps {
   disabled?: boolean
-  selection: Selection
-  onUpdateSelection?: (selection: Selection) => void
+  selection: TimeScrubberSelection
+  onUpdateSelection?: (selection: TimeScrubberSelection) => void
 }
 
 export function TimelineSelector({

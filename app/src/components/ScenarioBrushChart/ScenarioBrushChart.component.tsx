@@ -6,8 +6,8 @@ import { useAppStore } from 'stores'
 import { preprocessPlotData } from 'utils'
 
 export function ScenarioBrushChart(): React.JSX.Element {
-  const selection = useAppStore((state) => state.selection)
-  const setSelection = useAppStore((state) => state.setSelection)
+  const timeScrubberSelection = useAppStore((state) => state.timeScrubberSelection)
+  const setTimeScrubberSelection = useAppStore((state) => state.setTimeScrubberSelection)
   const scenarioStartEvents = useAppStore((state) => state.scenarioStartEvents)
   const highlightedPlotData = useAppStore((state) => state.highlightedPlotData)
   const pinnedPlotData = useAppStore((state) => state.pinnedPlotData)
@@ -28,14 +28,14 @@ export function ScenarioBrushChart(): React.JSX.Element {
       <TimelineScrubber
         type={pinnedPlotData ? 'difference' : 'area'}
         data={processedPlotData}
-        selection={selection}
-        onUpdateSelection={setSelection}
+        selection={timeScrubberSelection}
+        onUpdateSelection={setTimeScrubberSelection}
       />
       <ScenarioChart
         type={pinnedPlotData ? 'difference' : 'area'}
         timeseries={processedPlotData}
         scenarioEvents={scenarioStartEvents}
-        selection={selection}
+        selection={timeScrubberSelection}
       />
     </>
   )

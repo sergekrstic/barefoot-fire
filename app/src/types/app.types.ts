@@ -32,7 +32,7 @@ export type ScenarioMap = z.infer<typeof scenarioMapSchema>
 // It is used to determine the interval of the plot data
 export type Interval = 'year' | 'month' | 'week'
 
-export type Selection = [number, number]
+export type TimeScrubberSelection = [number, number]
 
 export type ScenarioStartEvents = Array<{ date: string; name: string }>
 

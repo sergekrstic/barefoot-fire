@@ -1,14 +1,14 @@
 import { MouseEvent, useCallback, useEffect, useState } from 'react'
 
 import { ImperativePanelHandle } from 'react-resizable-panels'
-import { Selection } from 'types'
+import { TimeScrubberSelection } from 'types'
 
 export interface ResizeSelectionArgs {
   disabled?: boolean
   leftPanelRef: React.RefObject<ImperativePanelHandle | null>
   rightPanelRef: React.RefObject<ImperativePanelHandle | null>
-  selection: Selection
-  onUpdateSelection?: (selection: Selection) => void
+  selection: TimeScrubberSelection
+  onUpdateSelection?: (selection: TimeScrubberSelection) => void
 }
 
 export interface ResizeSelection {

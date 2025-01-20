@@ -1,9 +1,9 @@
-import { ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
+import { ScenarioStartEvents, TimeScrubberSelection, TimeSeriesData } from 'types'
 
 // Design decision:
 //  - Only filter arrays with more than 2 elements.
 //  - A line chart with less than 2 data points is not useful.
-export function filterTimeseries(timeseries: TimeSeriesData, selection: Selection): TimeSeriesData {
+export function filterTimeseries(timeseries: TimeSeriesData, selection: TimeScrubberSelection): TimeSeriesData {
   if (timeseries.length <= 2) return timeseries
 
   const [startPercent, endPercent] = selection

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { ResponsiveContainer } from 'components'
-import { ScenarioStartEvents, Selection, TimeSeriesData } from 'types'
+import { ScenarioStartEvents, TimeScrubberSelection, TimeSeriesData } from 'types'
 
 import { AreaChart } from './AreaChart.component'
 import { DifferenceChart } from './DifferenceChart.component'
@@ -11,7 +11,7 @@ export interface ScenarioChartV2Props {
   type: 'area' | 'difference'
   timeseries: TimeSeriesData
   scenarioEvents: ScenarioStartEvents
-  selection: Selection
+  selection: TimeScrubberSelection
 }
 
 export function ScenarioChart({
