@@ -13,6 +13,15 @@ export const treeDataSchema: z.ZodType<TreeData> = baseTreeDataSchema.extend({
   children: z.lazy(() => treeDataSchema.array().optional()),
 })
 
+// Todo: finalise this schema
+export const treeGroupSchema = z.object({
+  id: z.string(), // <-- Rename this to scenarioId
+  budgets: treeDataSchema.array(),
+})
+
+// Todo: finalise this schema
+export const forestSchema = z.record(treeGroupSchema)
+
 const baseBudgetItemSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -27,12 +36,14 @@ export const budgetItemSchema: z.ZodType<BudgetItem> = baseBudgetItemSchema.exte
   children: z.lazy(() => budgetItemSchema.array().optional()),
 })
 
+// Todo: remove this schema
 export const budgetTreeSchema = z.object({
   id: z.string(),
   name: z.string(),
   budgets: budgetItemSchema.array(),
 })
 
+// Todo: remove this schema
 export const budgetForestSchema = z.record(budgetTreeSchema)
 
 export const budgetSchema = z.object({

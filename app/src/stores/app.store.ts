@@ -31,10 +31,15 @@ export interface AppState {
 export type AppLoadData = Pick<AppState, 'scenarioGraph' | 'scenarioMap' | 'budgetForest' | 'budgetMap'>
 
 export type AppActions = {
+  // Cytoscape instance
   setCytoInstance: (value: cy.Core | null) => void
+
+  // Application data actions
   reset: () => void
   saveAs: () => void
   load: (data: AppLoadData) => void
+
+  // Local UI state actions
   setSelectedScenarioId: (value: string | null) => void
   setTimeScrubberSelection: (value: TimeScrubberSelection) => void
   setHighlightedPath: (value: string[]) => void
@@ -47,17 +52,22 @@ export type PluginStore = AppState & AppActions
 const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 
 const initialState: AppState = {
+  // Cytoscape instance
   cytoInstance: null,
+
+  // Application data
   scenarioGraph: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
   scenarioMap: { root: { id: 'root', name: 'Initial budget', budgetIds: [], startDate: defaultPeriod.startDate } },
   budgetForest: { root: { id: 'root', name: 'Initial budget', budgets: [] } },
   budgetMap: {},
+
+  // Local UI state
   selectedScenarioId: null,
   timeScrubberSelection: [0, 100],
-  highlightedPlotData: [],
   highlightedPath: [],
-  pinnedPlotData: null,
+  highlightedPlotData: [],
   pinnedPath: null,
+  pinnedPlotData: null,
   scenarioStartEvents: [], // <-- contains the start date of each scenario in the both highlight and pinned paths
 }
 
