@@ -1,12 +1,12 @@
 import { CollapsibleTree } from 'components'
 import { useAppStore } from 'stores'
-import { BudgetItem, BudgetTree } from 'types'
+import { TreeData, TreeGroup } from 'types'
 
 import { ScenarioBudgetItem } from './components'
 import { EditableText } from './components/ScenarioBudgetItem/EditableText.component'
 
 export interface ScenarioBudgetProps {
-  budgetTree: BudgetTree | null
+  budgetTree: TreeGroup | null
 }
 
 export function ScenarioBudget({ budgetTree }: ScenarioBudgetProps): React.JSX.Element {
@@ -29,8 +29,8 @@ export function ScenarioBudget({ budgetTree }: ScenarioBudgetProps): React.JSX.E
             expanded={true}
             parentContainerClasses="cursor-pointer hover:bg-slate-800 px-4"
             childContainerClasses="cursor-default px-4"
-            renderCollapsibleItemContent={(item) => <ScenarioBudgetItem type="parent" item={item as BudgetItem} />}
-            renderLeafItemContent={(item) => <ScenarioBudgetItem type="leaf" item={item as BudgetItem} />}
+            renderCollapsibleItemContent={(item) => <ScenarioBudgetItem id={(item as TreeData).id} type="parent" />}
+            renderLeafItemContent={(item) => <ScenarioBudgetItem id={(item as TreeData).id} type="leaf" />}
           />
         </div>
       )}

@@ -1,1 +1,1 @@
-export * from './ScenarioBudgetItem.component'
+export * from './ScenarioBudgetItem.container'

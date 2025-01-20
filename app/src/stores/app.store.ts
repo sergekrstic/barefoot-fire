@@ -1,7 +1,15 @@
 import cy from 'cytoscape'
 import { saveAs } from 'file-saver'
-import { budgetForestSchema, budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schemas'
-import { BudgetForest, BudgetMap, ScenarioMap, ScenarioStartEvents, TimeScrubberSelection, TimeSeriesData } from 'types'
+import { budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schemas'
+import {
+  // BudgetForest,
+  BudgetMap,
+  Forest,
+  ScenarioMap,
+  ScenarioStartEvents,
+  TimeScrubberSelection,
+  TimeSeriesData,
+} from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData as convertScenarioPathToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
@@ -15,7 +23,7 @@ export interface AppState {
   // Application data
   scenarioGraph: cy.ElementsDefinition
   scenarioMap: ScenarioMap
-  budgetForest: BudgetForest
+  budgetForest: Forest // BudgetForest
   budgetMap: BudgetMap
 
   // Local UI state
@@ -58,7 +66,7 @@ const initialState: AppState = {
   // Application data
   scenarioGraph: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
   scenarioMap: { root: { id: 'root', name: 'Initial budget', budgetIds: [], startDate: defaultPeriod.startDate } },
-  budgetForest: { root: { id: 'root', name: 'Initial budget', budgets: [] } },
+  budgetForest: { root: { id: 'root', name: 'Initial budget', startDate: defaultPeriod.startDate, budgets: [] } },
   budgetMap: {},
 
   // Local UI state
@@ -147,10 +155,10 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
 }))
 
 export function isAppDataValid(data: AppLoadData): boolean {
-  if (budgetForestSchema.safeParse(data.budgetForest).error) {
-    console.error('Budget forest is invalid')
-    return false
-  }
+  // if (budgetForestSchema.safeParse(data.budgetForest).error) {
+  //   console.error('Budget forest is invalid')
+  //   return false
+  // }
 
   if (budgetMapSchema.safeParse(data.budgetMap).error) {
     console.error('Budget map is invalid')

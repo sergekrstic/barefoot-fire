@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { mockGraphData } from 'mocks'
+import { simpleScenarioGraph } from 'mocks'
 
 import { ScenarioGraph } from './ScenarioGraph.component'
 
@@ -13,7 +13,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: { data: mockGraphData },
+  args: { data: simpleScenarioGraph },
   render: (props) => (
     <div className="h-screen w-screen">
       <ScenarioGraph {...props} />

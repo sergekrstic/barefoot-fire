@@ -1,9 +1,9 @@
 import {
-  budgetForestSchema,
+  // budgetForestSchema,
   budgetItemSchema,
   budgetMapSchema,
   budgetSchema,
-  budgetTreeSchema,
+  // budgetTreeSchema,
   forestSchema,
   scenarioMapSchema,
   scenarioSchema,
@@ -16,19 +16,19 @@ import { Period } from '@fire/forecast-engine'
 
 export type TreeData = z.infer<typeof treeDataSchema>
 
-// Todo: remove this schema
+// Todo: finalise this schema
 export type TreeGroup = z.infer<typeof treeGroupSchema>
 
-// Todo: remove this schema
+// Todo: finalise this schema
 export type Forest = z.infer<typeof forestSchema>
 
 export type BudgetItem = z.infer<typeof budgetItemSchema>
 
 // Todo: remove this schema
-export type BudgetTree = z.infer<typeof budgetTreeSchema>
+// export type BudgetTree = z.infer<typeof budgetTreeSchema>
 
 // Todo: remove this schema
-export type BudgetForest = z.infer<typeof budgetForestSchema>
+// export type BudgetForest = z.infer<typeof budgetForestSchema>
 
 export type Budget = z.infer<typeof budgetSchema>
 

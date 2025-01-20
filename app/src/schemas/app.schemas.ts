@@ -16,6 +16,8 @@ export const treeDataSchema: z.ZodType<TreeData> = baseTreeDataSchema.extend({
 // Todo: finalise this schema
 export const treeGroupSchema = z.object({
   id: z.string(), // <-- Rename this to scenarioId
+  name: z.string(),
+  startDate: z.string(),
   budgets: treeDataSchema.array(),
 })
 

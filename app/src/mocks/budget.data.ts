@@ -1,5 +1,5 @@
-import { BudgetForest, BudgetItem, BudgetMap, BudgetTree, Forest, ScenarioMap, TimeSeriesData } from 'types'
-import { convertScenarioBudgetsToPlotData, createBudgetItems } from 'utils'
+import { BudgetMap, Forest, ScenarioMap, TimeSeriesData } from 'types'
+import { convertScenarioBudgetsToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
 
@@ -56,6 +56,245 @@ const period: Record<string, Period> = {
 // #############################################################################
 // Budgets
 // #############################################################################
+
+export const simpleBudgetMap: BudgetMap = {
+  // =========================================================================
+  // Start
+  // =========================================================================
+  'i-start': {
+    id: 'i-start',
+    name: 'Income',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-salary-start': {
+    id: 'i-salary-start',
+    name: 'Salary',
+    amount: 0,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-other-start': {
+    id: 'i-other-start',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-start': {
+    id: 'e-start',
+    name: 'Expenses',
+    amount: 250,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-living-start': {
+    id: 'e-living-start',
+    name: 'Living',
+    amount: 250,
+    frequency: 'month',
+    ...period.start,
+  },
+  // =========================================================================
+  // Job 1
+  // =========================================================================
+  'i-job-1': {
+    id: 'i-job-1',
+    name: 'Income',
+    amount: 2200,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-salary-job-1': {
+    id: 'i-salary-job-1',
+    name: 'Salary',
+    amount: 2000,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-other-job-1': {
+    id: 'i-other-job-1',
+    name: 'Other',
+    amount: 200,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-job-1': {
+    id: 'e-job-1',
+    name: 'Expenses',
+    amount: 1000,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-living-job-1': {
+    id: 'e-living-job-1',
+    name: 'Living',
+    amount: 400,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-rent-job-1': {
+    id: 'e-living-job-1',
+    name: 'Rent',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-job-1': {
+    id: 'e-living-job-1',
+    name: 'Bills',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-electricity-job-1': {
+    id: 'e-living-job-1',
+    name: 'Electricity',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-phone-job-1': {
+    id: 'e-living-job-1',
+    name: 'Phone',
+    amount: 100,
+    frequency: 'month',
+    ...period.start,
+  },
+  // =========================================================================
+  // Job 2
+  // =========================================================================
+  'i-job-2': {
+    id: 'i-job-2',
+    name: 'Income',
+    amount: 2700,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-salary-job-2': {
+    id: 'i-salary-job-2',
+    name: 'Salary',
+    amount: 2500,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-other-job-2': {
+    id: 'i-other-job-2',
+    name: 'Other',
+    amount: 200,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-job-2': {
+    id: 'e-job-2',
+    name: 'Expenses',
+    amount: 1100,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-living-job-2': {
+    id: 'e-living-job-2',
+    name: 'Living',
+    amount: 450,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-rent-job-2': {
+    id: 'e-living-job-2',
+    name: 'Rent',
+    amount: 350,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-job-2': {
+    id: 'e-living-job-2',
+    name: 'Bills',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-electricity-job-2': {
+    id: 'e-living-job-2',
+    name: 'Electricity',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-phone-job-2': {
+    id: 'e-living-job-2',
+    name: 'Phone',
+    amount: 100,
+    frequency: 'month',
+    ...period.start,
+  },
+  // =========================================================================
+  // Job 3
+  // =========================================================================
+  'i-job-3': {
+    id: 'i-job-3',
+    name: 'Income',
+    amount: 3200,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-salary-job-3': {
+    id: 'i-salary-job-3',
+    name: 'Salary',
+    amount: 3000,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-other-job-3': {
+    id: 'i-other-job-3',
+    name: 'Other',
+    amount: 200,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-job-3': {
+    id: 'e-job-3',
+    name: 'Expenses',
+    amount: 1100,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-living-job-3': {
+    id: 'e-living-job-3',
+    name: 'Living',
+    amount: 450,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-rent-job-3': {
+    id: 'e-living-job-3',
+    name: 'Rent',
+    amount: 350,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-job-3': {
+    id: 'e-living-job-3',
+    name: 'Bills',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-electricity-job-3': {
+    id: 'e-living-job-3',
+    name: 'Electricity',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-bills-phone-job-3': {
+    id: 'e-living-job-3',
+    name: 'Phone',
+    amount: 100,
+    frequency: 'month',
+    ...period.start,
+  },
+}
 
 export const detailedBudgetMap: BudgetMap = {
   // =========================================================================
@@ -303,7 +542,7 @@ export const detailedBudgetMap: BudgetMap = {
   // =========================================================================
   // Contract -> Renting -> Home
   // =========================================================================
-  'i-home': {
+  'i-contract-home': {
     id: 'i-home',
     name: 'Income',
     amount: 1800,
@@ -324,7 +563,7 @@ export const detailedBudgetMap: BudgetMap = {
     frequency: 'month',
     ...period.home,
   },
-  'e-home': {
+  'e-contract-home': {
     id: 'e-home',
     name: 'Expenses',
     amount: -750,
@@ -484,177 +723,95 @@ export const detailedScenarioMap: ScenarioMap = {
 // Budget forest
 // #############################################################################
 
-export const simpleBudgetForest: BudgetForest = {
+export const simpleBudgetForest: Forest = {
   root: {
     id: 'root',
     name: 'Start',
+    startDate: period.start.startDate,
     budgets: [
       {
-        id: '1',
-        name: 'Income',
-        value: 300,
-        children: [
-          { id: '1.1', name: 'Salary', value: 0 },
-          { id: '1.2', name: 'Other', value: 300 },
-        ],
+        id: 'i-start',
+        children: [{ id: 'i-salary-start' }, { id: 'i-other-start' }],
       },
       {
-        id: '2',
-        name: 'Expenses',
-        value: 250,
-        children: [{ id: '2.2', name: 'Living', value: 250 }],
+        id: 'e-start',
+        children: [{ id: 'e-living-start' }],
       },
     ],
   },
-  job1: {
-    id: 'job1',
+  'job-1': {
+    id: 'job-1',
     name: 'Job 1',
+    startDate: period.start.startDate,
     budgets: [
       {
-        id: '1',
-        name: 'Income',
-        value: 2200,
-        children: [
-          { id: '1.1', name: 'Salary', value: 2000 },
-          { id: '1.2', name: 'Other', value: 200 },
-        ],
+        id: 'i-job-1',
+        children: [{ id: 'i-salary-job-1' }, { id: 'i-other-jo-1' }],
       },
       {
         id: '2',
-        name: 'Expenses',
-        value: 1000,
         children: [
-          { id: '2.1', name: 'Rent', value: 300 },
+          { id: 'e-rent-job-1' },
           {
-            id: '2.2',
-            name: 'Bills',
-            value: 300,
-            children: [
-              { id: '2.2.1', name: 'Electricity', value: 100 },
-              { id: '2.2.2', name: 'Phone', value: 200 },
-            ],
+            id: 'e-bills-job-1',
+            children: [{ id: 'e-bills-electricity-job-1' }, { id: 'e-bills-phone-job-1' }],
           },
-          { id: '2.3', name: 'Living', value: 400 },
+          { id: 'e-living-job-1' },
         ],
       },
     ],
   },
-  job2: {
-    id: 'job2',
+  'job-2': {
+    id: 'job-2',
     name: 'Job 2',
+    startDate: period.start.startDate,
     budgets: [
       {
-        id: '1',
-        name: 'Income',
-        value: 2700,
-        children: [
-          { id: '1.1', name: 'Salary', value: 2500 },
-          { id: '1.2', name: 'Other', value: 200 },
-        ],
+        id: 'i-job-2',
+        children: [{ id: 'i-salary-job-2' }, { id: 'i-other-jo-1' }],
       },
       {
         id: '2',
-        name: 'Expenses',
-        value: 1100,
         children: [
-          { id: '2.1', name: 'Rent', value: 350 },
+          { id: 'e-rent-job-2' },
           {
-            id: '2.2',
-            name: 'Bills',
-            value: 300,
-            children: [
-              { id: '2.2.1', name: 'Electricity', value: 100 },
-              { id: '2.2.2', name: 'Phone', value: 200 },
-            ],
+            id: 'e-bills-job-2',
+            children: [{ id: 'e-bills-electricity-job-2' }, { id: 'e-bills-phone-job-2' }],
           },
-          { id: '2.3', name: 'Living', value: 450 },
+          { id: 'e-living-job-2' },
         ],
       },
     ],
   },
-  job3: {
-    id: 'job3',
+  'job-3': {
+    id: 'job-3',
     name: 'Job 3',
+    startDate: period.start.startDate,
     budgets: [
       {
-        id: '1',
-        name: 'Income',
-        value: 3200,
-        children: [
-          { id: '1.1', name: 'Salary', value: 3000 },
-          { id: '1.2', name: 'Other', value: 200 },
-        ],
+        id: 'i-job-3',
+        children: [{ id: 'i-salary-job-3' }, { id: 'i-other-jo-1' }],
       },
       {
         id: '2',
-        name: 'Expenses',
-        value: 1100,
         children: [
-          { id: '2.1', name: 'Rent', value: 350 },
+          { id: 'e-rent-job-3' },
           {
-            id: '2.2',
-            name: 'Bills',
-            value: 300,
-            children: [
-              { id: '2.2.1', name: 'Electricity', value: 100 },
-              { id: '2.2.2', name: 'Phone', value: 200 },
-            ],
+            id: 'e-bills-job-3',
+            children: [{ id: 'e-bills-electricity-job-3' }, { id: 'e-bills-phone-job-3' }],
           },
-          { id: '2.3', name: 'Living', value: 450 },
+          { id: 'e-living-job-3' },
         ],
       },
     ],
   },
 }
 
-export const detailedBudgetForest: BudgetForest = {
-  root: generateBudgetTree(detailedBudgetMap, 'root', 'Start', ['i-salary-start', 'i-other-start', 'e-living-start']),
-  'job-search': generateBudgetTree(detailedBudgetMap, 'job-search', 'Job Search', [
-    'i-salary-job-search',
-    'i-other-job-search',
-    'e-living-job-search',
-  ]),
-  'full-time': generateBudgetTree(detailedBudgetMap, 'full-time', 'Full Time', [
-    'i-salary-full-time',
-    'i-other-full-time',
-    'e-living-full-time',
-  ]),
-  'full-time-rent': generateBudgetTree(detailedBudgetMap, 'full-time-rent', 'Renting', [
-    'i-salary-full-time-renting',
-    'i-other-full-time-renting',
-    'e-rent-full-time-renting',
-    'e-living-full-time-renting',
-  ]),
-  contract: generateBudgetTree(detailedBudgetMap, 'contract', 'Contract', [
-    'i-salary-contract',
-    'i-other-contract',
-    'e-living-contract',
-  ]),
-  'contract-rent': generateBudgetTree(detailedBudgetMap, 'contract-rent', 'Renting', [
-    'i-salary-contract-renting',
-    'i-other-contract-renting',
-    'e-living-contract-renting',
-    'e-rent-contract-renting',
-  ]),
-  'contract-home': generateBudgetTree(detailedBudgetMap, 'contract-home', 'Home', [
-    'i-salary-home',
-    'i-other-home',
-    'e-living-home',
-    'e-mortgage-home',
-  ]),
-  'contract-share-market': generateBudgetTree(detailedBudgetMap, 'contract-share-market', 'Share Market', [
-    'i-salary-share-market',
-    'i-other-share-market',
-    'i-investments-deposit-share-market',
-    'e-rent-share-market',
-    'e-living-share-market',
-    'e-investments-transfer-share-market',
-  ]),
-}
-
-export const mockBudgetForest: Forest = {
+export const detailedBudgetForest: Forest = {
   root: {
     id: 'root',
+    name: 'Start',
+    startDate: period.start.startDate,
     budgets: [
       {
         id: 'i-start',
@@ -668,6 +825,8 @@ export const mockBudgetForest: Forest = {
   },
   'job-search': {
     id: 'job-search',
+    name: 'Job Search',
+    startDate: period.jobSearch.startDate,
     budgets: [
       {
         id: 'i-job-search',
@@ -681,6 +840,8 @@ export const mockBudgetForest: Forest = {
   },
   'full-time': {
     id: 'full-time',
+    name: 'Full Time',
+    startDate: period.fullTime.startDate,
     budgets: [
       {
         id: 'i-full-time',
@@ -694,19 +855,23 @@ export const mockBudgetForest: Forest = {
   },
   'full-time-rent': {
     id: 'full-time-rent',
+    name: 'Renting',
+    startDate: period.fullTimeRenting.startDate,
     budgets: [
       {
-        id: 'i-full-time-rent',
+        id: 'i-full-time-renting',
         children: [{ id: 'i-salary-full-time-renting' }, { id: 'i-other-full-time-renting' }],
       },
       {
-        id: 'e-full-time-rent',
+        id: 'e-full-time-renting',
         children: [{ id: 'e-rent-full-time-renting' }, { id: 'e-living-full-time-renting' }],
       },
     ],
   },
   contract: {
     id: 'contract',
+    name: 'Contract',
+    startDate: period.contract.startDate,
     budgets: [
       {
         id: 'i-contract',
@@ -720,19 +885,23 @@ export const mockBudgetForest: Forest = {
   },
   'contract-rent': {
     id: 'contract-rent',
+    name: 'Renting',
+    startDate: period.contractRenting.startDate,
     budgets: [
       {
-        id: 'i-contract-rent',
+        id: 'i-contract-renting',
         children: [{ id: 'i-salary-contract-renting' }, { id: 'i-other-contract-renting' }],
       },
       {
-        id: 'e-contract-rent',
+        id: 'e-contract-renting',
         children: [{ id: 'e-living-contract-renting' }, { id: 'e-rent-contract-renting' }],
       },
     ],
   },
   'contract-home': {
     id: 'contract-home',
+    name: 'Home',
+    startDate: period.home.startDate,
     budgets: [
       {
         id: 'i-contract-home',
@@ -746,9 +915,11 @@ export const mockBudgetForest: Forest = {
   },
   'contract-share-market': {
     id: 'contract-share-market',
+    name: 'Share Market',
+    startDate: period.shareMarket.startDate,
     budgets: [
       {
-        id: 'i-contract-share-market',
+        id: 'i-share-market',
         children: [
           { id: 'i-salary-share-market' },
           { id: 'i-other-share-market' },
@@ -756,7 +927,7 @@ export const mockBudgetForest: Forest = {
         ],
       },
       {
-        id: 'e-contract-share-market',
+        id: 'e-share-market',
         children: [
           { id: 'e-rent-share-market' },
           { id: 'e-living-share-market' },
@@ -765,29 +936,6 @@ export const mockBudgetForest: Forest = {
       },
     ],
   },
-}
-
-function generateBudgetTree(budgetMap: BudgetMap, id: string, name: string, budgetIds: string[]): BudgetTree {
-  const incomeBudgetItems: BudgetItem = { id: 'income', name: 'Income', value: 0, children: [] }
-  const expenseBudgetItems: BudgetItem = { id: 'expenses', name: 'Expenses', value: 0, children: [] }
-
-  const incomeIds = budgetIds.filter((id) => id.startsWith('i-'))
-  const expenseIds = budgetIds.filter((id) => id.startsWith('e-'))
-
-  incomeBudgetItems.children = createBudgetItems(budgetMap, incomeIds)
-  expenseBudgetItems.children = createBudgetItems(budgetMap, expenseIds)
-
-  const totalIncome = incomeBudgetItems.children!.reduce((acc, child) => acc + (child.value as number), 0)
-  const totalExpenses = expenseBudgetItems.children!.reduce((acc, child) => acc + (child.value as number), 0)
-
-  return {
-    id,
-    name,
-    budgets: [
-      { ...incomeBudgetItems, value: totalIncome },
-      { ...expenseBudgetItems, value: totalExpenses },
-    ],
-  }
 }
 
 // #############################################################################

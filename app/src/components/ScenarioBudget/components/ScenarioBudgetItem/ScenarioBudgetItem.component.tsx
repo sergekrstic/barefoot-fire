@@ -1,14 +1,19 @@
 import { useState } from 'react'
 
-import { BudgetItem } from 'types'
+import { Budget } from 'types'
 import { cn, formatTransactionValue } from 'utils'
 
 import { EditableText } from './EditableText.component'
 import { ScenarioBudgetItemMenu } from './ScenarioBudgetItem.menu'
 
-export function ScenarioBudgetItem({ type, item }: { type: 'parent' | 'leaf'; item: BudgetItem }): React.JSX.Element {
-  const [name, setName] = useState(item.name)
-  const [value, setValue] = useState(item.value)
+export interface ScenarioBudgetItemProps {
+  type: 'parent' | 'leaf'
+  budget: Budget
+}
+
+export function ScenarioBudgetItem({ type, budget }: ScenarioBudgetItemProps): React.JSX.Element {
+  const [name, setName] = useState(budget.name)
+  const [amount, setValue] = useState(budget.amount)
 
   return (
     <div className="flex w-full flex-row items-center justify-center py-2">
@@ -17,9 +22,9 @@ export function ScenarioBudgetItem({ type, item }: { type: 'parent' | 'leaf'; it
       </div>
       <div className={cn('relative min-w-14 text-right', { 'text-gray-500': type === 'parent' })}>
         {type === 'parent' ? (
-          <span>{formatTransactionValue(value)}</span>
+          <span>{formatTransactionValue(amount)}</span>
         ) : (
-          <EditableText value={value} onChange={() => setValue(Number(value))} rightAlign />
+          <EditableText value={amount} onChange={() => setValue(Number(amount))} rightAlign />
         )}
       </div>
       <div className="flex items-center justify-center">
