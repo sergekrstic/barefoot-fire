@@ -2,14 +2,16 @@ import { CollapsibleTree } from 'components'
 import { useAppStore } from 'stores'
 import { Scenario, TreeData } from 'types'
 
+import { ScenarioBudgetMenu } from './ScenarioBudget.menu'
 import { ScenarioBudgetItem } from './components'
 import { EditableText } from './components/ScenarioBudgetItem/EditableText.component'
 
 export interface ScenarioBudgetProps {
   budgetTree: Scenario | null
+  onAddBranch: () => void
 }
 
-export function ScenarioBudget({ budgetTree }: ScenarioBudgetProps): React.JSX.Element {
+export function ScenarioBudget({ budgetTree, onAddBranch }: ScenarioBudgetProps): React.JSX.Element {
   const updateScenarioName = useAppStore((state) => state.updateScenarioName)
 
   return (
@@ -19,8 +21,9 @@ export function ScenarioBudget({ budgetTree }: ScenarioBudgetProps): React.JSX.E
         <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-600">{'No budget selected'}</div>
       ) : (
         <div className="flex-grow overflow-y-auto pb-4">
-          <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-500">
+          <div className="flex justify-between px-4 pb-2 pt-4 text-lg font-medium text-slate-500">
             <EditableText value={budgetTree.name} onChange={(value) => updateScenarioName(budgetTree.id, value)} />
+            <ScenarioBudgetMenu onAddBranch={onAddBranch} onDelete={() => {}} />
           </div>
           {/* Todo: Add start/end dates from period (need to update the props to receive ScenarioBudgets types) */}
           <CollapsibleTree

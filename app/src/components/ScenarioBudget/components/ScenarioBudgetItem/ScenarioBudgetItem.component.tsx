@@ -21,7 +21,6 @@ export function ScenarioBudgetItem({
   onUpdateAmount,
   onDelete,
 }: ScenarioBudgetItemProps): React.JSX.Element {
-  console.log('ScenarioBudgetItem', { type, budget })
   const [name, setName] = useState(budget.name)
   const [amount, setAmount] = useState(budget.amount)
 

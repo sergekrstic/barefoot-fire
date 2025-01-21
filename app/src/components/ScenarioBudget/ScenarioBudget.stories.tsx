@@ -15,5 +15,6 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     budgetTree: simpleScenarioMap['job1'],
+    onAddBranch: () => {},
   },
 }

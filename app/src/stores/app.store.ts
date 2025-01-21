@@ -54,6 +54,7 @@ export type AppActions = {
   refreshPlotData: () => void
 
   // Editing actions
+  addScenario: () => void
   updateScenarioName: (id: string, value: string) => void
   updateScenarioStartDate: (id: string, value: string) => void
   updateBudget: (id: string, value: Partial<Omit<Budget, 'id'>>) => void
@@ -159,6 +160,26 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   // Editing actions
   // ========================================================================
 
+  addScenario: (): void => {
+    const { scenarioGraph, scenarioMap } = get()
+    const newScenarioId = `scenario-${scenarioGraph.nodes.length}`
+    const newScenario = { id: newScenarioId, name: 'New scenario', startDate: defaultPeriod.startDate, budgets: [] }
+
+    // Add the new scenario to the graph
+    const newScenarioGraph = {
+      nodes: [...scenarioGraph.nodes, { data: { id: newScenarioId, name: 'New scenario' } }],
+      edges: [...scenarioGraph.edges, { data: { source: 'root', target: newScenarioId } }],
+    }
+
+    // Add the new scenario to the map
+    const newScenarioMap = { ...scenarioMap, [newScenarioId]: newScenario }
+
+    set({
+      scenarioGraph: newScenarioGraph,
+      scenarioMap: newScenarioMap,
+    })
+  },
+
   updateScenarioName: (id: string, value: string): void => {
     const { cytoInstance, scenarioMap } = get()
 
@@ -201,6 +222,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
       if (tree.id === id) {
         return false
       }
+      // Todo: create a list of deleted budgets and remove them from the budgetMap
       const removeChild = (tree: TreeData): boolean => {
         if (tree.id === id) {
           return false
