@@ -1,7 +1,15 @@
 import cy from 'cytoscape'
 import { saveAs } from 'file-saver'
 import { budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schemas'
-import { Budget, BudgetMap, ScenarioMap, ScenarioStartEvents, TimeScrubberSelection, TimeSeriesData } from 'types'
+import {
+  Budget,
+  BudgetMap,
+  ScenarioMap,
+  ScenarioStartEvents,
+  TimeScrubberSelection,
+  TimeSeriesData,
+  TreeData,
+} from 'types'
 import { buildScenarioPath, convertScenarioBudgetsToPlotData as convertScenarioPathToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
@@ -18,7 +26,7 @@ export interface AppState {
   budgetMap: BudgetMap
 
   // Local UI state
-  selectedScenarioId: string | null
+  selectedScenarioId: string
   timeScrubberSelection: TimeScrubberSelection
   highlightedPath: string[]
   highlightedPlotData: TimeSeriesData
@@ -39,7 +47,7 @@ export type AppActions = {
   load: (data: AppLoadData) => void
 
   // Local UI state actions
-  setSelectedScenarioId: (value: string | null) => void
+  setSelectedScenarioId: (value: string) => void
   setTimeScrubberSelection: (value: TimeScrubberSelection) => void
   setHighlightedPath: (value: string[]) => void
   setPinnedPath: (value: string[] | null) => void
@@ -49,6 +57,7 @@ export type AppActions = {
   updateScenarioName: (id: string, value: string) => void
   updateScenarioStartDate: (id: string, value: string) => void
   updateBudget: (id: string, value: Partial<Omit<Budget, 'id'>>) => void
+  deleteBudget: (id: string) => void
 }
 
 export type PluginStore = AppState & AppActions
@@ -65,7 +74,7 @@ const initialState: AppState = {
   budgetMap: {},
 
   // Local UI state
-  selectedScenarioId: null,
+  selectedScenarioId: 'root',
   timeScrubberSelection: [0, 100],
   highlightedPath: [],
   highlightedPlotData: [],
@@ -109,7 +118,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   // Local UI state actions
   // ========================================================================
 
-  setSelectedScenarioId: (value: string | null): void => {
+  setSelectedScenarioId: (value: string): void => {
     set({ selectedScenarioId: value })
   },
 
@@ -179,6 +188,36 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   updateBudget: (id: string, value: Partial<Omit<Budget, 'id'>>): void => {
     const { budgetMap } = get()
     const newBudgetMap = { ...budgetMap, [id]: { ...budgetMap[id], ...value } }
+    set({ budgetMap: newBudgetMap })
+    get().refreshPlotData()
+  },
+
+  deleteBudget: (id: string): void => {
+    const { budgetMap, scenarioMap, selectedScenarioId } = get()
+
+    // Recursively remove the budget from the scenario
+    const scenario = scenarioMap[selectedScenarioId]
+    scenario.budgets = scenario.budgets.filter((tree) => {
+      if (tree.id === id) {
+        return false
+      }
+      const removeChild = (tree: TreeData): boolean => {
+        if (tree.id === id) {
+          return false
+        }
+        if (tree.children) {
+          tree.children = tree.children.filter(removeChild)
+        }
+        return true
+      }
+      return removeChild(tree)
+    })
+
+    const newScenarioMap = { ...scenarioMap, [selectedScenarioId]: { ...scenario } }
+    set({ scenarioMap: newScenarioMap })
+
+    const newBudgetMap = { ...budgetMap }
+    delete newBudgetMap[id]
     set({ budgetMap: newBudgetMap })
     get().refreshPlotData()
   },

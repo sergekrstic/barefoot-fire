@@ -1,7 +1,11 @@
 import { EllipsisIcon } from 'assets'
 import { Menu, MenuItem } from 'components'
 
-export function ScenarioBudgetItemMenu(): React.JSX.Element {
+export interface ScenarioBudgetItemMenuProps {
+  onDelete: () => void
+}
+
+export function ScenarioBudgetItemMenu({ onDelete }: ScenarioBudgetItemMenuProps): React.JSX.Element {
   const menuButtonClasses =
     'ml-3 rounded-sm border border-transparent outline-none hover:border-slate-700 data-[open]:border-slate-600'
   const menuContainerClasses =
@@ -24,8 +28,7 @@ export function ScenarioBudgetItemMenu(): React.JSX.Element {
         </div>
       }
     >
-      <MenuItem className={menuItemClasses} label="Edit" disabled />
-      <MenuItem className={menuItemClasses} label="Delete" disabled />
+      <MenuItem className={menuItemClasses} label="Delete" onClick={onDelete} />
     </Menu>
   )
 }

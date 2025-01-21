@@ -25,6 +25,9 @@ export function EditableText({
   const inputRef = useRef<HTMLInputElement>(null)
   const [isEditing, setIsEditing] = useState(false)
 
+  // Note: the `useHotkeys` hook is mounted globally and will trigger on any input if an element
+  // ref is not attached. However, this is not possible when the input is conditionally rendered.
+  // So we need to ensure that the input is mounted (isEditing) before handling hotkeys.
   useHotkeys<HTMLInputElement>(
     ['esc', 'return'],
     (event, handler) => {

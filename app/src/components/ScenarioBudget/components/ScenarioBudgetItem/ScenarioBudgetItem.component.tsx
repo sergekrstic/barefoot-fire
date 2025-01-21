@@ -11,6 +11,7 @@ export interface ScenarioBudgetItemProps {
   budget: Budget
   onUpdateName: (name: string) => void
   onUpdateAmount: (amount: number) => void
+  onDelete: () => void
 }
 
 export function ScenarioBudgetItem({
@@ -18,7 +19,9 @@ export function ScenarioBudgetItem({
   budget,
   onUpdateName,
   onUpdateAmount,
+  onDelete,
 }: ScenarioBudgetItemProps): React.JSX.Element {
+  console.log('ScenarioBudgetItem', { type, budget })
   const [name, setName] = useState(budget.name)
   const [amount, setAmount] = useState(budget.amount)
 
@@ -41,7 +44,7 @@ export function ScenarioBudgetItem({
         )}
       </div>
       <div className="flex items-center justify-center">
-        <ScenarioBudgetItemMenu />
+        <ScenarioBudgetItemMenu onDelete={onDelete} />
       </div>
     </div>
   )

@@ -23,6 +23,7 @@ export const Parent: Story = {
     },
     onUpdateName: () => {},
     onUpdateAmount: () => {},
+    onDelete: () => {},
   },
 }
 
@@ -39,5 +40,6 @@ export const Leaf: Story = {
     },
     onUpdateName: () => {},
     onUpdateAmount: () => {},
+    onDelete: () => {},
   },
 }
