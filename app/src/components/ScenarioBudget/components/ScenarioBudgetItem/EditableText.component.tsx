@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+// import { useHotkeys } from 'react-hotkeys-hook'
 import { cn, formatTransactionValue } from 'utils'
 
 export interface EditableTextProps {
@@ -7,7 +8,9 @@ export interface EditableTextProps {
   inputClassName?: string
   rightAlign?: boolean
   value: string | number
-  onChange: (value: string) => void
+  onChange?: (value: string) => void
+  onBlur?: (value: string) => void
+  onCancel?: () => void
 }
 
 export function EditableText({
@@ -15,14 +18,38 @@ export function EditableText({
   inputClassName,
   value,
   onChange,
+  onBlur,
+  // onCancel,
   rightAlign = false,
 }: EditableTextProps): React.JSX.Element {
   const [isEditing, setIsEditing] = useState(false)
+
+  // const inputRef = useHotkeys<HTMLInputElement>(
+  //   ['esc', 'return'],
+  //   (event, handler) => {
+  //     // console.log({ event, handler })
+  //     switch (handler.hotkey) {
+  //       case 'esc':
+  //         if (onCancel) onCancel()
+  //         setIsEditing(false)
+  //         break
+  //       case 'return':
+  //         if (onBlur) onBlur(event.target?.value)
+  //         setIsEditing(false)
+  //         break
+  //     }
+  //   },
+  //   {
+  //     enableOnFormTags: ['input'],
+  //   },
+  //   [value, isEditing],
+  // )
 
   return (
     <div className="relative">
       {isEditing && (
         <input
+          // ref={inputRef}
           type="text"
           autoFocus
           className={cn(
@@ -35,12 +62,21 @@ export function EditableText({
             inputClassName,
           )}
           value={value}
-          onBlur={() => setIsEditing(false)}
-          onChange={(e) => onChange(e.target.value)}
+          onBlur={(e) => {
+            setIsEditing(false)
+            if (onBlur) {
+              onBlur(e.target.value)
+            }
+          }}
+          onChange={(e) => {
+            if (onChange) {
+              onChange(e.target.value)
+            }
+          }}
         />
       )}
       <span
-        className={cn('cursor-text', textClassName)}
+        className={cn('cursor-text', { 'text-slate-800': isEditing }, textClassName)}
         onClick={(e) => {
           e.stopPropagation()
           setIsEditing(true)

@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Budget } from 'types'
 import { cn, formatTransactionValue } from 'utils'
 
@@ -7,28 +9,35 @@ import { ScenarioBudgetItemMenu } from './ScenarioBudgetItem.menu'
 export interface ScenarioBudgetItemProps {
   type: 'parent' | 'leaf'
   budget: Budget
-  onNameChange: (name: string) => void
-  onAmountChange: (amount: number) => void
+  onUpdateName: (name: string) => void
+  onUpdateAmount: (amount: number) => void
 }
 
 export function ScenarioBudgetItem({
   type,
   budget,
-  onNameChange,
-  onAmountChange,
+  onUpdateName,
+  onUpdateAmount,
 }: ScenarioBudgetItemProps): React.JSX.Element {
-  const { name, amount } = budget
+  const [name, setName] = useState(budget.name)
+  const [amount, setAmount] = useState(budget.amount)
 
   return (
     <div className="flex w-full flex-row items-center justify-center py-2">
       <div className="grow">
-        <EditableText value={name} onChange={onNameChange} />
+        <EditableText value={name} onChange={setName} onBlur={onUpdateName} onCancel={() => setName(budget.name)} />
       </div>
       <div className={cn('relative min-w-14 text-right', { 'text-gray-500': type === 'parent' })}>
         {type === 'parent' ? (
           <span>{formatTransactionValue(amount)}</span>
         ) : (
-          <EditableText value={amount} onChange={(value) => onAmountChange(Number(value))} rightAlign />
+          <EditableText
+            value={amount}
+            onChange={(value) => setAmount(Number(value))}
+            onBlur={(value) => onUpdateAmount(Number(value))}
+            onCancel={() => setName(budget.name)}
+            rightAlign
+          />
         )}
       </div>
       <div className="flex items-center justify-center">

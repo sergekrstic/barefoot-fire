@@ -9,15 +9,16 @@ export interface ScenarioBudgetItemProps {
 
 export function ScenarioBudgetItem({ id, type }: ScenarioBudgetItemProps): React.JSX.Element {
   const budget = useAppStore((state) => state.budgetMap[id])
-  const updateBudgetName = useAppStore((state) => state.updateBudgetName)
-  const updateBudgetAmount = useAppStore((state) => state.updateBudgetAmount)
+  const updateBudget = useAppStore((state) => state.updateBudget)
+
+  // console.log({ budget })
 
   return (
     <ScenarioBudgetItemComponent
       type={type}
       budget={budget}
-      onNameChange={(name) => updateBudgetName(budget.id, name)}
-      onAmountChange={(amount) => updateBudgetAmount(budget.id, amount)}
+      onUpdateName={(name) => updateBudget(budget.id, { name })}
+      onUpdateAmount={(amount) => updateBudget(budget.id, { amount })}
     />
   )
 }
