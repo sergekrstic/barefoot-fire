@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
-// import { useHotkeys } from 'react-hotkeys-hook'
+import { useHotkeys } from 'react-hotkeys-hook'
 import { cn, formatTransactionValue } from 'utils'
 
 export interface EditableTextProps {
@@ -19,38 +19,41 @@ export function EditableText({
   value,
   onChange,
   onBlur,
-  // onCancel,
+  onCancel,
   rightAlign = false,
 }: EditableTextProps): React.JSX.Element {
+  const inputRef = useRef<HTMLInputElement>(null)
   const [isEditing, setIsEditing] = useState(false)
 
-  // const inputRef = useHotkeys<HTMLInputElement>(
-  //   ['esc', 'return'],
-  //   (event, handler) => {
-  //     // console.log({ event, handler })
-  //     switch (handler.hotkey) {
-  //       case 'esc':
-  //         if (onCancel) onCancel()
-  //         setIsEditing(false)
-  //         break
-  //       case 'return':
-  //         if (onBlur) onBlur(event.target?.value)
-  //         setIsEditing(false)
-  //         break
-  //     }
-  //   },
-  //   {
-  //     enableOnFormTags: ['input'],
-  //   },
-  //   [value, isEditing],
-  // )
+  useHotkeys<HTMLInputElement>(
+    ['esc', 'return'],
+    (event, handler) => {
+      // Ensure that the input is mounted
+      if (!inputRef.current) return
+      switch (handler.hotkey) {
+        case 'esc':
+          if (onCancel) onCancel()
+          setIsEditing(false)
+          break
+        case 'return':
+          // @ts-expect-error - don't know how to define this
+          if (onBlur) onBlur(event.target.value)
+          setIsEditing(false)
+          break
+      }
+    },
+    {
+      enableOnFormTags: ['input'],
+    },
+    [value, isEditing],
+  )
 
   return (
     <div className="relative">
       {isEditing && (
         <input
-          // ref={inputRef}
-          type="text"
+          ref={inputRef}
+          type={typeof value === 'string' ? 'text' : 'number'}
           autoFocus
           className={cn(
             'absolute rounded-md border border-violet-500 bg-slate-800 px-2 py-1 text-slate-300 outline-0',
@@ -58,6 +61,8 @@ export function EditableText({
               '-bottom-1 -top-1': true,
               '-left-[9px] right-3 text-left': !rightAlign,
               '-right-[9px] left-3 text-right': rightAlign,
+              // Remove the spinner from number inputs
+              'appearance-none': typeof value === 'number',
             },
             inputClassName,
           )}
@@ -76,13 +81,14 @@ export function EditableText({
         />
       )}
       <span
-        className={cn('cursor-text', { 'text-slate-800': isEditing }, textClassName)}
+        className={cn('cursor-text', textClassName)}
         onClick={(e) => {
           e.stopPropagation()
           setIsEditing(true)
         }}
       >
-        {formatValue(value)}
+        {/* Ensure that underlying text is not visible when editing */}
+        {isEditing ? '.' : formatValue(value)}
       </span>
     </div>
   )

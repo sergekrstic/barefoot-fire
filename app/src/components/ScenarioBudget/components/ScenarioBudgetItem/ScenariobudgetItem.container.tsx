@@ -11,8 +11,6 @@ export function ScenarioBudgetItem({ id, type }: ScenarioBudgetItemProps): React
   const budget = useAppStore((state) => state.budgetMap[id])
   const updateBudget = useAppStore((state) => state.updateBudget)
 
-  // console.log({ budget })
-
   return (
     <ScenarioBudgetItemComponent
       type={type}

@@ -35,7 +35,7 @@ export function ScenarioBudgetItem({
             value={amount}
             onChange={(value) => setAmount(Number(value))}
             onBlur={(value) => onUpdateAmount(Number(value))}
-            onCancel={() => setName(budget.name)}
+            onCancel={() => setAmount(budget.amount)}
             rightAlign
           />
         )}
