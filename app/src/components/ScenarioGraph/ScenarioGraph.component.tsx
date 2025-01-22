@@ -22,7 +22,7 @@ export function ScenarioGraph(): React.JSX.Element {
 
   const cytoInstance = useScenarioGraph({ containerRef })
 
-  usePanLimits({ cytoInstance, panLimitPadding: 100 })
+  usePanLimits({ cytoInstance, panLimitPadding: 50 })
   useMousePointer({ cytoInstance })
   useHighlightedPath({ cytoInstance })
   usePinnedPath({ cytoInstance })
