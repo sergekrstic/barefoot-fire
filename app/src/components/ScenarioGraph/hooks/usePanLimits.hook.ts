@@ -80,12 +80,18 @@ function calculatePanLimits(cy: cytoscape.Core, padding: number): SchematicPanEx
 
   const panMinX = bbox.x1 * zoom
   const panMaxX = bbox.x2 * zoom
+  const panMinY = bbox.y1 * zoom
+  const panMaxY = bbox.y2 * zoom
+
+  const boxWidth = panMaxX - panMinX
+  const boxHeight = panMaxY - panMinY
+  const heightOffset = 40 * zoom
 
   return {
-    xMin: panMinX - panMaxX + padding,
+    xMin: 0 - boxWidth + padding,
     xMax: cy.width() - padding,
-    yMin: 0 - padding,
-    yMax: cy.height() - padding,
+    yMin: 0 - boxHeight - heightOffset + 2 * padding,
+    yMax: cy.height() - heightOffset - padding,
   }
 }
 
