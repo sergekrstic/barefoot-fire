@@ -5,7 +5,14 @@ import cy from 'cytoscape'
 // import cytoscapeAllPaths from 'cytoscape-all-paths'
 import tidytree from 'cytoscape-tidytree'
 
-import { useGraph, useHighlightedPath, useMouseEvents, usePinnedPath, useResetPaths } from './ScenarioGraph.hooks'
+import {
+  useHighlightedPath,
+  useMousePointer,
+  usePanLimits,
+  usePinnedPath,
+  useResetPaths,
+  useScenarioGraph,
+} from './hooks'
 
 cy.use(tidytree)
 // cy.use(cytoscapeAllPaths)
@@ -13,9 +20,10 @@ cy.use(tidytree)
 export function ScenarioGraph(): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const cytoInstance = useGraph({ containerRef })
+  const cytoInstance = useScenarioGraph({ containerRef })
 
-  useMouseEvents({ cytoInstance })
+  usePanLimits({ cytoInstance, panLimitPadding: 100 })
+  useMousePointer({ cytoInstance })
   useHighlightedPath({ cytoInstance })
   usePinnedPath({ cytoInstance })
   useResetPaths({ cytoInstance })
