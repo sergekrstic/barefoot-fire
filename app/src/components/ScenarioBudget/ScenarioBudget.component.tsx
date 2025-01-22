@@ -1,5 +1,4 @@
 import { CollapsibleTree } from 'components'
-import { useAppStore } from 'stores'
 import { Scenario, TreeData } from 'types'
 
 import { ScenarioBudgetMenu } from './ScenarioBudget.menu'
@@ -7,28 +6,31 @@ import { ScenarioBudgetItem } from './components'
 import { EditableText } from './components/ScenarioBudgetItem/EditableText.component'
 
 export interface ScenarioBudgetProps {
-  budgetTree: Scenario | null
+  scenario: Scenario | null
   onAddBranch: () => void
+  onUpdateScenarioName: (value: string) => void
 }
 
-export function ScenarioBudget({ budgetTree, onAddBranch }: ScenarioBudgetProps): React.JSX.Element {
-  const updateScenarioName = useAppStore((state) => state.updateScenarioName)
-
+export function ScenarioBudget({
+  scenario,
+  onAddBranch,
+  onUpdateScenarioName,
+}: ScenarioBudgetProps): React.JSX.Element {
   return (
     <div className="flex h-full w-full select-none flex-col bg-slate-900 text-slate-300">
       <div className="bg-slate-800 px-4 py-1 text-sm font-medium text-slate-600">Scenario Budget</div>
-      {!budgetTree ? (
+      {!scenario ? (
         <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-600">{'No budget selected'}</div>
       ) : (
         <div className="flex-grow overflow-y-auto pb-4">
-          <div className="flex justify-between px-4 pb-2 pt-4 text-lg font-medium text-slate-500">
-            <EditableText value={budgetTree.name} onChange={(value) => updateScenarioName(budgetTree.id, value)} />
-            <ScenarioBudgetMenu onAddBranch={onAddBranch} onDelete={() => {}} />
+          <div className="flex items-center justify-between px-4 pb-2 pt-4 text-lg font-medium text-slate-500">
+            <EditableText value={scenario.name} onChange={onUpdateScenarioName} />
+            <ScenarioBudgetMenu onAddBranch={onAddBranch} onDelete={() => {}} showDelete={scenario.id !== 'root'} />
           </div>
           {/* Todo: Add start/end dates from period (need to update the props to receive ScenarioBudgets types) */}
           <CollapsibleTree
-            key={budgetTree.name}
-            tree={budgetTree.budgets}
+            key={scenario.name}
+            tree={scenario.budgets}
             expanded={true}
             parentContainerClasses="cursor-pointer hover:bg-slate-800 px-4"
             childContainerClasses="cursor-default px-4"

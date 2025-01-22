@@ -2,14 +2,15 @@ import { EllipsisIcon } from 'assets'
 import { Menu, MenuItem } from 'components'
 
 export interface ScenarioBudgetMenuProps {
+  showDelete?: boolean
   onAddBranch: () => void
   onDelete: () => void
 }
 
-export function ScenarioBudgetMenu({ onAddBranch, onDelete }: ScenarioBudgetMenuProps): React.JSX.Element {
+export function ScenarioBudgetMenu({ showDelete, onAddBranch, onDelete }: ScenarioBudgetMenuProps): React.JSX.Element {
   // Todo: refactor these styles into a shared component
   const menuButtonClasses =
-    'ml-3 rounded-sm border border-transparent outline-none hover:border-slate-700 data-[open]:border-slate-600'
+    'rounded-sm border border-transparent outline-none hover:border-slate-700 data-[open]:border-slate-600'
   const menuContainerClasses =
     'rounded-md border border-slate-300 bg-slate-200 py-1 text-slate-800 outline-none drop-shadow-lg'
   const menuItemClasses =
@@ -31,7 +32,7 @@ export function ScenarioBudgetMenu({ onAddBranch, onDelete }: ScenarioBudgetMenu
       }
     >
       <MenuItem className={menuItemClasses} label="Add branch" onClick={onAddBranch} />
-      <MenuItem className={menuItemClasses} label="Delete" disabled onClick={onDelete} />
+      {showDelete && <MenuItem className={menuItemClasses} label="Delete" disabled onClick={onDelete} />}
     </Menu>
   )
 }

@@ -52,7 +52,7 @@ export function EditableText({
   )
 
   return (
-    <div className="relative">
+    <div className="relative grow">
       {isEditing && (
         <input
           ref={inputRef}

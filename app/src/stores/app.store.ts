@@ -54,7 +54,7 @@ export type AppActions = {
   refreshPlotData: () => void
 
   // Editing actions
-  addScenario: () => void
+  addScenario: (id: string) => void
   updateScenarioName: (id: string, value: string) => void
   updateScenarioStartDate: (id: string, value: string) => void
   updateBudget: (id: string, value: Partial<Omit<Budget, 'id'>>) => void
@@ -160,7 +160,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
   // Editing actions
   // ========================================================================
 
-  addScenario: (): void => {
+  addScenario: (id: string): void => {
     const { scenarioGraph, scenarioMap } = get()
     const newScenarioId = `scenario-${scenarioGraph.nodes.length}`
     const newScenario = { id: newScenarioId, name: 'New scenario', startDate: defaultPeriod.startDate, budgets: [] }
@@ -168,7 +168,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
     // Add the new scenario to the graph
     const newScenarioGraph = {
       nodes: [...scenarioGraph.nodes, { data: { id: newScenarioId, name: 'New scenario' } }],
-      edges: [...scenarioGraph.edges, { data: { source: 'root', target: newScenarioId } }],
+      edges: [...scenarioGraph.edges, { data: { source: id, target: newScenarioId } }],
     }
 
     // Add the new scenario to the map
