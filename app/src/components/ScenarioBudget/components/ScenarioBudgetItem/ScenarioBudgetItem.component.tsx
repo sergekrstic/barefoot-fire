@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
+import { EditableText } from 'components'
 import { Budget } from 'types'
 import { cn, formatTransactionValue } from 'utils'
 
-import { EditableText } from './EditableText.component'
 import { ScenarioBudgetItemMenu } from './ScenarioBudgetItem.menu'
 
 export interface ScenarioBudgetItemProps {
@@ -29,7 +29,7 @@ export function ScenarioBudgetItem({
       <div className="grow">
         <EditableText value={name} onChange={setName} onBlur={onUpdateName} onCancel={() => setName(budget.name)} />
       </div>
-      <div className={cn('relative min-w-14 text-right', { 'text-gray-500': type === 'parent' })}>
+      <div className={cn('relative min-w-14 text-right', { 'text-slate-500': type === 'parent' })}>
         {type === 'parent' ? (
           <span>{formatTransactionValue(amount)}</span>
         ) : (
