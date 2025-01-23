@@ -1,9 +1,10 @@
-import { CollapsibleTree } from 'components'
+import { useState } from 'react'
+
+import { CollapsibleTree, DatePicker, DateValue, EditableText } from 'components'
 import { Scenario, TreeData } from 'types'
 
 import { ScenarioBudgetMenu } from './ScenarioBudget.menu'
 import { ScenarioBudgetItem } from './components'
-import { EditableText } from './components/ScenarioBudgetItem/EditableText.component'
 
 export interface ScenarioBudgetProps {
   scenario: Scenario | null
@@ -16,18 +17,25 @@ export function ScenarioBudget({
   onAddBranch,
   onUpdateScenarioName,
 }: ScenarioBudgetProps): React.JSX.Element {
+  const [startDate, setStartDate] = useState<DateValue>(new Date(scenario!.startDate))
+  const endDate = new Date('2035-12-31')
+
   return (
     <div className="flex h-full w-full select-none flex-col bg-slate-900 text-slate-300">
-      <div className="bg-slate-800 px-4 py-1 text-sm font-medium text-slate-600">Scenario Budget</div>
+      <div className="bg-slate-800 px-4 py-1 text-sm font-medium text-slate-500">Scenario Budget</div>
       {!scenario ? (
-        <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-600">{'No budget selected'}</div>
+        <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-500">{'No budget selected'}</div>
       ) : (
         <div className="flex-grow overflow-y-auto pb-4">
-          <div className="flex items-center justify-between px-4 pb-2 pt-4 text-lg font-medium text-slate-500">
+          <div className="flex items-center justify-between px-4 py-4 text-lg font-medium">
             <EditableText value={scenario.name} onChange={onUpdateScenarioName} />
             <ScenarioBudgetMenu onAddBranch={onAddBranch} onDelete={() => {}} showDelete={scenario.id !== 'root'} />
           </div>
-          {/* Todo: Add start/end dates from period (need to update the props to receive ScenarioBudgets types) */}
+          <div className="flex px-4 pb-2">
+            <DatePicker value={startDate} onChange={setStartDate} />
+            <span className="px-2 text-slate-500">{`–`}</span>
+            <DatePicker value={endDate} disabled />
+          </div>{' '}
           <CollapsibleTree
             key={scenario.name}
             tree={scenario.budgets}

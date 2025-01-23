@@ -19,7 +19,7 @@ export function App(): React.JSX.Element {
   }, [load])
 
   return (
-    <div className="h-screen w-screen bg-slate-950 text-slate-500">
+    <div className="h-screen w-screen bg-slate-950 text-slate-500 selection:bg-violet-600 selection:text-violet-200">
       <Header />
       <div className="h-[calc(100vh-45px)]">
         <PanelGroup direction="horizontal">
