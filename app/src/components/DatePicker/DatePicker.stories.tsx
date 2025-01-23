@@ -9,11 +9,15 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Native: Story = {
-  args: {},
-  render: (args) => <DatePicker {...args} />,
+export const Custom: Story = {
+  args: { value: new Date() },
 }
 
-export const Custom: Story = {
-  args: {},
+export const Native: Story = {
+  args: Custom.args,
+  render: () => (
+    <div>
+      <input type="date" />
+    </div>
+  ),
 }
