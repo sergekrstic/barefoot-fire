@@ -13,8 +13,6 @@
 }
 
 .react-date-picker--disabled {
-  /* background-color: #f0f0f0; */
-  /* color: #6d6d6d; */
   color: #64748b; /* <-- slate-500 */
 }
 
@@ -111,9 +109,6 @@
 }
 
 .react-date-picker__calendar .react-calendar {
-  /* border-width: thin; */
+  border-width: 1px;
   font-family: inherit;
-  border-width: 0px;
-  background-color: #e2e8f0; /* <-- slate-200 */
-  color: #1e293b; /* <-- slate-800 */
 }

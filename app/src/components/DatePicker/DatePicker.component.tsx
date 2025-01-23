@@ -10,14 +10,15 @@ export type DateValue = DateValuePiece | [DateValuePiece, DateValuePiece]
 
 export interface DatePickerProps {
   value: DateValue
+  isOpen?: boolean
   disabled?: boolean
   onChange?: (value: DateValue) => void
 }
 
-export function DatePicker({ value, disabled, onChange }: DatePickerProps): React.JSX.Element {
+export function DatePicker({ value, isOpen, disabled, onChange }: DatePickerProps): React.JSX.Element {
   return (
     <ReactDatePicker
-      // className="bg-violet-200"
+      isOpen={isOpen}
       disabled={disabled}
       portalContainer={null}
       value={value}
@@ -129,5 +130,5 @@ export function DatePicker({ value, disabled, onChange }: DatePickerProps): Reac
 - showLeadingZeros = false
 * value
 - yearAriaLabel = undefined
-- yearPlaceholder = "-- - -"
+- yearPlaceholder = "- - - -"
 */

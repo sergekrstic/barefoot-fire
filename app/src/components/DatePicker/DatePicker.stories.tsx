@@ -10,7 +10,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Custom: Story = {
-  args: { value: new Date() },
+  args: { value: new Date(), isOpen: true },
 }
 
 export const Native: Story = {
