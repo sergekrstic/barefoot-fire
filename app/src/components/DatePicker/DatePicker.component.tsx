@@ -64,6 +64,7 @@ export function DatePicker({ value, disabled, onChange }: DatePickerProps): Reac
           onto this hidden button when a selection is made.
       */}
       <button ref={buttonRef} className="h-0 w-0" />
+
       <span ref={refs.setReference} {...getReferenceProps()}>
         <ReactDatePicker
           required
@@ -71,17 +72,17 @@ export function DatePicker({ value, disabled, onChange }: DatePickerProps): Reac
           disabled={disabled}
           portalContainer={floatingRef.current}
           value={value}
-          onChange={(value) => {
-            setIsOpen(false)
-            buttonRef.current?.focus()
-            if (onChange) {
-              onChange(value)
-            }
-          }}
           clearIcon={null}
           calendarIcon={null}
           onCalendarOpen={() => setIsOpen(true)}
-          onCalendarClose={() => setIsOpen(false)}
+          onCalendarClose={() => {
+            setIsOpen(false)
+            buttonRef.current?.focus() // <-- Move focus back to the hidden button
+          }}
+          onChange={(value) => {
+            setIsOpen(false)
+            if (onChange) onChange(value)
+          }}
           calendarProps={{
             prevLabel: <ChevronLeftIcon size={20} />,
             prev2Label: <ChevronsLeftIcon size={20} />,
