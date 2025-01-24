@@ -35,7 +35,7 @@ export function ScenarioBudget({
             <DatePicker value={startDate} onChange={setStartDate} />
             <span className="px-2 text-slate-500">{`–`}</span>
             <DatePicker value={endDate} disabled />
-          </div>{' '}
+          </div>
           <CollapsibleTree
             key={scenario.name}
             tree={scenario.budgets}

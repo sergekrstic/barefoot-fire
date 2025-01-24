@@ -1,5 +1,24 @@
+import { useRef, useState } from 'react'
+
+import {
+  FloatingArrow,
+  FloatingFocusManager,
+  FloatingPortal,
+  arrow,
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useClick,
+  useDismiss,
+  useFloating,
+  useInteractions,
+  useMergeRefs,
+  useRole,
+} from '@floating-ui/react'
 import { ChevronLeftIcon, ChevronRightIcon, ChevronsLeftIcon, ChevronsRightIcon } from 'assets'
 import ReactDatePicker from 'react-date-picker'
+import twColors from 'tailwindcss/colors'
 
 import './Calendar.styles.css'
 import './DatePicker.styles.css'
@@ -10,29 +29,84 @@ export type DateValue = DateValuePiece | [DateValuePiece, DateValuePiece]
 
 export interface DatePickerProps {
   value: DateValue
-  isOpen?: boolean
   disabled?: boolean
   onChange?: (value: DateValue) => void
 }
 
-export function DatePicker({ value, isOpen, disabled, onChange }: DatePickerProps): React.JSX.Element {
+export function DatePicker({ value, disabled, onChange }: DatePickerProps): React.JSX.Element {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const floatingRef = useRef<HTMLDivElement>(null)
+  const arrowRef = useRef(null)
+
+  const { refs, floatingStyles, context } = useFloating({
+    placement: 'bottom',
+    // open: isOpen, // <-- This is not needed because the open state is managed by the DatePicker component
+    onOpenChange: setIsOpen,
+    middleware: [offset(10), flip(), shift(), arrow({ element: arrowRef })],
+    whileElementsMounted: autoUpdate,
+  })
+
+  const click = useClick(context)
+  const dismiss = useDismiss(context)
+  const role = useRole(context)
+
+  // Merge all the interactions into prop getters
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role])
+
+  const mergedFloatingRef = useMergeRefs([refs.setFloating, floatingRef])
+
   return (
-    <ReactDatePicker
-      isOpen={isOpen}
-      disabled={disabled}
-      portalContainer={null}
-      value={value}
-      onChange={onChange}
-      clearIcon={null}
-      calendarIcon={null}
-      required
-      calendarProps={{
-        prevLabel: <ChevronLeftIcon size={20} />,
-        prev2Label: <ChevronsLeftIcon size={20} />,
-        nextLabel: <ChevronRightIcon size={20} />,
-        next2Label: <ChevronsRightIcon size={20} />,
-      }}
-    />
+    <div className="flex flex-row">
+      {/*
+          This is hack to move the focus off the DatePicker and
+          onto this hidden button when a selection is made.
+      */}
+      <button ref={buttonRef} className="h-0 w-0" />
+      <span ref={refs.setReference} {...getReferenceProps()}>
+        <ReactDatePicker
+          required
+          isOpen={isOpen}
+          disabled={disabled}
+          portalContainer={floatingRef.current}
+          value={value}
+          onChange={(value) => {
+            setIsOpen(false)
+            buttonRef.current?.focus()
+            if (onChange) {
+              onChange(value)
+            }
+          }}
+          clearIcon={null}
+          calendarIcon={null}
+          onCalendarOpen={() => setIsOpen(true)}
+          onCalendarClose={() => setIsOpen(false)}
+          calendarProps={{
+            prevLabel: <ChevronLeftIcon size={20} />,
+            prev2Label: <ChevronsLeftIcon size={20} />,
+            nextLabel: <ChevronRightIcon size={20} />,
+            next2Label: <ChevronsRightIcon size={20} />,
+          }}
+        />
+      </span>
+      {isOpen && (
+        <FloatingPortal>
+          <FloatingFocusManager context={context} modal={false}>
+            <div ref={mergedFloatingRef} style={floatingStyles} {...getFloatingProps()}>
+              <FloatingArrow
+                ref={arrowRef}
+                context={context}
+                strokeWidth={1}
+                style={{ transform: 'translateY(-1px)' }}
+                fill={twColors.slate[200]}
+                stroke={twColors.slate[300]}
+              />
+            </div>
+          </FloatingFocusManager>
+        </FloatingPortal>
+      )}
+    </div>
   )
 }
 
@@ -107,7 +181,7 @@ export function DatePicker({ value, isOpen, disabled, onChange }: DatePickerProp
 - disabled = false
 - format = undefined
 - id = undefined
-- isOpen = false
+* isOpen = false
 - locale = browser locale
 - maxDate = undefined
 - maxDetail = "month" ['month', 'year', 'decade', 'century']
@@ -116,8 +190,8 @@ export function DatePicker({ value, isOpen, disabled, onChange }: DatePickerProp
 - monthPlaceholder = "- -""
 - name = "date"
 - nativeInputAriaLabel = undefined
-- onCalendarClose = undefined
-- onCalendarOpen = undefined
+* onCalendarClose = undefined
+* onCalendarOpen = undefined
 * onChange
 - onFocus = undefined
 - onInvalidChange = undefined
