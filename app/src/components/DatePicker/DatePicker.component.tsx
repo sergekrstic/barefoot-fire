@@ -48,12 +48,12 @@ export function DatePicker({ value, disabled, onChange }: DatePickerProps): Reac
     whileElementsMounted: autoUpdate,
   })
 
-  const click = useClick(context)
-  const dismiss = useDismiss(context)
-  const role = useRole(context)
-
   // Merge all the interactions into prop getters
-  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role])
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    useClick(context),
+    useDismiss(context),
+    useRole(context),
+  ])
 
   const mergedFloatingRef = useMergeRefs([refs.setFloating, floatingRef])
 

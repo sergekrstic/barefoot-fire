@@ -40,7 +40,7 @@ const MenuContext = React.createContext<{
   isOpen: false,
 })
 
-interface MenuProps {
+export interface MenuProps {
   label: string | React.ReactNode | React.ReactElement
   nested?: boolean
   children?: React.ReactNode
@@ -71,7 +71,6 @@ export const MenuComponent = React.forwardRef<HTMLButtonElement, MenuProps & Rea
       open: isOpen,
       onOpenChange: setIsOpen,
       placement: isNested ? 'right-start' : 'bottom-start',
-      // Todo: consider parametrizing these values
       middleware: [offset({ mainAxis: isNested ? 0 : 4, alignmentAxis: isNested ? -4 : 0 }), flip(), shift()],
       whileElementsMounted: autoUpdate,
     })
@@ -204,7 +203,7 @@ export const MenuComponent = React.forwardRef<HTMLButtonElement, MenuProps & Rea
   },
 )
 
-interface MenuItemProps {
+export interface MenuItemProps {
   label: string
   disabled?: boolean
 }
