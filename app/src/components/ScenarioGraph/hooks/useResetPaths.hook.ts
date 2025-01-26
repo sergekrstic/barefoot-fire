@@ -8,9 +8,7 @@ export interface UseResetPathsProps {
 }
 
 export function useResetPaths({ cytoInstance }: UseResetPathsProps): void {
-  const setSelectedScenarioId = useAppStore((state) => state.setSelectedScenarioId)
-  const setHighlightedPath = useAppStore((state) => state.setHighlightedPath)
-  const setPinnedPath = useAppStore((state) => state.setPinnedPath)
+  const actions = useAppStore((state) => state.actions)
 
   useEffect(() => {
     const deselectAndUnpinAll = (event: cy.EventObject): void => {
@@ -37,9 +35,9 @@ export function useResetPaths({ cytoInstance }: UseResetPathsProps): void {
       })
 
       // Update the store
-      setSelectedScenarioId('root')
-      setHighlightedPath(['root'])
-      setPinnedPath(null)
+      actions.setSelectedScenarioId('root')
+      actions.setHighlightedPath(['root'])
+      actions.setPinnedPath(null)
     }
 
     cytoInstance?.on('dblclick', deselectAndUnpinAll)
@@ -47,5 +45,5 @@ export function useResetPaths({ cytoInstance }: UseResetPathsProps): void {
     return (): void => {
       cytoInstance?.off('dblclick', deselectAndUnpinAll)
     }
-  }, [cytoInstance, setHighlightedPath, setPinnedPath, setSelectedScenarioId])
+  }, [actions, cytoInstance])
 }

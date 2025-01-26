@@ -8,7 +8,7 @@ export interface UsePinnedPathProps {
 }
 
 export function usePinnedPath({ cytoInstance }: UsePinnedPathProps): void {
-  const setPinnedPath = useAppStore((state) => state.setPinnedPath)
+  const actions = useAppStore((state) => state.actions)
 
   useEffect(() => {
     const pinScenarioPath = (event: cy.EventObject): void => {
@@ -29,7 +29,7 @@ export function usePinnedPath({ cytoInstance }: UsePinnedPathProps): void {
       })
 
       const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
-      setPinnedPath(shortestPathIds)
+      actions.setPinnedPath(shortestPathIds)
     }
 
     cytoInstance?.on('dblclick', 'node', pinScenarioPath)
@@ -37,5 +37,5 @@ export function usePinnedPath({ cytoInstance }: UsePinnedPathProps): void {
     return (): void => {
       cytoInstance?.off('dblclick', 'node', pinScenarioPath)
     }
-  }, [cytoInstance, setPinnedPath])
+  }, [actions, cytoInstance])
 }

@@ -10,18 +10,15 @@ export interface UseScenarioGraphProps {
 }
 
 export function useScenarioGraph({ containerRef }: UseScenarioGraphProps): cy.Core | null {
-  const cytoInstance = useAppStore((state) => state.cytoInstance)
-  const setCytoInstance = useAppStore((state) => state.setCytoInstance)
-
-  const scenarioGraph = useAppStore((state) => state.scenarioGraph)
-  const setSelectedScenarioId = useAppStore((state) => state.setSelectedScenarioId)
-  const setHighlightedPath = useAppStore((state) => state.setHighlightedPath)
+  const cytoInstance = useAppStore((state) => state.ui.cytoInstance)
+  const scenarioGraph = useAppStore((state) => state.data.scenarioGraph)
+  const actions = useAppStore((state) => state.actions)
 
   useEffect(() => {
     if (!containerRef.current) return
 
     const instance = cy({ container: containerRef.current, elements: scenarioGraph, ...graphSettings })
-    setCytoInstance(instance)
+    actions.setCytoInstance(instance)
 
     // Highlight the root node and center the graph
     instance.$id('root').data('focused', true)
@@ -29,14 +26,14 @@ export function useScenarioGraph({ containerRef }: UseScenarioGraphProps): cy.Co
     instance.center(instance.elements())
 
     // Initialise the store
-    setSelectedScenarioId('root')
-    setHighlightedPath(['root'])
+    actions.setSelectedScenarioId('root')
+    actions.setHighlightedPath(['root'])
 
     return (): void => {
-      setCytoInstance(null)
+      actions.setCytoInstance(null)
       instance?.destroy()
     }
-  }, [containerRef, scenarioGraph, setCytoInstance, setHighlightedPath, setSelectedScenarioId])
+  }, [actions, containerRef, scenarioGraph])
 
   return cytoInstance
 }

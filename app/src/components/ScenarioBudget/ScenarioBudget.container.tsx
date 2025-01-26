@@ -3,16 +3,15 @@ import { useAppStore } from 'stores'
 import { ScenarioBudget as ScenarioBudgetComponent } from './ScenarioBudget.component'
 
 export function ScenarioBudget(): React.JSX.Element {
-  const selectedScenarioId = useAppStore((state) => state.selectedScenarioId)
-  const selectedScenario = useAppStore((state) => state.scenarioMap[selectedScenarioId])
-  const addScenario = useAppStore((state) => state.addScenario)
-  const updateScenarioName = useAppStore((state) => state.updateScenarioName)
+  const selectedScenarioId = useAppStore((state) => state.ui.selectedScenarioId)
+  const selectedScenario = useAppStore((state) => state.data.scenarioMap[selectedScenarioId])
+  const actions = useAppStore((state) => state.actions)
 
   return (
     <ScenarioBudgetComponent
       scenario={selectedScenario}
-      onAddBranch={() => addScenario(selectedScenarioId)}
-      onUpdateScenarioName={(value) => updateScenarioName(selectedScenario.id, value)}
+      onAddBranch={() => actions.addScenario(selectedScenarioId)}
+      onUpdateScenarioName={(value) => actions.updateScenarioName(selectedScenario.id, value)}
     />
   )
 }

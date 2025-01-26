@@ -8,10 +8,9 @@ export interface UseHighlightedPathProps {
 }
 
 export function useHighlightedPath({ cytoInstance }: UseHighlightedPathProps): void {
-  const selectedScenarioId = useAppStore((state) => state.selectedScenarioId)
-  const setSelectedScenarioId = useAppStore((state) => state.setSelectedScenarioId)
-  const pinnedPath = useAppStore((state) => state.pinnedPath)
-  const setHighlightedPath = useAppStore((state) => state.setHighlightedPath)
+  const selectedScenarioId = useAppStore((state) => state.ui.selectedScenarioId)
+  const pinnedPath = useAppStore((state) => state.ui.pinnedPath)
+  const actions = useAppStore((state) => state.actions)
 
   useEffect(() => {
     const highlightScenarioPath = (event: cy.EventObject): void => {
@@ -25,7 +24,7 @@ export function useHighlightedPath({ cytoInstance }: UseHighlightedPathProps): v
       // Then, select the new node
       const node = event.target.data()
       cytoInstance.$id(node.id).data('focused', true)
-      setSelectedScenarioId(node.id)
+      actions.setSelectedScenarioId(node.id)
 
       // Reset all highlights
       cytoInstance.elements().forEach((element) => {
@@ -36,7 +35,7 @@ export function useHighlightedPath({ cytoInstance }: UseHighlightedPathProps): v
       const dijkstra = cytoInstance.elements().dijkstra({ root: '#root' })
       const shortestPath = dijkstra.pathTo(cytoInstance.$id(node.id))
       const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
-      setHighlightedPath(shortestPathIds)
+      actions.setHighlightedPath(shortestPathIds)
       const isIdenticalPath =
         shortestPathIds.length === pinnedPath?.length && shortestPathIds.every((id) => pinnedPath.includes(id))
       if (!isIdenticalPath) {
@@ -60,5 +59,5 @@ export function useHighlightedPath({ cytoInstance }: UseHighlightedPathProps): v
     return (): void => {
       cytoInstance?.off('select', 'node', highlightScenarioPath)
     }
-  }, [cytoInstance, pinnedPath, selectedScenarioId, setHighlightedPath, setSelectedScenarioId])
+  }, [actions, cytoInstance, pinnedPath, selectedScenarioId])
 }

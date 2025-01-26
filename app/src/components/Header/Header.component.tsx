@@ -7,21 +7,18 @@ import { useAppStore } from 'stores'
 import { useFilePicker } from 'use-file-picker'
 
 export function Header(): React.JSX.Element {
-  const reset = useAppStore((state) => state.reset)
-  const saveAs = useAppStore((state) => state.saveAs)
-  const load = useAppStore((state) => state.load)
-
+  const actions = useAppStore((state) => state.actions)
   const { openFilePicker, filesContent } = useFilePicker({ accept: '.json', multiple: false })
 
   useEffect(() => {
     if (filesContent.length) {
-      load(JSON.parse(filesContent[0].content))
+      actions.load(JSON.parse(filesContent[0].content))
     }
-  }, [filesContent, load])
+  }, [actions, filesContent])
 
   const loadDetailedExample = useCallback((): void => {
-    load(appData)
-  }, [load])
+    actions.load(appData)
+  }, [actions])
 
   const menuButtonClasses =
     'rounded-md border border-transparent px-2 py-1 text-sm text-violet-400 outline-none hover:border-violet-500 hover:bg-violet-600 hover:text-violet-300 data-[open]:border-violet-400 data-[open]:bg-violet-600 data-[open]:text-violet-200'
@@ -40,9 +37,9 @@ export function Header(): React.JSX.Element {
         // @ts-expect-error - Typescript error: Type 'string' is not assignable to type 'ReactNode'
         label={<MenuIcon className="text-violet-400" size={20} />}
       >
-        <MenuItem className={menuItemClasses} label="New" onClick={reset} />
+        <MenuItem className={menuItemClasses} label="New" onClick={actions.reset} />
         <MenuItem className={menuItemClasses} label="Open" onClick={openFilePicker} />
-        <MenuItem className={menuItemClasses} label="Save" onClick={saveAs} />
+        <MenuItem className={menuItemClasses} label="Save" onClick={actions.saveAs} />
         <Menu menuContainerClasses={menuContainerClasses} menuItemClasses={menuItemClasses} label="Export">
           <MenuItem className={menuItemClasses} label="CSV" disabled />
           <MenuItem className={menuItemClasses} label="JSON" disabled />

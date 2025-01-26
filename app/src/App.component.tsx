@@ -8,15 +8,15 @@ import { deepCloneData } from 'utils'
 import { appData } from './App.data'
 
 export function App(): React.JSX.Element {
-  const load = useAppStore((state) => state.load)
+  const actions = useAppStore((state) => state.actions)
 
   useEffect(() => {
-    load({
+    actions.load({
       scenarioGraph: deepCloneData(appData.scenarioGraph),
       scenarioMap: deepCloneData(appData.scenarioMap),
       budgetMap: deepCloneData(appData.budgetMap),
     })
-  }, [load])
+  }, [actions])
 
   return (
     <div className="h-screen w-screen bg-slate-950 text-slate-500 selection:bg-violet-600 selection:text-violet-200">
