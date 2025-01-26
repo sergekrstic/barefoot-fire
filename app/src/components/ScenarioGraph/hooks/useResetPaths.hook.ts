@@ -35,9 +35,9 @@ export function useResetPaths({ cytoInstance }: UseResetPathsProps): void {
       })
 
       // Update the store
-      actions.setSelectedScenarioId('root')
-      actions.setHighlightedPath(['root'])
-      actions.setPinnedPath(null)
+      actions.selectScenario('root')
+      actions.highlightPath(['root'])
+      actions.pinPath(null)
     }
 
     cytoInstance?.on('dblclick', deselectAndUnpinAll)

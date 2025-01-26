@@ -26,8 +26,8 @@ export function useScenarioGraph({ containerRef }: UseScenarioGraphProps): cy.Co
     instance.center(instance.elements())
 
     // Initialise the store
-    actions.setSelectedScenarioId('root')
-    actions.setHighlightedPath(['root'])
+    actions.selectScenario('root')
+    actions.highlightPath(['root'])
 
     return (): void => {
       actions.setCytoInstance(null)

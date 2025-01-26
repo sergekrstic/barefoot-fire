@@ -29,7 +29,7 @@ export function usePinnedPath({ cytoInstance }: UsePinnedPathProps): void {
       })
 
       const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
-      actions.setPinnedPath(shortestPathIds)
+      actions.pinPath(shortestPathIds)
     }
 
     cytoInstance?.on('dblclick', 'node', pinScenarioPath)

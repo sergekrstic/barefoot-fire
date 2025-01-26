@@ -29,7 +29,7 @@ export function ScenarioBrushChart(): React.JSX.Element {
         type={pinnedPlotData ? 'difference' : 'area'}
         data={processedPlotData}
         selection={timeScrubberSelection}
-        onUpdateSelection={actions.setTimeScrubberSelection}
+        onUpdateSelection={actions.selectChartRange}
       />
       <ScenarioChart
         type={pinnedPlotData ? 'difference' : 'area'}

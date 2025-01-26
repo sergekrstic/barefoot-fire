@@ -66,13 +66,13 @@ export type AppActions = {
 
     // Graph
     setCytoInstance: (value: cy.Core | null) => void
-    setSelectedScenarioId: (value: string) => void
-    setHighlightedPath: (value: string[]) => void
-    setPinnedPath: (value: string[] | null) => void
+    selectScenario: (value: string) => void
+    highlightPath: (value: string[]) => void
+    pinPath: (value: string[] | null) => void
 
     // Chart
-    setTimeScrubberSelection: (value: TimeScrubberSelection) => void
-    refreshPlotData: () => void
+    selectChartRange: (value: TimeScrubberSelection) => void
+    refreshChart: () => void
   }
 }
 
@@ -174,7 +174,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
       const { data, actions } = get()
       const newBudgetMap = { ...data.budgetMap, [id]: { ...data.budgetMap[id], ...value } }
       set({ data: { ...data, budgetMap: newBudgetMap } })
-      actions.refreshPlotData()
+      actions.refreshChart()
     },
 
     deleteBudget: (id: string): void => {
@@ -205,7 +205,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
       const newBudgetMap = { ...data.budgetMap }
       delete newBudgetMap[id]
       set({ data: { ...data, budgetMap: newBudgetMap } })
-      actions.refreshPlotData()
+      actions.refreshChart()
     },
 
     // ========================================================================
@@ -216,15 +216,15 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
       set((prev) => ({ ui: { ...prev.ui, cytoInstance: value } }))
     },
 
-    setSelectedScenarioId: (value: string): void => {
+    selectScenario: (value: string): void => {
       set((prev) => ({ ui: { ...prev.ui, selectedScenarioId: value } }))
     },
 
-    setTimeScrubberSelection: (value: TimeScrubberSelection): void => {
+    selectChartRange: (value: TimeScrubberSelection): void => {
       set((prev) => ({ ui: { ...prev.ui, timeScrubberSelection: value } }))
     },
 
-    setHighlightedPath: (scenarioIds: string[]): void => {
+    highlightPath: (scenarioIds: string[]): void => {
       const { data } = get()
       const scenarioPath = buildScenarioPath(scenarioIds, data.scenarioMap, data.budgetMap, defaultPeriod)
       const newPlotData = convertScenarioPathToPlotData(scenarioPath, 'highlighted')
@@ -238,7 +238,7 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
       }))
     },
 
-    setPinnedPath: (scenarioIds: string[] | null): void => {
+    pinPath: (scenarioIds: string[] | null): void => {
       const { data } = get()
       const scenarioPath = scenarioIds
         ? buildScenarioPath(scenarioIds, data.scenarioMap, data.budgetMap, defaultPeriod)
@@ -248,13 +248,13 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
       set((prev) => ({ ui: { ...prev.ui, pinnedPath: scenarioIds, pinnedPlotData: newPlotData } }))
     },
 
-    refreshPlotData: (): void => {
+    refreshChart: (): void => {
       const { ui, actions } = get()
       if (ui.highlightedPath.length) {
-        actions.setHighlightedPath(ui.highlightedPath)
+        actions.highlightPath(ui.highlightedPath)
       }
       if (ui.pinnedPath) {
-        actions.setPinnedPath(ui.pinnedPath)
+        actions.pinPath(ui.pinnedPath)
       }
     },
   },

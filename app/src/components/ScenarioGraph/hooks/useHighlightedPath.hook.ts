@@ -24,7 +24,7 @@ export function useHighlightedPath({ cytoInstance }: UseHighlightedPathProps): v
       // Then, select the new node
       const node = event.target.data()
       cytoInstance.$id(node.id).data('focused', true)
-      actions.setSelectedScenarioId(node.id)
+      actions.selectScenario(node.id)
 
       // Reset all highlights
       cytoInstance.elements().forEach((element) => {
@@ -35,7 +35,7 @@ export function useHighlightedPath({ cytoInstance }: UseHighlightedPathProps): v
       const dijkstra = cytoInstance.elements().dijkstra({ root: '#root' })
       const shortestPath = dijkstra.pathTo(cytoInstance.$id(node.id))
       const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
-      actions.setHighlightedPath(shortestPathIds)
+      actions.highlightPath(shortestPathIds)
       const isIdenticalPath =
         shortestPathIds.length === pinnedPath?.length && shortestPathIds.every((id) => pinnedPath.includes(id))
       if (!isIdenticalPath) {
