@@ -22,7 +22,6 @@ export interface AppState {
     scenarioMap: ScenarioMap
     budgetMap: BudgetMap
   }
-
   ui: {
     // Graph
     cytoInstance: cy.Core | null
@@ -83,8 +82,8 @@ const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 const initialState: AppState = {
   data: {
     // Application data
-    scenarioGraph: { nodes: [{ data: { id: 'root', name: 'Initial budget' } }], edges: [] },
-    scenarioMap: { root: { id: 'root', name: 'Initial budget', startDate: defaultPeriod.startDate, budgets: [] } },
+    scenarioGraph: { nodes: [{ data: { id: 'root', name: 'New scenario' } }], edges: [] },
+    scenarioMap: { root: { id: 'root', name: 'New scenario', startDate: defaultPeriod.startDate, budgets: [] } },
     budgetMap: {},
   },
 
@@ -165,9 +164,10 @@ export const useAppStore = createStore<PluginStore>((set, get) => ({
     },
 
     updateScenarioStartDate: (id: string, value: string): void => {
-      const { data } = get()
+      const { data, actions } = get()
       const newScenarioMap = { ...data.scenarioMap, [id]: { ...data.scenarioMap[id], startDate: value } }
       set({ data: { ...data, scenarioMap: newScenarioMap } })
+      actions.refreshChart()
     },
 
     updateBudget: (id: string, value: Partial<Omit<Budget, 'id'>>): void => {

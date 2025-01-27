@@ -33,6 +33,7 @@ export interface DatePickerProps {
   onChange?: (value: DateValue) => void
 }
 
+// Todo: fix this component to work with Safari
 export function DatePicker({ value, disabled, onChange }: DatePickerProps): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
 

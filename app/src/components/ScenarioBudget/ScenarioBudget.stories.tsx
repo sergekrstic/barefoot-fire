@@ -17,5 +17,6 @@ export const Default: Story = {
     scenario: simpleScenarioMap['job1'],
     onAddBranch: () => {},
     onUpdateScenarioName: () => {},
+    onUpdateScenarioStartDate: () => {},
   },
 }

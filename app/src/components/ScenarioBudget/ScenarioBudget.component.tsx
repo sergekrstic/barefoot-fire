@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import { CollapsibleTree, DatePicker, DateValue, EditableText } from 'components'
+import { CollapsibleTree, DatePicker, EditableText } from 'components'
 import { Scenario, TreeData } from 'types'
 
 import { ScenarioBudgetMenu } from './ScenarioBudget.menu'
@@ -10,14 +8,15 @@ export interface ScenarioBudgetProps {
   scenario: Scenario | null
   onAddBranch: () => void
   onUpdateScenarioName: (value: string) => void
+  onUpdateScenarioStartDate: (value: string) => void
 }
 
 export function ScenarioBudget({
   scenario,
   onAddBranch,
   onUpdateScenarioName,
+  onUpdateScenarioStartDate,
 }: ScenarioBudgetProps): React.JSX.Element {
-  const [startDate, setStartDate] = useState<DateValue>(new Date(scenario!.startDate))
   const endDate = new Date('2035-12-31')
 
   return (
@@ -32,12 +31,20 @@ export function ScenarioBudget({
             <ScenarioBudgetMenu onAddBranch={onAddBranch} onDelete={() => {}} showDelete={scenario.id !== 'root'} />
           </div>
           <div className="flex px-4 pb-2">
-            <DatePicker value={startDate} onChange={setStartDate} />
+            <DatePicker
+              value={new Date(scenario.startDate)}
+              onChange={(value) => {
+                // If the value is null or an array (date range), do nothing
+                // Only update the scenario start date if it's a Date object
+                if (!value || Array.isArray(value)) return
+                onUpdateScenarioStartDate(value.toISOString().split('T')[0])
+              }}
+            />
             <span className="px-2 text-slate-500">{`–`}</span>
             <DatePicker value={endDate} disabled />
           </div>
           <CollapsibleTree
-            key={scenario.name}
+            key={scenario.id}
             tree={scenario.budgets}
             expanded={true}
             parentContainerClasses="cursor-pointer hover:bg-slate-800 px-4"
