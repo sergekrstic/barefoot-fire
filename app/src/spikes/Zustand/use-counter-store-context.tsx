@@ -1,3 +1,4 @@
+/* eslint-disable react-compiler/react-compiler */
 /* eslint-disable react-refresh/only-export-components */
 import { type ReactNode, createContext, useContext, useRef } from 'react'
 
