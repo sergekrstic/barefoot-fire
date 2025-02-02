@@ -32,7 +32,7 @@ export function ScenarioBudgetMenu({ showDelete, onAddBranch, onDelete }: Scenar
       }
     >
       <MenuItem className={menuItemClasses} label="Add branch" onClick={onAddBranch} />
-      {showDelete && <MenuItem className={menuItemClasses} label="Delete" disabled onClick={onDelete} />}
+      {showDelete && <MenuItem className={menuItemClasses} label="Delete" onClick={onDelete} />}
     </Menu>
   )
 }

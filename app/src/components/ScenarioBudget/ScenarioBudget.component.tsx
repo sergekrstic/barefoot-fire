@@ -9,6 +9,7 @@ export interface ScenarioBudgetProps {
   onAddBranch: () => void
   onUpdateScenarioName: (value: string) => void
   onUpdateScenarioStartDate: (value: string) => void
+  onDeleteScenario: () => void
 }
 
 export function ScenarioBudget({
@@ -16,6 +17,7 @@ export function ScenarioBudget({
   onAddBranch,
   onUpdateScenarioName,
   onUpdateScenarioStartDate,
+  onDeleteScenario,
 }: ScenarioBudgetProps): React.JSX.Element {
   const endDate = new Date('2035-12-31')
 
@@ -28,7 +30,11 @@ export function ScenarioBudget({
         <div className="flex-grow overflow-y-auto pb-4">
           <div className="flex items-center justify-between px-4 py-4 text-lg font-medium">
             <EditableText value={scenario.name} onChange={onUpdateScenarioName} />
-            <ScenarioBudgetMenu onAddBranch={onAddBranch} onDelete={() => {}} showDelete={scenario.id !== 'root'} />
+            <ScenarioBudgetMenu
+              onAddBranch={onAddBranch}
+              onDelete={onDeleteScenario}
+              showDelete={scenario.id !== 'root'}
+            />
           </div>
           <div className="flex px-4 pb-2">
             <DatePicker
