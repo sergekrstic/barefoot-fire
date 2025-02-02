@@ -12,7 +12,10 @@ export function ScenarioBudget(): React.JSX.Element {
       scenario={selectedScenario}
       onAddBranch={() => actions.addScenario(selectedScenarioId)}
       onUpdateScenarioName={(value) => actions.updateScenarioName(selectedScenario.id, value)}
-      onUpdateScenarioStartDate={(value) => actions.updateScenarioStartDate(selectedScenario.id, value)}
+      onUpdateScenarioStartDate={(value) => {
+        actions.updateScenarioStartDate(selectedScenario.id, value)
+        actions.refreshChart()
+      }}
     />
   )
 }

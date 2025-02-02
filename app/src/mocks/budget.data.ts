@@ -1,5 +1,5 @@
 import { BudgetMap, ScenarioMap, TimeSeriesData } from 'types'
-import { convertScenarioBudgetsToPlotData } from 'utils'
+import { convertScenarioPathToPlotData } from 'utils'
 
 import { Period } from '@fire/forecast-engine'
 
@@ -15,6 +15,7 @@ const defaultPeriod: Period = {
 }
 
 const period: Record<string, Period> = {
+  // Shared
   thirtyYear: {
     startDate: '2024-01-01',
     endDate: '2054-01-01',
@@ -23,6 +24,20 @@ const period: Record<string, Period> = {
     startDate: '2024-07-01',
     endDate: defaultPeriod.endDate,
   },
+  // Simple
+  job1: {
+    startDate: '2026-07-01',
+    endDate: defaultPeriod.endDate,
+  },
+  job2: {
+    startDate: '2027-07-01',
+    endDate: defaultPeriod.endDate,
+  },
+  job3: {
+    startDate: '2030-11-01',
+    endDate: defaultPeriod.endDate,
+  },
+  // Detailed
   jobSearch: {
     startDate: '2024-11-01',
     endDate: defaultPeriod.endDate,
@@ -56,6 +71,47 @@ const period: Record<string, Period> = {
 // #############################################################################
 // Budgets
 // #############################################################################
+
+export const initialBudgetMap: BudgetMap = {
+  // =========================================================================
+  // Start
+  // =========================================================================
+  'i-start': {
+    id: 'i-start',
+    name: 'Income',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-salary-start': {
+    id: 'i-salary-start',
+    name: 'Salary',
+    amount: 0,
+    frequency: 'month',
+    ...period.start,
+  },
+  'i-other-start': {
+    id: 'i-other-start',
+    name: 'Other',
+    amount: 300,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-start': {
+    id: 'e-start',
+    name: 'Expenses',
+    amount: 250,
+    frequency: 'month',
+    ...period.start,
+  },
+  'e-living-start': {
+    id: 'e-living-start',
+    name: 'Living',
+    amount: 250,
+    frequency: 'month',
+    ...period.start,
+  },
+}
 
 export const simpleBudgetMap: BudgetMap = {
   // =========================================================================
@@ -104,63 +160,63 @@ export const simpleBudgetMap: BudgetMap = {
     name: 'Income',
     amount: 2200,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'i-salary-job-1': {
     id: 'i-salary-job-1',
     name: 'Salary',
     amount: 2000,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'i-other-job-1': {
     id: 'i-other-job-1',
     name: 'Other',
     amount: 200,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'e-job-1': {
     id: 'e-job-1',
     name: 'Expenses',
     amount: 1000,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'e-living-job-1': {
     id: 'e-living-job-1',
     name: 'Living',
     amount: 400,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'e-rent-job-1': {
     id: 'e-living-job-1',
     name: 'Rent',
     amount: 300,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'e-bills-job-1': {
     id: 'e-living-job-1',
     name: 'Bills',
     amount: 300,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'e-bills-electricity-job-1': {
     id: 'e-living-job-1',
     name: 'Electricity',
     amount: 300,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   'e-bills-phone-job-1': {
     id: 'e-living-job-1',
     name: 'Phone',
     amount: 100,
     frequency: 'month',
-    ...period.start,
+    ...period.job1,
   },
   // =========================================================================
   // Job 2
@@ -170,63 +226,63 @@ export const simpleBudgetMap: BudgetMap = {
     name: 'Income',
     amount: 2700,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'i-salary-job-2': {
     id: 'i-salary-job-2',
     name: 'Salary',
     amount: 2500,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'i-other-job-2': {
     id: 'i-other-job-2',
     name: 'Other',
     amount: 200,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'e-job-2': {
     id: 'e-job-2',
     name: 'Expenses',
     amount: 1100,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'e-living-job-2': {
     id: 'e-living-job-2',
     name: 'Living',
     amount: 450,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'e-rent-job-2': {
     id: 'e-living-job-2',
     name: 'Rent',
     amount: 350,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'e-bills-job-2': {
     id: 'e-living-job-2',
     name: 'Bills',
     amount: 300,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'e-bills-electricity-job-2': {
     id: 'e-living-job-2',
     name: 'Electricity',
     amount: 300,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   'e-bills-phone-job-2': {
     id: 'e-living-job-2',
     name: 'Phone',
     amount: 100,
     frequency: 'month',
-    ...period.start,
+    ...period.job2,
   },
   // =========================================================================
   // Job 3
@@ -236,63 +292,63 @@ export const simpleBudgetMap: BudgetMap = {
     name: 'Income',
     amount: 3200,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'i-salary-job-3': {
     id: 'i-salary-job-3',
     name: 'Salary',
     amount: 3000,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'i-other-job-3': {
     id: 'i-other-job-3',
     name: 'Other',
     amount: 200,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'e-job-3': {
     id: 'e-job-3',
     name: 'Expenses',
     amount: 1100,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'e-living-job-3': {
     id: 'e-living-job-3',
     name: 'Living',
     amount: 450,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'e-rent-job-3': {
     id: 'e-living-job-3',
     name: 'Rent',
     amount: 350,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'e-bills-job-3': {
     id: 'e-living-job-3',
     name: 'Bills',
     amount: 300,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'e-bills-electricity-job-3': {
     id: 'e-living-job-3',
     name: 'Electricity',
     amount: 300,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
   'e-bills-phone-job-3': {
     id: 'e-living-job-3',
     name: 'Phone',
     amount: 100,
     frequency: 'month',
-    ...period.start,
+    ...period.job3,
   },
 }
 
@@ -651,6 +707,24 @@ export const detailedBudgetMap: BudgetMap = {
 // Scenarios
 // #############################################################################
 
+export const initialScenarioMap: ScenarioMap = {
+  root: {
+    id: 'root',
+    name: 'Start',
+    startDate: period.start.startDate,
+    budgets: [
+      {
+        id: 'i-start',
+        children: [{ id: 'i-salary-start' }, { id: 'i-other-start' }],
+      },
+      {
+        id: 'e-start',
+        children: [{ id: 'e-living-start' }],
+      },
+    ],
+  },
+}
+
 export const simpleScenarioMap: ScenarioMap = {
   root: {
     id: 'root',
@@ -670,14 +744,14 @@ export const simpleScenarioMap: ScenarioMap = {
   'job-1': {
     id: 'job-1',
     name: 'Job 1',
-    startDate: period.start.startDate,
+    startDate: period.job1.startDate,
     budgets: [
       {
         id: 'i-job-1',
-        children: [{ id: 'i-salary-job-1' }, { id: 'i-other-jo-1' }],
+        children: [{ id: 'i-salary-job-1' }, { id: 'i-other-job-1' }],
       },
       {
-        id: '2',
+        id: 'e-job-1',
         children: [
           { id: 'e-rent-job-1' },
           {
@@ -692,14 +766,14 @@ export const simpleScenarioMap: ScenarioMap = {
   'job-2': {
     id: 'job-2',
     name: 'Job 2',
-    startDate: period.start.startDate,
+    startDate: period.job2.startDate,
     budgets: [
       {
         id: 'i-job-2',
-        children: [{ id: 'i-salary-job-2' }, { id: 'i-other-jo-1' }],
+        children: [{ id: 'i-salary-job-2' }, { id: 'i-other-job-2' }],
       },
       {
-        id: '2',
+        id: 'e-job-2',
         children: [
           { id: 'e-rent-job-2' },
           {
@@ -714,14 +788,14 @@ export const simpleScenarioMap: ScenarioMap = {
   'job-3': {
     id: 'job-3',
     name: 'Job 3',
-    startDate: period.start.startDate,
+    startDate: period.job3.startDate,
     budgets: [
       {
         id: 'i-job-3',
-        children: [{ id: 'i-salary-job-3' }, { id: 'i-other-jo-1' }],
+        children: [{ id: 'i-salary-job-3' }, { id: 'i-other-job-3' }],
       },
       {
-        id: '2',
+        id: 'e-job-3',
         children: [
           { id: 'e-rent-job-3' },
           {
@@ -870,7 +944,7 @@ export const detailedScenarioMap: ScenarioMap = {
 // Plot data
 // #############################################################################
 
-export const thirtyYearCompoundPlotData: TimeSeriesData = convertScenarioBudgetsToPlotData({
+export const thirtyYearCompoundPlotData: TimeSeriesData = convertScenarioPathToPlotData({
   id: 'mock-scenario',
   name: 'Mock compound scenario',
   period: period.thirtyYear,

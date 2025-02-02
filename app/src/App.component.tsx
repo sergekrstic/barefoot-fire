@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Header, ScenarioBrushChart, ScenarioBudget, ScenarioGraph } from 'components'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { useAppStore } from 'stores'
-import { deepCloneData } from 'utils'
+import { deepClone } from 'utils'
 
 import { appData } from './App.data'
 
@@ -12,9 +12,9 @@ export function App(): React.JSX.Element {
 
   useEffect(() => {
     actions.load({
-      scenarioGraph: deepCloneData(appData.scenarioGraph),
-      scenarioMap: deepCloneData(appData.scenarioMap),
-      budgetMap: deepCloneData(appData.budgetMap),
+      scenarioGraph: deepClone(appData.scenarioGraph),
+      scenarioMap: deepClone(appData.scenarioMap),
+      budgetMap: deepClone(appData.budgetMap),
     })
   }, [actions])
 

@@ -1,20 +1,13 @@
 import { ClassValue, clsx } from 'clsx'
 import moment from 'moment'
 import { twMerge } from 'tailwind-merge'
-import {
-  BudgetMap,
-  Interval,
-  Scenario,
-  ScenarioMap,
-  ScenarioPath,
-  ScenarioStartEvents,
-  TimeSeriesData,
-  TreeData,
-} from 'types'
+import { BudgetMap, Interval, ScenarioMap, ScenarioPath, ScenarioStartEvents, TimeSeriesData, TreeData } from 'types'
 
 import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
 
-export function deepCloneData<T>(data: T): T {
+import { nanoid } from './nanoid'
+
+export function deepClone<T>(data: T): T {
   return JSON.parse(JSON.stringify(data))
 }
 
@@ -57,7 +50,7 @@ export function generateSineWaveTimeSeriesData(): TimeSeriesData {
   return data
 }
 
-export function convertScenarioBudgetsToPlotData(scenarioPath: ScenarioPath, name?: string): TimeSeriesData {
+export function convertScenarioPathToPlotData(scenarioPath: ScenarioPath, name?: string): TimeSeriesData {
   const scenarioEvents = calculateScenarioEvents(scenarioPath)
 
   return scenarioEvents.budgetEvents
@@ -185,7 +178,8 @@ export function buildScenarioPath(
     const nextScenario = scenarioMap[scenarioIds[index + 1]]
 
     // Traverse the budget tree and clone the budgets
-    const clonedBudgets: Budget[] = retrieveBudgetsFromScenario(scenario, budgetMap)
+    const budgetIds = collectBudgetIds(scenario.budgets)
+    const clonedBudgets = budgetIds.map((id) => deepClone(budgetMap[id]))
 
     // If there is a next scenario, adjust the end date of the current scenario
     if (nextScenario) {
@@ -207,25 +201,57 @@ export function buildScenarioPath(
   }
 }
 
-function retrieveBudgetsFromScenario(scenario: Scenario, budgetMap: BudgetMap): Budget[] {
-  const retrievedBudgets: Budget[] = []
-
-  const retrieveBudgets = (tree: TreeData): void => {
+export function collectBudgetIds(tree: TreeData[]): string[] {
+  const budgetIds: string[] = []
+  const fetchBudgetIds = (tree: TreeData): void => {
     if (tree.children) {
-      tree.children.forEach((child) => {
-        retrieveBudgets(child)
-      })
-    } else {
-      const budget = budgetMap[tree.id]
-      retrievedBudgets.push(deepCloneData(budget))
+      tree.children.forEach(fetchBudgetIds)
     }
+    budgetIds.push(tree.id)
+  }
+  tree.forEach(fetchBudgetIds)
+
+  return budgetIds
+}
+
+export function generateNewIdMap(budgetIds: string[]): Record<string, string> {
+  return budgetIds.reduce(
+    (acc, originalId) => {
+      acc[originalId] = nanoid()
+      return acc
+    },
+    {} as Record<string, string>,
+  )
+}
+
+export function cloneBudgetTree(tree: TreeData[], newIdMap: Record<string, string>): TreeData[] {
+  const preformClone = (tree: TreeData): TreeData => {
+    const newTree = { ...tree, id: newIdMap[tree.id] }
+    if (tree.children) {
+      newTree.children = tree.children.map(preformClone)
+    }
+    return newTree
+  }
+  return tree.map(preformClone)
+}
+
+export function findBudget(budgetId: string, budgetTree: TreeData[]): TreeData | null {
+  const findTreeNode = (tree: TreeData): TreeData | null => {
+    let result: TreeData | null = null
+
+    if (tree.id === budgetId) {
+      result = tree
+    } else if (tree.children) {
+      tree.children.some((node) => {
+        result = findTreeNode(node)
+        return result // break loop
+      })
+    }
+
+    return result
   }
 
-  scenario.budgets.forEach((tree) => {
-    retrieveBudgets(tree)
-  })
-
-  return retrievedBudgets
+  return budgetTree.map(findTreeNode).find((node) => node !== null) || null
 }
 
 // Todo: Deprecate this function

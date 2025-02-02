@@ -1,16 +1,21 @@
 import cy from 'cytoscape'
 
+export const initialScenarioGraph: cy.ElementsDefinition = {
+  nodes: [{ data: { id: 'root', name: 'Start' } }],
+  edges: [],
+}
+
 export const simpleScenarioGraph: cy.ElementsDefinition = {
   nodes: [
     { data: { id: 'root', name: 'Start' } },
-    { data: { id: 'job1', name: 'Job 1' } },
-    { data: { id: 'job2', name: 'Job 2' } },
-    { data: { id: 'job3', name: 'Job 3' } },
+    { data: { id: 'job-1', name: 'Job 1' } },
+    { data: { id: 'job-2', name: 'Job 2' } },
+    { data: { id: 'job-3', name: 'Job 3' } },
   ],
   edges: [
-    { data: { source: 'root', target: 'job1' } },
-    { data: { source: 'job1', target: 'job2' } },
-    { data: { source: 'job1', target: 'job3' } },
+    { data: { source: 'root', target: 'job-1' } },
+    { data: { source: 'job-1', target: 'job-2' } },
+    { data: { source: 'job-1', target: 'job-3' } },
   ],
 }
 

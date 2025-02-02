@@ -2,13 +2,13 @@ import { ScenarioPath } from 'types'
 import { describe, expect, it } from 'vitest'
 
 import {
-  convertScenarioBudgetsToPlotData,
+  convertScenarioPathToPlotData,
   dateFromCurrentInterval,
   getCurrentInterval,
   preprocessPlotData,
 } from './utils.methods'
 
-describe('@convertScenarioBudgetsToPlotData()', () => {
+describe('@convertScenarioPathToPlotData()', () => {
   const scenarioPath: ScenarioPath = {
     id: 'mock-path-id',
     name: 'Mock Scenario Path',
@@ -49,12 +49,12 @@ describe('@convertScenarioBudgetsToPlotData()', () => {
   ]
 
   it('creates a flat array', () => {
-    const plotData = convertScenarioBudgetsToPlotData(scenarioPath)
+    const plotData = convertScenarioPathToPlotData(scenarioPath)
     expect(plotData.length).toBe(9)
   })
 
   it('creates a sort array', () => {
-    const plotData = convertScenarioBudgetsToPlotData(scenarioPath)
+    const plotData = convertScenarioPathToPlotData(scenarioPath)
     const actualDates = plotData.map((datum) => datum.date)
     const expectedDates = expectedPlotData.map((datum) => datum.date)
     expect(actualDates).toStrictEqual(expectedDates)
@@ -79,7 +79,7 @@ describe('@preprocessPlotData()', () => {
         },
       ],
     }
-    const plotData = convertScenarioBudgetsToPlotData(scenarioPath)
+    const plotData = convertScenarioPathToPlotData(scenarioPath)
     const processedPlotData = preprocessPlotData({ data: plotData, interval: 'year', cumulative: false })
 
     expect(processedPlotData.length).toBe(4)
@@ -108,7 +108,7 @@ describe('@preprocessPlotData()', () => {
         },
       ],
     }
-    const plotData = convertScenarioBudgetsToPlotData(scenarioPath)
+    const plotData = convertScenarioPathToPlotData(scenarioPath)
     const processedPlotData = preprocessPlotData({ data: plotData, interval: 'month', cumulative: false })
 
     expect(processedPlotData.length).toBe(4)
@@ -137,7 +137,7 @@ describe('@preprocessPlotData()', () => {
         },
       ],
     }
-    const plotData = convertScenarioBudgetsToPlotData(scenarioPath)
+    const plotData = convertScenarioPathToPlotData(scenarioPath)
     const processedPlotData = preprocessPlotData({ data: plotData, interval: 'week', cumulative: false })
 
     expect(processedPlotData.length).toBe(6)
@@ -168,7 +168,7 @@ describe('@preprocessPlotData()', () => {
         },
       ],
     }
-    const plotData = convertScenarioBudgetsToPlotData(scenarioPath)
+    const plotData = convertScenarioPathToPlotData(scenarioPath)
 
     // const d = plotData.map((datum) => `${datum.name}, ${datum.date}, ${datum.amount.toFixed(2)}`)
     // console.log(JSON.stringify(d, null, 2))

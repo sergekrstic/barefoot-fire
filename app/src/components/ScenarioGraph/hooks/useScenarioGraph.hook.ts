@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import cy from 'cytoscape'
 import { useAppStore } from 'stores'
+import { deepClone } from 'utils'
 
 import { graphSettings } from '../ScenarioGraph.settings'
 
@@ -14,10 +15,11 @@ export function useScenarioGraph({ containerRef }: UseScenarioGraphProps): cy.Co
   const scenarioGraph = useAppStore((state) => state.data.scenarioGraph)
   const actions = useAppStore((state) => state.actions)
 
+  // Todo: separate the graph creation from the population
   useEffect(() => {
     if (!containerRef.current) return
 
-    const instance = cy({ container: containerRef.current, elements: scenarioGraph, ...graphSettings })
+    const instance = cy({ container: containerRef.current, elements: deepClone(scenarioGraph), ...graphSettings })
     actions.setCytoInstance(instance)
 
     // Highlight the root node and center the graph

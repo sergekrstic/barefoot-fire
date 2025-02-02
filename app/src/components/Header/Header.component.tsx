@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react'
 
 import { FireIcon, MenuIcon } from 'assets'
 import { Menu, MenuItem } from 'components'
-import { appData } from 'mocks'
+import { examples } from 'mocks'
 import { useAppStore } from 'stores'
 import { useFilePicker } from 'use-file-picker'
 
@@ -16,8 +16,9 @@ export function Header(): React.JSX.Element {
     }
   }, [actions, filesContent])
 
-  const loadDetailedExample = useCallback((): void => {
-    actions.load(appData)
+  const handleSaveAs = useCallback((): void => {
+    // Todo: open a file save dialog to allow to specify the file name
+    actions.saveAs('barefoot_fire.json')
   }, [actions])
 
   const menuButtonClasses =
@@ -39,15 +40,19 @@ export function Header(): React.JSX.Element {
       >
         <MenuItem className={menuItemClasses} label="New" onClick={actions.reset} />
         <MenuItem className={menuItemClasses} label="Open" onClick={openFilePicker} />
-        <MenuItem className={menuItemClasses} label="Save" onClick={actions.saveAs} />
+        <MenuItem className={menuItemClasses} label="Save" onClick={handleSaveAs} />
         <Menu menuContainerClasses={menuContainerClasses} menuItemClasses={menuItemClasses} label="Export">
           <MenuItem className={menuItemClasses} label="CSV" disabled />
           <MenuItem className={menuItemClasses} label="JSON" disabled />
           <MenuItem className={menuItemClasses} label="Excel" disabled />
         </Menu>
         <Menu menuContainerClasses={menuContainerClasses} menuItemClasses={menuItemClasses} label="Examples">
-          <MenuItem className={menuItemClasses} label="Simple example" disabled />
-          <MenuItem className={menuItemClasses} label="Detailed example" onClick={loadDetailedExample} />
+          <MenuItem className={menuItemClasses} label="Simple example" onClick={() => actions.load(examples.simple)} />
+          <MenuItem
+            className={menuItemClasses}
+            label="Detailed example"
+            onClick={() => actions.load(examples.detailed)}
+          />
           <MenuItem className={menuItemClasses} label="Rent vs Mortgage" disabled />
           <MenuItem className={menuItemClasses} label="Petrol vs Hybrid vs Electric" disabled />
           <MenuItem className={menuItemClasses} label="Median vs Professional vs Elite" disabled />
