@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { CollapsibleTree } from './CollapsibleTree.component'
+import { CollapsibleTreeNode } from './CollapsibleTreeNode.component'
 
 const meta = {
   component: CollapsibleTree,
@@ -39,7 +40,15 @@ export const Default: Story = {
         ],
       },
     ],
-    renderCollapsibleItemContent: (item) => <div>{(item as Item).title}</div>,
-    renderLeafItemContent: (item) => <div>{(item as Item).title}</div>,
+    renderCollapsibleItemContent: (item, depth, expanded) => (
+      <CollapsibleTreeNode type="group" depth={depth} expanded={expanded}>
+        {(item as Item).title}
+      </CollapsibleTreeNode>
+    ),
+    renderLeafItemContent: (item, depth, expanded) => (
+      <CollapsibleTreeNode type="item" depth={depth} expanded={expanded}>
+        {(item as Item).title}
+      </CollapsibleTreeNode>
+    ),
   },
 }

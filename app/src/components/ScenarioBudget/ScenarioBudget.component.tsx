@@ -28,15 +28,7 @@ export function ScenarioBudget({
         <div className="px-4 pb-2 pt-4 text-lg font-medium text-slate-500">{'No budget selected'}</div>
       ) : (
         <div className="flex-grow overflow-y-auto pb-4">
-          <div className="flex items-center justify-between px-4 py-4 text-lg font-medium">
-            <EditableText value={scenario.name} onChange={onUpdateScenarioName} />
-            <ScenarioBudgetMenu
-              onAddBranch={onAddBranch}
-              onDelete={onDeleteScenario}
-              showDelete={scenario.id !== 'root'}
-            />
-          </div>
-          <div className="flex px-4 pb-2">
+          <div className="flex px-4 py-4">
             <DatePicker
               value={new Date(scenario.startDate)}
               onChange={(value) => {
@@ -49,14 +41,30 @@ export function ScenarioBudget({
             <span className="px-2 text-slate-500">{`–`}</span>
             <DatePicker value={endDate} disabled />
           </div>
+          <div className="flex items-center justify-between px-4 pb-2">
+            <EditableText
+              containerClassName="grow"
+              textClassName="text-lg font-medium"
+              value={scenario.name}
+              onChange={onUpdateScenarioName}
+            />
+            <div className="pr-3 text-center">monthly</div>
+            <ScenarioBudgetMenu
+              onAddBranch={onAddBranch}
+              onDelete={onDeleteScenario}
+              showDelete={scenario.id !== 'root'}
+            />
+          </div>
           <CollapsibleTree
             key={scenario.id}
             tree={scenario.budgets}
             expanded={true}
-            parentContainerClasses="cursor-pointer hover:bg-slate-800 px-4"
-            childContainerClasses="cursor-default px-4"
-            renderCollapsibleItemContent={(item) => <ScenarioBudgetItem id={(item as TreeData).id} type="parent" />}
-            renderLeafItemContent={(item) => <ScenarioBudgetItem id={(item as TreeData).id} type="leaf" />}
+            renderCollapsibleItemContent={(item, depth, expanded) => (
+              <ScenarioBudgetItem id={(item as TreeData).id} type="group" depth={depth} expanded={expanded} />
+            )}
+            renderLeafItemContent={(item, depth, expanded) => (
+              <ScenarioBudgetItem id={(item as TreeData).id} type="item" depth={depth} expanded={expanded} />
+            )}
           />
         </div>
       )}

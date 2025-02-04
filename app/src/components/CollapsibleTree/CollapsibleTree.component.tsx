@@ -1,26 +1,21 @@
 import { Fragment, useState } from 'react'
 
-import { ChevronDownIcon, ChevronRightIcon } from 'assets'
 import { TreeData } from 'types'
 
 interface CollapsibleTreeProps {
   tree: TreeData[]
-  level?: number
+  depth?: number
   expanded?: boolean
   context?: unknown
-  parentContainerClasses?: string
-  childContainerClasses?: string
-  renderCollapsibleItemContent: (item: unknown, context: unknown) => React.JSX.Element
-  renderLeafItemContent: (item: unknown, context?: unknown) => React.JSX.Element
+  renderCollapsibleItemContent: (item: unknown, depth: number, expanded: boolean, context: unknown) => React.JSX.Element
+  renderLeafItemContent: (item: unknown, depth: number, expanded: boolean, context?: unknown) => React.JSX.Element
 }
 
 export function CollapsibleTree({
   tree,
-  level = 0,
+  depth = 0,
   expanded = false,
   context,
-  parentContainerClasses,
-  childContainerClasses,
   renderCollapsibleItemContent,
   renderLeafItemContent,
 }: CollapsibleTreeProps): React.JSX.Element {
@@ -39,10 +34,8 @@ export function CollapsibleTree({
           <div key={item.id}>
             {/* Display the parent */}
             {isParent && (
-              <div className={`flex flex-row ${parentContainerClasses}`} onClick={() => toggleNested(item.id)}>
-                <div style={{ paddingLeft: `${(level - 0) * 16}px` }} />
-                {showNested[item.id] ? <ChevronDownIcon size={16} /> : <ChevronRightIcon size={16} />}
-                <div className="w-full pl-2">{renderCollapsibleItemContent(item, context)}</div>
+              <div onClick={() => toggleNested(item.id)}>
+                {renderCollapsibleItemContent(item, depth, showNested[item.id], context)}
               </div>
             )}
             {/* Display the children */}
@@ -50,11 +43,9 @@ export function CollapsibleTree({
               <div className={showNested[item.id] ? 'block' : 'hidden'}>
                 {item.children && (
                   <CollapsibleTree
-                    level={level + 1}
+                    depth={depth + 1}
                     tree={item.children}
                     context={context}
-                    parentContainerClasses={parentContainerClasses}
-                    childContainerClasses={childContainerClasses}
                     renderCollapsibleItemContent={renderCollapsibleItemContent}
                     renderLeafItemContent={renderLeafItemContent}
                   />
@@ -62,11 +53,7 @@ export function CollapsibleTree({
               </div>
             )}
             {/* Display the child */}
-            {!isParent && (
-              <div className={childContainerClasses}>
-                <div style={{ paddingLeft: `${(level + 1) * (16 + 4)}px` }}>{renderLeafItemContent(item, context)}</div>
-              </div>
-            )}
+            {!isParent && <>{renderLeafItemContent(item, depth + 1, false, context)}</>}
           </div>
         )
       })}

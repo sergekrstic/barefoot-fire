@@ -2,10 +2,12 @@ import { EllipsisIcon } from 'assets'
 import { Menu, MenuItem } from 'components'
 
 export interface ScenarioBudgetItemMenuProps {
+  type: 'group' | 'item'
+  onAddItem: () => void
   onDelete: () => void
 }
 
-export function ScenarioBudgetItemMenu({ onDelete }: ScenarioBudgetItemMenuProps): React.JSX.Element {
+export function ScenarioBudgetItemMenu({ type, onAddItem, onDelete }: ScenarioBudgetItemMenuProps): React.JSX.Element {
   const menuButtonClasses =
     'ml-3 rounded-sm border border-transparent outline-none hover:border-slate-700 data-[open]:border-slate-600'
   const menuContainerClasses =
@@ -28,6 +30,13 @@ export function ScenarioBudgetItemMenu({ onDelete }: ScenarioBudgetItemMenuProps
         </div>
       }
     >
+      {type === 'group' && (
+        <>
+          <MenuItem className={menuItemClasses} label="Add Item" onClick={onAddItem} />
+          {/* <MenuItem className={menuItemClasses} label="Add Group" onClick={() => {}} /> */}
+        </>
+      )}
+
       <MenuItem className={menuItemClasses} label="Delete" onClick={onDelete} />
     </Menu>
   )

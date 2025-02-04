@@ -4,6 +4,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { cn, formatTransactionValue } from 'utils'
 
 export interface EditableTextProps {
+  containerClassName?: string
   textClassName?: string
   inputClassName?: string
   rightAlign?: boolean
@@ -14,6 +15,7 @@ export interface EditableTextProps {
 }
 
 export function EditableText({
+  containerClassName,
   textClassName,
   inputClassName,
   value,
@@ -52,7 +54,7 @@ export function EditableText({
   )
 
   return (
-    <div className="relative grow">
+    <div className={cn('relative', containerClassName)}>
       {isEditing && (
         <input
           ref={inputRef}

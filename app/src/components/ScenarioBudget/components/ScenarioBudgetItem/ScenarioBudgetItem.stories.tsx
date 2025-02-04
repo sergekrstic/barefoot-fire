@@ -12,15 +12,18 @@ type Story = StoryObj<typeof meta>
 
 export const Parent: Story = {
   args: {
-    type: 'parent',
+    type: 'group',
+    depth: 0,
+    expanded: true,
     budget: {
       id: '1',
-      name: 'Parent Item',
+      name: 'Budget Group',
       amount: 1000,
       frequency: 'month',
       startDate: '2021-01-01',
       endDate: '2021-12-31',
     },
+    onAddItem: () => {},
     onUpdateName: () => {},
     onUpdateAmount: () => {},
     onDelete: () => {},
@@ -29,15 +32,18 @@ export const Parent: Story = {
 
 export const Leaf: Story = {
   args: {
-    type: 'leaf',
+    type: 'item',
+    depth: 0,
+    expanded: false,
     budget: {
       id: '2',
-      name: 'Leaf Item',
+      name: 'Budget Item',
       amount: -500,
       frequency: 'month',
       startDate: '2021-01-01',
       endDate: '2021-12-31',
     },
+    onAddItem: () => {},
     onUpdateName: () => {},
     onUpdateAmount: () => {},
     onDelete: () => {},
