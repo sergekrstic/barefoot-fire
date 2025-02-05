@@ -12,8 +12,7 @@ export interface ScenarioBudgetItemProps {
   expanded: boolean
   budget: Budget
   onAddItem: () => void
-  onUpdateName: (name: string) => void
-  onUpdateAmount: (amount: number) => void
+  onUpdateBudget: (budget: Partial<Budget>) => void
   onDelete: () => void
 }
 
@@ -23,17 +22,10 @@ export function ScenarioBudgetItem({
   expanded,
   budget,
   onAddItem,
-  onUpdateName,
-  onUpdateAmount,
+  onUpdateBudget,
   onDelete,
 }: ScenarioBudgetItemProps): React.JSX.Element {
   const [showDetails, setShowDetails] = useState(false)
-  const [name, setName] = useState(budget.name)
-  const [amount, setAmount] = useState(budget.amount)
-
-  const toggleDetails = (): void => {
-    setShowDetails(!showDetails)
-  }
 
   return (
     <>
@@ -42,14 +34,19 @@ export function ScenarioBudgetItem({
         type={type}
         depth={depth}
         expanded={expanded}
-        onClick={toggleDetails}
+        onClick={() => setShowDetails(!showDetails)}
       >
         <div className={'flex w-full flex-row items-center justify-center py-2'}>
-          <div className="grow">
-            <EditableText value={name} onChange={setName} onBlur={onUpdateName} onCancel={() => setName(budget.name)} />
+          <div className="shrink-0 flex-grow">
+            <EditableText
+              mode="text"
+              textClassName=""
+              defaultValue={budget.name}
+              onBlur={(value) => onUpdateBudget({ name: value })}
+            />
           </div>
           <div className={'relative min-w-14 text-right text-slate-500'}>
-            <span>{formatTransactionValue(amount)}</span>
+            <span>{formatTransactionValue(budget.amount)}</span>
           </div>
           <div className="flex items-center justify-center">
             <ScenarioBudgetItemMenu type={type} onAddItem={onAddItem} onDelete={onDelete} />
@@ -57,26 +54,26 @@ export function ScenarioBudgetItem({
         </div>
       </CollapsibleTreeNode>
       {type === 'item' && showDetails && (
-        <div className="pr-12 text-slate-500" style={{ paddingLeft: `${(depth + 2) * (16 + 4)}px` }}>
-          <div className="flex justify-between py-2">
+        <div className="pr-12 text-slate-500" style={{ paddingLeft: `${(depth + 2) * (16 + 2)}px` }}>
+          <div className="flex py-2">
             <span>Initial</span>
             <EditableText
-              textClassName="text-slate-200"
-              value={budget.initialAmount || '–'}
-              onChange={(value) => setAmount(Number(value))}
-              onBlur={(value) => onUpdateAmount(Number(value))}
-              onCancel={() => setAmount(budget.amount)}
+              mode="number"
+              containerClassName="flex grow justify-end text-end"
+              textClassName="text-slate-200 w-20"
+              defaultValue={budget.initialAmount || '–'}
+              onBlur={(value) => onUpdateBudget({ initialAmount: Number(value) })}
               rightAlign
             />
           </div>
-          <div className="flex justify-between py-2">
+          <div className="flex py-2">
             <span>Amount</span>
             <EditableText
-              textClassName="text-slate-200"
-              value={amount}
-              onChange={(value) => setAmount(Number(value))}
-              onBlur={(value) => onUpdateAmount(Number(value))}
-              onCancel={() => setAmount(budget.amount)}
+              mode="number"
+              containerClassName="flex grow justify-end text-end"
+              textClassName="text-slate-200 w-20"
+              defaultValue={budget.amount}
+              onBlur={(value) => onUpdateBudget({ amount: Number(value) })}
               rightAlign
             />
           </div>
@@ -84,14 +81,14 @@ export function ScenarioBudgetItem({
             <span>Frequency</span>
             <div className="text-slate-200">{budget.frequency}</div>
           </div>
-          <div className="flex justify-between py-2">
+          <div className="flex py-2">
             <span>Rate (%)</span>
             <EditableText
-              textClassName="text-slate-200"
-              value={budget.interestRate || '–'}
-              onChange={(value) => setAmount(Number(value))}
-              onBlur={(value) => onUpdateAmount(Number(value))}
-              onCancel={() => setAmount(budget.amount)}
+              mode="decimal"
+              containerClassName="flex grow justify-end text-end"
+              textClassName="text-slate-200 w-20"
+              defaultValue={budget.interestRate === undefined ? undefined : budget.interestRate * 100}
+              onBlur={(value) => onUpdateBudget({ interestRate: value === '' ? undefined : Number(value) / 100 })}
               rightAlign
             />
           </div>

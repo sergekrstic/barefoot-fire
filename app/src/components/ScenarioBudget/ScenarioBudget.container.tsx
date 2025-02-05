@@ -8,8 +8,6 @@ export function ScenarioBudget(): React.JSX.Element {
   const highlightedPath = useAppStore((state) => state.ui.highlightedPath)
   const actions = useAppStore((state) => state.actions)
 
-  console.log('highlightedPath =>', highlightedPath)
-
   return (
     <ScenarioBudgetComponent
       scenario={selectedScenario}

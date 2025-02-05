@@ -3,22 +3,28 @@ import { useRef, useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { cn, formatTransactionValue } from 'utils'
 
+export type InputMode = 'text' | 'number' | 'decimal'
+
 export interface EditableTextProps {
+  mode: InputMode
   containerClassName?: string
   textClassName?: string
   inputClassName?: string
   rightAlign?: boolean
-  value: string | number
+  value?: string | number
+  defaultValue?: string | number
   onChange?: (value: string) => void
   onBlur?: (value: string) => void
   onCancel?: () => void
 }
 
 export function EditableText({
+  mode,
   containerClassName,
   textClassName,
   inputClassName,
   value,
+  defaultValue,
   onChange,
   onBlur,
   onCancel,
@@ -26,6 +32,7 @@ export function EditableText({
 }: EditableTextProps): React.JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isEditing, setIsEditing] = useState(false)
+  const inputType = mode === 'decimal' ? 'number' : mode
 
   // Note: the `useHotkeys` hook is mounted globally and will trigger on any input if an element
   // ref is not attached. However, this is not possible when the input is conditionally rendered.
@@ -58,7 +65,7 @@ export function EditableText({
       {isEditing && (
         <input
           ref={inputRef}
-          type={typeof value === 'string' ? 'text' : 'number'}
+          type={inputType}
           autoFocus
           className={cn(
             'absolute rounded-md border border-violet-500 bg-slate-800 px-2 py-1 text-slate-300 outline-0',
@@ -67,11 +74,12 @@ export function EditableText({
               '-left-[9px] right-3 text-left': !rightAlign,
               '-right-[9px] left-3 text-right': rightAlign,
               // Remove the spinner from number inputs
-              'appearance-none': typeof value === 'number',
+              'appearance-none': inputType === 'number',
             },
             inputClassName,
           )}
           value={value}
+          defaultValue={defaultValue}
           onBlur={(e) => {
             setIsEditing(false)
             if (onBlur) {
@@ -86,25 +94,31 @@ export function EditableText({
         />
       )}
       <span
-        className={cn('cursor-text', textClassName)}
+        className={cn('cursor-text', textClassName, { 'text-transparent': isEditing })}
         onClick={(e) => {
           e.stopPropagation()
           setIsEditing(true)
         }}
       >
         {/* Ensure that underlying text is not visible when editing */}
-        {isEditing ? '.' : formatValue(value)}
+        {isEditing ? '.' : formatValue(mode, value ?? defaultValue)}
       </span>
     </div>
   )
 }
 
-function formatValue(value: string | number): string {
+function formatValue(mode: InputMode, value: string | number | undefined): string {
+  if (value === undefined) {
+    // Display a dash for undefined values
+    return '–'
+  }
+
   if (typeof value === 'number') {
-    return formatTransactionValue(value)
+    return mode === 'decimal' ? value.toFixed(2) : formatTransactionValue(value)
   }
 
   if (typeof value === 'string') {
+    // Todo: figure out how best to handle empty strings
     return value ? value : 'No name'
   }
 

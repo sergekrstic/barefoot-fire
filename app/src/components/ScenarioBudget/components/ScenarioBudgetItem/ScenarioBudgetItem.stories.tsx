@@ -24,8 +24,7 @@ export const Parent: Story = {
       endDate: '2021-12-31',
     },
     onAddItem: () => {},
-    onUpdateName: () => {},
-    onUpdateAmount: () => {},
+    onUpdateBudget: () => {},
     onDelete: () => {},
   },
 }
@@ -44,8 +43,7 @@ export const Leaf: Story = {
       endDate: '2021-12-31',
     },
     onAddItem: () => {},
-    onUpdateName: () => {},
-    onUpdateAmount: () => {},
+    onUpdateBudget: () => {},
     onDelete: () => {},
   },
 }

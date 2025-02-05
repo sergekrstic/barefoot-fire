@@ -43,6 +43,7 @@ export function ScenarioBudget({
           </div>
           <div className="flex items-center justify-between px-4 pb-2">
             <EditableText
+              mode="text"
               containerClassName="grow"
               textClassName="text-lg font-medium"
               value={scenario.name}
