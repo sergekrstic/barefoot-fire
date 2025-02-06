@@ -1,9 +1,18 @@
-import { budgetMapSchema, budgetSchema, scenarioMapSchema, scenarioSchema, treeDataSchema } from 'schemas'
+import {
+  budgetFrequencySchema,
+  budgetMapSchema,
+  budgetSchema,
+  scenarioMapSchema,
+  scenarioSchema,
+  treeDataSchema,
+} from 'schemas'
 import { z } from 'zod'
 
 import { Period } from '@fire/forecast-engine'
 
 export type TreeData = z.infer<typeof treeDataSchema>
+
+export type BudgetFrequency = z.infer<typeof budgetFrequencySchema>
 
 export type Budget = z.infer<typeof budgetSchema>
 

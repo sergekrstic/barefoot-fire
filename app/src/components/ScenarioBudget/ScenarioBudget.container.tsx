@@ -14,9 +14,16 @@ export function ScenarioBudget(): React.JSX.Element {
     <ScenarioBudgetComponent
       scenario={selectedScenario}
       rollupFrequency={rollupFrequency}
-      onSelectRollupFrequency={(value) => actions.selectRollupFrequency(value as RollupFrequency)}
-      onAddBranch={() => actions.addScenario(selectedScenarioId)}
-      onUpdateScenarioName={(value) => actions.updateScenarioName(selectedScenario.id, value)}
+      onSelectRollupFrequency={(value) => {
+        actions.selectRollupFrequency(value as RollupFrequency)
+        actions.calculateScenarioBudgetRollup(selectedScenarioId)
+      }}
+      onAddBranch={() => {
+        actions.addScenario(selectedScenarioId)
+      }}
+      onUpdateScenarioName={(value) => {
+        actions.updateScenarioName(selectedScenario.id, value)
+      }}
       onUpdateScenarioStartDate={(value) => {
         actions.updateScenarioStartDate(selectedScenario.id, value)
         actions.refreshChart()

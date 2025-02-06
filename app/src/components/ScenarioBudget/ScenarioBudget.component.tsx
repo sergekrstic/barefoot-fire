@@ -53,9 +53,18 @@ export function ScenarioBudget({
               value={scenario.name}
               onChange={onUpdateScenarioName}
             />
-            <Select value={rollupFrequency} onSelect={onSelectRollupFrequency}>
+            <Select
+              labelClassName="mr-1 cursor-pointer px-2 aria-[expanded=true]:bg-slate-700"
+              listClassName="rounded-sm border border-slate-700 bg-slate-800"
+              value={rollupFrequency}
+              onChange={onSelectRollupFrequency}
+            >
               {['monthly', 'yearly'].map((option) => (
-                <Option className="min-w-20 p-2 text-right" key={option} label={option} />
+                <Option
+                  className="px-2 py-1 text-right text-slate-200 aria-[active=true]:bg-violet-700 aria-[selected=true]:font-semibold aria-[active=true]:text-violet-200 aria-[selected=true]:text-violet-500"
+                  key={option}
+                  label={option}
+                />
               ))}
             </Select>
             <ScenarioBudgetMenu

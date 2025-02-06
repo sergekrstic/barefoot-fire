@@ -120,7 +120,7 @@ export const simpleBudgetMap: BudgetMap = {
   'i-start': {
     id: 'i-start',
     name: 'Income',
-    amount: 300,
+    amount: 0,
     frequency: 'month',
     ...period.start,
   },
@@ -141,7 +141,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-start': {
     id: 'e-start',
     name: 'Expenses',
-    amount: 250,
+    amount: 0,
     frequency: 'month',
     ...period.start,
   },
@@ -158,7 +158,7 @@ export const simpleBudgetMap: BudgetMap = {
   'i-job-1': {
     id: 'i-job-1',
     name: 'Income',
-    amount: 2200,
+    amount: 0,
     frequency: 'month',
     ...period.job1,
   },
@@ -179,7 +179,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-job-1': {
     id: 'e-job-1',
     name: 'Expenses',
-    amount: 1000,
+    amount: 0,
     frequency: 'month',
     ...period.job1,
   },
@@ -200,7 +200,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-bills-job-1': {
     id: 'e-living-job-1',
     name: 'Bills',
-    amount: 300,
+    amount: 0,
     frequency: 'month',
     ...period.job1,
   },
@@ -224,7 +224,7 @@ export const simpleBudgetMap: BudgetMap = {
   'i-job-2': {
     id: 'i-job-2',
     name: 'Income',
-    amount: 2700,
+    amount: 0,
     frequency: 'month',
     ...period.job2,
   },
@@ -245,7 +245,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-job-2': {
     id: 'e-job-2',
     name: 'Expenses',
-    amount: 1100,
+    amount: 0,
     frequency: 'month',
     ...period.job2,
   },
@@ -266,7 +266,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-bills-job-2': {
     id: 'e-living-job-2',
     name: 'Bills',
-    amount: 300,
+    amount: 0,
     frequency: 'month',
     ...period.job2,
   },
@@ -290,7 +290,7 @@ export const simpleBudgetMap: BudgetMap = {
   'i-job-3': {
     id: 'i-job-3',
     name: 'Income',
-    amount: 3200,
+    amount: 0,
     frequency: 'month',
     ...period.job3,
   },
@@ -311,7 +311,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-job-3': {
     id: 'e-job-3',
     name: 'Expenses',
-    amount: 1100,
+    amount: 0,
     frequency: 'month',
     ...period.job3,
   },
@@ -332,7 +332,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-bills-job-3': {
     id: 'e-living-job-3',
     name: 'Bills',
-    amount: 300,
+    amount: 0,
     frequency: 'month',
     ...period.job3,
   },

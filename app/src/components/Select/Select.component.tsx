@@ -29,12 +29,20 @@ interface SelectContextValue {
 const SelectContext = React.createContext<SelectContextValue>({} as SelectContextValue)
 
 export interface SelectProps {
+  labelClassName?: string
+  listClassName?: string
   children: React.ReactNode
   value?: string | null
-  onSelect?: (value: string) => void
+  onChange?: (value: string) => void
 }
 
-export function Select({ children, onSelect, value = null }: SelectProps): React.JSX.Element {
+export function Select({
+  labelClassName,
+  listClassName,
+  children,
+  onChange,
+  value = null,
+}: SelectProps): React.JSX.Element {
   const [isOpen, setIsOpen] = React.useState(false)
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null)
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(null)
@@ -58,12 +66,12 @@ export function Select({ children, onSelect, value = null }: SelectProps): React
       if (index !== null) {
         const newLabel = labelsRef.current[index]
         setSelectedLabel(newLabel)
-        if (onSelect && newLabel) {
-          onSelect(newLabel)
+        if (onChange && newLabel) {
+          onChange(newLabel)
         }
       }
     },
-    [onSelect],
+    [onChange],
   )
 
   function handleTypeaheadMatch(index: number | null): void {
@@ -117,7 +125,7 @@ export function Select({ children, onSelect, value = null }: SelectProps): React
         ref={refs.setReference}
         aria-labelledby="select-label"
         aria-autocomplete="none"
-        className={cn('inline-block select-none px-3 leading-loose outline-none', { 'bg-slate-700': isOpen })}
+        className={cn('inline-block select-none outline-none', labelClassName)}
         {...getReferenceProps()}
       >
         {selectedLabel ?? 'Select...'}
@@ -128,7 +136,7 @@ export function Select({ children, onSelect, value = null }: SelectProps): React
             <FloatingFocusManager context={context} modal={false}>
               <div
                 ref={refs.setFloating}
-                className="flex flex-col rounded-sm border border-slate-700 bg-slate-800 outline-none"
+                className={cn('flex flex-col outline-none', listClassName)}
                 style={floatingStyles}
                 {...getFloatingProps()}
               >
@@ -161,8 +169,9 @@ export function Option({ className, label }: OptionProps): React.JSX.Element {
     <button
       ref={ref}
       role="option"
-      className={cn('outline-none', { 'font-bold': isSelected, 'bg-violet-600': isActive }, className)}
-      aria-selected={isActive && isSelected}
+      className={cn('outline-none', className)}
+      aria-selected={isSelected}
+      aria-active={isActive}
       tabIndex={isActive ? 0 : -1}
       {...getItemProps({
         onClick: () => handleSelect(index),

@@ -26,6 +26,7 @@ export function ScenarioBudgetItem({ id, type, depth, expanded }: ScenarioBudget
       }}
       onUpdateBudget={(newBudget) => {
         actions.updateBudget(budget.id, newBudget)
+        actions.calculateScenarioBudgetRollup(scenarioId)
         actions.refreshChart()
       }}
       onDelete={() => {

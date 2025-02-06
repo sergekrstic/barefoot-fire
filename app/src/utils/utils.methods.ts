@@ -1,7 +1,16 @@
 import { ClassValue, clsx } from 'clsx'
 import moment from 'moment'
 import { twMerge } from 'tailwind-merge'
-import { BudgetMap, Interval, ScenarioMap, ScenarioPath, ScenarioStartEvents, TimeSeriesData, TreeData } from 'types'
+import {
+  BudgetMap,
+  Interval,
+  RollupFrequency,
+  ScenarioMap,
+  ScenarioPath,
+  ScenarioStartEvents,
+  TimeSeriesData,
+  TreeData,
+} from 'types'
 
 import { Budget, Period, calculateScenarioEvents } from '@fire/forecast-engine'
 
@@ -274,4 +283,20 @@ export function formatTransactionValue(value: number): string {
   const integerValue = Math.floor(Math.round(value))
   const formattedNumber = Math.abs(integerValue).toLocaleString()
   return value >= 0 ? formattedNumber : `(${formattedNumber})`
+}
+
+export function calculateBudgetRollupValue(budget: Budget, rollupFrequency: RollupFrequency): number {
+  const { amount, frequency: budgetFrequency } = budget
+  switch (budgetFrequency) {
+    case 'year':
+      return rollupFrequency === 'yearly' ? amount : amount / 12
+    case 'quarter':
+      return rollupFrequency === 'yearly' ? amount * 4 : (amount * 4) / 12
+    case 'month':
+      return rollupFrequency === 'yearly' ? amount * 12 : amount
+    case 'week':
+      return rollupFrequency === 'yearly' ? amount * 52 : (amount * 52) / 12
+    case 'day':
+      return rollupFrequency === 'yearly' ? amount * 365 : (amount * 365) / 12
+  }
 }

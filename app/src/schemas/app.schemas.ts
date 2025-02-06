@@ -22,15 +22,18 @@ export const scenarioSchema = z.object({
 
 export const scenarioMapSchema = z.record(scenarioSchema)
 
+export const budgetFrequencySchema = z.enum(['year', 'quarter', 'month', 'week', 'day'])
+
 export const budgetSchema = z.object({
   id: z.string(),
   name: z.string(),
   amount: z.number(),
-  frequency: z.enum(['year', 'quarter', 'month', 'week', 'day']),
+  frequency: budgetFrequencySchema,
   startDate: z.string(),
   endDate: z.string(),
   initialAmount: z.number().optional(),
   interestRate: z.number().optional(),
+  rollup: z.number().optional(),
 })
 
 export const budgetMapSchema = z.record(budgetSchema)

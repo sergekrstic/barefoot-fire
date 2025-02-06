@@ -14,6 +14,7 @@ import {
 } from 'types'
 import {
   buildScenarioPath,
+  calculateBudgetRollupValue,
   cloneBudgetTree,
   collectBudgetIds,
   convertScenarioPathToPlotData,
@@ -90,6 +91,7 @@ export type AppActions = {
 
     // Budget
     selectRollupFrequency: (value: RollupFrequency) => void
+    calculateScenarioBudgetRollup: (scenarioId: string) => void
   }
 }
 
@@ -356,6 +358,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
 
     selectScenario: (value: string): void => {
       set((prev) => ({ ui: { ...prev.ui, selectedScenarioId: value } }))
+      get().actions.calculateScenarioBudgetRollup(value)
     },
 
     selectChartRange: (value: TimeScrubberSelection): void => {
@@ -400,6 +403,32 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       set(
         produce((draft: AppState) => {
           draft.ui.rollupFrequency = value
+        }),
+      )
+    },
+
+    calculateScenarioBudgetRollup: (scenarioId: string): void => {
+      set(
+        produce((draft: AppState) => {
+          const { scenarioMap, budgetMap } = draft.data
+          const scenario = scenarioMap[scenarioId]
+
+          scenario.budgets.forEach((tree) => {
+            const calculateRollup = (tree: TreeData): number => {
+              const budget = budgetMap[tree.id]
+
+              // Calculate the rollup for each child
+              const children = tree.children?.map((child) => calculateRollup(child)) || []
+              const budgetRollupValue = calculateBudgetRollupValue(budget, draft.ui.rollupFrequency)
+              const accumulatedRollupValue = children.reduce((acc, val) => acc + val, budgetRollupValue)
+
+              // Update the budget rollup
+              budget.rollup = accumulatedRollupValue
+
+              return accumulatedRollupValue
+            }
+            calculateRollup(tree)
+          })
         }),
       )
     },

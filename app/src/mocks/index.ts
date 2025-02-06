@@ -22,4 +22,5 @@ export const examples = {
   },
 }
 
-export const appData = examples.detailed
+// export const appData = examples.detailed
+export const appData = examples.simple

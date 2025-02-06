@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { CollapsibleTreeNode, EditableText } from 'components'
-import { Budget } from 'types'
+import { CollapsibleTreeNode, EditableText, Option, Select } from 'components'
+import { Budget, BudgetFrequency } from 'types'
 import { formatTransactionValue } from 'utils'
 
 import { ScenarioBudgetItemMenu } from './ScenarioBudgetItem.menu'
@@ -46,7 +46,7 @@ export function ScenarioBudgetItem({
             />
           </div>
           <div className={'relative min-w-14 text-right text-slate-500'}>
-            <span>{formatTransactionValue(budget.amount)}</span>
+            <span>{budget.rollup !== undefined ? formatTransactionValue(budget.rollup) : '–'}</span>
           </div>
           <div className="flex items-center justify-center">
             <ScenarioBudgetItemMenu type={type} onAddItem={onAddItem} onDelete={onDelete} />
@@ -79,7 +79,22 @@ export function ScenarioBudgetItem({
           </div>
           <div className="flex justify-between py-2">
             <span>Frequency</span>
-            <div className="text-slate-200">{budget.frequency}</div>
+            <Select
+              labelClassName="-mr-2 cursor-pointer px-2 text-slate-200 aria-[expanded=true]:bg-slate-700"
+              listClassName="rounded-sm border border-slate-700 bg-slate-800"
+              value={budget.frequency}
+              onChange={(value) => {
+                onUpdateBudget({ frequency: value as BudgetFrequency })
+              }}
+            >
+              {['year', 'quarter', 'month', 'week', 'day'].map((option) => (
+                <Option
+                  className="px-2 py-1 text-right text-slate-200 aria-[active=true]:bg-violet-700 aria-[selected=true]:font-semibold aria-[active=true]:text-violet-200 aria-[selected=true]:text-violet-500"
+                  key={option}
+                  label={option}
+                />
+              ))}
+            </Select>
           </div>
           <div className="flex py-2">
             <span>Rate (%)</span>
