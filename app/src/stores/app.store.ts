@@ -5,6 +5,7 @@ import { budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schem
 import {
   Budget,
   BudgetMap,
+  RollupFrequency,
   ScenarioMap,
   ScenarioStartEvents,
   TimeScrubberSelection,
@@ -43,6 +44,9 @@ export interface AppState {
     scenarioStartEvents: ScenarioStartEvents
     highlightedPlotData: TimeSeriesData
     pinnedPlotData: TimeSeriesData | null
+
+    // Budget
+    rollupFrequency: RollupFrequency
   }
 }
 
@@ -83,6 +87,9 @@ export type AppActions = {
     // Chart
     selectChartRange: (value: TimeScrubberSelection) => void
     refreshChart: () => void
+
+    // Budget
+    selectRollupFrequency: (value: RollupFrequency) => void
   }
 }
 
@@ -111,6 +118,9 @@ export const initialState: AppState = {
     scenarioStartEvents: [], // <-- contains the start date of each scenario in the both highlight and pinned paths
     highlightedPlotData: [],
     pinnedPlotData: null,
+
+    // Budget
+    rollupFrequency: 'monthly',
   },
 }
 
@@ -384,6 +394,14 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       if (ui.pinnedPath) {
         actions.pinPath(ui.pinnedPath)
       }
+    },
+
+    selectRollupFrequency: (value: RollupFrequency): void => {
+      set(
+        produce((draft: AppState) => {
+          draft.ui.rollupFrequency = value
+        }),
+      )
     },
   },
 }))

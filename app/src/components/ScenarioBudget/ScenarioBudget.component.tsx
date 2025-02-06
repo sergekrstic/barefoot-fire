@@ -1,11 +1,13 @@
-import { CollapsibleTree, DatePicker, EditableText } from 'components'
-import { Scenario, TreeData } from 'types'
+import { CollapsibleTree, DatePicker, EditableText, Option, Select } from 'components'
+import { RollupFrequency, Scenario, TreeData } from 'types'
 
 import { ScenarioBudgetMenu } from './ScenarioBudget.menu'
 import { ScenarioBudgetItem } from './components'
 
 export interface ScenarioBudgetProps {
   scenario: Scenario | null
+  rollupFrequency: RollupFrequency
+  onSelectRollupFrequency: (value: string) => void
   onAddBranch: () => void
   onUpdateScenarioName: (value: string) => void
   onUpdateScenarioStartDate: (value: string) => void
@@ -14,6 +16,8 @@ export interface ScenarioBudgetProps {
 
 export function ScenarioBudget({
   scenario,
+  rollupFrequency,
+  onSelectRollupFrequency,
   onAddBranch,
   onUpdateScenarioName,
   onUpdateScenarioStartDate,
@@ -49,7 +53,11 @@ export function ScenarioBudget({
               value={scenario.name}
               onChange={onUpdateScenarioName}
             />
-            <div className="pr-3 text-center">monthly</div>
+            <Select value={rollupFrequency} onSelect={onSelectRollupFrequency}>
+              {['monthly', 'yearly'].map((option) => (
+                <Option className="min-w-20 p-2 text-right" key={option} label={option} />
+              ))}
+            </Select>
             <ScenarioBudgetMenu
               onAddBranch={onAddBranch}
               onDelete={onDeleteScenario}

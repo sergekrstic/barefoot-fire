@@ -36,3 +36,5 @@ export interface TimeSeriesElement {
 }
 
 export type TimeSeriesData = TimeSeriesElement[]
+
+export type RollupFrequency = 'monthly' | 'yearly'

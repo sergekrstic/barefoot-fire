@@ -1,1 +1,1 @@
-export * from './SelectComposable.component'
+export * from './Select.component'

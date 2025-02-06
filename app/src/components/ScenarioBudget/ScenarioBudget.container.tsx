@@ -1,4 +1,5 @@
 import { useAppStore } from 'stores'
+import { RollupFrequency } from 'types'
 
 import { ScenarioBudget as ScenarioBudgetComponent } from './ScenarioBudget.component'
 
@@ -6,11 +7,14 @@ export function ScenarioBudget(): React.JSX.Element {
   const selectedScenarioId = useAppStore((state) => state.ui.selectedScenarioId)
   const selectedScenario = useAppStore((state) => state.data.scenarioMap[selectedScenarioId])
   const highlightedPath = useAppStore((state) => state.ui.highlightedPath)
+  const rollupFrequency = useAppStore((state) => state.ui.rollupFrequency)
   const actions = useAppStore((state) => state.actions)
 
   return (
     <ScenarioBudgetComponent
       scenario={selectedScenario}
+      rollupFrequency={rollupFrequency}
+      onSelectRollupFrequency={(value) => actions.selectRollupFrequency(value as RollupFrequency)}
       onAddBranch={() => actions.addScenario(selectedScenarioId)}
       onUpdateScenarioName={(value) => actions.updateScenarioName(selectedScenario.id, value)}
       onUpdateScenarioStartDate={(value) => {
