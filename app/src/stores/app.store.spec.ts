@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react'
+import { DATA_FORMAT_VERSION } from 'config'
 import cy from 'cytoscape'
 import { saveAs } from 'file-saver'
 import * as mocks from 'mocks'
@@ -8,12 +9,14 @@ import * as utils from '../utils'
 import { initialState, useAppStore } from './app.store'
 
 const mockDataForInitialAtlas = {
+  version: DATA_FORMAT_VERSION,
   scenarioGraph: mocks.initialScenarioGraph,
   scenarioMap: mocks.initialScenarioMap,
   budgetMap: mocks.initialBudgetMap,
 }
 
 const mockDataForSimpleAtlas = {
+  version: DATA_FORMAT_VERSION,
   scenarioGraph: mocks.simpleScenarioGraph,
   scenarioMap: mocks.simpleScenarioMap,
   budgetMap: mocks.simpleBudgetMap,

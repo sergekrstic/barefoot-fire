@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { Header, ScenarioBrushChart, ScenarioBudget, ScenarioGraph } from 'components'
+import { DATA_FORMAT_VERSION } from 'config'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { useAppStore } from 'stores'
 import { deepClone } from 'utils'
@@ -12,6 +13,7 @@ export function App(): React.JSX.Element {
 
   useEffect(() => {
     actions.load({
+      version: DATA_FORMAT_VERSION,
       scenarioGraph: deepClone(appData.scenarioGraph),
       scenarioMap: deepClone(appData.scenarioMap),
       budgetMap: deepClone(appData.budgetMap),
