@@ -28,4 +28,4 @@ export const examples = {
 }
 
 // export const appData = examples.detailed
-export const appData = examples.initial
+export const appData = examples.new
