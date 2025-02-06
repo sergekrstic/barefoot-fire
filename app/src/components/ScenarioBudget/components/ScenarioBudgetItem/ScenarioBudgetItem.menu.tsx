@@ -1,9 +1,10 @@
 import { EllipsisIcon } from 'assets'
 import { Menu, MenuItem } from 'components'
+import { BudgetType } from 'types'
 
 export interface ScenarioBudgetItemMenuProps {
-  type: 'group' | 'item'
-  onAddItem: () => void
+  type: BudgetType
+  onAddItem: (type: BudgetType) => void
   onDelete: () => void
 }
 
@@ -32,8 +33,8 @@ export function ScenarioBudgetItemMenu({ type, onAddItem, onDelete }: ScenarioBu
     >
       {type === 'group' && (
         <>
-          <MenuItem className={menuItemClasses} label="Add Item" onClick={onAddItem} />
-          {/* <MenuItem className={menuItemClasses} label="Add Group" onClick={() => {}} /> */}
+          <MenuItem className={menuItemClasses} label="Add Item" onClick={() => onAddItem('item')} />
+          <MenuItem className={menuItemClasses} label="Add Group" onClick={() => onAddItem('group')} />
         </>
       )}
 

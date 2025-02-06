@@ -5,6 +5,7 @@ import { budgetMapSchema, graphDefinitionSchema, scenarioMapSchema } from 'schem
 import {
   Budget,
   BudgetMap,
+  BudgetType,
   RollupFrequency,
   ScenarioMap,
   ScenarioStartEvents,
@@ -71,7 +72,7 @@ export type AppActions = {
     deleteScenario: (scenarioId: string) => void
 
     // Budget
-    addBudget: (scenarioId: string, parentBudgetId: string) => void
+    addBudget: (scenarioId: string, parentBudgetId: string, type: BudgetType) => void
     updateBudget: (budgetId: string, value: Partial<Omit<Budget, 'id'>>) => void
     deleteBudget: (scenarioId: string, budgetId: string) => void
 
@@ -281,7 +282,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       )
     },
 
-    addBudget: (scenarioId: string, parentId: string): void => {
+    addBudget: (scenarioId: string, parentId: string, type: BudgetType): void => {
       set(
         produce((draft: AppState) => {
           const { scenarioMap, budgetMap } = draft.data
@@ -300,7 +301,11 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
           // Add the new budget to the scenario
           const scenario = scenarioMap[scenarioId]
           const parent = findBudget(parentId, scenario.budgets)
-          parent?.children?.push({ id: newBudgetId })
+          if (parent) {
+            parent?.children?.push({ id: newBudgetId, children: type === 'group' ? [] : undefined })
+          } else {
+            scenario.budgets.push({ id: newBudgetId, children: type === 'group' ? [] : undefined })
+          }
         }),
       )
     },

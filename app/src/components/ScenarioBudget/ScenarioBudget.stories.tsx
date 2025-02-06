@@ -21,5 +21,6 @@ export const Default: Story = {
     onUpdateScenarioName: () => {},
     onUpdateScenarioStartDate: () => {},
     onDeleteScenario: () => {},
+    onAddBudget: () => {},
   },
 }

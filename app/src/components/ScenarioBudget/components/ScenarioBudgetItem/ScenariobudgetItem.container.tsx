@@ -1,10 +1,11 @@
 import { useAppStore } from 'stores'
+import { BudgetType } from 'types'
 
 import { ScenarioBudgetItem as ScenarioBudgetItemComponent } from './ScenarioBudgetItem.component'
 
 export interface ScenarioBudgetItemProps {
   id: string
-  type: 'group' | 'item'
+  type: BudgetType
   depth: number
   expanded: boolean
 }
@@ -20,8 +21,9 @@ export function ScenarioBudgetItem({ id, type, depth, expanded }: ScenarioBudget
       depth={depth}
       expanded={expanded}
       budget={budget}
-      onAddItem={() => {
-        actions.addBudget(scenarioId, budget.id)
+      onAddBudget={(type) => {
+        actions.addBudget(scenarioId, budget.id, type)
+        actions.calculateScenarioBudgetRollup(scenarioId)
         actions.refreshChart()
       }}
       onUpdateBudget={(newBudget) => {
@@ -29,8 +31,9 @@ export function ScenarioBudgetItem({ id, type, depth, expanded }: ScenarioBudget
         actions.calculateScenarioBudgetRollup(scenarioId)
         actions.refreshChart()
       }}
-      onDelete={() => {
+      onDeleteBudget={() => {
         actions.deleteBudget(scenarioId, budget.id)
+        actions.calculateScenarioBudgetRollup(scenarioId)
         actions.refreshChart()
       }}
     />

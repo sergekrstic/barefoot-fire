@@ -5,6 +5,11 @@ export * from './budget.data'
 export * from './graph.data'
 
 export const examples = {
+  new: {
+    scenarioGraph: mockGraphs.newScenarioGraph,
+    scenarioMap: mockBudgets.newScenarioMap,
+    budgetMap: mockBudgets.newBudgetMap,
+  },
   initial: {
     scenarioGraph: mockGraphs.initialScenarioGraph,
     scenarioMap: mockBudgets.initialScenarioMap,
@@ -23,4 +28,4 @@ export const examples = {
 }
 
 // export const appData = examples.detailed
-export const appData = examples.simple
+export const appData = examples.initial

@@ -1,19 +1,19 @@
 import { useState } from 'react'
 
 import { CollapsibleTreeNode, EditableText, Option, Select } from 'components'
-import { Budget, BudgetFrequency } from 'types'
+import { Budget, BudgetFrequency, BudgetType } from 'types'
 import { formatTransactionValue } from 'utils'
 
 import { ScenarioBudgetItemMenu } from './ScenarioBudgetItem.menu'
 
 export interface ScenarioBudgetItemProps {
-  type: 'group' | 'item'
+  type: BudgetType
   depth: number
   expanded: boolean
   budget: Budget
-  onAddItem: () => void
+  onAddBudget: (type: BudgetType) => void
   onUpdateBudget: (budget: Partial<Budget>) => void
-  onDelete: () => void
+  onDeleteBudget: () => void
 }
 
 export function ScenarioBudgetItem({
@@ -21,9 +21,9 @@ export function ScenarioBudgetItem({
   depth,
   expanded,
   budget,
-  onAddItem,
+  onAddBudget,
   onUpdateBudget,
-  onDelete,
+  onDeleteBudget,
 }: ScenarioBudgetItemProps): React.JSX.Element {
   const [showDetails, setShowDetails] = useState(false)
 
@@ -49,7 +49,7 @@ export function ScenarioBudgetItem({
             <span>{budget.rollup !== undefined ? formatTransactionValue(budget.rollup) : '–'}</span>
           </div>
           <div className="flex items-center justify-center">
-            <ScenarioBudgetItemMenu type={type} onAddItem={onAddItem} onDelete={onDelete} />
+            <ScenarioBudgetItemMenu type={type} onAddItem={onAddBudget} onDelete={onDeleteBudget} />
           </div>
         </div>
       </CollapsibleTreeNode>

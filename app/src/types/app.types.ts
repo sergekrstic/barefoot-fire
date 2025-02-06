@@ -46,4 +46,7 @@ export interface TimeSeriesElement {
 
 export type TimeSeriesData = TimeSeriesElement[]
 
+//Todo: consider merging this into the Interval type
 export type RollupFrequency = 'monthly' | 'yearly'
+
+export type BudgetType = 'group' | 'item'

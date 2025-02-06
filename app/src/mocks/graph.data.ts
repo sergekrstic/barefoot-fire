@@ -1,5 +1,10 @@
 import cy from 'cytoscape'
 
+export const newScenarioGraph: cy.ElementsDefinition = {
+  nodes: [{ data: { id: 'root', name: 'New Scenario' } }],
+  edges: [],
+}
+
 export const initialScenarioGraph: cy.ElementsDefinition = {
   nodes: [{ data: { id: 'root', name: 'Start' } }],
   edges: [],

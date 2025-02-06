@@ -1,5 +1,5 @@
 import { CollapsibleTree, DatePicker, EditableText, Option, Select } from 'components'
-import { RollupFrequency, Scenario, TreeData } from 'types'
+import { BudgetType, RollupFrequency, Scenario, TreeData } from 'types'
 
 import { ScenarioBudgetMenu } from './ScenarioBudget.menu'
 import { ScenarioBudgetItem } from './components'
@@ -12,6 +12,7 @@ export interface ScenarioBudgetProps {
   onUpdateScenarioName: (value: string) => void
   onUpdateScenarioStartDate: (value: string) => void
   onDeleteScenario: () => void
+  onAddBudget: (parentId: string, type: BudgetType) => void
 }
 
 export function ScenarioBudget({
@@ -22,6 +23,7 @@ export function ScenarioBudget({
   onUpdateScenarioName,
   onUpdateScenarioStartDate,
   onDeleteScenario,
+  onAddBudget,
 }: ScenarioBudgetProps): React.JSX.Element {
   const endDate = new Date('2035-12-31')
 
@@ -71,6 +73,7 @@ export function ScenarioBudget({
               onAddBranch={onAddBranch}
               onDelete={onDeleteScenario}
               showDelete={scenario.id !== 'root'}
+              onAddBudget={onAddBudget}
             />
           </div>
           <CollapsibleTree

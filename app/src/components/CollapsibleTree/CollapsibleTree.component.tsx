@@ -28,7 +28,7 @@ export function CollapsibleTree({
   return (
     <Fragment>
       {tree.map((item) => {
-        const isParent = item.children && item.children.length > 0
+        const isParent = item.children
 
         return (
           <div key={item.id}>

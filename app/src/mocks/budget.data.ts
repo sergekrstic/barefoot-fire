@@ -72,14 +72,17 @@ const period: Record<string, Period> = {
 // Budgets
 // #############################################################################
 
+export const newBudgetMap: BudgetMap = {}
+
 export const initialBudgetMap: BudgetMap = {
   // =========================================================================
   // Start
   // =========================================================================
+  // Todo: consider making a 'rollup' budget (frequency) type
   'i-start': {
     id: 'i-start',
     name: 'Income',
-    amount: 300,
+    amount: 0,
     frequency: 'month',
     ...period.start,
   },
@@ -100,7 +103,7 @@ export const initialBudgetMap: BudgetMap = {
   'e-start': {
     id: 'e-start',
     name: 'Expenses',
-    amount: 250,
+    amount: 0,
     frequency: 'month',
     ...period.start,
   },
@@ -148,7 +151,7 @@ export const simpleBudgetMap: BudgetMap = {
   'e-living-start': {
     id: 'e-living-start',
     name: 'Living',
-    amount: 250,
+    amount: -250,
     frequency: 'month',
     ...period.start,
   },
@@ -186,14 +189,14 @@ export const simpleBudgetMap: BudgetMap = {
   'e-living-job-1': {
     id: 'e-living-job-1',
     name: 'Living',
-    amount: 400,
+    amount: -400,
     frequency: 'month',
     ...period.job1,
   },
   'e-rent-job-1': {
     id: 'e-living-job-1',
     name: 'Rent',
-    amount: 300,
+    amount: -300,
     frequency: 'month',
     ...period.job1,
   },
@@ -207,14 +210,14 @@ export const simpleBudgetMap: BudgetMap = {
   'e-bills-electricity-job-1': {
     id: 'e-living-job-1',
     name: 'Electricity',
-    amount: 300,
+    amount: -300,
     frequency: 'month',
     ...period.job1,
   },
   'e-bills-phone-job-1': {
     id: 'e-living-job-1',
     name: 'Phone',
-    amount: 100,
+    amount: -100,
     frequency: 'month',
     ...period.job1,
   },
@@ -252,14 +255,14 @@ export const simpleBudgetMap: BudgetMap = {
   'e-living-job-2': {
     id: 'e-living-job-2',
     name: 'Living',
-    amount: 450,
+    amount: -450,
     frequency: 'month',
     ...period.job2,
   },
   'e-rent-job-2': {
     id: 'e-living-job-2',
     name: 'Rent',
-    amount: 350,
+    amount: -350,
     frequency: 'month',
     ...period.job2,
   },
@@ -273,14 +276,14 @@ export const simpleBudgetMap: BudgetMap = {
   'e-bills-electricity-job-2': {
     id: 'e-living-job-2',
     name: 'Electricity',
-    amount: 300,
+    amount: -300,
     frequency: 'month',
     ...period.job2,
   },
   'e-bills-phone-job-2': {
     id: 'e-living-job-2',
     name: 'Phone',
-    amount: 100,
+    amount: -100,
     frequency: 'month',
     ...period.job2,
   },
@@ -318,14 +321,14 @@ export const simpleBudgetMap: BudgetMap = {
   'e-living-job-3': {
     id: 'e-living-job-3',
     name: 'Living',
-    amount: 450,
+    amount: -450,
     frequency: 'month',
     ...period.job3,
   },
   'e-rent-job-3': {
     id: 'e-living-job-3',
     name: 'Rent',
-    amount: 350,
+    amount: -350,
     frequency: 'month',
     ...period.job3,
   },
@@ -339,19 +342,20 @@ export const simpleBudgetMap: BudgetMap = {
   'e-bills-electricity-job-3': {
     id: 'e-living-job-3',
     name: 'Electricity',
-    amount: 300,
+    amount: -300,
     frequency: 'month',
     ...period.job3,
   },
   'e-bills-phone-job-3': {
     id: 'e-living-job-3',
     name: 'Phone',
-    amount: 100,
+    amount: -100,
     frequency: 'month',
     ...period.job3,
   },
 }
 
+// Todo: Fix the rollup values
 export const detailedBudgetMap: BudgetMap = {
   // =========================================================================
   // Start
@@ -706,6 +710,15 @@ export const detailedBudgetMap: BudgetMap = {
 // #############################################################################
 // Scenarios
 // #############################################################################
+
+export const newScenarioMap: ScenarioMap = {
+  root: {
+    id: 'root',
+    name: 'New Scenario',
+    startDate: period.start.startDate,
+    budgets: [],
+  },
+}
 
 export const initialScenarioMap: ScenarioMap = {
   root: {

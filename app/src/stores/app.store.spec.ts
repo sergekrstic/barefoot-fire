@@ -394,7 +394,7 @@ describe('@app.store()', () => {
 
       act(() => {
         result.current.actions.load(mockDataForSimpleAtlas)
-        result.current.actions.addBudget('job-3', 'e-job-3')
+        result.current.actions.addBudget('job-3', 'e-job-3', 'item')
       })
 
       expect(result.current.data).toStrictEqual({

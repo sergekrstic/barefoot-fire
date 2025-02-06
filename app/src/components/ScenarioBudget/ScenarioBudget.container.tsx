@@ -36,6 +36,9 @@ export function ScenarioBudget(): React.JSX.Element {
         actions.deleteScenario(selectedScenario.id)
         actions.refreshChart()
       }}
+      onAddBudget={(parentId, type) => {
+        actions.addBudget(selectedScenarioId, parentId, type)
+      }}
     />
   )
 }
