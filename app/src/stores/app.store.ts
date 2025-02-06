@@ -30,6 +30,7 @@ import { createStore } from './createStore'
 
 export interface AppState {
   data: {
+    version: string
     scenarioGraph: cy.ElementsDefinition
     scenarioMap: ScenarioMap
     budgetMap: BudgetMap
@@ -52,8 +53,6 @@ export interface AppState {
   }
 }
 
-export type AppLoadData = Pick<AppState['data'], 'scenarioGraph' | 'scenarioMap' | 'budgetMap'>
-
 export type AppActions = {
   actions: {
     // ========================================================================
@@ -63,7 +62,7 @@ export type AppActions = {
     // Application
     reset: () => void
     saveAs: (fileName: string) => void
-    load: (data: AppLoadData) => void
+    load: (data: AppState['data']) => void
 
     // Scenario
     addScenario: (parentScenarioId: string) => void
@@ -100,9 +99,13 @@ export type AppStore = AppState & AppActions
 
 const defaultPeriod: Period = { startDate: '2024-01-01', endDate: '2034-01-01' }
 
+// Todo: integrate the versioning system, but first I need to decide if dates should be stored in a separate map
+const DATA_FORMAT_VERSION = '0.1.0'
+
 export const initialState: AppState = {
   data: {
     // Application data
+    version: DATA_FORMAT_VERSION,
     // Todo: figure out how to remove the duplicated data (name property)
     scenarioGraph: { nodes: [{ data: { id: 'root', name: 'New scenario' } }], edges: [] },
     scenarioMap: { root: { id: 'root', name: 'New scenario', startDate: defaultPeriod.startDate, budgets: [] } },
@@ -141,16 +144,15 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
     // Todo: fail gracefully, show an error toast message
     load(data): void {
       if (isAppDataValid(data)) {
-        set({ data })
+        // Todo: integrate the versioning system
+        set({ data: { ...data, version: DATA_FORMAT_VERSION } })
       } else {
         console.error('Invalid data')
       }
     },
 
     saveAs(fileName: string): void {
-      const { scenarioGraph, scenarioMap, budgetMap } = get().data
-      const data = { scenarioGraph, scenarioMap, budgetMap }
-      const file = new Blob([JSON.stringify(data)], { type: 'application/json;charset=utf-8' })
+      const file = new Blob([JSON.stringify(get().data)], { type: 'application/json;charset=utf-8' })
 
       // Use a library to handle all the edge cases
       saveAs(file, fileName)
@@ -440,7 +442,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
   },
 }))
 
-export function isAppDataValid(data: AppLoadData): boolean {
+export function isAppDataValid(data: AppState['data']): boolean {
   if (graphDefinitionSchema.safeParse(data.scenarioGraph).error) {
     console.error('Graph definition is invalid')
     return false

@@ -363,7 +363,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-start': {
     id: 'i-start',
     name: 'Income',
-    amount: 1300,
+    amount: 0,
     frequency: 'month',
     ...period.start,
   },
@@ -384,7 +384,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-start': {
     id: 'e-start',
     name: 'Expenses',
-    amount: -250,
+    amount: -10000,
     frequency: 'month',
     ...period.start,
   },
@@ -401,7 +401,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-job-search': {
     id: 'i-job-search',
     name: 'Income',
-    amount: 300,
+    amount: 0,
     frequency: 'month',
     ...period.jobSearch,
   },
@@ -422,7 +422,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-job-search': {
     id: 'e-job-search',
     name: 'Expenses',
-    amount: -150,
+    amount: 0,
     frequency: 'month',
     ...period.jobSearch,
   },
@@ -439,7 +439,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-full-time': {
     id: 'i-full-time',
     name: 'Income',
-    amount: 1300,
+    amount: 0,
     frequency: 'month',
     ...period.fullTime,
   },
@@ -460,7 +460,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-full-time': {
     id: 'e-full-time',
     name: 'Expenses',
-    amount: -350,
+    amount: 0,
     frequency: 'month',
     ...period.fullTime,
   },
@@ -477,7 +477,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-full-time-renting': {
     id: 'i-full-time-renting',
     name: 'Income',
-    amount: 1300,
+    amount: 0,
     frequency: 'month',
     ...period.fullTimeRenting,
   },
@@ -498,7 +498,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-full-time-renting': {
     id: 'e-full-time-renting',
     name: 'Expenses',
-    amount: -700,
+    amount: 0,
     frequency: 'month',
     ...period.fullTimeRenting,
   },
@@ -522,7 +522,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-contract': {
     id: 'i-contract',
     name: 'Income',
-    amount: 1800,
+    amount: 0,
     frequency: 'month',
     ...period.contract,
   },
@@ -543,7 +543,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-contract': {
     id: 'e-contract',
     name: 'Expenses',
-    amount: -350,
+    amount: 0,
     frequency: 'month',
     ...period.contract,
   },
@@ -560,7 +560,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-contract-renting': {
     id: 'i-contract-renting',
     name: 'Income',
-    amount: 1800,
+    amount: 0,
     frequency: 'month',
     ...period.contractRenting,
   },
@@ -581,7 +581,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-contract-renting': {
     id: 'e-contract-renting',
     name: 'Expenses',
-    amount: -700,
+    amount: 0,
     frequency: 'month',
     ...period.contractRenting,
   },
@@ -605,7 +605,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-contract-home': {
     id: 'i-home',
     name: 'Income',
-    amount: 1800,
+    amount: 0,
     frequency: 'month',
     ...period.home,
   },
@@ -626,7 +626,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-contract-home': {
     id: 'e-home',
     name: 'Expenses',
-    amount: -750,
+    amount: 0,
     frequency: 'month',
     ...period.home,
   },
@@ -651,7 +651,7 @@ export const detailedBudgetMap: BudgetMap = {
   'i-share-market': {
     id: 'i-share-market',
     name: 'Income',
-    amount: 1950,
+    amount: 0,
     frequency: 'month',
     ...period.shareMarket,
   },
@@ -680,7 +680,7 @@ export const detailedBudgetMap: BudgetMap = {
   'e-share-market': {
     id: 'e-share-market',
     name: 'Expenses',
-    amount: -850,
+    amount: 0,
     frequency: 'month',
     ...period.shareMarket,
   },

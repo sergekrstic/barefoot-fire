@@ -187,7 +187,7 @@ export function buildScenarioPath(
     const nextScenario = scenarioMap[scenarioIds[index + 1]]
 
     // Traverse the budget tree and clone the budgets
-    const budgetIds = collectBudgetIds(scenario.budgets)
+    const budgetIds = collectBudgetIds(scenario.budgets, true)
     const clonedBudgets = budgetIds.map((id) => deepClone(budgetMap[id]))
 
     // If there is a next scenario, adjust the end date of the current scenario
@@ -210,13 +210,18 @@ export function buildScenarioPath(
   }
 }
 
-export function collectBudgetIds(tree: TreeData[]): string[] {
+// Todo: test this function
+export function collectBudgetIds(tree: TreeData[], excludeGroupBudgets = false): string[] {
   const budgetIds: string[] = []
   const fetchBudgetIds = (tree: TreeData): void => {
     if (tree.children) {
       tree.children.forEach(fetchBudgetIds)
     }
-    budgetIds.push(tree.id)
+    if (tree.children && excludeGroupBudgets) {
+      // Do not include group budgets
+    } else {
+      budgetIds.push(tree.id)
+    }
   }
   tree.forEach(fetchBudgetIds)
 
