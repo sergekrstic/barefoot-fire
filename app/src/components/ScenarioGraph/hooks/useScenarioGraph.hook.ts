@@ -12,8 +12,9 @@ export interface UseScenarioGraphProps {
 
 export function useScenarioGraph({ containerRef }: UseScenarioGraphProps): cy.Core | null {
   const isFirstRender = useRef(true)
-  const cytoInstance = useAppStore((state) => state.ui.cytoInstance)
+  const cytoInstance = useAppStore((state) => state.refs.cytoInstance)
   const scenarioGraph = useAppStore((state) => state.data.scenarioGraph)
+  const selectedScenarioId = useAppStore((state) => state.ui.selectedScenarioId)
   const actions = useAppStore((state) => state.actions)
 
   // Create the graph
@@ -33,27 +34,23 @@ export function useScenarioGraph({ containerRef }: UseScenarioGraphProps): cy.Co
   useEffect(() => {
     if (!cytoInstance) return
 
+    cytoInstance.elements().remove()
     cytoInstance.add(deepClone(scenarioGraph))
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     cytoInstance.layout({ name: 'tidytree', direction: 'LR' } as any).run()
 
+    actions.highlightPath(selectedScenarioId)
+    actions.selectScenario(selectedScenarioId)
+
     if (isFirstRender.current) {
       isFirstRender.current = false
-
-      // Highlight the root node and center the graph
-      cytoInstance.$id('root').data('focused', true)
-      cytoInstance.$id('root').data('highlighted', true)
-
-      // Initialise the store
-      actions.selectScenario('root')
-      actions.highlightPath(['root'])
 
       // Todo: figure out why center() and fit() are not working
       // cytoInstance.center()
       // cytoInstance.fit(cytoInstance.elements())
     }
-  }, [actions, cytoInstance, scenarioGraph])
+  }, [actions, cytoInstance, scenarioGraph, selectedScenarioId])
 
   return cytoInstance
 }

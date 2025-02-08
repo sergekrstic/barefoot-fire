@@ -61,7 +61,7 @@ describe('@app.store()', () => {
       act(() => {
         result.current.actions.load(mockDataForSimpleAtlas)
         result.current.actions.selectScenario('job-1')
-        result.current.actions.highlightPath(['root', 'job-1'])
+        result.current.actions.highlightPath('job-1')
         result.current.actions.reset()
       })
 

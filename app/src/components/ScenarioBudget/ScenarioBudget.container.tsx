@@ -19,7 +19,8 @@ export function ScenarioBudget(): React.JSX.Element {
         actions.calculateScenarioBudgetRollup(selectedScenarioId)
       }}
       onAddBranch={() => {
-        actions.addScenario(selectedScenarioId)
+        const newScenarioId = actions.addScenario(selectedScenarioId)
+        actions.selectScenario(newScenarioId)
       }}
       onUpdateScenarioName={(value) => {
         actions.updateScenarioName(selectedScenario.id, value)
@@ -29,7 +30,6 @@ export function ScenarioBudget(): React.JSX.Element {
         actions.refreshChart()
       }}
       onDeleteScenario={() => {
-        // Todo: figure out how to stop reconstructing of the graph when deleting a scenario
         // Select the previous scenario before deleting the selected scenario
         const previousScenario = highlightedPath[highlightedPath.length - 2]
         actions.selectScenario(previousScenario)

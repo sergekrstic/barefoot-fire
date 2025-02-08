@@ -14,22 +14,9 @@ export function usePinnedPath({ cytoInstance }: UsePinnedPathProps): void {
     const pinScenarioPath = (event: cy.EventObject): void => {
       if (!cytoInstance) return
 
-      // Reset all pins
-      cytoInstance.elements().forEach((element) => {
-        element.data('pinned', false)
-      })
+      const scenarioId = event.target.data().id
 
-      // Find the path back to the root and then pin it down
-      const node = event.target.data()
-      const dijkstra = cytoInstance.elements().dijkstra({ root: 'root' })
-      const shortestPath = dijkstra.pathTo(cytoInstance.$id(node.id))
-      shortestPath.forEach((element) => {
-        element.data('pinned', true)
-        element.data('highlighted', false)
-      })
-
-      const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
-      actions.pinPath(shortestPathIds)
+      actions.pinPath(scenarioId)
     }
 
     cytoInstance?.on('dblclick', 'node', pinScenarioPath)

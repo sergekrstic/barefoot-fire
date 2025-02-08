@@ -16,28 +16,7 @@ export function useResetPaths({ cytoInstance }: UseResetPathsProps): void {
 
       if (event.target !== cytoInstance) return
 
-      // Reset all selections
-      cytoInstance.elements().forEach((element) => {
-        element.data('focused', false)
-        element.data('highlighted', false)
-        element.data('pinned', false)
-      })
-
-      // Highlight the root node
-      cytoInstance.$id('root').data('focused', true)
-      cytoInstance.$id('root').data('highlighted', true)
-
-      // Reset all edges
-      cytoInstance.edges().forEach((element) => {
-        if (element.data('highlighted') === false) {
-          element.animate({ style: { width: 3 }, easing: 'ease-in-out' }, { duration: 100 })
-        }
-      })
-
-      // Update the store
-      actions.selectScenario('root')
-      actions.highlightPath(['root'])
-      actions.pinPath(null)
+      actions.resetPaths()
     }
 
     cytoInstance?.on('dblclick', deselectAndUnpinAll)

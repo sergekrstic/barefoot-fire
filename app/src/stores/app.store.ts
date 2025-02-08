@@ -20,6 +20,7 @@ import {
   cloneBudgetTree,
   collectBudgetIds,
   convertScenarioPathToPlotData,
+  deepClone,
   findBudget,
   generateNewIdMap,
   nanoid,
@@ -38,7 +39,6 @@ export interface AppState {
   }
   ui: {
     // Graph
-    cytoInstance: cy.Core | null
     selectedScenarioId: string
     highlightedPath: string[]
     pinnedPath: string[] | null
@@ -51,6 +51,9 @@ export interface AppState {
 
     // Budget
     rollupFrequency: RollupFrequency
+  }
+  refs: {
+    cytoInstance: cy.Core | null
   }
 }
 
@@ -66,7 +69,7 @@ export type AppActions = {
     load: (data: AppState['data']) => void
 
     // Scenario
-    addScenario: (parentScenarioId: string) => void
+    addScenario: (parentScenarioId: string) => string
     updateScenarioName: (scenarioId: string, value: string) => void
     updateScenarioStartDate: (scenarioId: string, value: string) => void
     deleteScenario: (scenarioId: string) => void
@@ -81,10 +84,12 @@ export type AppActions = {
     // ========================================================================
 
     // Graph
+    getCytoInstance: () => cy.Core
     setCytoInstance: (value: cy.Core | null) => void
     selectScenario: (value: string) => void
-    highlightPath: (value: string[]) => void
-    pinPath: (value: string[] | null) => void
+    highlightPath: (scenarioId: string) => void
+    pinPath: (scenarioId: string | null) => void
+    resetPaths: () => void
 
     // Chart
     selectChartRange: (value: TimeScrubberSelection) => void
@@ -112,7 +117,6 @@ export const initialState: AppState = {
 
   ui: {
     // Graph
-    cytoInstance: null,
     selectedScenarioId: 'root',
     highlightedPath: [],
     pinnedPath: null,
@@ -126,6 +130,10 @@ export const initialState: AppState = {
     // Budget
     rollupFrequency: 'monthly',
   },
+
+  refs: {
+    cytoInstance: null,
+  },
 }
 
 export const useAppStore = createStore<AppStore>((set, get) => ({
@@ -136,14 +144,24 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
     // Application data actions
     // ========================================================================
     reset(): void {
-      set(initialState)
+      set(
+        produce((draft: AppState) => {
+          draft.data = deepClone(initialState.data)
+          draft.ui = deepClone(initialState.ui)
+        }),
+      )
     },
 
     // Todo: fail gracefully, show an error toast message
     load(data): void {
       if (isAppDataValid(data)) {
         // Todo: integrate the versioning system
-        set({ data: { ...data, version: DATA_FORMAT_VERSION } })
+        set(
+          produce((draft: AppState) => {
+            draft.data = deepClone(data)
+            draft.ui = deepClone(initialState.ui)
+          }),
+        )
       } else {
         console.error('Invalid data')
       }
@@ -156,19 +174,20 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       saveAs(file, fileName)
     },
 
-    addScenario: (parentScenarioId: string): void => {
+    addScenario: (parentScenarioId: string): string => {
       // Collect the budget IDs from the parent scenario outside of the produce function to
       // improve performance (this avoids unnecessarily creating proxies for touched objects)
       const { scenarioMap } = get().data
       const budgetIds = collectBudgetIds(scenarioMap[parentScenarioId].budgets)
       const newIdMap = generateNewIdMap(budgetIds)
+      const newScenarioId = nanoid()
 
       set(
         produce((draft: AppState) => {
           const { scenarioGraph, scenarioMap, budgetMap } = draft.data
 
           // Add the new scenario to the graph
-          const newScenarioId = nanoid()
+
           scenarioGraph.nodes.push({ data: { id: newScenarioId, name: 'New scenario' } })
           scenarioGraph.edges.push({ data: { source: parentScenarioId, target: newScenarioId } })
 
@@ -187,6 +206,8 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
           })
         }),
       )
+
+      return newScenarioId
     },
 
     updateScenarioName: (scenarioId: string, value: string): void => {
@@ -204,8 +225,8 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
             node.data.name = value
 
             // Update the Cytoscape node name
-            const cy = get().ui.cytoInstance
-            const cyNode = cy?.$id(node.data.id!)
+            const cy = get().actions.getCytoInstance()
+            const cyNode = cy.$id(node.data.id!)
             cyNode?.data('name', value)
           }
         }),
@@ -234,11 +255,10 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
     },
 
     deleteScenario: (scenarioId: string): void => {
-      const cy = get().ui.cytoInstance
+      const cy = get().actions.getCytoInstance()
 
-      if (scenarioId === 'root' || !cy) {
-        console.error(scenarioId === 'root' ? 'Cannot delete the root scenario' : 'Cytoscape instance is not available')
-        return
+      if (scenarioId === 'root') {
+        throw new Error('Cannot delete the root scenario')
       }
 
       // Determine which branches to prune
@@ -363,8 +383,16 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
     // Local UI state actions
     // ========================================================================
 
+    getCytoInstance(): cy.Core {
+      const cy = get().refs.cytoInstance
+
+      if (!cy) throw new Error('Cytoscape instance is not available')
+
+      return cy
+    },
+
     setCytoInstance: (value: cy.Core | null): void => {
-      set((prev) => ({ ui: { ...prev.ui, cytoInstance: value } }))
+      set((prev) => ({ refs: { ...prev.refs, cytoInstance: value } }))
     },
 
     selectScenario: (value: string): void => {
@@ -376,37 +404,149 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       set((prev) => ({ ui: { ...prev.ui, timeScrubberSelection: value } }))
     },
 
-    highlightPath: (scenarioIds: string[]): void => {
-      const { data } = get()
-      const scenarioPath = buildScenarioPath(scenarioIds, data.scenarioMap, data.budgetMap, defaultPeriod)
+    highlightPath: (scenarioId: string): void => {
+      const { actions, data, ui } = get()
+      const cy = actions.getCytoInstance()
+
+      // First, deselect the currently focused node
+      if (ui.selectedScenarioId) {
+        cy.$id(ui.selectedScenarioId).data('focused', false)
+      }
+
+      // Then, select the new node
+      cy.$id(scenarioId).data('focused', true)
+
+      // Reset all highlights
+      cy.elements().forEach((element) => {
+        element.data('highlighted', false)
+      })
+
+      // Find the path back to the root and then highlight it
+      const dijkstra = cy.elements().dijkstra({ root: '#root' })
+      const shortestPath = dijkstra.pathTo(cy.$id(scenarioId))
+      const shortestPathIds = shortestPath.nodes().map((element) => element.data('id'))
+
+      const isIdenticalPath =
+        shortestPathIds.length === ui.pinnedPath?.length && shortestPathIds.every((id) => ui.pinnedPath?.includes(id))
+      if (!isIdenticalPath) {
+        shortestPath.forEach((element) => {
+          element.data('highlighted', true)
+        })
+      }
+
+      // Todo: Improve the path animation, somehow, to make it more engaging
+      shortestPath.edges().animate({ style: { width: 5 }, easing: 'ease-in-out' }, { duration: 100 })
+      cy.edges().forEach((element) => {
+        if (element.data('pinned') === true) return
+        if (element.data('highlighted') === false) {
+          element.animate({ style: { width: 3 }, easing: 'ease-in-out' }, { duration: 100 })
+        }
+      })
+
+      const scenarioPath = buildScenarioPath(shortestPathIds, data.scenarioMap, data.budgetMap, defaultPeriod)
       const newPlotData = convertScenarioPathToPlotData(scenarioPath, 'highlighted')
       set((prev) => ({
         ui: {
           ...prev.ui,
-          highlightedPath: scenarioIds,
+          highlightedPath: shortestPathIds,
           highlightedPlotData: newPlotData || [],
           scenarioStartEvents: scenarioPath.scenarioStartEvents,
         },
       }))
+
+      actions.selectScenario(scenarioId)
     },
 
     // Todo: merge the scenarioStartEvents into a single array
-    pinPath: (scenarioIds: string[] | null): void => {
-      const { data } = get()
-      const scenarioPath = scenarioIds
-        ? buildScenarioPath(scenarioIds, data.scenarioMap, data.budgetMap, defaultPeriod)
-        : null
-      const newPlotData = scenarioPath ? convertScenarioPathToPlotData(scenarioPath, 'pinned') : null
-      set((prev) => ({ ui: { ...prev.ui, pinnedPath: scenarioIds, pinnedPlotData: newPlotData } }))
+    pinPath: (scenarioId: string | null): void => {
+      const { actions, data } = get()
+      const cy = actions.getCytoInstance()
+
+      // Reset all pins
+      cy.elements().forEach((element) => {
+        element.data('pinned', false)
+      })
+
+      // Find the path back to the root and then pin it down
+      if (scenarioId) {
+        const dijkstra = cy.elements().dijkstra({ root: 'root' })
+        const shortestPath = dijkstra.pathTo(cy.$id(scenarioId))
+        shortestPath.forEach((element) => {
+          element.data('pinned', true)
+          element.data('highlighted', false)
+        })
+
+        const scenarioIds = shortestPath.nodes().map((element) => element.data('id'))
+
+        const scenarioPath = scenarioIds
+          ? buildScenarioPath(scenarioIds, data.scenarioMap, data.budgetMap, defaultPeriod)
+          : null
+
+        const newPlotData = scenarioPath ? convertScenarioPathToPlotData(scenarioPath, 'pinned') : null
+
+        set(
+          produce((draft: AppState) => {
+            draft.ui.pinnedPath = scenarioIds
+            draft.ui.pinnedPlotData = newPlotData
+          }),
+        )
+      } else {
+        set(
+          produce((draft: AppState) => {
+            draft.ui.pinnedPath = null
+            draft.ui.pinnedPlotData = null
+          }),
+        )
+      }
+    },
+
+    resetPaths: (): void => {
+      const { actions } = get()
+      const cy = actions.getCytoInstance()
+
+      // Reset all selections
+      cy.elements().forEach((element) => {
+        element.data('focused', false)
+        element.data('highlighted', false)
+        element.data('pinned', false)
+      })
+
+      // Highlight the root node
+      cy.$id('root').data('focused', true)
+      cy.$id('root').data('highlighted', true)
+
+      // Reset all edges
+      cy.edges().forEach((element) => {
+        if (element.data('highlighted') === false) {
+          element.animate({ style: { width: 3 }, easing: 'ease-in-out' }, { duration: 100 })
+        }
+      })
+
+      // Update the store
+      actions.selectScenario('root')
+      actions.highlightPath('root')
+      actions.pinPath(null)
+
+      // set(
+      //   produce((draft: AppState) => {
+      //     // draft.ui.selectedScenarioId = 'root'
+      //     //     draft.ui.highlightedPath = []
+      //     draft.ui.pinnedPath = null
+      //     //     draft.ui.highlightedPlotData = []
+      //     draft.ui.pinnedPlotData = null
+      //   }),
+      // )
     },
 
     refreshChart: (): void => {
       const { ui, actions } = get()
       if (ui.highlightedPath.length) {
-        actions.highlightPath(ui.highlightedPath)
+        const lastScenarioId = ui.highlightedPath[ui.highlightedPath.length - 1]
+        actions.highlightPath(lastScenarioId)
       }
       if (ui.pinnedPath) {
-        actions.pinPath(ui.pinnedPath)
+        const lastScenarioId = ui.pinnedPath[ui.pinnedPath.length - 1]
+        actions.pinPath(lastScenarioId)
       }
     },
 
