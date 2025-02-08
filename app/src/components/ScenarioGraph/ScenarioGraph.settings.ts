@@ -10,8 +10,8 @@ export const graphSettings: cy.CytoscapeOptions = {
   zoomingEnabled: false,
   layout: {
     // Todo: consider create a custom layout using d3 or dagre
-    name: 'tidytree',
-    direction: 'LR',
+    // name: 'tidytree',
+    // direction: 'LR',
     // verticalSpacing: 80,
     // horizontalSpacing: 80,
     // layerHeight: 2,

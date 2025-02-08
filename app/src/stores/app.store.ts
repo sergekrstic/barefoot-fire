@@ -199,9 +199,15 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
 
           // Update the graph node name
           const node = scenarioGraph.nodes.find((node) => node.data.id === scenarioId)
-          if (node) node.data.name = value
+          if (node) {
+            // Update the graph node name
+            node.data.name = value
 
-          // get().ui.cytoInstance?.$id(node?.data.id || '')?.data('name', value)
+            // Update the Cytoscape node name
+            const cy = get().ui.cytoInstance
+            const cyNode = cy?.$id(node.data.id!)
+            cyNode?.data('name', value)
+          }
         }),
       )
     },
