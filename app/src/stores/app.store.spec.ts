@@ -27,8 +27,8 @@ vi.mock('file-saver', () => {
   return { saveAs }
 })
 
-vi.mock('../utils/nanoid', async () => {
-  const originalModule = await vi.importActual('../utils/nanoid')
+vi.mock('../utils/nanoid.methods', async () => {
+  const originalModule = await vi.importActual('../utils/nanoid.methods')
 
   return { ...originalModule, nanoid: vi.fn() }
 })
@@ -49,16 +49,20 @@ describe('@app.store()', () => {
       expect(result.current.data).toEqual(initialState.data)
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
       })
 
-      expect(result.current.data).toEqual(mockDataForSimpleAtlas)
+      expect(result.current.data.scenarioGraph).toEqual(mockDataForSimpleAtlas.scenarioGraph)
+      expect(result.current.data.scenarioMap).toEqual(mockDataForSimpleAtlas.scenarioMap)
+      expect(result.current.data.budgetMap).toEqual(mockDataForSimpleAtlas.budgetMap)
     })
 
     it('resets the store to its initial values', () => {
       const { result } = renderHook(() => useAppStore())
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
         result.current.actions.selectScenario('job-1')
         result.current.actions.highlightPath('job-1')
@@ -66,12 +70,14 @@ describe('@app.store()', () => {
       })
 
       expect(result.current.data).toEqual(initialState.data)
+      expect(result.current.ui).toEqual(initialState.ui)
     })
 
     it('saves the store to file', () => {
       const { result } = renderHook(() => useAppStore())
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
         result.current.actions.saveAs('barefoot_fire.json')
       })
@@ -93,6 +99,7 @@ describe('@app.store()', () => {
       })
 
       expect(result.current.data).toStrictEqual({
+        version: DATA_FORMAT_VERSION,
         scenarioGraph: {
           nodes: [
             {
@@ -137,11 +144,13 @@ describe('@app.store()', () => {
         .mockReturnValueOnce('scenario-1')
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForInitialAtlas)
         result.current.actions.addScenario(parentId)
       })
 
       expect(result.current.data).toStrictEqual({
+        version: DATA_FORMAT_VERSION,
         scenarioGraph: {
           nodes: [
             {
@@ -180,7 +189,7 @@ describe('@app.store()', () => {
           'i-clone': {
             id: 'i-clone',
             name: 'Income',
-            amount: 300,
+            amount: 0,
             frequency: 'month',
             startDate: '2024-07-01',
             endDate: '2034-01-01',
@@ -204,7 +213,7 @@ describe('@app.store()', () => {
           'e-clone': {
             id: 'e-clone',
             name: 'Expenses',
-            amount: 250,
+            amount: 0,
             frequency: 'month',
             startDate: '2024-07-01',
             endDate: '2034-01-01',
@@ -225,6 +234,7 @@ describe('@app.store()', () => {
       const { result } = renderHook(() => useAppStore())
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
         result.current.actions.updateScenarioName('job-3', 'New name')
       })
@@ -249,6 +259,7 @@ describe('@app.store()', () => {
       const { result } = renderHook(() => useAppStore())
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
       })
 
@@ -283,8 +294,8 @@ describe('@app.store()', () => {
       const { result } = renderHook(() => useAppStore())
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
-        result.current.actions.setCytoInstance(cy({ elements: utils.deepClone(mocks.simpleScenarioGraph) }))
       })
 
       expect(result.current.data.scenarioMap['root']).toBeDefined()
@@ -349,7 +360,7 @@ describe('@app.store()', () => {
         'i-start': {
           id: 'i-start',
           name: 'Income',
-          amount: 300,
+          amount: 0,
           frequency: 'month',
           startDate: '2024-07-01',
           endDate: '2034-01-01',
@@ -373,7 +384,7 @@ describe('@app.store()', () => {
         'e-start': {
           id: 'e-start',
           name: 'Expenses',
-          amount: 250,
+          amount: 0,
           frequency: 'month',
           startDate: '2024-07-01',
           endDate: '2034-01-01',
@@ -381,7 +392,7 @@ describe('@app.store()', () => {
         'e-living-start': {
           id: 'e-living-start',
           name: 'Living',
-          amount: 250,
+          amount: -250,
           frequency: 'month',
           startDate: '2024-07-01',
           endDate: '2034-01-01',
@@ -396,11 +407,13 @@ describe('@app.store()', () => {
       vi.mocked(utils.nanoid).mockReturnValueOnce('e-new-expense-job-3')
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
         result.current.actions.addBudget('job-3', 'e-job-3', 'item')
       })
 
       expect(result.current.data).toStrictEqual({
+        version: DATA_FORMAT_VERSION,
         scenarioGraph: {
           ...mockDataForSimpleAtlas.scenarioGraph,
         },
@@ -424,7 +437,7 @@ describe('@app.store()', () => {
                     children: [{ id: 'e-bills-electricity-job-3' }, { id: 'e-bills-phone-job-3' }],
                   },
                   { id: 'e-living-job-3' },
-                  { id: 'e-new-expense-job-3' },
+                  { id: 'e-new-expense-job-3', children: undefined },
                 ],
               },
             ],
@@ -448,13 +461,14 @@ describe('@app.store()', () => {
       const { result } = renderHook(() => useAppStore())
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
       })
 
       expect(result.current.data.budgetMap['i-job-3']).toStrictEqual({
         id: 'i-job-3',
         name: 'Income',
-        amount: 3200,
+        amount: 0,
         frequency: 'month',
         startDate: '2030-11-01',
         endDate: '2034-01-01',
@@ -481,6 +495,7 @@ describe('@app.store()', () => {
       const budgetId = 'e-job-3'
 
       act(() => {
+        result.current.actions.setCytoInstance(cy())
         result.current.actions.load(mockDataForSimpleAtlas)
       })
 

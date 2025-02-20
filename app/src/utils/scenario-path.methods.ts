@@ -1,6 +1,6 @@
 import { Budget, BudgetMap, ScenarioMap, ScenarioPath, ScenarioStartEvents } from 'types'
 
-import { Period } from '@fire/forecast-engine'
+import { Period, ScenarioBudgets, ScenarioEvents, calculateBudgetEvents } from '@fire/forecast-engine'
 
 import { collectBudgetIds } from './budget.methods'
 import { deepClone } from './helper.methods'
@@ -42,4 +42,16 @@ export function buildScenarioPath(
     scenarioStartEvents,
     period: forecastPeriod,
   }
+}
+
+// Todo: Update this function to utilize a budget event cache
+export function calculateScenarioEventsWithCacheOptimisation({ budgets, period }: ScenarioBudgets): ScenarioEvents {
+  // Calculate all the budget events in the scenario
+  const budgetEvents = budgets.map((budget) => calculateBudgetEvents(budget, period))
+
+  // Calculate the total expense in the scenario
+  const totalExpense = budgetEvents.reduce((total, events) => total + events.totalAmount, 0)
+
+  // Return the scenario events
+  return { period, budgetEvents, totalAmount: totalExpense }
 }

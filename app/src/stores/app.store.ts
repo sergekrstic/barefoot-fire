@@ -17,6 +17,7 @@ import {
 import {
   buildScenarioPath,
   calculateBudgetRollupValue,
+  calculateScenarioEventsWithCacheOptimisation,
   cloneBudgetForest,
   collectBudgetIds,
   convertScenarioEventsToPlotData,
@@ -26,7 +27,7 @@ import {
   nanoid,
 } from 'utils'
 
-import { Period, calculateScenarioEvents } from '@fire/forecast-engine'
+import { Period } from '@fire/forecast-engine'
 
 import { createStore } from './createStore'
 
@@ -151,18 +152,26 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
           draft.ui = deepClone(initialState.ui)
         }),
       )
+
+      // Update Cytoscape with the new data
+      get().actions.getCytoInstance().elements().remove()
+      get().actions.getCytoInstance().add(initialState.data.scenarioGraph)
     },
 
     // Todo: fail gracefully, show an error toast message
-    load(data): void {
-      if (isAppDataValid(data)) {
+    load(newData): void {
+      if (isAppDataValid(newData)) {
         // Todo: integrate the versioning system
         set(
           produce((draft: AppState) => {
-            draft.data = deepClone(data)
+            draft.data = deepClone(newData)
             draft.ui = deepClone(initialState.ui)
           }),
         )
+
+        // Update Cytoscape with the new data
+        get().actions.getCytoInstance().elements().remove()
+        get().actions.getCytoInstance().add(deepClone(newData.scenarioGraph))
       } else {
         console.error('Invalid data')
       }
@@ -328,7 +337,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
           const scenario = scenarioMap[scenarioId]
           const parent = findBudgetInForest(parentId, scenario.budgets)
           if (parent) {
-            parent?.children?.push({ id: newBudgetId, children: type === 'group' ? [] : undefined })
+            parent.children?.push({ id: newBudgetId, children: type === 'group' ? [] : undefined })
           } else {
             scenario.budgets.push({ id: newBudgetId, children: type === 'group' ? [] : undefined })
           }
@@ -444,7 +453,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       })
 
       const scenarioPath = buildScenarioPath(shortestPathIds, data.scenarioMap, data.budgetMap, defaultPeriod)
-      const scenarioEvents = calculateScenarioEvents(scenarioPath)
+      const scenarioEvents = calculateScenarioEventsWithCacheOptimisation(scenarioPath)
       const newPlotData = convertScenarioEventsToPlotData(scenarioEvents, 'highlighted')
       set((prev) => ({
         ui: {
@@ -485,7 +494,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
 
         let newPlotData = null
         if (scenarioPath) {
-          const scenarioEvents = calculateScenarioEvents(scenarioPath)
+          const scenarioEvents = calculateScenarioEventsWithCacheOptimisation(scenarioPath)
           newPlotData = convertScenarioEventsToPlotData(scenarioEvents, 'pinned')
         }
 
