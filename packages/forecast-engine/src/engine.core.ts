@@ -5,19 +5,19 @@ export function calculateScenarioEvents(args: { budgets: Budget[]; period: Perio
   const { budgets, period } = args
 
   // Calculate all the budget events in the scenario
-  const events = budgets.map((budget) => calculateBudgetEvents(budget, period))
+  const budgetEvents = budgets.map((budget) => calculateBudgetEvents(budget, period))
 
   // Calculate the total expense in the scenario
-  const totalExpense = events.reduce((total, budgetEvents) => total + budgetEvents.totalAmount, 0)
+  const totalExpense = budgetEvents.reduce((total, events) => total + events.totalAmount, 0)
 
   // Return the scenario events
-  return { period, budgetEvents: events, totalExpense }
+  return { period, budgetEvents, totalExpense }
 }
 
 // Todo: Optimize this function, reduce the number of iterations
 export function calculateBudgetEvents(budget: Budget, period: Period): BudgetEvents {
   const events = []
-  let runningEventTotal = 0
+  let runningEventsTotal = 0
   let runningCompoundTotal = 0
 
   // Adjust the interest rate
@@ -29,7 +29,7 @@ export function calculateBudgetEvents(budget: Budget, period: Period): BudgetEve
     events.push({ date: budget.startDate, value: budget.initialAmount })
 
     runningCompoundTotal += budget.initialAmount
-    runningEventTotal += budget.initialAmount
+    runningEventsTotal += budget.initialAmount
   }
 
   // If the initial amount event if before the period start date, then we need to calculate the interest it would have earned
@@ -63,12 +63,12 @@ export function calculateBudgetEvents(budget: Budget, period: Period): BudgetEve
       events.push({ date: event.format('YYYY-MM-DD'), value: amount })
 
       runningCompoundTotal += amount
-      runningEventTotal += amount
+      runningEventsTotal += amount
     }
   }
 
   // Return the budget events
-  return { budget, period, events, totalAmount: runningEventTotal }
+  return { budget, period, events, totalAmount: runningEventsTotal }
 }
 
 // @ts-ignore

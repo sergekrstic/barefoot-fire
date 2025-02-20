@@ -6,7 +6,7 @@ import {
   dateFromCurrentInterval,
   getCurrentInterval,
   preprocessPlotData,
-} from './utils.methods'
+} from './plot-data.methods'
 
 describe('@convertScenarioPathToPlotData()', () => {
   const scenarioPath: ScenarioPath = {

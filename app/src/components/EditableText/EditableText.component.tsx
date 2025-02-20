@@ -18,6 +18,7 @@ export interface EditableTextProps {
   onCancel?: () => void
 }
 
+// Todo: Add debounce to reduce unnecessary renders
 export function EditableText({
   mode,
   containerClassName,

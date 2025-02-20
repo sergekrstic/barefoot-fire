@@ -17,12 +17,12 @@ import {
 import {
   buildScenarioPath,
   calculateBudgetRollupValue,
-  cloneBudgetTree,
+  cloneBudgetForest,
   collectBudgetIds,
   convertScenarioPathToPlotData,
   deepClone,
-  findBudget,
-  generateNewIdMap,
+  findBudgetInForest,
+  generateNewBudgetIdMap,
   nanoid,
 } from 'utils'
 
@@ -146,6 +146,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
     reset(): void {
       set(
         produce((draft: AppState) => {
+          // Todo: consider returning a new object to also reset the immer proxies modifications
           draft.data = deepClone(initialState.data)
           draft.ui = deepClone(initialState.ui)
         }),
@@ -179,7 +180,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       // improve performance (this avoids unnecessarily creating proxies for touched objects)
       const { scenarioMap } = get().data
       const budgetIds = collectBudgetIds(scenarioMap[parentScenarioId].budgets)
-      const newIdMap = generateNewIdMap(budgetIds)
+      const newIdMap = generateNewBudgetIdMap(budgetIds)
       const newScenarioId = nanoid()
 
       set(
@@ -187,7 +188,6 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
           const { scenarioGraph, scenarioMap, budgetMap } = draft.data
 
           // Add the new scenario to the graph
-
           scenarioGraph.nodes.push({ data: { id: newScenarioId, name: 'New scenario' } })
           scenarioGraph.edges.push({ data: { source: parentScenarioId, target: newScenarioId } })
 
@@ -196,7 +196,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
             id: newScenarioId,
             name: 'New scenario',
             startDate: defaultPeriod.startDate,
-            budgets: cloneBudgetTree(scenarioMap[parentScenarioId].budgets, newIdMap),
+            budgets: cloneBudgetForest(scenarioMap[parentScenarioId].budgets, newIdMap),
           }
 
           // Add the cloned budgets to the budget map
@@ -326,7 +326,7 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
 
           // Add the new budget to the scenario
           const scenario = scenarioMap[scenarioId]
-          const parent = findBudget(parentId, scenario.budgets)
+          const parent = findBudgetInForest(parentId, scenario.budgets)
           if (parent) {
             parent?.children?.push({ id: newBudgetId, children: type === 'group' ? [] : undefined })
           } else {

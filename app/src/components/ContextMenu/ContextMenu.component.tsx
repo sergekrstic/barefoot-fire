@@ -1,3 +1,4 @@
+/* eslint-disable react-compiler/react-compiler */
 import { Children, cloneElement, forwardRef, isValidElement, useEffect, useRef, useState } from 'react'
 
 import {
