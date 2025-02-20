@@ -1,19 +1,17 @@
-import { ScenarioPath } from 'types'
 import { describe, expect, it } from 'vitest'
 
+import { calculateScenarioEvents } from '@fire/forecast-engine'
+
 import {
-  convertScenarioPathToPlotData,
+  convertScenarioEventsToPlotData,
   dateFromCurrentInterval,
   getCurrentInterval,
   preprocessPlotData,
 } from './plot-data.methods'
 
-describe('@convertScenarioPathToPlotData()', () => {
-  const scenarioPath: ScenarioPath = {
-    id: 'mock-path-id',
-    name: 'Mock Scenario Path',
+describe('@convertScenarioEventsToPlotData()', () => {
+  const scenarioEvents = calculateScenarioEvents({
     period: { startDate: '2024-01-01', endDate: '2024-12-31' },
-    scenarioStartEvents: [{ date: '2024-01-01', name: 'Mock Scenario' }],
     budgets: [
       {
         id: 'mock-budget-01',
@@ -34,7 +32,7 @@ describe('@convertScenarioPathToPlotData()', () => {
         interestRate: 0.1,
       },
     ],
-  }
+  })
 
   const expectedPlotData = [
     { date: '2024-01-01', name: 'mock-budget-01', amount: 100 },
@@ -49,12 +47,12 @@ describe('@convertScenarioPathToPlotData()', () => {
   ]
 
   it('creates a flat array', () => {
-    const plotData = convertScenarioPathToPlotData(scenarioPath)
+    const plotData = convertScenarioEventsToPlotData(scenarioEvents)
     expect(plotData.length).toBe(9)
   })
 
   it('creates a sort array', () => {
-    const plotData = convertScenarioPathToPlotData(scenarioPath)
+    const plotData = convertScenarioEventsToPlotData(scenarioEvents)
     const actualDates = plotData.map((datum) => datum.date)
     const expectedDates = expectedPlotData.map((datum) => datum.date)
     expect(actualDates).toStrictEqual(expectedDates)
@@ -63,11 +61,8 @@ describe('@convertScenarioPathToPlotData()', () => {
 
 describe('@preprocessPlotData()', () => {
   it.only('bins the data into yearly intervals', () => {
-    const scenarioPath: ScenarioPath = {
-      id: 'mock-path-id',
-      name: 'Mock Scenario Path',
+    const scenarioEvents = calculateScenarioEvents({
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
-      scenarioStartEvents: [{ date: '2024-01-01', name: 'Mock Scenario' }],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -78,8 +73,8 @@ describe('@preprocessPlotData()', () => {
           endDate: '2026-06-01',
         },
       ],
-    }
-    const plotData = convertScenarioPathToPlotData(scenarioPath)
+    })
+    const plotData = convertScenarioEventsToPlotData(scenarioEvents)
     const processedPlotData = preprocessPlotData({ data: plotData, interval: 'year', cumulative: false })
 
     expect(processedPlotData.length).toBe(4)
@@ -92,11 +87,8 @@ describe('@preprocessPlotData()', () => {
   })
 
   it('bins the data into monthly intervals', () => {
-    const scenarioPath: ScenarioPath = {
-      id: 'mock-path-id',
-      name: 'Mock Scenario Path',
+    const scenarioEvents = calculateScenarioEvents({
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
-      scenarioStartEvents: [{ date: '2024-01-01', name: 'Mock Scenario' }],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -107,8 +99,8 @@ describe('@preprocessPlotData()', () => {
           endDate: '2024-03-31',
         },
       ],
-    }
-    const plotData = convertScenarioPathToPlotData(scenarioPath)
+    })
+    const plotData = convertScenarioEventsToPlotData(scenarioEvents)
     const processedPlotData = preprocessPlotData({ data: plotData, interval: 'month', cumulative: false })
 
     expect(processedPlotData.length).toBe(4)
@@ -121,11 +113,8 @@ describe('@preprocessPlotData()', () => {
   })
 
   it('bins the data into weekly intervals', () => {
-    const scenarioPath: ScenarioPath = {
-      id: 'mock-path-id',
-      name: 'Mock Scenario Path',
+    const scenarioEvents = calculateScenarioEvents({
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
-      scenarioStartEvents: [{ date: '2024-01-01', name: 'Mock Scenario' }],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -136,8 +125,8 @@ describe('@preprocessPlotData()', () => {
           endDate: '2024-01-31',
         },
       ],
-    }
-    const plotData = convertScenarioPathToPlotData(scenarioPath)
+    })
+    const plotData = convertScenarioEventsToPlotData(scenarioEvents)
     const processedPlotData = preprocessPlotData({ data: plotData, interval: 'week', cumulative: false })
 
     expect(processedPlotData.length).toBe(6)
@@ -152,11 +141,8 @@ describe('@preprocessPlotData()', () => {
   })
 
   it('bins the data into weekly intervals over two years', () => {
-    const scenarioPath: ScenarioPath = {
-      id: 'mock-path-id',
-      name: 'Mock Scenario Path',
+    const scenarioEvents = calculateScenarioEvents({
       period: { startDate: '2024-01-01', endDate: '2034-12-31' },
-      scenarioStartEvents: [{ date: '2024-01-01', name: 'Mock Scenario' }],
       budgets: [
         {
           id: 'mock-budget-01',
@@ -167,8 +153,8 @@ describe('@preprocessPlotData()', () => {
           endDate: '2025-03-31',
         },
       ],
-    }
-    const plotData = convertScenarioPathToPlotData(scenarioPath)
+    })
+    const plotData = convertScenarioEventsToPlotData(scenarioEvents)
 
     // const d = plotData.map((datum) => `${datum.name}, ${datum.date}, ${datum.amount.toFixed(2)}`)
     // console.log(JSON.stringify(d, null, 2))

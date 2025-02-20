@@ -1,6 +1,6 @@
-import { BudgetMap, ScenarioMap, ScenarioPath, ScenarioStartEvents } from 'types'
+import { Budget, BudgetMap, ScenarioMap, ScenarioPath, ScenarioStartEvents } from 'types'
 
-import { Budget, Period } from '@fire/forecast-engine'
+import { Period } from '@fire/forecast-engine'
 
 import { collectBudgetIds } from './budget.methods'
 import { deepClone } from './helper.methods'

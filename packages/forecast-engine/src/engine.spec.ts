@@ -306,7 +306,7 @@ describe('@calculateBudgetEvents()', () => {
   })
 })
 
-describe('@calculateScenarioBudgets()', () => {
+describe('@calculateScenarioEvents()', () => {
   const scenarioBudgets: Budget[] = [
     {
       id: 'budget-1',
@@ -327,7 +327,7 @@ describe('@calculateScenarioBudgets()', () => {
   it('calculates a scenario when period contains budget dates', () => {
     const scenarioEvents = calculateScenarioEvents({ budgets: scenarioBudgets, period: overlapOneYearPeriod })
 
-    expect(scenarioEvents.totalExpense).toBe(2200)
+    expect(scenarioEvents.totalAmount).toBe(2200)
     expect(scenarioEvents.budgetEvents).toHaveLength(2)
 
     // Budget 1
@@ -367,7 +367,7 @@ describe('@calculateScenarioBudgets()', () => {
   it('calculates a scenario when period partially overlaps budget start dates', () => {
     const scenarioEvents = calculateScenarioEvents({ budgets: scenarioBudgets, period: overlapStartPeriod })
 
-    expect(scenarioEvents.totalExpense).toBe(1600)
+    expect(scenarioEvents.totalAmount).toBe(1600)
     expect(scenarioEvents.budgetEvents).toHaveLength(2)
 
     // Budget 1

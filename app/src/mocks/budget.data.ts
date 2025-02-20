@@ -1,7 +1,7 @@
 import { BudgetMap, ScenarioMap, TimeSeriesData } from 'types'
-import { convertScenarioPathToPlotData } from 'utils'
+import { convertScenarioEventsToPlotData } from 'utils'
 
-import { Period } from '@fire/forecast-engine'
+import { Period, calculateScenarioEvents } from '@fire/forecast-engine'
 
 // #############################################################################
 // Time periods
@@ -957,24 +957,18 @@ export const detailedScenarioMap: ScenarioMap = {
 // Plot data
 // #############################################################################
 
-export const thirtyYearCompoundPlotData: TimeSeriesData = convertScenarioPathToPlotData({
-  id: 'mock-scenario',
-  name: 'Mock compound scenario',
-  period: period.thirtyYear,
-  budgets: [
-    {
-      id: 'i-salary-start',
-      name: 'Budget 1',
-      amount: 1000,
-      interestRate: 0.05,
-      frequency: 'year',
-      ...period.thirtyYear,
-    },
-  ],
-  scenarioStartEvents: [
-    {
-      date: period.thirtyYear.startDate,
-      name: 'Start',
-    },
-  ],
-})
+export const thirtyYearCompoundPlotData: TimeSeriesData = convertScenarioEventsToPlotData(
+  calculateScenarioEvents({
+    period: period.thirtyYear,
+    budgets: [
+      {
+        id: 'i-salary-start',
+        name: 'Budget 1',
+        amount: 1000,
+        interestRate: 0.05,
+        frequency: 'year',
+        ...period.thirtyYear,
+      },
+    ],
+  }),
+)

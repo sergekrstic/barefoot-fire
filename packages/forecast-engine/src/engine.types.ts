@@ -16,10 +16,15 @@ export interface Period {
   endDate: string
 }
 
+export interface ScenarioBudgets {
+  period: Period
+  budgets: Budget[]
+}
+
 export interface ScenarioEvents {
   period: Period
   budgetEvents: BudgetEvents[]
-  totalExpense: number
+  totalAmount: number
 }
 
 export interface BudgetEvents {

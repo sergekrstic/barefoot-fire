@@ -1,11 +1,9 @@
 import moment from 'moment'
-import { Interval, ScenarioPath, TimeSeriesData } from 'types'
+import { Interval, TimeSeriesData } from 'types'
 
-import { calculateScenarioEvents } from '@fire/forecast-engine'
+import { ScenarioEvents } from '@fire/forecast-engine'
 
-export function convertScenarioPathToPlotData(scenarioPath: ScenarioPath, name?: string): TimeSeriesData {
-  const scenarioEvents = calculateScenarioEvents(scenarioPath)
-
+export function convertScenarioEventsToPlotData(scenarioEvents: ScenarioEvents, name?: string): TimeSeriesData {
   return scenarioEvents.budgetEvents
     .map((budgetEvent) => {
       return budgetEvent.events.map((event) => ({

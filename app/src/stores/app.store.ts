@@ -19,14 +19,14 @@ import {
   calculateBudgetRollupValue,
   cloneBudgetForest,
   collectBudgetIds,
-  convertScenarioPathToPlotData,
+  convertScenarioEventsToPlotData,
   deepClone,
   findBudgetInForest,
   generateNewBudgetIdMap,
   nanoid,
 } from 'utils'
 
-import { Period } from '@fire/forecast-engine'
+import { Period, calculateScenarioEvents } from '@fire/forecast-engine'
 
 import { createStore } from './createStore'
 
@@ -444,7 +444,8 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       })
 
       const scenarioPath = buildScenarioPath(shortestPathIds, data.scenarioMap, data.budgetMap, defaultPeriod)
-      const newPlotData = convertScenarioPathToPlotData(scenarioPath, 'highlighted')
+      const scenarioEvents = calculateScenarioEvents(scenarioPath)
+      const newPlotData = convertScenarioEventsToPlotData(scenarioEvents, 'highlighted')
       set((prev) => ({
         ui: {
           ...prev.ui,
@@ -482,7 +483,11 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
           ? buildScenarioPath(scenarioIds, data.scenarioMap, data.budgetMap, defaultPeriod)
           : null
 
-        const newPlotData = scenarioPath ? convertScenarioPathToPlotData(scenarioPath, 'pinned') : null
+        let newPlotData = null
+        if (scenarioPath) {
+          const scenarioEvents = calculateScenarioEvents(scenarioPath)
+          newPlotData = convertScenarioEventsToPlotData(scenarioEvents, 'pinned')
+        }
 
         set(
           produce((draft: AppState) => {
