@@ -44,12 +44,11 @@ export function buildScenarioPath(
   }
 }
 
-const defaultTransactionsCache: BudgetTransactionsCache = {}
+const globalTransactionsCache: BudgetTransactionsCache = {}
 
-// Todo: Update this function to utilize a budget event cache
 export function calculateBudgetTransactions(
   { budgets, period }: ScenarioBudgets,
-  transactionsCache: BudgetTransactionsCache = defaultTransactionsCache,
+  transactionsCache: BudgetTransactionsCache = globalTransactionsCache,
 ): BudgetEvents[] {
   // For each budget, calculate its transactions
   return budgets.map((budget) => {
@@ -70,7 +69,7 @@ export function calculateBudgetTransactions(
     // Not in cache, so calculate the budget transactions
     const budgetTransactions = calculateBudgetEvents(budget, period)
 
-    // And add them transactions to the cache
+    // And add it to the cache
     transactionsCache[budget.id] = budgetTransactions
 
     return budgetTransactions

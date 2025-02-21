@@ -847,9 +847,9 @@ describe('scenario-path.methods', () => {
         ],
       }
 
-      const eventsCache: BudgetTransactionsCache = {}
+      const localTransactionsCache: BudgetTransactionsCache = {}
 
-      const scenarioEventsWithCache = calculateBudgetTransactions(scenarioBudgets, eventsCache)
+      const scenarioEventsWithCache = calculateBudgetTransactions(scenarioBudgets, localTransactionsCache)
 
       expect(scenarioEventsWithCache).toStrictEqual({
         period: { startDate: '2024-01-01', endDate: '2024-12-31' },
@@ -896,7 +896,7 @@ describe('scenario-path.methods', () => {
         totalAmount: expect.closeTo(1611.44),
       })
 
-      expect(eventsCache).toStrictEqual({
+      expect(localTransactionsCache).toStrictEqual({
         'mock-budget-01': {
           budget: {
             id: 'mock-budget-01',

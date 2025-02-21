@@ -13,7 +13,7 @@ export function withMiddlewares<S>(f: StateCreator<S>) {
 }
 
 export function createStore<S>(f: StateCreator<S>) {
-  // Todo: figure out is this is slowing down the app in dev mode
+  // Todo: figure out why is this is slowing down the app in dev mode
   // - Is it immer that is slowing down the app?
   // - Is it the devtools that is slowing down the app?
   // - Is it the persist that is slowing down the app?
