@@ -17,10 +17,10 @@ import {
 import {
   buildScenarioPath,
   calculateBudgetRollupValue,
-  calculateScenarioEventsWithCacheOptimisation,
+  calculateBudgetTransactions,
   cloneBudgetForest,
   collectBudgetIds,
-  convertScenarioEventsToPlotData,
+  convertBudgetTransactionsToPlotData,
   deepClone,
   findBudgetInForest,
   generateNewBudgetIdMap,
@@ -288,6 +288,8 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
         .map((scenarioId) => collectBudgetIds(get().data.scenarioMap[scenarioId].budgets))
         .flat()
 
+      // Todo: delete stale budget transaction from the cache
+
       set(
         produce((draft: AppState) => {
           const { scenarioGraph, scenarioMap, budgetMap } = draft.data
@@ -382,6 +384,8 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
             delete budgetMap[removedBudgetId]
           })
           delete budgetMap[budgetId]
+
+          // Todo: delete stale budget transaction from the cache
         }),
       )
     },
@@ -451,8 +455,8 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
       })
 
       const scenarioPath = buildScenarioPath(shortestPathIds, data.scenarioMap, data.budgetMap, defaultPeriod)
-      const scenarioEvents = calculateScenarioEventsWithCacheOptimisation(scenarioPath)
-      const newPlotData = convertScenarioEventsToPlotData(scenarioEvents, 'highlighted')
+      const budgetTransactions = calculateBudgetTransactions(scenarioPath)
+      const newPlotData = convertBudgetTransactionsToPlotData(budgetTransactions, 'highlighted')
       set((prev) => ({
         ui: {
           ...prev.ui,
@@ -492,8 +496,8 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
 
         let newPlotData = null
         if (scenarioPath) {
-          const scenarioEvents = calculateScenarioEventsWithCacheOptimisation(scenarioPath)
-          newPlotData = convertScenarioEventsToPlotData(scenarioEvents, 'pinned')
+          const scenarioEvents = calculateBudgetTransactions(scenarioPath)
+          newPlotData = convertBudgetTransactionsToPlotData(scenarioEvents, 'pinned')
         }
 
         set(

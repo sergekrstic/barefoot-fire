@@ -1,10 +1,10 @@
 import moment from 'moment'
 import { Interval, TimeSeriesData } from 'types'
 
-import { ScenarioEvents } from '@fire/forecast-engine'
+import { BudgetEvents } from '@fire/forecast-engine'
 
-export function convertScenarioEventsToPlotData(scenarioEvents: ScenarioEvents, name?: string): TimeSeriesData {
-  return scenarioEvents.budgetEvents
+export function convertBudgetTransactionsToPlotData(budgetEvents: BudgetEvents[], name?: string): TimeSeriesData {
+  return budgetEvents
     .map((budgetEvent) => {
       return budgetEvent.events.map((event) => ({
         date: event.date,

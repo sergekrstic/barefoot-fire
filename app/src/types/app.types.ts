@@ -8,7 +8,7 @@ import {
 } from 'schemas'
 import { z } from 'zod'
 
-import { Period } from '@fire/forecast-engine'
+import { BudgetEvents, Period } from '@fire/forecast-engine'
 
 export type TreeData = z.infer<typeof treeDataSchema>
 
@@ -50,3 +50,5 @@ export type TimeSeriesData = TimeSeriesElement[]
 export type RollupFrequency = 'monthly' | 'yearly'
 
 export type BudgetType = 'group' | 'item'
+
+export type BudgetTransactionsCache = Record<string, BudgetEvents>

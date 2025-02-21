@@ -1,7 +1,7 @@
-import { Budget, BudgetMap, ScenarioMap } from 'types'
+import { Budget, BudgetMap, BudgetTransactionsCache, ScenarioMap } from 'types'
 import { describe, expect, it } from 'vitest'
 
-import { calculateScenarioEvents } from '@fire/forecast-engine'
+import { ScenarioBudgets, calculateScenarioEvents } from '@fire/forecast-engine'
 
 import {
   calculateBudgetRollupValue,
@@ -12,12 +12,12 @@ import {
 } from './budget.methods'
 import { formatTransactionValue } from './helper.methods'
 import {
-  convertScenarioEventsToPlotData,
+  convertBudgetTransactionsToPlotData,
   dateFromCurrentInterval,
   getCurrentInterval,
   preprocessPlotData,
 } from './plot-data.methods'
-import { buildScenarioPath } from './scenario-path.methods'
+import { buildScenarioPath, calculateBudgetTransactions } from './scenario-path.methods'
 
 describe('plot-data.methods', () => {
   describe('@convertScenarioEventsToPlotData()', () => {
@@ -58,12 +58,12 @@ describe('plot-data.methods', () => {
     ]
 
     it('creates a flat array', () => {
-      const plotData = convertScenarioEventsToPlotData(scenarioEvents)
+      const plotData = convertBudgetTransactionsToPlotData(scenarioEvents.budgetEvents)
       expect(plotData.length).toBe(9)
     })
 
     it('creates a sort array', () => {
-      const plotData = convertScenarioEventsToPlotData(scenarioEvents)
+      const plotData = convertBudgetTransactionsToPlotData(scenarioEvents.budgetEvents)
       const actualDates = plotData.map((datum) => datum.date)
       const expectedDates = expectedPlotData.map((datum) => datum.date)
       expect(actualDates).toStrictEqual(expectedDates)
@@ -85,7 +85,7 @@ describe('plot-data.methods', () => {
           },
         ],
       })
-      const plotData = convertScenarioEventsToPlotData(scenarioEvents)
+      const plotData = convertBudgetTransactionsToPlotData(scenarioEvents.budgetEvents)
       const processedPlotData = preprocessPlotData({ data: plotData, interval: 'year', cumulative: false })
 
       expect(processedPlotData.length).toBe(4)
@@ -111,7 +111,7 @@ describe('plot-data.methods', () => {
           },
         ],
       })
-      const plotData = convertScenarioEventsToPlotData(scenarioEvents)
+      const plotData = convertBudgetTransactionsToPlotData(scenarioEvents.budgetEvents)
       const processedPlotData = preprocessPlotData({ data: plotData, interval: 'month', cumulative: false })
 
       expect(processedPlotData.length).toBe(4)
@@ -137,7 +137,7 @@ describe('plot-data.methods', () => {
           },
         ],
       })
-      const plotData = convertScenarioEventsToPlotData(scenarioEvents)
+      const plotData = convertBudgetTransactionsToPlotData(scenarioEvents.budgetEvents)
       const processedPlotData = preprocessPlotData({ data: plotData, interval: 'week', cumulative: false })
 
       expect(processedPlotData.length).toBe(6)
@@ -165,7 +165,7 @@ describe('plot-data.methods', () => {
           },
         ],
       })
-      const plotData = convertScenarioEventsToPlotData(scenarioEvents)
+      const plotData = convertBudgetTransactionsToPlotData(scenarioEvents.budgetEvents)
 
       // const d = plotData.map((datum) => `${datum.name}, ${datum.date}, ${datum.amount.toFixed(2)}`)
       // console.log(JSON.stringify(d, null, 2))
@@ -817,6 +817,124 @@ describe('scenario-path.methods', () => {
           { date: startDateForScenario3, name: 'mock-scenario-03' },
         ],
         period: forecastPeriod,
+      })
+    })
+  })
+
+  describe('@calculateScenarioEventsWithCacheOptimisation', () => {
+    it('calculates the scenario events with an empty cache', () => {
+      const scenarioBudgets: ScenarioBudgets = {
+        period: { startDate: '2024-01-01', endDate: '2024-12-31' },
+        budgets: [
+          {
+            id: 'mock-budget-01',
+            name: 'mock-budget-01',
+            amount: 100,
+            frequency: 'month',
+            startDate: '2024-01-01',
+            endDate: '2024-03-01',
+          },
+          {
+            id: 'mock-budget-02',
+            name: 'mock-budget-02',
+            amount: 50,
+            frequency: 'quarter',
+            startDate: '2024-01-01',
+            endDate: '2024-12-01',
+            initialAmount: 1000,
+            interestRate: 0.1,
+          },
+        ],
+      }
+
+      const eventsCache: BudgetTransactionsCache = {}
+
+      const scenarioEventsWithCache = calculateBudgetTransactions(scenarioBudgets, eventsCache)
+
+      expect(scenarioEventsWithCache).toStrictEqual({
+        period: { startDate: '2024-01-01', endDate: '2024-12-31' },
+        budgetEvents: [
+          {
+            budget: {
+              id: 'mock-budget-01',
+              name: 'mock-budget-01',
+              amount: 100,
+              frequency: 'month',
+              startDate: '2024-01-01',
+              endDate: '2024-03-01',
+            },
+            events: [
+              { date: '2024-01-01', value: expect.closeTo(100) },
+              { date: '2024-02-01', value: expect.closeTo(100) },
+              { date: '2024-03-01', value: expect.closeTo(100) },
+            ],
+            period: { startDate: '2024-01-01', endDate: '2024-12-31' },
+            totalAmount: 300,
+          },
+          {
+            budget: {
+              id: 'mock-budget-02',
+              name: 'mock-budget-02',
+              amount: 50,
+              frequency: 'quarter',
+              startDate: '2024-01-01',
+              endDate: '2024-12-01',
+              initialAmount: 1000,
+              interestRate: 0.1,
+            },
+            events: [
+              { date: '2024-01-01', value: expect.closeTo(1000) },
+              { date: '2024-01-01', value: expect.closeTo(75) },
+              { date: '2024-04-01', value: expect.closeTo(76.87) },
+              { date: '2024-07-01', value: expect.closeTo(78.8) },
+              { date: '2024-10-01', value: expect.closeTo(80.77) },
+            ],
+            period: { startDate: '2024-01-01', endDate: '2024-12-31' },
+            totalAmount: expect.closeTo(1311.44),
+          },
+        ],
+        totalAmount: expect.closeTo(1611.44),
+      })
+
+      expect(eventsCache).toStrictEqual({
+        'mock-budget-01': {
+          budget: {
+            id: 'mock-budget-01',
+            name: 'mock-budget-01',
+            amount: 100,
+            frequency: 'month',
+            startDate: '2024-01-01',
+            endDate: '2024-03-01',
+          },
+          period: { startDate: '2024-01-01', endDate: '2024-12-31' },
+          totalAmount: 300,
+          events: [
+            { date: '2024-01-01', value: expect.closeTo(100) },
+            { date: '2024-02-01', value: expect.closeTo(100) },
+            { date: '2024-03-01', value: expect.closeTo(100) },
+          ],
+        },
+        'mock-budget-02': {
+          budget: {
+            id: 'mock-budget-02',
+            name: 'mock-budget-02',
+            amount: 50,
+            frequency: 'quarter',
+            startDate: '2024-01-01',
+            endDate: '2024-12-01',
+            initialAmount: 1000,
+            interestRate: 0.1,
+          },
+          period: { startDate: '2024-01-01', endDate: '2024-12-31' },
+          totalAmount: expect.closeTo(1311.44),
+          events: [
+            { date: '2024-01-01', value: expect.closeTo(1000) },
+            { date: '2024-01-01', value: expect.closeTo(75) },
+            { date: '2024-04-01', value: expect.closeTo(76.87) },
+            { date: '2024-07-01', value: expect.closeTo(78.8) },
+            { date: '2024-10-01', value: expect.closeTo(80.77) },
+          ],
+        },
       })
     })
   })

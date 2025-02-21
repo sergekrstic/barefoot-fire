@@ -1,6 +1,6 @@
-import { Budget, BudgetMap, ScenarioMap, ScenarioPath, ScenarioStartEvents } from 'types'
+import { Budget, BudgetMap, BudgetTransactionsCache, ScenarioMap, ScenarioPath, ScenarioStartEvents } from 'types'
 
-import { BudgetEvents, Period, ScenarioBudgets, ScenarioEvents, calculateBudgetEvents } from '@fire/forecast-engine'
+import { BudgetEvents, Period, ScenarioBudgets, calculateBudgetEvents } from '@fire/forecast-engine'
 
 import { collectBudgetIds } from './budget.methods'
 import { deepClone } from './helper.methods'
@@ -44,29 +44,35 @@ export function buildScenarioPath(
   }
 }
 
-export type BudgetEventsCache = Record<string, BudgetEvents>
-
-const defaultEventsCache: BudgetEventsCache = {}
+const defaultTransactionsCache: BudgetTransactionsCache = {}
 
 // Todo: Update this function to utilize a budget event cache
-export function calculateScenarioEventsWithCacheOptimisation(
+export function calculateBudgetTransactions(
   { budgets, period }: ScenarioBudgets,
-  eventsCache: BudgetEventsCache = defaultEventsCache,
-): ScenarioEvents {
-  // Calculate all the budget events in the scenario
-  const budgetEvents = budgets.map((budget) => {
-    if (eventsCache[budget.id]) {
-      console.log('Using cache:', budget.id)
-      return eventsCache[budget.id]
+  transactionsCache: BudgetTransactionsCache = defaultTransactionsCache,
+): BudgetEvents[] {
+  // For each budget, calculate its transactions
+  return budgets.map((budget) => {
+    const cachedTransactions = transactionsCache[budget.id]
+
+    // Are the budget transactions in the cache?
+    if (cachedTransactions) {
+      const cachedBudgetKey = JSON.stringify(cachedTransactions.budget)
+      const currentBudgetKey = JSON.stringify(budget)
+
+      // If the budget has not changed, use the cached transactions
+      if (cachedBudgetKey === currentBudgetKey) {
+        // console.log('Using cache:', budget.id)
+        return cachedTransactions
+      }
     }
-    const events = calculateBudgetEvents(budget, period)
-    eventsCache[budget.id] = events
-    return events
+
+    // Not in cache, so calculate the budget transactions
+    const budgetTransactions = calculateBudgetEvents(budget, period)
+
+    // And add them transactions to the cache
+    transactionsCache[budget.id] = budgetTransactions
+
+    return budgetTransactions
   })
-
-  // Calculate the total expense in the scenario
-  const totalExpense = budgetEvents.reduce((total, events) => total + events.totalAmount, 0)
-
-  // Return the scenario events
-  return { period, budgetEvents, totalAmount: totalExpense }
 }
