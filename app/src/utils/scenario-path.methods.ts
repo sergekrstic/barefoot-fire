@@ -1,11 +1,11 @@
 import { Budget, BudgetMap, ScenarioMap, ScenarioPath, ScenarioStartEvents } from 'types'
 
-import { Period, ScenarioBudgets, ScenarioEvents, calculateBudgetEvents } from '@fire/forecast-engine'
+import { BudgetEvents, Period, ScenarioBudgets, ScenarioEvents, calculateBudgetEvents } from '@fire/forecast-engine'
 
 import { collectBudgetIds } from './budget.methods'
 import { deepClone } from './helper.methods'
 
-// Create a compound scenario from the given scenario IDs
+// Todo: Update this function to utilize a shared budgets across scenarios
 export function buildScenarioPath(
   scenarioIds: string[],
   scenarioMap: ScenarioMap,
@@ -44,10 +44,25 @@ export function buildScenarioPath(
   }
 }
 
+export type BudgetEventsCache = Record<string, BudgetEvents>
+
+const defaultEventsCache: BudgetEventsCache = {}
+
 // Todo: Update this function to utilize a budget event cache
-export function calculateScenarioEventsWithCacheOptimisation({ budgets, period }: ScenarioBudgets): ScenarioEvents {
+export function calculateScenarioEventsWithCacheOptimisation(
+  { budgets, period }: ScenarioBudgets,
+  eventsCache: BudgetEventsCache = defaultEventsCache,
+): ScenarioEvents {
   // Calculate all the budget events in the scenario
-  const budgetEvents = budgets.map((budget) => calculateBudgetEvents(budget, period))
+  const budgetEvents = budgets.map((budget) => {
+    if (eventsCache[budget.id]) {
+      console.log('Using cache:', budget.id)
+      return eventsCache[budget.id]
+    }
+    const events = calculateBudgetEvents(budget, period)
+    eventsCache[budget.id] = events
+    return events
+  })
 
   // Calculate the total expense in the scenario
   const totalExpense = budgetEvents.reduce((total, events) => total + events.totalAmount, 0)

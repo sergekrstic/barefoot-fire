@@ -2,7 +2,6 @@ import { Budget, RollupFrequency, TreeData } from 'types'
 
 import { nanoid } from './nanoid.methods'
 
-// Todo: test this function
 export function collectBudgetIds(budgetForest: TreeData[], excludeGroupBudgets = false): string[] {
   const budgetIds: string[] = []
   const fetchBudgetIds = (tree: TreeData): void => {

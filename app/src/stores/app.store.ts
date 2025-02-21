@@ -222,24 +222,22 @@ export const useAppStore = createStore<AppStore>((set, get) => ({
     updateScenarioName: (scenarioId: string, value: string): void => {
       set(
         produce((draft: AppState) => {
-          const { scenarioGraph, scenarioMap } = draft.data
+          const { scenarioMap, scenarioGraph } = draft.data
 
           // Update the scenario name
           scenarioMap[scenarioId].name = value
 
           // Update the graph node name
           const node = scenarioGraph.nodes.find((node) => node.data.id === scenarioId)
-          if (node) {
-            // Update the graph node name
-            node.data.name = value
-
-            // Update the Cytoscape node name
-            const cy = get().actions.getCytoInstance()
-            const cyNode = cy.$id(node.data.id!)
-            cyNode?.data('name', value)
-          }
+          if (node) node.data.name = value
         }),
       )
+
+      // Update the Cytoscape node name
+      const { actions, data } = get()
+      const node = data.scenarioGraph.nodes.find((node) => node.data.id === scenarioId)
+      const cyNode = actions.getCytoInstance().$id(node!.data.id!)
+      cyNode?.data('name', value)
     },
 
     // Todo: consider refactoring dates to a Date map, such that we can easily share and update all dates
