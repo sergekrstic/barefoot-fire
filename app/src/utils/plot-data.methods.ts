@@ -4,7 +4,7 @@ import { Interval, TimeSeriesData } from 'types'
 import { BudgetEvents } from '@fire/forecast-engine'
 
 export function convertBudgetTransactionsToPlotData(budgetEvents: BudgetEvents[], name?: string): TimeSeriesData {
-  // Todo: consider moving this logic in `calculateBudgetTransactions` to avoid sorting the data multiple times
+  // Todo: consider moving this logic into `calculateBudgetTransactions` to avoid sorting the data multiple times
   return budgetEvents
     .map((budgetEvent) => {
       return budgetEvent.events.map((event) => ({

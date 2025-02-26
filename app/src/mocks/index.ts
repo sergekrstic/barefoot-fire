@@ -33,5 +33,5 @@ export const examples = {
   },
 }
 
-// export const appData = examples.detailed
-export const appData = examples.new
+export const appData = examples.detailed
+// export const appData = examples.new

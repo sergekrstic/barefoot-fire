@@ -44,11 +44,14 @@ export function buildScenarioPath(
   }
 }
 
+// Todo: rename `globalTransactionsCache` to `globalBudgetTransactionsCache`
 const globalTransactionsCache: BudgetTransactionsCache = {}
 
+// Todo: Rename this function to `calculateScenarioPathTransactions`
 export function calculateBudgetTransactions(
   { budgets, period }: ScenarioBudgets,
   transactionsCache: BudgetTransactionsCache = globalTransactionsCache,
+  // Todo: create a new type to return: ScenarioPathTransactions
 ): BudgetEvents[] {
   // For each budget, calculate its transactions
   return budgets.map((budget) => {
@@ -74,4 +77,12 @@ export function calculateBudgetTransactions(
 
     return budgetTransactions
   })
+
+  // Todo: add a flag to indicate if the scenario path transactions have been updated
+}
+
+export interface ScenarioPathTransactions {
+  pathIds: string[]
+  transactions: BudgetEvents[]
+  lastModified: string
 }
