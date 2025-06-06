@@ -5,6 +5,7 @@ export const colors = {
   // Default
   default: twColors.violet[800],
   defaultDark: twColors.violet[950],
+  defaultText: twColors.violet[500],
 
   // Highlighted
   highlightedBase: twColors.violet[600],
@@ -50,7 +51,7 @@ export const graphStyles = [
       'corner-radius': '4',
       // Text
       label: 'data(name)',
-      color: colors.defaultDark,
+      color: colors.defaultText,
       'text-valign': 'center',
       'text-halign': 'center',
       'font-weight': 500,
