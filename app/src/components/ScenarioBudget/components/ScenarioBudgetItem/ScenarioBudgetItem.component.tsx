@@ -33,7 +33,7 @@ export function ScenarioBudgetItem({
         className="cursor-pointer px-4 hover:bg-slate-800"
         type={type}
         depth={depth}
-        expanded={expanded}
+        expanded={type === 'group' ? expanded : showDetails}
         onClick={() => setShowDetails(!showDetails)}
       >
         <div className={'flex w-full flex-row items-center justify-center py-2'}>
@@ -54,8 +54,8 @@ export function ScenarioBudgetItem({
         </div>
       </CollapsibleTreeNode>
       {type === 'item' && showDetails && (
-        <div className="pr-12 text-slate-500" style={{ paddingLeft: `${(depth + 2) * (16 + 2)}px` }}>
-          <div className="flex py-2">
+        <div className="pr-12 text-slate-500" style={{ paddingLeft: `${(depth + 0) * 16 + 8}px` }}>
+          <div className="flex border-l border-slate-500 py-2 pl-8">
             <span>Initial</span>
             <EditableText
               mode="number"
@@ -66,7 +66,7 @@ export function ScenarioBudgetItem({
               rightAlign
             />
           </div>
-          <div className="flex py-2">
+          <div className="flex border-l border-slate-500 py-2 pl-8">
             <span>Amount</span>
             <EditableText
               mode="number"
@@ -77,7 +77,7 @@ export function ScenarioBudgetItem({
               rightAlign
             />
           </div>
-          <div className="flex justify-between py-2">
+          <div className="flex justify-between border-l border-slate-500 py-2 pl-8">
             <span>Frequency</span>
             <Select
               labelClassName="-mr-2 cursor-pointer px-2 text-slate-200 aria-[expanded=true]:bg-slate-700"
@@ -96,7 +96,7 @@ export function ScenarioBudgetItem({
               ))}
             </Select>
           </div>
-          <div className="flex py-2">
+          <div className="flex border-l border-slate-500 py-2 pl-8">
             <span>Rate (%)</span>
             <EditableText
               mode="decimal"
